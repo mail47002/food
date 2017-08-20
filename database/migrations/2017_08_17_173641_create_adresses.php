@@ -12,7 +12,14 @@ class CreateAdresses extends Migration {
 	 */
 	public function up()
 	{
-		//
+		Schema::create('adresses', function (Blueprint $table) {
+      $table->increments('id');
+      $table->integer('user_id');
+      $table->string('city');
+      $table->string('street');
+      $table->string('build');
+      $table->timestamps();
+    });
 	}
 
 	/**
@@ -22,7 +29,7 @@ class CreateAdresses extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('adresses');
 	}
 
 }

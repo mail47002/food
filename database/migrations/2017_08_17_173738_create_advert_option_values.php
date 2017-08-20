@@ -12,7 +12,12 @@ class CreateAdvertOptionValues extends Migration {
 	 */
 	public function up()
 	{
-		//
+		Schema::create('advert_option_values', function (Blueprint $table) {
+      $table->increments('id');
+      $table->integer('option_value_id');
+      $table->string('value');
+      $table->timestamps();
+    });
 	}
 
 	/**
@@ -22,7 +27,7 @@ class CreateAdvertOptionValues extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('advert_option_values');
 	}
 
 }

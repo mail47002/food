@@ -12,7 +12,12 @@ class CreateOptionToAdvertCategory extends Migration {
 	 */
 	public function up()
 	{
-		//
+		Schema::create('option_to_advert_category', function (Blueprint $table) {
+      $table->increments('id');
+      $table->integer('advert_category_id');
+      $table->integer('option_id');
+      $table->timestamps();
+    });
 	}
 
 	/**
@@ -22,7 +27,7 @@ class CreateOptionToAdvertCategory extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('option_to_advert_category');
 	}
 
 }
