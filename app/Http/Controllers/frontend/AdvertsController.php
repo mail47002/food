@@ -5,7 +5,7 @@ namespace App\Http\Controllers\frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AdvertController extends Controller
+class AdvertsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -14,7 +14,7 @@ class AdvertController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -24,6 +24,6 @@ class AdvertController extends Controller
      */
     public function index()
     {
-        return view('frontend.advert.index');
+        return view('frontend.adverts.index');
     }
 }

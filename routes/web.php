@@ -20,10 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-// //Frontend
-// Route::group(['namespace' => 'frontend'], function() {
+//Frontend
+Route::group(['namespace' => 'frontend'], function() {
 
-//   // Adverts
-//   Route::resource('adverts', ['as' => 'adverts.index', 'uses' => 'AdvertsController@index']);
+  // Adverts
+  Route::resource('adverts', 'AdvertsController');
 
-// });
+});

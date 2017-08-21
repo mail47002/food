@@ -12,7 +12,7 @@
 
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
-<body class="<?=$page?>">
+<body class="adverts">{{-- тут не зрозуміло --}}
 	<div id="wrapper">
 
 	@include('frontend.layouts.nav')
