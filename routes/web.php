@@ -21,9 +21,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 //Frontend
-Route::group(['namespace' => 'frontend'], function() {
+Route::group(['namespace' => 'Frontend'], function() {
 
   // Adverts
   Route::resource('adverts', 'AdvertsController');
+
+  Route::resource('catalogue', 'CatalogueController');
 
 });

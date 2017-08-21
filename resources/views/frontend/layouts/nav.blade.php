@@ -12,16 +12,15 @@
 				<li><a href="#">Карта сайту</a></li>
 
 				<br><br><br><br><br>
-				<li><a href="?page=product">3 page product</a></li>
+				<li><a href="catalogue">2 catalogue</a></li>
+				<li><a href="adverts">3 page product</a></li>
 
-				<br><br><br><br><br>
-				<li><a href="?page=test">elements</a></li>
 			</ul>
 		</div>
 	</div>
 	<div class="container">
 		<ul class="list-inline pull-left">
-			<li><a href="/food" class="logo link">Logo</a></li>
+			<li><a href="/" class="logo link">Logo</a></li>
 			<li><a href="#" class="button button-white button-rounded"><i class="dish-search"></i>Знайти страву</a></li>
 			<li class="btn-articles">
 				<a href="#" class="button button-rounded"><i class="articles"></i>Статті<i class="angle-down"></i></a>
@@ -33,8 +32,8 @@
 		</ul>
 		<ul class="list-inline pull-right">
 			<li><a href="#" class="button button-rounded dish-add"><i class="cook"></i>Додати страву</a></li>
-			<li><a class="link" href="?page=signin">Вхід</a></li>
-			<li><a class="link" href="?page=signup">Реєстрація</a></li>
+			<li><a class="link" href="/login">Вхід</a></li>
+			<li><a class="link" href="/register">Реєстрація</a></li>
 		</ul>
 	</div>
 </nav>

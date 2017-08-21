@@ -6,13 +6,13 @@
 
 	<title>Food</title>
 
-	<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
 
-	<link href="css/style.css" type="text/css" rel="stylesheet">
+	<link href="assets/css/style.css" type="text/css" rel="stylesheet">
 
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
-<body class="adverts">{{-- тут не зрозуміло --}}
+<body class="body-adverts">{{-- тут не зрозуміло --}}
 	<div id="wrapper">
 
 	@include('frontend.layouts.nav')
@@ -32,9 +32,9 @@
 
 
 
-<script src="js/dropdown.js" async></script>
-<script src="js/modal.js" async></script>
-<script src="vendor/owlcarousel/owl.carousel.min.js"></script>
+<script src="assets/js/dropdown.js" async></script>
+<script src="assets/js/modal.js" async></script>
+<script src="assets/vendor/owlcarousel/owl.carousel.min.js"></script>
 
 <script>
 	$.fn.stars = function() {
