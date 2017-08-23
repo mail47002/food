@@ -12,8 +12,8 @@
 				<li><a href="#">Карта сайту</a></li>
 
 				<br><br><br><br><br>
-				<li><a href="catalogue">2 catalogue</a></li>
-				<li><a href="adverts">3 page product</a></li>
+				<li><a href="/catalogue">2 catalogue</a></li>
+				<li><a href="/adverts">3 page product</a></li>
 
 			</ul>
 		</div>

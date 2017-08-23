@@ -83,7 +83,7 @@
 				<div class="product-thumb">
 
 					<div class="image">
-						<img src="uploads/food1.jpg" class="img-responsive" alt="">
+						<img src="/uploads/food1.jpg" class="img-responsive" alt="">
 						<div class="distance"><i class="marker"></i> 5 км</div>
 					<?php $actions=['discount','new', 'heart'] ?> <!-- class: discount new heart -->
 						<div class="sticker <?= $actions[array_rand($actions)] ?>"></div>
