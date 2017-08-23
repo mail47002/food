@@ -26,6 +26,6 @@ Route::group(['namespace' => 'Frontend'], function() {
   // Adverts
   Route::resource('adverts', 'AdvertsController');
 
-  Route::resource('catalogue', 'CatalogueController');
+  Route::resource('products', 'ProductsController');
 
 });

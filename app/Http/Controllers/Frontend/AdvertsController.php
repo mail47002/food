@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Advert;
 
 class AdvertsController extends Controller
 {
@@ -25,5 +26,12 @@ class AdvertsController extends Controller
     public function index()
     {
         return view('frontend.adverts.index');
+    }
+
+    public function show($id)
+    {
+        $advert = Advert::find($id);
+
+        return view('frontend.adverts.show', ['advert' => $advert]);
     }
 }
