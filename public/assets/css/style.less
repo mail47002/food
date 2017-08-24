@@ -147,27 +147,30 @@ hr.red-border {
 						transition: all .4s ease-in-out;
 	}
 }
-.margin-right-small {margin-right: 7px;}
-.margin-left-small {margin-left: 7px;}
-.pull-right {float: right;}
-.pull-left {float: left;}
+.bg-white {background-color: @white;}
+.bg-yellow {background-color: @yellow;}
+.block {display: block;}
+.description {font-size: 18px;}
+.full-width {width: 100%;}
 .hide, .hidden {display: none;}
-.show {display: block;}
+.img-responsive {max-width: 100%;}
 .invisible {visibility: hidden;}
+.margin-left-small {margin-left: 7px;}
+.margin-right-small {margin-right: 7px;}
+.pull-left {float: left;}
+.pull-right {float: right;}
+.show {display: block;}
 .text-center {text-align: center;}
 .text-left {text-align: left;}
 .text-right {text-align: right;}
+.text-upper {text-transform: uppercase;}
 .zerro-top {margin-top: 0;}
+
 .center-block {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 }
-.text-upper {text-transform: uppercase;}
-.img-responsive {max-width: 100%;}
-.full-width {width: 100%;}
-.bg-white {background-color: @white;}
-.bg-yellow {background-color: @yellow;}
 .underline-red {
 	display: inline-block;
 	border-bottom: 1px solid @red;
@@ -180,7 +183,7 @@ hr.red-border {
 	border-radius: 20px;
 	padding: 15px;
 }
-.description {font-size: 18px;}
+
 .justify {
 	display: -webkit-flex; /* Safari */
 	-webkit-justify-content: space-around; /* Safari 6.1+ */
@@ -194,7 +197,7 @@ hr.red-border {
 ::-moz-placeholder { color: @grey2;}
 :-ms-input-placeholder { color: @grey2;}
 :-moz-placeholder { color: @grey2;}
-input {
+input, select {
 	font-size: 16px;
 	font-family: 'Roboto', sans-serif;
 }
@@ -1069,7 +1072,7 @@ a:focus {outline: none;}
 	box-shadow: 0px 3px 3px 0px rgba(50, 52, 53, 0.1);
 	// height: 100%;
 	margin-bottom: 20px;
-	min-height: 330px;
+	min-height: 309px;
 	overflow: hidden;
 	position: relative;
 	width: 100%;
@@ -1109,6 +1112,8 @@ a:focus {outline: none;}
 		// min-height: 100px;
 		// height: 100%;
 		padding-left: 20px;
+		padding-bottom: 20px;
+		overflow: hidden;
 		.title {
 			display: block;
 			margin: 8px 0 0 0;
@@ -1122,6 +1127,10 @@ a:focus {outline: none;}
 		.rating {
 			color: @grey3;
 			font-size: 12px;
+			.block {
+				margin-top: 5px;
+				margin-bottom: -5px;
+			}
 		}
 		p {margin: 5px 0;}
 
@@ -1134,6 +1143,12 @@ a:focus {outline: none;}
 		right: 0;
 		text-transform: uppercase;
 		width: 130px;
+	}
+
+	.categories-dishes {
+		position: absolute;
+		right: 20px;
+		bottom: 20px;
 	}
 }
 

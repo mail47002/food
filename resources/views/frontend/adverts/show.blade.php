@@ -231,7 +231,7 @@
 						</div>
 
 						<div class="caption">
-							<a href="#" class="title link-black">М'ясне рагу з овочами</a>
+							<a href="/adverts/1" class="title link-black">М'ясне рагу з овочами</a>
 							<p>
 								<span class="price">80 грн.</span>
 								<span class="rating"><span class="stars"><?=rand(0,5)?></span>10 відгуків</span>

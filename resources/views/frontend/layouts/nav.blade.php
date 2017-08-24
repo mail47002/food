@@ -4,16 +4,18 @@
 			<a id="total-menu" class="dropdown-toggle" href="#" type="button" data-toggle="dropdown"></a>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="total-menu">
 				<li><a href="#">Про проект</a></li>
-				<li class="active"><a href="#">Каталог страв</a></li>
 				<li><a href="#">Допомога</a></li>
 				<li><a href="#">Правила</a></li>
 				<li><a href="#">Уммови та конфіденційність</a></li>
 				<li><a href="#">Зворотній зв'язок</a></li>
 				<li><a href="#">Карта сайту</a></li>
 
-				<br><br><br><br><br>
-				<li><a href="/catalogue">2 catalogue</a></li>
-				<li><a href="/adverts">3 page product</a></li>
+				<br><br>
+
+
+				<li class="active"><a href="/adverts">Об'яви (2)</a></li>
+				<li class="active"><a href="/products">Блюда (12)</a></li>
+
 
 			</ul>
 		</div>
