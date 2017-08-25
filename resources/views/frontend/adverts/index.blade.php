@@ -14,7 +14,7 @@
 
 			<hr>
 			<div class="address text-center">
-				<i class="marker big"></i>Соборна, буд. 10/2, Вінниця 
+				<i class="fo fo-big fo-marker red"></i>Соборна, буд. 10/2, Вінниця 
 				<a href="#" class="link-blue" data-toggle="modal" data-target="#modal_change_address">Змінити регіон</a>
 			</div>
 			<hr>
@@ -84,7 +84,7 @@
 
 					<div class="image">
 						<img src="/uploads/food1.jpg" class="img-responsive" alt="">
-						<div class="distance"><i class="marker"></i> 5 км</div>
+						<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
 					@php $actions=['discount','new', 'heart']; @endphp <!-- class: discount new heart -->
 						<div class="sticker {{ $actions[array_rand($actions)] }}"></div>
 					</div>
@@ -97,7 +97,7 @@
 								<span class="stars">{{rand(0,5)}}</span>10 відгуків
 							</span>
 						</p>
-						<p><i class="time"></i>15 грудня (обід)</p>
+						<p><i class="fo fo-time red"></i>15 грудня (обід)</p>
 					</div>
 
 					<button type="button" class="button button-grey order">Замовити</button>

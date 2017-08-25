@@ -14,7 +14,7 @@
 
 			<hr>
 			<div class="address text-center">
-				<i class="marker big"></i>Вінниця 
+				<i class="fo fo-small fo-marker red"></i>Вінниця 
 				<a href="#" class="link-blue" data-toggle="modal" data-target="#modal_change_address">Змінити регіон</a>
 			</div>
 			<hr>
@@ -54,7 +54,7 @@
 
 					<div class="image">
 						<img src="/uploads/food1.jpg" class="img-responsive" alt="">
-						<div class="distance"><i class="marker"></i> 5 км</div>
+						<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
 					</div>
 
 					<div class="caption">
@@ -66,9 +66,9 @@
 							</span>
 						</p>
 						<div class="pull-right categories-dishes">
-							<a href=""><i class="time"></i></a>
-							<a href=""><i class="deal"></i></a>
-							<a href=""><i class="dish-ready"></i></a>
+							<a href=""><i class="fo fo-time red"></i></a>
+							<a href=""><i class="fo fo-deal red"></i></a>
+							<a href=""><i class="fo fo-dish-ready red"></i></a>
 						</div>
 					</div>
 				</div>

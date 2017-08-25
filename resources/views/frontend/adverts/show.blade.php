@@ -175,13 +175,13 @@
 							<i class="heart"></i>
 						</div>
 						<p><i class="time medium"></i> 10 – 15 грудня</p>
-						<p class="distance"><i class="marker big"></i>5 км</p>
+						<p class="distance"><i class="fo fo-big fo-marker red"></i>5 км</p>
 						<p class="small">вул. Соборна 20, Вінниця</p>
 						<hr class="red-border">
 
 						<div class="avatar">
 							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-							<a href="#" class="link"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> до улюблених</a>
+							<a href="#" class="link"><i class="fo fo-like fo-small"></i> до улюблених</a>
 						</div>
 						<a href="#" class="link-blue name">Марк</a>
 						<div class="rating"><span class="stars">4</span>10 відгуків</div>
@@ -225,7 +225,7 @@
 
 						<div class="image">
 							<img src="/uploads/food1.jpg" class="img-responsive" alt="">
-							<div class="distance"><i class="marker"></i> 5 км</div>
+							<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
 						<?php $actions=['discount','new', 'heart'] ?> <!-- class: discount new heart -->
 							<div class="sticker <?= $actions[array_rand($actions)] ?>"></div>
 						</div>
