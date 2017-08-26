@@ -11,42 +11,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-    }
-}
-
-class ProductSeeder extends Seeder {
-
-    public function run()
-    {
-        DB::table('product')->delete();
-
-        Product::create([
-            'title' => 'First Post',
-            'slug' => 'first-post',
-            'excerpt' => 'First Post body',
-            'content' => 'Content First Post body',
-            'published' => true,
-            //'published_at' => DB::raw('NOW()'), // для DateTime
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        Product::create([
-            'title' => 'Second Post',
-            'slug' => 'second-post',
-            'excerpt' => 'Second Post body',
-            'content' => 'Content Second Post body',
-            'published' => false,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'),
-        ]);
-
-        Product::create([
-            'title' => 'Third Post',
-            'slug' => 'third-post',
-            'excerpt' => 'Third Post body',
-            'content' => 'Content Third Post body',
-            'published' => false,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'),
-        ]);
+        $this->call(AdressesTableSeeder::class);
+        $this->call(AdvertAdressesTableSeeder::class);
+        $this->call(AdvertCategoriesTableSeeder::class);
+        $this->call(AdvertCoockingTimeTableSeeder::class);
+        $this->call(AdvertEverydayTermsTableSeeder::class);
+        $this->call(AdvertImageTableSeeder::class);
+        $this->call(AdvertProductTermsTableSeeder::class);
+        $this->call(AdvertStickersTableSeeder::class);
+        $this->call(AdvertToCategoryTableSeeder::class);
+        $this->call(AdvertsTableSeeder::class);
+        $this->call(ArticleCategoryriesTableSeeder::class);
+        $this->call(ArticlesTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(OptionTableSeeder::class);
+        $this->call(OptionToAdvertCategoryTableSeeder::class);
+        $this->call(OptionValuesTableSeeder::class);
+        $this->call(OrderTableSeeder::class);
+        $this->call(ProductImageTableSeeder::class);
+        $this->call(ProductToCategoryTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
+        $this->call(ReviewAnsversTableSeeder::class);
+        $this->call(ReviewsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
     }
 }

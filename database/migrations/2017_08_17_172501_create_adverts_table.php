@@ -23,6 +23,8 @@ class CreateAdvertsTable extends Migration {
       $table->integer('everyday');
       $table->integer('category_id');
       $table->integer('sticker_id');
+      $table->integer('sort_order');
+      $table->integer('status');
       $table->integer('coocking_time_id');
       $table->timestamps();
     });

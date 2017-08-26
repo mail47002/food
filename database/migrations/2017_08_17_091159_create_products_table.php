@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration {
       $table->increments('id');
       $table->string('name');
       $table->text('description');
-      $table->string('ingredients');
+      $table->json('ingredients');
       $table->string('image');
       $table->string('video');
       $table->integer('sort_order');
