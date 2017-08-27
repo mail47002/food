@@ -28,4 +28,6 @@ Route::group(['namespace' => 'Frontend'], function() {
 
   Route::resource('products', 'ProductsController');
 
+  Route::resource('profile', 'ProfileController');
+
 });

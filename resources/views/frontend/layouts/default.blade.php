@@ -10,7 +10,6 @@
 
 	<link href="/assets/css/style.css" type="text/css" rel="stylesheet">
 
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
 <body class="body-adverts">{{-- тут не зрозуміло --}}
 	<div id="wrapper">
@@ -31,9 +30,10 @@
 
 
 
-
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="/assets/js/dropdown.js" async></script>
 <script src="/assets/js/modal.js" async></script>
+<script src="/assets/js/jquery.matchHeight.js"></script>
 <script src="/assets/vendor/owlcarousel/owl.carousel.min.js"></script>
 
 <script>
@@ -46,6 +46,8 @@
 
 	$( document ).ready(function() {
 		$('span.stars').stars();
+
+		@yield('scripts')
 	});
 </script>
 

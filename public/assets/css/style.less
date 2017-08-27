@@ -141,13 +141,28 @@ hr.red-border {
 .text-right {text-align: right;}
 .text-upper {text-transform: uppercase;}
 .zerro-top {margin-top: 0;}
+.v-indent-40 {
+	display: block;
+	width: 100%;
+	height: 40px;
+}
 
 .red {color: @red;}
+.black {color: @black;}
+.grey1 {color: @grey1;}
+.grey2 {color: @grey2;}
+.grey3 {color: @grey3;}
+.grey4 {color: @grey4;}
+.white {color: @white;}
 
 .center-block {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+.inline {
+	display: inline-block;
+	vertical-align: middle;
 }
 .underline-red {
 	display: inline-block;
@@ -167,6 +182,18 @@ hr.red-border {
 	-webkit-justify-content: space-around; /* Safari 6.1+ */
 	display: flex;
 	justify-content: space-around;
+}
+
+.badge {
+	border-radius: 50%;
+	border: 1px solid @red;
+	color: @red;
+	display: inline-block;
+	font-size: 12px;
+	height: 18px;
+	line-height: 0;
+	margin-left: 5px;
+	padding: 8px 4px;
 }
 
 
@@ -441,6 +468,7 @@ span.stars span {
 		padding: 0 15px;
 		height: 40px;
 		line-height: 40px;
+		position: relative;
 		text-align: center;
 		text-decoration: none;
 		user-select: none;
@@ -555,7 +583,6 @@ a:focus {outline: none;}
 		font-weight: 500;
 		text-decoration: none;
 		.transition();
-		.transition();
 		&:hover,
 		&:focus {
 				color: @redDark;
@@ -564,6 +591,18 @@ a:focus {outline: none;}
 		&.active {
 			border-bottom: 2px solid @redDark;
 			color: @black;
+		}
+}
+.link-red-dark {
+		color: @redDark;
+		font-size: 14px;
+		font-weight: 400;
+		text-decoration: none;
+		.transition();
+		&:hover,
+		&:focus {
+				color: @red;
+				text-decoration: none;
 		}
 }
 .link-black {
@@ -586,6 +625,16 @@ a:focus {outline: none;}
 	&:hover, &:focus {
 		color: @blue;
 		text-decoration: underline;
+	}
+}
+.link-grey {
+	color: @grey2;
+	font-size: 14px;
+	font-weight: 400;
+	text-decoration: none;
+	.transition();
+	&:hover, &:focus {
+		color: @grey3;
 	}
 }
 
@@ -1753,12 +1802,13 @@ a:focus {outline: none;}
 		.left {
 			float: left;
 			width: 11%;
-			padding-right: 20px;
 			padding-top: 15px;
 			text-align: center;
 			.avatar {
 				width: 50px;
 				height: 50px;
+				display: block;
+				margin: 0 auto;
 			}
 			.name {display: block;}
 		}
@@ -1847,6 +1897,49 @@ a:focus {outline: none;}
 			}
 
 			hr {margin: 20px 0;}
+
+
+		}
+
+
+		.with-image {
+			position: relative;
+			.title {
+				float: left;
+				width: 100%;
+				padding: 10px 20px;
+				font-size: 18px;
+				font-weight: 500;
+				p {margin: 0;}
+				.date {
+					font-size: 14px;
+					color: @grey3;
+				}
+				a {
+					font-size: 18px;
+					font-weight: 500;
+				}
+			}
+			.left {
+				width: 9%;
+			}
+			.right {
+				width: 74%;
+			}
+			.image {
+				position: absolute;
+				width: 133px;
+				top: 40px;
+				right: 20px;
+				img {max-width: 100%;}
+				.rounded {
+					width: 90px;
+					height: 90px;
+					border-radius: 50%;
+					overflow: hidden;
+					margin: 0 auto;
+				}
+			}
 		}
 	}
 
@@ -1880,5 +1973,53 @@ a:focus {outline: none;}
 		float: right;
 		padding-left: 20px;
 		p {margin-top: 0;}
+	}
+}
+
+.left-sidebar {
+	max-width: 314px;
+	width: 100%;
+	padding-top: 30px;
+	height: 100%;
+	.avatar {
+		width: 210px;
+		height: 210px;
+	}
+	.phones {
+		position: relative;
+		width: 274px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		&:before {line-height: 40px;}
+		p {margin: 1px;}
+	}
+	.button {
+		width: 274px;
+	}
+	.menu {
+		list-style:none;
+		margin-top: 30px;
+		padding: 0;
+		border-top: 1px solid @grey1;
+		li a {
+			display: block;
+			height: 50px;
+			border-bottom: 1px solid @grey1;
+			line-height: 50px;
+			color: @black;
+			position: relative;
+			&:hover {color: @red;}
+			&.active {
+				background: @white;
+				color: @red;
+				&:after {
+					content: '\005f';
+					font-family: FontFood;
+					position: absolute;
+					right: 20px;
+					top: 4px;
+				}
+			}
+		}
 	}
 }

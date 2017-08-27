@@ -189,8 +189,8 @@
 						<p><a href="#" class="button button-red wide">Замовити</a></p>
 						<p class="medium">або вибрати</p>
 						<div class="clearfix">
-							<a href="#" class="button-square pull-left"><i class="dish-ready"></i>уже готова страва</a>
-							<a href="#" class="button-square pull-right"><i class="deal"></i>страва під замовлення</a>
+							<a href="#" class="button-square pull-left"><i class="fo fo-big fo-dish-ready"></i>уже готова страва</a>
+							<a href="#" class="button-square pull-right"><i class="fo fo-big fo-deal"></i>страва під замовлення</a>
 						</div>
 					</div>
 
@@ -252,11 +252,10 @@
 
 
 
+@stop
 
 
-
-<script>
-$( document ).ready(function() {
+@section('scripts')
 
 	$('.title-slider .owl-carousel').on('initialized.owl.carousel changed.owl.carousel', function(e) {
 			if (!e.namespace) return;
@@ -291,7 +290,4 @@ $( document ).ready(function() {
 		}
 	});
 
-});
-
-</script>
 @stop

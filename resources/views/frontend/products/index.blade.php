@@ -66,9 +66,9 @@
 							</span>
 						</p>
 						<div class="pull-right categories-dishes">
-							<a href=""><i class="fo fo-time red"></i></a>
-							<a href=""><i class="fo fo-deal red"></i></a>
-							<a href=""><i class="fo fo-dish-ready red"></i></a>
+							<a href="" class="link-red"><i class="fo fo-time"></i></a>
+							<a href="" class="link-red"><i class="fo fo-deal"></i></a>
+							<a href="" class="link-red"><i class="fo fo-dish-ready"></i></a>
 						</div>
 					</div>
 				</div>

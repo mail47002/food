@@ -34,17 +34,21 @@
 
 .fo {
   display: inline-block;
+  vertical-align: middle;
+}
+.fo:before {
   font-family: FontFood;
   font-size: inherit;
   font-style: normal;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  vertical-align: middle;
-}
-.fo:before {
   font-size: 24px;
-  padding-right: 8px;
+}
+.fo-indent {padding-right: 8px;}
+.fo-left:before {
+  position: absolute;
+  left: 16px;
 }
 .fo.fo-small:before {
   font-size: 18px;
@@ -147,14 +151,6 @@
 .fo-hat:before {content: "\0045";}
 
 .fo-marker:before {content: "\0046";}
-.fo-marker:before {
-  padding-right: 0;
-  margin-right: -6px;
-}
-.fo-marker.fo-small:before {
-  padding-right: 0;
-  margin-right: 0;
-}
 
 .fo-search:before {content: "\0047";}
 .fo-arrow-down-bold:before {content: "\0048";}
@@ -163,7 +159,6 @@
 .fo-star:before {content: "\004a";}
 .fo-time:before {
   content: "\004b";
-  padding-right: 3px;
 }
 .fo-:before {content: "\004c";}
 .fo-:before {content: "\004d";}
@@ -183,7 +178,7 @@
 .fo-like:before {content: "\005a";}
 .fo-:before {content: "\005b";}
 .fo-:before {content: "\005c";}
-.fo-:before {content: "\005d";}
+.fo-edit:before {content: "\005d";}
 .fo-:before {content: "\005e";}
 .fo-:before {content: "\005f";}
 

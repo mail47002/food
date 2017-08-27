@@ -181,9 +181,9 @@
 						<hr>
 
 						<div class="clearfix text-center">
-							<a href="#" class="button-square"><i class="dish-ready"></i>уже готова страва</a>
-							<a href="#" class="button-square"><i class="deal"></i>страва під замовлення</a>
-							<a href="#" class="button-square"><i class="time"></i>страва у меню</a>
+							<a href="#" class="button-square"><i class="fo fo-big fo-dish-ready"></i>уже готова страва</a>
+							<a href="#" class="button-square"><i class="fo fo-big fo-deal"></i>страва під замовлення</a>
+							<a href="#" class="button-square"><i class="fo fo-big fo-time"></i>страва у меню</a>
 						</div>
 
 					</div>
@@ -250,11 +250,10 @@
 
 
 
+@stop
 
 
-
-<script>
-$( document ).ready(function() {
+@section('scripts')
 
 	$('.title-slider .owl-carousel').on('initialized.owl.carousel changed.owl.carousel', function(e) {
 			if (!e.namespace) return;
@@ -289,7 +288,4 @@ $( document ).ready(function() {
 		}
 	});
 
-});
-
-</script>
 @stop
