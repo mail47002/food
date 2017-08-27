@@ -15,8 +15,8 @@ class CreateAdvertEverydayTermsTable extends Migration {
 		Schema::create('advert_everyday_terms', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('advert_id');
-      $table->timestamps('date_start');
-      $table->timestamps('date_end');
+      $table->timestamp('date_start')->nullable(true);
+      $table->timestamp('date_end')->nullable(true);
       $table->timestamps();
     });
 	}

@@ -17,7 +17,7 @@ class CreateReviewsTable extends Migration {
       $table->integer('advert_id');
       $table->integer('user_id');
       $table->text('text');
-      $table->decimal('rating', 1, 1);
+      $table->decimal('rating', 5, 2);
       $table->integer('status');
       $table->timestamps();
     });

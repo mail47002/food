@@ -15,8 +15,8 @@ class CreateAdvertProductTermsTable extends Migration {
 		Schema::create('advert_product_terms', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('advert_id');
-      $table->timestamp('date_start');
-      $table->timestamp('date_end');
+      $table->timestamp('date_start')->nullable(true);
+      $table->timestamp('date_end')->nullable(true);
       $table->timestamps();
     });
 	}

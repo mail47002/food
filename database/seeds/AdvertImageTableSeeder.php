@@ -16,7 +16,7 @@ class AdvertImageTableSeeder extends Seeder
             'image' => '/products/image1.jpg',
             'alt' => 'image1',
             'sort_order' => 1,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
 
         DB::table('advert_image')->insert([
@@ -24,7 +24,7 @@ class AdvertImageTableSeeder extends Seeder
             'image' => '/products/image2.jpg',
             'alt' => 'image1',
             'sort_order' => 2,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
 
         DB::table('advert_image')->insert([
@@ -32,7 +32,7 @@ class AdvertImageTableSeeder extends Seeder
             'image' => '/products/image1.jpg',
             'alt' => 'image1',
             'sort_order' => 1,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
 
         DB::table('advert_image')->insert([
@@ -40,7 +40,7 @@ class AdvertImageTableSeeder extends Seeder
             'image' => '/products/image2.jpg',
             'alt' => 'image1',
             'sort_order' => 1,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
     }
 }

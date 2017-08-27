@@ -17,7 +17,7 @@ class ReviewsTableSeeder extends Seeder
             'text' => 'review 1',
             'rating' => 3.2,
             'status' => 1,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
 
         DB::table('reviews')->insert([
@@ -26,7 +26,7 @@ class ReviewsTableSeeder extends Seeder
             'text' => 'review 2',
             'rating' => 4.2,
             'status' => 1,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
 
         DB::table('reviews')->insert([
@@ -35,7 +35,7 @@ class ReviewsTableSeeder extends Seeder
             'text' => 'review 3',
             'rating' => 5.0,
             'status' => 1,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
 
         DB::table('reviews')->insert([
@@ -44,7 +44,7 @@ class ReviewsTableSeeder extends Seeder
             'text' => 'review 4',
             'rating' => 2.5,
             'status' => 1,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
     }
 }

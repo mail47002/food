@@ -24,7 +24,7 @@ class AdvertsTableSeeder extends Seeder
             'sort_order' => 1,
             'status' => 1,
             'coocking_time_id' => 1,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
 
         DB::table('adverts')->insert([
@@ -40,7 +40,7 @@ class AdvertsTableSeeder extends Seeder
             'sort_order' => 1,
             'status' => 1,
             'coocking_time_id' => 1,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
 
       	DB::table('adverts')->insert([
@@ -56,7 +56,7 @@ class AdvertsTableSeeder extends Seeder
             'sort_order' => 1,
             'status' => 1,
             'coocking_time_id' => 1,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
 
       	DB::table('adverts')->insert([
@@ -72,7 +72,7 @@ class AdvertsTableSeeder extends Seeder
             'sort_order' => 1,
             'status' => 1,
             'coocking_time_id' => 1,
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
     }
 }

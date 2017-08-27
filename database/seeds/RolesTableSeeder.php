@@ -11,14 +11,14 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('role')->insert([
+        DB::table('roles')->insert([
             'role' => 'user',
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
 
-        DB::table('role')->insert([
+        DB::table('roles')->insert([
             'role' => 'administrator',
-            'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
     }
 }

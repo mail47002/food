@@ -19,7 +19,7 @@ class ProductsTableSeeder extends Seeder
           'video' => 'https://youtu.be/kP9OeIiTAmw',
           'sort_order' => '4',
           'status' => 1,
-          'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+          'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
       ]);
 
       DB::table('products')->insert([
@@ -30,7 +30,7 @@ class ProductsTableSeeder extends Seeder
           'video' => 'https://youtu.be/kP9OeIiTAmw',
           'sort_order' => '1',
           'status' => 1,
-          'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+          'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
       ]);
 
       DB::table('products')->insert([
@@ -41,7 +41,7 @@ class ProductsTableSeeder extends Seeder
           'video' => 'https://youtu.be/kP9OeIiTAmw',
           'sort_order' => '5',
           'status' => 1,
-          'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+          'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
       ]);
 
       DB::table('products')->insert([
@@ -52,7 +52,7 @@ class ProductsTableSeeder extends Seeder
           'video' => 'https://youtu.be/kP9OeIiTAmw',
           'sort_order' => '4',
           'status' => 1,
-          'published_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+          'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
       ]);
     }
 }
