@@ -1,4 +1,4 @@
-@extends('frontend.layouts.default')
+@extends('frontend.layouts.empty')
 
 @section('content')
 
@@ -42,7 +42,8 @@
 		</div>
 	</div>
 </div>
+@stop
 
+@section('scripts')
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 @stop

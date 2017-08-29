@@ -2,10 +2,22 @@
 
 @section('content')
 
-<div class="signup-page sign-form" style="background-image: url('uploads/signup.jpg');">
-FORGOT
+
+<div class="forgot-page">
+
+	<div class="sign-content text-center">
+		<h1 class="text-upper underline-red">Забули пароль</h1>
+		<hr>
+
+		<form action="">
+			<label for="email">Введіть свій Email</label>
+			<input id="email" type="text" placeholder="">
+
+			<input type="submit" class="button button-red" value="Продовжити">
+		</form>
+
 	</div>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</div>
 
 @stop

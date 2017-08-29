@@ -6,12 +6,11 @@
 
 	<title>Food</title>
 
+	<link href="/assets/css/style.css" type="text/css" rel="stylesheet">
 	<link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css">
 
-	<link href="/assets/css/style.css" type="text/css" rel="stylesheet">
-
 </head>
-<body class="body-adverts">{{-- тут не зрозуміло --}}
+<body class="body-{{Route::currentRouteName()}}">
 	<div id="wrapper">
 
 	@include('frontend.layouts.nav')
