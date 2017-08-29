@@ -13,17 +13,14 @@
 
 			<div class="left separator">
 
-				<form action="">
-					<label for="email">Email</label>
-					<input id="email" type="text" placeholder="">
-
-					<label for="password">Пароль</label>
-					<input id="password" type="password" placeholder="">
-
+				{{ Form::open([ 'route' => 'login.register', 'method' => 'POST']) }}
+					{{ Form::label('email', 'Email', ['for' => 'email']) }}
+					{{ Form::email('email', null, ['id' => 'email', 'placeholder' => 'Email']) }}
+					{{ Form::label('password', 'Пароль', ['for' => 'password']) }}
+					{{ Form::password('password', null, ['id' => 'password', 'placeholder' => 'password']) }}
 					<div class="g-recaptcha" data-sitekey="6LeUqiwUAAAAAPhKjaHyn1nYY30E0Do4WfJOZWOu"></div>
-
-					<input type="submit" class="button button-red" value="Зареєструватися">
-				</form>
+					{{Form::submit('Зареєструватися', ['class' => 'button button-red']) }}
+				{{ Form::close() }}
 
 				<p class="terms">Зареєструвавшись або увійшовши, я визнаю і згоден з <a href="#" class="link-blue">умовами сайту</a> та <a href="#" class="link-blue">правилами конфіденційністі</a>.</p>
 

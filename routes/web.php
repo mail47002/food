@@ -32,7 +32,8 @@ Route::group(['namespace' => 'Frontend'], function() {
 
   //login & Register
   Route::get('login', ['as' => 'login', 'uses' => 'LoginController@login']);
-  Route::get('register', ['as' => 'register', 'uses' => 'LoginController@register']);
+  Route::get('registration', ['as' => 'login.registration', 'uses' => 'LoginController@registration']);
+  Route::post('registration', ['as' => 'login.register', 'uses' => 'LoginController@register']);
   Route::get('forgot', ['as' => 'forgot', 'uses' => 'LoginController@forgot']);
   Route::get('success', ['as' => 'success', 'uses' => 'LoginController@success']);
 

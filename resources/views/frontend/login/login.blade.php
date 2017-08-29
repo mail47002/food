@@ -13,10 +13,10 @@
 
 				<form action="">
 					<label for="email">Email</label>
-					<input id="email" type="text" placeholder="">
+					<input id="email" name="email" type="text" placeholder="">
 
 					<label for="password">Пароль</label>
-					<input id="password" type="password" placeholder="">
+					<input id="password" name="password" type="password" placeholder="">
 
 					<input type="submit" class="button button-red" value="Увійти">
 				</form>
