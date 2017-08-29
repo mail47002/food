@@ -7,15 +7,12 @@
 	<title>Food</title>
 
 	<link href="/assets/css/style.css" type="text/css" rel="stylesheet">
+	@yield('styles')
 
 </head>
 <body class="body-{{Route::currentRouteName()}}">
-	<div id="wrapper">
 
 	@yield('content')
-
-	</div>
-
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -24,9 +21,9 @@
 
 <script>
 	$( document ).ready(function() {
-		@yield('scripts')
+
 	});
 </script>
-
+@yield('scripts')
 </body>
 </html>
