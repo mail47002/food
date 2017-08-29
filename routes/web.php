@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -29,5 +29,13 @@ Route::group(['namespace' => 'Frontend'], function() {
   Route::resource('products', 'ProductsController');
 
   Route::resource('profile', 'ProfileController');
+
+  //login & Register
+  Route::get('login', ['as' => 'login', 'uses' => 'LoginController@login']);
+  Route::get('register', ['as' => 'register', 'uses' => 'LoginController@register']);
+  Route::get('forgot', ['as' => 'forgot', 'uses' => 'LoginController@forgot']);
+  Route::get('success', ['as' => 'success', 'uses' => 'LoginController@success']);
+
+
 
 });
