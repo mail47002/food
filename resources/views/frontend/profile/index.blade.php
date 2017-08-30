@@ -8,15 +8,16 @@
 	<div class="row">
 		<div class="col-md-3 match-height">
 			<div class="left-sidebar bg-yellow text-center">
-				
+
 				<div class="avatar">
-					<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+					<div class="rounded"><img src="{{$profile['image']}}" alt="foto"></div>
 				</div>
 
 				<div class="phones fo fo-phone fo-indent fo-left red">
 					<div class="inline black">
-						<p>+38 096 159 15 15</p>
-						<p>+38 063 159 15 15</p>
+						@foreach (json_decode($profile['phone']) as $value)
+							<p>{{$value}}</p>
+						@endforeach
 					</div>
 				</div>
 
@@ -37,20 +38,19 @@
 
 		<div class="col-md-9 match-height">
 			<div class="v-indent-40"></div>
-			<h1>Марк</h1>
+			<h1>{{$profile['name']}}</h1>
 			<p class="grey3">
-				<i class="fo fo-big fo-marker red"></i> вул. Соборна 20, Вінниця 
+				<i class="fo fo-big fo-marker red"></i> {{$adresses['street']}} {{$adresses['build']}}, {{$adresses['city']}}
 				&nbsp;&nbsp;&nbsp;<a href="#" class="link-grey"><i class="fo fo-edit fo-small fo-indent"></i>Редагувати</a>
 			</p>
 			<div class="rating grey3"><span class="stars medium">4</span>30 відгуків</div>
 
 			<div class="description">
-				<p>Якщо ви любите запечене блюдо з хрусткою скоринкою, то посипте все сумішшю з панірувальних сухарів і натертого на тертці сиру. Запікайте в духовці при температурі 180-190С. Коли картопля стане м'яким, або помідори з цибулею і кабачками трохи підрум'яняться - овочевий рататуй з баклажанами готовий! Подавайте його до столу з будь-яким улюбленим вами соусом. Підійде сметана, домашній майонез або невеликий шматочок вершкового масла. </p>
-				<p> Як стверджують французи, в будь-якому блюді є два незамінних інгредієнта - це фантазія і любов! Готуйте з задоволенням і радістю!</p>
+				<p>{{$profile['about']}}</p>
 
-				<div class="red-round-border">
+				{{-- <div class="red-round-border">
 					<i>Якщо ви любите запечене блюдо з хрусткою скоринкою, то посипте все сумішшю з панірувальних сухарів і натертого на тертці сиру. Запікайте в духовці при температурі 180-190С. Коли картопля стане м'яким, або помідори з цибулею і кабачками трохи підрум'яняться - овочевий рататуй з баклажанами готовий! Подавайте його до столу з будь-яким улюбленим вами соусом. Підійде сметана, домашній майонез або невеликий шматочок вершкового масла. Як стверджують французи, в будь-якому блюді є два незамінних інгредієнта - це фантазія і любов! Готуйте з задоволенням і радістю!</i>
-				</div>
+				</div> --}}
 			</div>
 
 

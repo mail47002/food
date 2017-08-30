@@ -16,8 +16,10 @@
 				{{ Form::open([ 'route' => 'login.register', 'method' => 'POST']) }}
 					{{ Form::label('email', 'Email', ['for' => 'email']) }}
 					{{ Form::email('email', null, ['id' => 'email', 'placeholder' => 'Email']) }}
+					{!! $errors->first('email', '<label class="control-label">:message</label>') !!}
 					{{ Form::label('password', 'Пароль', ['for' => 'password']) }}
 					{{ Form::password('password', null, ['id' => 'password', 'placeholder' => 'password']) }}
+					{!! $errors->first('password', '<label class="control-label">:message</label>') !!}
 					<div class="g-recaptcha" data-sitekey="6LeUqiwUAAAAAPhKjaHyn1nYY30E0Do4WfJOZWOu"></div>
 					{{Form::submit('Зареєструватися', ['class' => 'button button-red']) }}
 				{{ Form::close() }}
@@ -35,7 +37,7 @@
 		</div>
 		<div class="sign-footer">
 			<span>Вже є аккаунт?</span>
-			<a href="?page=signin" class="link-red">Увійти</a>
+			<a href="{{ route('login') }}" class="link-red">Увійти</a>
 		</div>
 	</div>
 </div>

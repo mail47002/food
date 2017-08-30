@@ -11,15 +11,15 @@
 
 			<div class="left text-left separator">
 
-				<form action="">
-					<label for="email">Email</label>
-					<input id="email" name="email" type="text" placeholder="">
-
-					<label for="password">Пароль</label>
-					<input id="password" name="password" type="password" placeholder="">
-
-					<input type="submit" class="button button-red" value="Увійти">
-				</form>
+				{{ Form::open([ 'route' => 'login.session', 'method' => 'POST']) }}
+					{{ Form::label('email', 'Email', ['for' => 'email']) }}
+					{{ Form::email('email', null, ['id' => 'email', 'placeholder' => 'Email']) }}
+					{!! $errors->first('email', '<label class="control-label">:message</label>') !!}
+					{{ Form::label('password', 'Пароль', ['for' => 'password']) }}
+					{{ Form::password('password', null, ['id' => 'password', 'placeholder' => 'password']) }}
+					{!! $errors->first('password', '<label class="control-label">:message</label>') !!}
+					{{Form::submit('Увійти', ['class' => 'button button-red']) }}
+				{{ Form::close() }}
 
 				<p><a href="#" class="link-blue">Забули пароль</a></p>
 
@@ -30,7 +30,7 @@
 				<a href="#" class="button login facebook">Продовжити з Facebook</a>
 				<a href="#" class="button login twitter">Продовжити з Twitter</a>
 
-				<p class="signup">Вас ще немає на сайті?  <a href="?page=signup" class="link-red">Приєднатися зараз</a></p>
+				<p class="signup">Вас ще немає на сайті?  <a href="{{ route('login.registration') }}" class="link-red">Приєднатися зараз</a></p>
 			</div>
 
 		</div>
