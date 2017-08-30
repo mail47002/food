@@ -8,38 +8,38 @@
 	<div class="information text-center">
 		<div class="header">Розкажіть про себе</div>
 		<div class="body">
-			<form action="" enctype="multipart/form-data" method="post">
+			<form action="/store" enctype="multipart/form-data" method="post">
+				<p class="message" id="message">Заповніть виділені поля</p>
 				<label for="name">Ім'я*</label>
-				<input id="name" type="text" placeholder="">
+				<input name="name" id="name" type="text" required="required" />
 
 				<label for="url">Адреса вашої сторінки</label>
-				<input id="url" type="text" placeholder="">
+				<input name="url" id="url" type="text" required="required" />
 
-
-				<label for="phone">Телефон*</label>
 				<div class="phone">
-					<input id="phone" name="phone[]" class="phone-input" type="text" placeholder="">
+					<label for="phone">Телефон*</label>
+					<input id="phone" name="phone[]" class="phone-input" type="text" required="required" />
 
 					<a href="#" id="clonePhone" class="link-red">+ Додати</a>
 				</div>
 
 
 				<label for="city">Населений пункт*</label>
-				<input id="city" type="text" placeholder="" class="wide marker">
+				<input name="city" id="city" type="text" class="wide marker" required="required" />
 
 				<div class="content">
 					<div class="left">
 						<label for="street">Вулиця</label>
-						<input id="street" type="text" placeholder="">
+						<input name="street" id="street" type="text" required="required" />
 					</div>
 					<div class="right">
 						<label for="house">№ будинку*</label>
-						<input id="house" type="text" placeholder="">
+						<input name="house" id="house" type="text" required="required" />
 					</div>
 				</div>
 
 				<label for="about">Про себе</label>
-				<textarea id="about" type="text" placeholder="" class="wide"></textarea>
+				<textarea name="about" id="about" type="text" class="wide"></textarea>
 
 				<label for="filePhoto">Додати фото</label>
 				<div class="uploader" onclick="$('#filePhoto').click()">
@@ -160,5 +160,30 @@ function handleImage(e) {
 	reader.readAsDataURL(e.target.files[0]);
 }
 
+</script>
+
+{{-- Validation --}}
+<script src="/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+<script>
+	$( function() {
+		$('form').validate({
+				// make sure error message isn't displayed
+				errorPlacement: function () { },
+				// set the errorClass as a random string to prevent label disappearing when valid
+				errorClass : "bob",
+				// use highlight and unhighlight
+				highlight: function (element, errorClass, validClass) {
+						$(element.form).find("label[for=" + element.id + "]")
+						.addClass("error");
+				},
+				unhighlight: function (element, errorClass, validClass) {
+						$(element.form).find("label[for=" + element.id + "]")
+						.removeClass("error");
+				},
+				invalidHandler: function(form, validator) {
+					$('#message').addClass("error");
+				}
+		});
+	});
 </script>
 @stop

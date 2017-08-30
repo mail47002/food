@@ -2114,6 +2114,7 @@ a:focus {outline: none;}
 		label {
 			margin: 24px auto 5px;
 			display: block;
+			&.error {color: @red;}
 		}
 		input {
 			display: block;
@@ -2149,6 +2150,18 @@ a:focus {outline: none;}
 				padding-left: 10px;
 			}
 		}
+		.message {
+			display: none;
+			border-radius: 20px;
+			background-color: rgb(249, 198, 197);
+			max-width: 670px;
+			width: 100%;
+			height: 50px;
+			line-height: 50px;
+			color: @red;
+			margin: 40px auto 30px;
+		}
+		.message.error {display: block;}
 	}
 }
 
