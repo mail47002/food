@@ -8,49 +8,51 @@
 	<div class="information text-center">
 		<div class="header">Розкажіть про себе</div>
 		<div class="body">
-			<form action="/store" enctype="multipart/form-data" method="post">
+			{{ Form::open([ 'route' => 'login.information', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
 				<p class="message" id="message">Заповніть виділені поля</p>
-				<label for="name">Ім'я*</label>
-				<input name="name" id="name" type="text" required="required" />
+				{{ Form::label('name', 'Ім\'я*', ['for' => 'name']) }}
+				{{ Form::text('name', null, ['id' => 'name', 'required' => 'required']) }}
+				{!! $errors->first('name', '<label class="control-label">:message</label>') !!}
 
-				<label for="url">Адреса вашої сторінки</label>
-				<input name="url" id="url" type="text" required="required" />
+				{{ Form::label('nickname', 'Адреса вашої сторінки', ['for' => 'nickname']) }}
+				{{ Form::text('nickname', null, ['id' => 'nickname']) }}
 
+				{{ Form::label('phone', 'Телефон*', ['for' => 'phone']) }}
 				<div class="phone">
-					<label for="phone">Телефон*</label>
-					<input id="phone" name="phone[]" class="phone-input" type="text" required="required" />
-
+					{{ Form::text('phone[]', null, ['id' => 'phone', 'class' => 'phone-input', 'required' => 'required']) }}
+					{!! $errors->first('phone[]', '<label class="control-label">:message</label>') !!}
 					<a href="#" id="clonePhone" class="link-red">+ Додати</a>
 				</div>
 
-
-				<label for="city">Населений пункт*</label>
-				<input name="city" id="city" type="text" class="wide marker" required="required" />
-
+				{{ Form::label('city', 'Населений пункт*', ['for' => 'city']) }}
+				{{ Form::text('city', null, ['id' => 'city', 'class' => 'wide marker', 'required' => 'required']) }}
+				{!! $errors->first('city', '<label class="control-label">:message</label>') !!}
 				<div class="content">
 					<div class="left">
-						<label for="street">Вулиця</label>
-						<input name="street" id="street" type="text" required="required" />
+						{{ Form::label('street', 'Вулиця*', ['for' => 'street']) }}
+						{{ Form::text('street', null, ['id' => 'street', 'required' => 'required']) }}
 					</div>
+
 					<div class="right">
-						<label for="house">№ будинку*</label>
-						<input name="house" id="house" type="text" required="required" />
+						{{ Form::label('build', '№ будинку*', ['for' => 'build']) }}
+						{{ Form::text('build', null, ['id' => 'build', 'required' => 'required']) }}
 					</div>
 				</div>
 
-				<label for="about">Про себе</label>
-				<textarea name="about" id="about" type="text" class="wide"></textarea>
+				{{ Form::label('about', 'Про себе', ['for' => 'about']) }}
+				{{ Form::textarea('about', null, ['id' => 'about', 'class' => 'wide']) }}
 
-				<label for="filePhoto">Додати фото</label>
+				{{ Form::label('filePhoto', 'Додати фото', ['for' => 'filePhoto']) }}
 				<div class="uploader" onclick="$('#filePhoto').click()">
 					<img src=""/>
 					<div class="round"><i class="fo fo-camera"></i></div>
-					<input type="file" name="avatar" id="filePhoto" />
+					{{ Form::file('image', ['id' => 'filePhoto']) }}
+					{{-- <input type="file" name="image" id="filePhoto" /> --}}
 				</div>
 
 				<hr>
-				<input type="submit" class="button button-red" value="Продовжити">
-			</form>
+				{{Form::submit('Продовжити', ['class' => 'button button-red']) }}
+			{{ Form::close() }}
 		</div>
 	</div>
 </div>
@@ -69,7 +71,7 @@
 <script src="/assets/js/jquery.maskedinput.js"></script>
 <script>
 	jQuery(function($){
-		$(".phone-input").mask("+3 (999) 999-9999");
+		$(".phone-input").mask("+38 (999) 999-9999");
 	});
 </script>
 
@@ -79,7 +81,7 @@
 		var inputPhone = '<input name="phone[]" class="phone-input" type="text" placeholder="">';
 		$("#clonePhone").on("click", function(){
 			$(inputPhone).insertBefore(this);
-			$(".phone-input").mask("+3 (999) 999-9999");
+			$(".phone-input").mask("+38 (999) 999-9999");
 		});
 	});
 </script>
@@ -151,7 +153,6 @@
 <script>
 var imageLoader = document.getElementById('filePhoto');
 		imageLoader.addEventListener('change', handleImage, false);
-
 function handleImage(e) {
 	var reader = new FileReader();
 	reader.onload = function (event) {
@@ -159,7 +160,6 @@ function handleImage(e) {
 	}
 	reader.readAsDataURL(e.target.files[0]);
 }
-
 </script>
 
 {{-- Validation --}}
