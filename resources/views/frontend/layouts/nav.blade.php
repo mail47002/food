@@ -3,11 +3,11 @@
 		<div class="dropdown">
 			<a id="total-menu" class="dropdown-toggle fo fo-menu" href="#" type="button" data-toggle="dropdown"></a>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="total-menu">
-				<li><a href="#">Про проект</a></li>
-				<li><a href="#">Допомога</a></li>
-				<li><a href="#">Правила</a></li>
-				<li><a href="#">Уммови та конфіденційність</a></li>
-				<li><a href="#">Зворотній зв'язок</a></li>
+				<li><a href="{{ url('pro-proekt') }}">Про проект</a></li>
+				<li><a href="{{ url('dopomoga') }}">Допомога</a></li>
+				<li><a href="{{ url('pravila') }}">Правила</a></li>
+				<li><a href="{{ url('umovi-ta-konfidentsiynist') }}">Уммови та конфіденційність</a></li>
+				<li><a href="{{ url('zvorotniy-zvyazok') }}">Зворотній зв'язок</a></li>
 				<li><a href="#">Карта сайту</a></li>
 
 				<br><br>

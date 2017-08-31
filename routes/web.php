@@ -11,23 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
+// For dev
+Route::get('/', 'Frontend\PagesController@index');
 
 //Frontend
 Route::group(['namespace' => 'Frontend'], function() {
 
-  // Adverts
-  Route::resource('adverts', 'AdvertsController');
+    // Adverts
+    Route::resource('adverts', 'AdvertsController');
 
-  Route::resource('products', 'ProductsController');
+    Route::resource('products', 'ProductsController');
 
-  Route::resource('profile', 'ProfileController');
+    Route::resource('profile', 'ProfileController');
 
+    // Pages
+    Route::get('{slug}', 'PagesController@show');
 });
