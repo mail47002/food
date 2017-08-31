@@ -2232,8 +2232,9 @@ a:focus {outline: none;}
 	.title {
 		font-size: 30px;
 		font-weight: 500;
-		margin: 0 0 20px;
+		margin: 0;
 	}
+	.text {padding-top: 20px;}
 	.text, .text p {
 		font-size: 18px;
 	}
@@ -2254,10 +2255,53 @@ a:focus {outline: none;}
 				border-left: 2px solid @red;
 				border-bottom: none;
 				color: @red;
+				margin-top: -1px;
 			}
 		}
 	}
 }
 
-
-
+#accordion {
+	padding-bottom: 80px;
+	h3 {
+		font-size: 20px;
+		font-weight: 500;
+		position: relative;
+		margin: 0;
+		padding: 30px 10px 20px;
+		&:before {
+			content: '\0038';
+			font-family: FontFood;
+			position: relative;
+			font-size: 25px;
+			color: @red;
+			padding-right: 20px;
+		}
+	}
+	.ui-accordion-header {
+		display: block;
+		cursor: pointer;
+		position: relative;
+		span {
+			position: absolute;
+			right: 2px;
+			bottom: 23px;
+			width: 12px;
+			height: 22px;
+			&:before {
+				font-family: FontFood;
+				font-size: 12px;
+				color: @red;
+			}
+			&.ui-icon-triangle-1-s:before {content: '\0053';}
+			&.ui-icon-triangle-1-e:before {content: '\0048';}
+		}
+		&:hover {color: @grey4;}
+	}
+	.ui-accordion-content {
+		padding: 0 10px;
+		border-top: 0;
+		overflow: auto;
+	}
+	p {margin-top: 0;}
+}
