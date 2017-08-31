@@ -38,10 +38,10 @@ class LoginController extends Controller
             if($user->token){
                 return redirect()
                     ->route('login.information');
-                } else {
-                    return redirect()
+            } else {
+                return redirect()
                     ->route('profile.index');
-                }
+            }
         }
 
         return redirect()
@@ -151,8 +151,8 @@ class LoginController extends Controller
                 $file->move($path . '/', $name);
 
                 // //Resize if needed
-                // if (Image::make($path . 'default/' . $name)->width() > 200)
-                //     Image::make($path . 'default/' . $name)->widen(200)->save();
+                if (Image::make($path . 'default/' . $name)->width() > 200)
+                    Image::make($path . 'default/' . $name)->widen(200)->save();
 
                 // Assign images
                 $user->image = $path . '/' . $name;
