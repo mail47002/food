@@ -145,6 +145,11 @@ hr.red-border {
 .text-right {text-align: right;}
 .text-upper {text-transform: uppercase;}
 .zerro-top {margin-top: 0;}
+.v-indent-30 {
+	display: block;
+	width: 100%;
+	height: 30px;
+}
 .v-indent-40 {
 	display: block;
 	width: 100%;
@@ -2080,6 +2085,17 @@ a:focus {outline: none;}
 					top: 4px;
 				}
 			}
+			&.link-back {
+				color: @grey3;
+				&:after {
+					content: '\005e';
+					font-family: FontFood;
+					position: absolute;
+					left: 20px;
+					top: 4px;
+				}
+				&:hover {color: @grey4;}
+			}
 		}
 	}
 }
@@ -2187,16 +2203,6 @@ a:focus {outline: none;}
 		line-height: 130px;
 		color: #fff;
 	}
-	#filePhoto{
-			position:absolute;
-			width:130px; 
-			height:130px; 
-			top:-50px;
-			left:0;
-			z-index:2;
-			opacity:0;
-			cursor:pointer;
-	}
 	img{
 			position:absolute;
 			width:100%;
@@ -2214,13 +2220,34 @@ a:focus {outline: none;}
 		margin: auto;
 		width: 34px;
 		height: 34px;
-		line-height: 34px;
+		line-height: 38px;
 		border-radius: 50%;
 		background-color: rgba(50, 52, 53, 0.6);
 		color: @white;
 		z-index: 1;
-		i {
-			font-size: 30px;
+		i:before {font-size: 24px;}
+	}
+	#filePhoto{
+		position:absolute;
+		width:100%; 
+		height:100%; 
+		top:0;
+		left:0;
+		z-index:2;
+		opacity:0;
+		cursor:pointer;
+		&:hover + .round {background-color: rgba(50, 52, 53, 0.8);}
+	}
+
+	&.profile {
+		width: 210px;
+		height: 210px;
+		#filePhoto {}
+		.round {
+			width: 50px;
+			height: 50px;
+			line-height: 56px;
+			i:before {font-size: 32px;}
 		}
 	}
 
@@ -2312,26 +2339,41 @@ a:focus {outline: none;}
 		display: block;
 		&.error {
 			color: @red;
-			+ input {border-color: @red;}
+			+ input, + div input {border-color: @red;}
 		}
 	}
 	input {
 		display: block;
+		max-width: 440px;
 		width: 100%;
 		height: 40px;
-		margin: 5px auto;
+		margin: 5px 0;
 	}
 	textarea {
 		height: 240px;
+		max-width: 440px;
 		width: 100%;
 		padding: 10px;
 		font-size: 16px;
+		&.profile {
+			max-width: 670px;
+			height: 80px;
+			margin-bottom: 30px;
+		}
 	}
 	.button {
 		display: block;
 		margin: 80px auto;
 		max-width: 440px;
 		width: 100%;
+		&.profile {
+			width: 230px;
+			height: 50px;
+			line-height: 50px;
+			font-size: 20px;
+			text-transform: uppercase;
+			margin: 30px 0;
+		}
 	}
 	.message {
 		display: none;
@@ -2345,4 +2387,47 @@ a:focus {outline: none;}
 		text-align: center;
 	}
 	.message.error {display: block;}
+
+	.phone {
+		div {
+			position: relative;
+			max-width: 480px;
+			width: 100%;
+			padding-bottom: 1px;
+			.remove {
+				display: block;
+				position: absolute;
+				right: 5px;
+				top: 14px;
+				width: 20px;
+				height: 20px;
+				color: @grey2;
+				&:before {
+					content: '\0056';
+					font-family: FontFood;
+				}
+				&:hover {
+					color: @grey3;
+					cursor: pointer;
+				}
+			}
+		}
+		> div:first-child .remove {display: none;}
+	}
+	.marker {
+		position: relative;
+		&:before {
+			position: absolute;
+			content: '\0046';
+			font-family: FontFood;
+			font-size: 22px;
+			left: 5px;
+			top: 0;
+			height: 40px;
+			line-height: 40px;
+			width: 15px;
+			color: @red;
+		}
+		input {padding-left: 25px;}
+	}
 }
