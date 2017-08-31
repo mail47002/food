@@ -254,7 +254,8 @@
 
 
 @section('scripts')
-
+<script>
+$( function() {
 	$('.title-slider .owl-carousel').on('initialized.owl.carousel changed.owl.carousel', function(e) {
 			if (!e.namespace) return;
 			var carousel = e.relatedTarget;
@@ -287,5 +288,6 @@
 			}
 		}
 	});
-
+});
+</script>
 @stop

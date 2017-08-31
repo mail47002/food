@@ -9,6 +9,7 @@
 	<link href="/assets/css/style.css" type="text/css" rel="stylesheet">
 	<link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css">
 
+	@yield('styles')
 </head>
 <body class="body-{{Route::currentRouteName()}}">
 	<div id="wrapper">
@@ -45,10 +46,10 @@
 
 	$( document ).ready(function() {
 		$('span.stars').stars();
-
-		@yield('scripts')
 	});
 </script>
+
+@yield('scripts')
 
 </body>
 </html>

@@ -250,5 +250,9 @@
 
 
 @section('scripts')
+<script>
+$( function() {
 	$('.match-height').matchHeight();
+});
+</script>
 @stop
