@@ -35,12 +35,20 @@ class LoginController extends Controller
 
         if (Auth::guard('web')->attempt($this->credentials($request))) {
             $user = User::find(Auth::id());
-            if($user->token){
-                return redirect()
-                    ->route('login.information');
+            $token_time = strtotime(date("Y-m-d H:i:s")) - strtotime($user->created_at);
+            if ($token_time >=901) {
+                $user->token = str_random(30);
+                $user->save();
+                Mail::to($user->email)->send(new MailClass($user->token));
+                return redirect()->route('error');
             } else {
-                return redirect()
-                    ->route('profile.index');
+                if($user->token){
+                    return redirect()
+                        ->route('login.information');
+                } else {
+                    return redirect()
+                        ->route('profile.index');
+                }
             }
         }
 
@@ -48,6 +56,11 @@ class LoginController extends Controller
             ->back()
             ->withLogin_error(1)
             ->withInput();
+    }
+
+    public function errorToten()
+    {
+        return view('frontend.login.error');
     }
 
     public function registration()
