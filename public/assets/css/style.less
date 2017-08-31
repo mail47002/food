@@ -2225,3 +2225,39 @@ a:focus {outline: none;}
 	}
 
 }
+
+
+.pages {
+	padding-top: 50px;
+	.title {
+		font-size: 30px;
+		font-weight: 500;
+		margin: 0 0 20px;
+	}
+	.text, .text p {
+		font-size: 18px;
+	}
+	.menu-pages {
+		list-style: none;
+		margin: 0;
+		padding: 0 0 0 40px;
+		li a {
+			display: block;
+			height: 60px;
+			line-height: 60px;
+			padding-left: 45px;
+			border-bottom: 1px solid @grey1;
+			color: @grey3;
+			&:hover {color: @grey4;}
+			&.active {
+				background-color: rgb(244, 246, 247);
+				border-left: 2px solid @red;
+				border-bottom: none;
+				color: @red;
+			}
+		}
+	}
+}
+
+
+
