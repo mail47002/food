@@ -139,6 +139,7 @@ function handleImage(e) {
 			e.preventDefault();
 			$(inputPhone).insertBefore(this);
 			$(".phone-input").mask("+38 (999) 999-9999");
+			$('.match-height').matchHeight();
 		});
 		$('body').on('click', '.phone .remove', function(){
 			$(this).parent().remove();
