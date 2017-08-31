@@ -35,20 +35,21 @@ class LoginController extends Controller
 
         if (Auth::guard('web')->attempt($this->credentials($request))) {
             $user = User::find(Auth::id());
-            $token_time = strtotime(date("Y-m-d H:i:s")) - strtotime($user->created_at);
-            if ($token_time >=901) {
-                $user->token = str_random(30);
-                $user->save();
-                Mail::to($user->email)->send(new MailClass($user->token));
-                return redirect()->route('error');
-            } else {
-                if($user->token){
-                    return redirect()
-                        ->route('login.information');
+
+            if($user->token){
+                $token_time = strtotime(date("Y-m-d H:i:s")) - strtotime($user->created_at);
+                if ($token_time >=901) {
+                    $user->token = str_random(30);
+                    $user->save();
+                    Mail::to($user->email)->send(new MailClass($user->token));
+                    return redirect()->route('error');
                 } else {
                     return redirect()
-                        ->route('profile.index');
+                        ->route('login.information');
                 }
+            } else {
+                return redirect()
+                    ->route('profile.index');
             }
         }
 
