@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
+use App\User;
+use App\Adress;
 
 class ProfileController extends Controller
 {
@@ -14,7 +17,13 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('frontend.profile.index');
+        $profile = User::find(Auth::id());
+        $adresses = Adress::find(Auth::id());
+
+        return view('frontend.profile.index', [
+            'profile' => $profile,
+            'adresses' => $adresses
+            ]);
     }
 
     /**

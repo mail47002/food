@@ -36,7 +36,7 @@
 		<ul class="list-inline pull-right">
 			<li><a href="#" class="button button-rounded dish-add"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
 			<li><a class="link" href="/login">Вхід</a></li>
-			<li><a class="link" href="/register">Реєстрація</a></li>
+			<li><a class="link" href="/registration">Реєстрація</a></li>
 		</ul>
 	</div>
 </nav>
