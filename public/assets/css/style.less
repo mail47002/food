@@ -156,6 +156,12 @@ hr.red-border {
 	width: 100%;
 	height: 40px;
 }
+.title-with-indent {
+	margin: 0;
+	padding: 50px 0;
+	text-align: center;
+	text-transform: uppercase;
+}
 
 .red {color: @red;}
 .black {color: @black;}
@@ -268,8 +274,8 @@ select{
 	content: '';
 	background: url("../images/checked.png") no-repeat center @red;
 	border-radius: 5px;
-	width: 18px;
-	height: 18px;
+	width: 20px;
+	height: 20px;
 	position: absolute;
 	top: 0; left: 0;
 	transition: all .2s;
@@ -2233,7 +2239,7 @@ a:focus {outline: none;}
 		z-index: 1;
 		i:before {font-size: 24px;}
 	}
-	#filePhoto{
+	input[type="file"] {
 		position:absolute;
 		width:100%; 
 		height:100%; 
@@ -2248,7 +2254,6 @@ a:focus {outline: none;}
 	&.profile {
 		width: 210px;
 		height: 210px;
-		#filePhoto {}
 		.round {
 			width: 50px;
 			height: 50px;
@@ -2339,7 +2344,9 @@ a:focus {outline: none;}
 	p {margin-top: 0;}
 }
 
-.contact {
+
+// Forms
+.contact, .edit {
 	label {
 		margin: 32px auto 8px;
 		display: block;
@@ -2405,8 +2412,8 @@ a:focus {outline: none;}
 	}
 	.message.error {display: block;}
 
-	.phone {
-		div {
+	.phone, .ingredients, .videos, .recipes {
+		> div {
 			position: relative;
 			max-width: 480px;
 			width: 100%;
@@ -2485,6 +2492,58 @@ a:focus {outline: none;}
 				}
 			}
 			&.alert {display: inline-block;}
+		}
+	}
+	.wide {max-width: 100%;}
+}
+// Формы добавления рецептов ...
+.edit {
+	.catgories {
+		border: 1px solid @grey1;
+		border-radius: 10px;
+		padding: 10px 20px;
+		text-align: left;
+		label {
+			margin: 10px 0;
+		}
+	}
+	.ingredients {
+		max-width: 480px;
+		margin: 0 auto;
+		text-align: left;
+	}
+	textarea {height: 100px;}
+	.videos {
+		text-align: left;
+
+		div, input {max-width: 100%;}
+	}
+	.uploader {border-radius: 0;}
+
+	.recipes {
+		> div {
+			.clearfix();
+			max-width: 100%;
+		}
+		.title {
+			font-size: 16px;
+			font-weight: bold;
+			display: block;
+			width: 100%;
+			text-align: left;
+			padding-left: 120px;
+			margin-bottom: 8px;
+		}
+		.uploader {
+			float: left;
+			width: 100px;
+			height: 100px;
+			margin: 0;
+		}
+		textarea {
+			float: right;
+			max-width: 550px;
+			height: 130px;
 		}
 	}
 }
