@@ -54,16 +54,17 @@ body {
 @small: ~"only screen and (min-width: 992px) and (max-width: 1199px)";
 
 /* colors */
-@red: rgb(240, 83, 77);
+@red:     rgb(240, 83, 77);
 @redDark: rgb(214, 0, 28);
-@grey1: rgb(230, 232, 233);
-@grey2: rgb(185, 187, 188);
-@grey3: rgb(135, 137, 138);
-@grey4: rgb(92, 94, 95);
-@black: rgb(50, 52, 53);
-@blue:  rgb(3, 135, 213);
-@white: rgb(255, 255, 255);
-@yellow: #f4f6f7;
+@grey1:   rgb(230, 232, 233);
+@grey2:   rgb(185, 187, 188);
+@grey3:   rgb(135, 137, 138);
+@grey4:   rgb(92, 94, 95);
+@black:   rgb(50, 52, 53);
+@blue:    rgb(3, 135, 213);
+@white:   rgb(255, 255, 255);
+@yellow:  #f4f6f7;
+@green:   rgb(57, 181, 74);
 
 h1 {
 	font-size: 30px;
@@ -771,6 +772,7 @@ a:focus {outline: none;}
 		}
 		.hover {
 			opacity: 0;
+			visibility: hidden;
 			position: absolute;
 			width: 130px;
 			top: 49px;
@@ -820,7 +822,10 @@ a:focus {outline: none;}
 				height: 12px;
 			}
 		}
-		&:hover .hover {opacity: 1;}
+		&:hover .hover {
+			opacity: 1;
+			visibility: visible;
+		}
 	}
 
 	// .cook {
@@ -921,15 +926,6 @@ a:focus {outline: none;}
 	.modal-header {
 		border-bottom: 1px solid @grey1;
 		text-align: center;
-		.close {
-			position: absolute;
-			right: -50px;
-			top: 0;
-			width: 30px;
-			height: 30px;
-			background: url('../images/close-modal.png') no-repeat left center;
-			&:hover {background-position: right center;}
-		}
 		&:before,
 		&:after {
 			content: " ";
@@ -938,6 +934,16 @@ a:focus {outline: none;}
 		&:after {
 			clear: both;
 		}
+	}
+
+	.close {
+		position: absolute;
+		right: -50px;
+		top: 0;
+		width: 30px;
+		height: 30px;
+		background: url('../images/close-modal.png') no-repeat left center;
+		&:hover {background-position: right center;}
 	}
 
 	.modal-title {
@@ -2362,7 +2368,7 @@ a:focus {outline: none;}
 		}
 	}
 	.button {
-		display: block;
+		display: inline-block;
 		margin: 80px auto;
 		max-width: 440px;
 		width: 100%;
@@ -2373,6 +2379,17 @@ a:focus {outline: none;}
 			font-size: 20px;
 			text-transform: uppercase;
 			margin: 30px 0;
+			&.dismiss {
+				margin-left: 62px;
+				background-color: @grey1;
+				border-color: @grey1;
+				color: @grey3;
+				&:hover {
+					background-color: @grey2;
+					border-color: @grey2;
+					color: @grey4;
+				}
+			}
 		}
 	}
 	.message {
@@ -2429,5 +2446,45 @@ a:focus {outline: none;}
 			color: @red;
 		}
 		input {padding-left: 25px;}
+	}
+
+	.url {
+		.left {
+			display: inline-block;
+		}
+		input {
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.right {
+			display: none;
+			width: 220px;
+			padding-left: 45px;
+			position: relative;
+			font-size: 14px;
+			vertical-align: middle;
+			line-height: 14px;
+			&:before {
+				font-family: FontFood;
+				font-size: 20px;
+				position: absolute;
+				left: 14px;
+				top: 2px;
+			}
+			&.confirm {
+				color: @green;
+				&:before {
+					content: '\0037';
+				}
+			}
+			&.reject {
+				color: @red;
+				&:before {
+					content: '\0036';
+					top: 10px;
+				}
+			}
+			&.alert {display: inline-block;}
+		}
 	}
 }
