@@ -26,6 +26,23 @@ class ProfileController extends Controller
             ]);
     }
 
+    public function profileProducts(){
+        return view('frontend.profile.products');
+    }
+
+    public function profileArticles(){
+        return view('frontend.profile.articles');
+    }
+
+    public function profileMessages(){
+        return view('frontend.profile.messages');
+    }
+
+    public function profileReviews(){
+        return view('frontend.profile.reviews');
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

@@ -55,8 +55,7 @@ class LoginController extends Controller
 
         return redirect()
             ->back()
-            ->withLogin_error(1)
-            ->withInput();
+            ->withLogin_error(1);
     }
 
     public function errorToten()
