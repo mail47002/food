@@ -31,46 +31,43 @@
 		<div class="col-md-9 match-height">
 			<h5 class="text-upper underline-red">Редагувати профіль</h5>
 			<hr>
-
-			<form action="/store" method="post" class="contact">
+			{{ Form::open([ 'route' => 'profile.update', 'method' => 'POST', 'class' => 'contact']) }}
 				<p class="message" id="message">Заповніть виділені поля</p>
-				<label for="name">Ім'я*</label>
-				<input name="name" id="name" type="text" required="required" />
+				{{ Form::label('name', 'Ім\'я*', ['for' => 'name']) }}
+				{{ Form::text('name', $profile['name'], ['id' => 'name', 'required' => 'required']) }}
 
-				<label for="phone">Телефон*</label>
+				{{ Form::label('phone', 'Телефон*', ['for' => 'phone']) }}
 				<div class="phone">
-					<div><input id="phone" name="phone[]" class="phone-input" type="text" required="required" /><span class="remove"></span></div>
-
+					@foreach(json_decode($profile['phone']) as $phone)
+					<div>
+						{{ Form::text('phone[]', $phone, ['id' => 'phone', 'required' => 'required', 'class' => 'phone-input']) }}
+						<span class="remove"></span>
+					</div>
+					@endforeach
 					<a href="#" id="clonePhone" class="link-red">+ Додати</a>
 				</div>
-
 				<div class="v-indent-30"></div>
 				<hr>
-
-				<label for="city">Населений пункт*</label>
-				<div class="marker"><input name="city" id="city" type="text" required="required" /></div>
-
-				{{-- ?? в дизайне нету ?? --}}
+				{{ Form::label('city', 'Населений пункт*', ['for' => 'city']) }}
+				<div class="marker">
+					{{ Form::text('city', $adresses['city'], ['id' => 'city', 'required' => 'required']) }}
+				</div>
 				<div class="content">
 					<div class="left">
-						<label for="street">Вулиця</label>
-						<input name="street" id="street" type="text" required="required" />
+						{{ Form::label('street', 'Вулиця*', ['for' => 'street']) }}
+						{{ Form::text('street', $adresses['street'], ['id' => 'street', 'required' => 'required']) }}
 					</div>
 					<div class="right">
-						<label for="house">№ будинку*</label>
-						<input name="house" id="house" type="text" required="required" />
+						{{ Form::label('build', '№ будинку*', ['for' => 'build']) }}
+						{{ Form::text('build', $adresses['build'], ['id' => 'build', 'required' => 'required']) }}
 					</div>
 				</div>
-
 				<div class="v-indent-30"></div>
 				<hr>
-
-				<label for="about">Про себе</label>
-				<textarea name="about" id="about" type="text" class="profile"></textarea>
-
-				<hr>
-				<input type="submit" class="button button-red profile" value="Продовжити">
-			</form>
+				{{ Form::label('about', 'Про себе', ['for' => 'about']) }}
+				{{ Form::textarea('about', $profile['about'], ['id' => 'about']) }}
+				{{Form::submit('Продовжити', ['class' => 'button button-red']) }}
+			{{ Form::close() }}
 
 		</div>
 	</div>

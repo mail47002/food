@@ -15,6 +15,12 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $profile = User::find(Auth::id());
@@ -84,9 +90,14 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $profile = User::find(Auth::id());
+        $adresses = Adress::find(Auth::id());
+        return view('frontend.profile.edit',[
+            'profile' =>$profile,
+            'adresses' =>$adresses,
+            ]);
     }
 
     /**
@@ -96,9 +107,61 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request);
+        $user = User::find(Auth::id());
+        $this->validate($request, [
+            'name'                     => 'required',
+            // 'nickname'                 => 'nickname|unique:users,nickname',
+            'phone'                    => 'required',
+            'city'                     => 'required',
+            'street'                   => 'required',
+            'build'                     => 'required',
+        ]);
+
+        $user->name = $request->name;
+        $user->phone = json_encode($request->phone);
+        $user->nickname = $request->nickname ? $request->nickname : str_random(7);
+        $user->about = $request->about ? $request->about : '';
+        $user->token = '';
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            if ($file->isValid()) {
+                $path   = 'uploads/users/' . $user->id. '/';
+                $name   = $file->getClientOriginalName();
+                // dd($name);
+                // deleting old if exists
+                File::deleteDirectory($path);
+
+                // creating directories
+                File::makeDirectory($path, 0777, true, true);
+
+                // Save
+                $file->move($path . '/', $name);
+
+                // //Resize if needed
+                if (Image::make($path . 'default/' . $name)->width() > 200)
+                    Image::make($path . 'default/' . $name)->widen(200)->save();
+
+                // Assign images
+                $user->image = $path . '/' . $name;
+            }
+        }
+
+        $user->save();
+
+        $adress = new Adress();
+        $adress->user_id = Auth::id();
+        $adress->city = $request->city;
+        $adress->street = $request->street;
+        $adress->build = $request->build;
+
+        $adress->save();
+        return redirect()
+                ->route('profile.index');
     }
 
     /**

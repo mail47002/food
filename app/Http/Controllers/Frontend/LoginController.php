@@ -130,7 +130,6 @@ class LoginController extends Controller
 
     public function save(Request $request)
     {
-        // dd($request);
         $user = User::find(Auth::id());
         $this->validate($request, [
             'name'                     => 'required',

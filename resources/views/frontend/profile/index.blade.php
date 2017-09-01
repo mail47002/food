@@ -21,7 +21,7 @@
 					</div>
 				</div>
 
-				<a href="#" class="button button-grey fo fo-edit fo-left fo-small">Редагувати профіль</a>
+				<a href="{{ route('profile.edit') }}" class="button button-grey fo fo-edit fo-left fo-small">Редагувати профіль</a>
 
 				<ul class="menu">
 					<li><a href="#" class="active">Про мене</a></li>

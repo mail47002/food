@@ -26,6 +26,8 @@ Route::group(['namespace' => 'Frontend'], function() {
 
     //Profile
     Route::resource('profile', 'ProfileController');
+    Route::get('edit', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
+    Route::post('edit', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 
     //login & Register
     Route::get('login', ['as' => 'login', 'uses' => 'LoginController@index']);
@@ -37,6 +39,7 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::post('information', ['as' => 'login.save', 'uses' => 'LoginController@save']);
     Route::get('forgot', ['as' => 'forgot', 'uses' => 'LoginController@forgot']);
     Route::get('success', ['as' => 'success', 'uses' => 'LoginController@success']);
+
 
     // Pages
     Route::get('{slug}', 'PagesController@show');
