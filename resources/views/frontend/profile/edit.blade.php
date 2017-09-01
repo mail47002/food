@@ -21,7 +21,7 @@
 				<ul class="menu">
 					<li><a href="#" class="link-back">Моя сторінка</a></li>
 					<li><a href="#" class="active">Про мене</a></li>
-					<li><a href="#">Пароль</a></li>
+					<li><a href="{{ route('profile.password') }}">Пароль</a></li>
 					<li><a href="#">Адреса сторінки</a></li>
 				</ul>
 
@@ -66,6 +66,7 @@
 				<hr>
 				{{ Form::label('about', 'Про себе', ['for' => 'about']) }}
 				{{ Form::textarea('about', $profile['about'], ['id' => 'about']) }}
+				<hr>
 				{{Form::submit('Продовжити', ['class' => 'button button-red']) }}
 			{{ Form::close() }}
 

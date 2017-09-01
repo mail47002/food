@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\User;
 use App\Adress;
+use Hash;
 
 class ProfileController extends Controller
 {
@@ -24,7 +25,7 @@ class ProfileController extends Controller
     public function index()
     {
         $profile = User::find(Auth::id());
-        $adresses = Adress::find(Auth::id());
+        $adresses = Adress::where('user_id', '=', Auth::id())->first();
 
         return view('frontend.profile.index', [
             'profile' => $profile,
@@ -93,7 +94,7 @@ class ProfileController extends Controller
     public function edit()
     {
         $profile = User::find(Auth::id());
-        $adresses = Adress::find(Auth::id());
+        $adresses = Adress::where('user_id', '=', Auth::id())->first();
         return view('frontend.profile.edit',[
             'profile' =>$profile,
             'adresses' =>$adresses,
@@ -152,14 +153,34 @@ class ProfileController extends Controller
         }
 
         $user->save();
-
-        $adress = new Adress();
+        $adress = Adress::where('user_id', '=', Auth::id())->first();
         $adress->user_id = Auth::id();
         $adress->city = $request->city;
         $adress->street = $request->street;
         $adress->build = $request->build;
 
         $adress->save();
+        return redirect()
+                ->route('profile.index');
+    }
+
+    public function password()
+    {
+        return view('frontend.profile.password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = User::find(Auth::id());
+        // $this->validate($request, [
+        //     'email'                     => 'required|email|unique:users,email',
+        //     'oldPassword'               => 'required',
+        //     'password'                  => 'required|confirmed|min:5',
+        //     'confirm'                   => 'required',
+        // ]);
+
+        $user->password = Hash::make($request->password);
+        $user->save();
         return redirect()
                 ->route('profile.index');
     }

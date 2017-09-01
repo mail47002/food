@@ -11,7 +11,7 @@
 
 				<div class="avatar">
 					<div class="uploader profile">
-						<img src="{{$profile['image']}}" alt="foto">
+						<img src="{{-- {{$profile['image']}} --}}" alt="foto">
 						<input type="file" name="avatar" id="filePhoto" />
 						<div class="round"><i class="fo fo-camera"></i></div>
 					</div>
@@ -20,8 +20,8 @@
 
 				<ul class="menu">
 					<li><a href="#" class="link-back">Моя сторінка</a></li>
-					<li><a href="#" class="active">Про мене</a></li>
-					<li><a href="#">Пароль</a></li>
+					<li><a href="#">Про мене</a></li>
+					<li><a href="#" class="active">Пароль</a></li>
 					<li><a href="#">Адреса сторінки</a></li>
 				</ul>
 
@@ -31,27 +31,23 @@
 		<div class="col-md-9 match-height">
 			<h5 class="text-upper underline-red">Змінити пароль</h5>
 			<hr>
-
-			<form action="/store" method="post" class="contact">
+			{{ Form::open([ 'route' => 'profile.updatePassword', 'method' => 'POST', 'class' => 'contact']) }}
 				<p class="message" id="message">Заповніть виділені поля</p>
-				<label for="email">Email*</label>
-				<input name="email" id="email" type="text" required="required" />
+				{{ Form::label('email', 'Email*', ['for' => 'email']) }}
+				{{ Form::text('email', 'ussr983@gmail.com', ['id' => 'email', 'required' => 'required']) }}
 
-				<label for="oldPassword">Старий пароль</label>
-				<input name="oldPassword" id="oldPassword" type="text" required="required" />
+				{{ Form::label('oldPassword', 'Старий пароль', ['for' => 'oldPassword']) }}
+				{{ Form::password('oldPassword', null, ['id' => 'oldPassword', 'required' => 'required']) }}
 
-				<label for="password">Новий пароль</label>
-				<input name="password" id="password" type="text" required="required" />
+				{{ Form::label('password', 'Новий пароль', ['for' => 'password']) }}
+				{{ Form::password('password', null, ['id' => 'password', 'required' => 'required']) }}
 
-				<label for="rePassword">Повторити пароль</label>
-				<input name="rePassword" id="rePassword" type="text" required="required" />
-
-
+				{{ Form::label('confirm', 'Повторити пароль', ['for' => 'confirm']) }}
+				{{ Form::password('confirm', null, ['id' => 'confirm', 'required' => 'required']) }}
 				<div class="v-indent-30"></div>
 				<hr>
-				<input type="submit" class="button button-red profile" value="Зберегти">
-			</form>
-
+				{{Form::submit('Зберегти', ['class' => 'button button-red']) }}
+			{{ Form::close() }}
 		</div>
 	</div>
 </div>

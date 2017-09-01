@@ -28,6 +28,9 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::resource('profile', 'ProfileController');
     Route::get('edit', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
     Route::post('edit', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+    Route::get('password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+    Route::post('password', ['as' => 'profile.updatePassword', 'uses' => 'ProfileController@updatePassword']);
+
 
     //login & Register
     Route::get('login', ['as' => 'login', 'uses' => 'LoginController@index']);

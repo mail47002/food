@@ -41,7 +41,7 @@
 			<h1>{{$profile['name']}}</h1>
 			<p class="grey3">
 				<i class="fo fo-big fo-marker red"></i> {{$adresses['street']}} {{$adresses['build']}}, {{$adresses['city']}}
-				&nbsp;&nbsp;&nbsp;<a href="#" class="link-grey"><i class="fo fo-edit fo-small fo-indent"></i>Редагувати</a>
+				&nbsp;&nbsp;&nbsp;<a href="{{-- {{ route('profile.adresses') }} --}}" class="link-grey"><i class="fo fo-edit fo-small fo-indent"></i>Редагувати</a>
 			</p>
 			<div class="rating grey3"><span class="stars medium">4</span>30 відгуків</div>
 
