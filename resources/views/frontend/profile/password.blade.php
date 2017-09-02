@@ -81,6 +81,12 @@ $( function() {
 				},
 				invalidHandler: function(form, validator) {
 					$('.message').addClass("error");
+				},
+				rules: {
+					password: "required",
+					confirm: {
+						equalTo: "#password"
+					}
 				}
 		});
 	});
