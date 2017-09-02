@@ -65,9 +65,9 @@
 				<div class="v-indent-30"></div>
 				<hr>
 				{{ Form::label('about', 'Про себе', ['for' => 'about']) }}
-				{{ Form::textarea('about', $profile['about'], ['id' => 'about']) }}
+				{{ Form::textarea('about', $profile['about'], ['id' => 'about', 'class' => 'profile']) }}
 				<hr>
-				{{Form::submit('Продовжити', ['class' => 'button button-red']) }}
+				{{Form::submit('Продовжити', ['class' => 'button button-red profile']) }}
 			{{ Form::close() }}
 
 		</div>

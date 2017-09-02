@@ -46,7 +46,7 @@
 				{{ Form::password('confirm', null, ['id' => 'confirm', 'required' => 'required']) }}
 				<div class="v-indent-30"></div>
 				<hr>
-				{{Form::submit('Зберегти', ['class' => 'button button-red']) }}
+				{{Form::submit('Зберегти', ['class' => 'button button-red profile']) }}
 			{{ Form::close() }}
 		</div>
 	</div>
