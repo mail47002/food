@@ -674,6 +674,30 @@ a:focus {outline: none;}
 
 
 /* header navbar */
+.dropdown {
+	position: relative;
+	.dropdown-toggle:focus {outline: 0;}
+	.dropdown-menu {
+		display: none;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		 > li > a {
+			display: block;
+			clear: both;
+		}
+
+		> .active > a {
+			text-decoration: none;
+			outline: 0;
+			&:hover, &:focus {
+				text-decoration: none;
+				outline: 0;
+			}
+		}
+	}
+	&.open > .dropdown-menu {display: block;}
+}
 .navbar {
 	position: fixed;
 	padding-top: 10px;
@@ -701,19 +725,13 @@ a:focus {outline: none;}
 		}
 		.open .dropdown-toggle:before {content: "\0056";}
 		.dropdown {
-			position: relative;
-			.dropdown-toggle:focus {outline: 0;}
 			.dropdown-menu {
 				position: fixed;
 				top: 60px;
 				bottom: 0;
 				left: 0;
 				z-index: 2;
-				display: none;
-				padding: 0;
-				margin: 0;
 				min-width: 240px;
-				list-style: none;
 				text-align: left;
 				background-color: @black;
 				overflow-y: auto;
@@ -721,9 +739,7 @@ a:focus {outline: none;}
 				> li {border-bottom: 1px solid #000;}
 
 				 > li > a {
-					display: block;
 					padding: 0 40px;
-					clear: both;
 					font-weight: normal;
 					line-height: 49px;
 					color: @grey2;
@@ -737,16 +753,11 @@ a:focus {outline: none;}
 
 				> .active > a {
 					color: @redDark;
-					text-decoration: none;
-					outline: 0;
 					&:hover, &:focus {
-							color: @red;
-							text-decoration: none;
-							outline: 0;
-						}
+						color: @red;
+					}
 				}
 			}
-			&.open > .dropdown-menu {display: block;}
 		}
 	}
 
@@ -834,16 +845,6 @@ a:focus {outline: none;}
 		}
 	}
 
-	// .cook {
-	// 	display: inline-block;
-	// 	background: url('../images/cook.png') no-repeat left top;
-	// 	width: 19px;
-	// 	height: 20px;
-	// 	margin-top: -5px;
-	// 	margin-right: 10px;
-	// 	vertical-align: middle;
-	// }
-
 	.dish-add {width: 198px;}
 
 
@@ -852,6 +853,96 @@ a:focus {outline: none;}
 		li:last-child a {
 			padding-right: 0;
 			margin-right: 0;
+		}
+	}
+
+	.avatar {
+		width: 40px;
+		height: 40px;
+		vertical-align: middle;
+	}
+	.count {
+		position: absolute;
+		left: 14px;
+		top: -7px;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 500;
+	}
+	.messages {
+		.dropdown-menu {
+			position: absolute;
+			top: 40px;
+			right: -22px;
+			z-index: 2;
+			width: 345px;
+			height: 320px;
+			box-shadow: 0px 0px 5px 0px rgba(50, 52, 53, 0.3);
+			text-align: left;
+			background-color: @white;
+			&:before {
+				content: '';
+				position: absolute;
+				right: 35px;
+				top: -5px;
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 0 5px 5px 5px;
+				border-color: transparent transparent @white transparent;
+			}
+
+			ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				height: 300px;
+				width: 100%;
+				overflow: hidden;
+				// overflow-y: auto;
+
+				li {
+					border-bottom: 1px solid @grey1;
+					height: 60px;
+					overflow: hidden;
+					&:hover {
+						background-color: @yellow;
+						cursor: pointer;
+					}
+					a {
+						padding: 0;
+						margin: 0;
+					}
+				}
+			}
+
+			.avatar {
+				width: 40px;
+				height: 60px;
+				padding: 15px 5px;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.message {
+				width: 295px;
+				display: inline-block;
+				font-size: 12px;
+				color: @black;
+				padding: 8px 5px;
+				p {margin: 0;}
+				a {
+					font-size: 12px;
+					font-weight: bold;
+				}
+				.date {color: @grey3;}
+			}
+
+		}
+		.bottom {
+			height: 20px;
+			background-color: @grey1;
+			text-align: center;
+			line-height: 20px;
 		}
 	}
 
@@ -2547,4 +2638,81 @@ a:focus {outline: none;}
 			height: 130px;
 		}
 	}
+}
+
+
+
+// Simple scrool bar
+[data-simplebar] {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch; /* Trigger native scrolling for mobile, if not supported, plugin is used. */
+}
+
+[data-simplebar="init"] {
+  display: flex;
+}
+
+.simplebar-scroll-content {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  min-width: 100%;
+  box-sizing: content-box;
+}
+
+.simplebar-content {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  box-sizing: border-box;
+  min-height: 100%;
+}
+
+.simplebar-track {
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 11px;
+}
+
+.simplebar-scrollbar {
+  position: absolute;
+  right: 5px;
+  border-radius: 7px;
+  min-height: 10px;
+  width: 5px;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+  background: @grey3;
+  background-clip: padding-box;
+}
+
+.simplebar-track:hover .simplebar-scrollbar {
+  /* When hovered, remove all transitions from drag handle */
+  opacity: 0.5;
+  transition: opacity 0 linear;
+}
+
+.simplebar-track .simplebar-scrollbar.visible {
+  opacity: 0.5;
+}
+
+.simplebar-track.horizontal {
+  left: 0;
+  width: auto;
+  height: 11px;
+}
+
+.simplebar-track.vertical {
+  top: 0;
+}
+
+.horizontal.simplebar-track .simplebar-scrollbar {
+  right: auto;
+  top: 2px;
+  height: 7px;
+  min-height: 0;
+  min-width: 10px;
+  width: auto;
 }

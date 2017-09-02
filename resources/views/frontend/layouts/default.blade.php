@@ -7,7 +7,6 @@
 	<title>Food</title>
 
 	<link href="/assets/css/style.css" type="text/css" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css">
 
 	@yield('styles')
 </head>
@@ -35,6 +34,7 @@
 <script src="/assets/js/modal.js" async></script>
 <script src="/assets/js/jquery.matchHeight.js"></script>
 <script src="/assets/vendor/owlcarousel/owl.carousel.min.js"></script>
+<script src="/assets/js/simplebar.js"></script>
 
 <script>
 	$.fn.stars = function() {

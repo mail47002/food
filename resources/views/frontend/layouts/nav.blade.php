@@ -35,8 +35,106 @@
 		</ul>
 		<ul class="list-inline pull-right">
 			<li><a href="#" class="button button-rounded dish-add"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
+			@if(Auth::check())
+			<li>
+				<div class="avatar"><div class="rounded"><img src="{{ Auth::user()->image }}" alt=""></div></div>
+				<a href="/profile" class="link">{{ Auth::user()->name }}</a>
+			</li>
+			<li class="dropdown messages">
+				<a id="messages-menu" class="link" href="#" type="button" data-toggle="dropdown"><i class="fo fo-bell fo-small"><span class="count">3</span></i></a>
+
+				<div class="dropdown-menu" role="menu" aria-labelledby="messages-menu">
+					<ul data-simplebar class="overflow">
+
+						<li style="border-left: 5px solid #f00;">{{-- менять цвет --}}
+							<a href="#">{{-- Ссылка на сообщение ? --}}
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="message">
+									<strong>Лист від <object><a href="/profile/#" class="link-blue">Вікторії</a></object></strong>
+									{{-- Вложеные ссылки - только в <object> --}}
+									<p>В принципе вкусно,если сделать для одного ....</p>
+									<p class="date">10:15 2 липня 2016</p>
+								</div>
+							</a>
+						</li>
+
+						<li style="border-left: 5px solid #fa0;">
+							<a href="#">{{-- Ссылка на сообщение ? --}}
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="message">
+									<strong>Лист від <object><a href="/profile/#" class="link-blue">Вікторії</a></object></strong>
+									<p>В принципе вкусно,если сделать для одного ....</p>
+									<p class="date">10:15 2 липня 2016</p>
+								</div>
+							</a>
+						</li>
+
+						<li style="border-left: 5px solid #f0a;">
+							<a href="#">{{-- Ссылка на сообщение ? --}}
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="message">
+									<strong>Лист від <object><a href="/profile/#" class="link-blue">Вікторії</a></object></strong>
+									<p>В принципе вкусно,если сделать для одного ....</p>
+									<p class="date">10:15 2 липня 2016</p>
+								</div>
+							</a>
+						</li>
+
+						<li style="border-left: 5px solid #a00;">
+							<a href="#">{{-- Ссылка на сообщение ? --}}
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="message">
+									<strong>Лист від <object><a href="/profile/#" class="link-blue">Вікторії</a></object></strong>
+									<p>В принципе вкусно,если сделать для одного ....</p>
+									<p class="date">10:15 2 липня 2016</p>
+								</div>
+							</a>
+						</li>
+
+						<li style="border-left: 5px solid #0f0;">
+							<a href="#">{{-- Ссылка на сообщение ? --}}
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="message">
+									<strong>Лист від <object><a href="/profile/#" class="link-blue">Вікторії</a></object></strong>
+									<p>В принципе вкусно,если сделать для одного ....</p>
+									<p class="date">10:15 2 липня 2016</p>
+								</div>
+							</a>
+						</li>
+
+						<li style="border-left: 5px solid #0a0;">
+							<a href="#">{{-- Ссылка на сообщение ? --}}
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="message">
+									<strong>Лист від <object><a href="/profile/#" class="link-blue">Вікторії</a></object></strong>
+									<p>В принципе вкусно,если сделать для одного ....</p>
+									<p class="date">10:15 2 липня 2016</p>
+								</div>
+							</a>
+						</li>
+
+						<li style="border-left: 5px solid #0b0;">
+							<a href="#">{{-- Ссылка на сообщение ? --}}
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="message">
+									<strong>Лист від <object><a href="/profile/#" class="link-blue">Вікторії</a></object></strong>
+									<p>В принципе вкусно,если сделать для одного ....</p>
+									<p class="date">10:15 2 липня 2016</p>
+								</div>
+							</a>
+						</li>
+
+					</ul>
+					<div class="bottom"><a href="/profile/messages" class="link-blue">Все</a></div>
+				</div>
+			</li>
+
+			<li><a href="#" class="link"><i class="fo fo-like fo-small"></i></a></li>
+			<li><a href="/logout" class="link"><i class="fo fo-exit fo-small"></i></a></li>
+			@else
 			<li><a class="link" href="/login">Вхід</a></li>
 			<li><a class="link" href="/registration">Реєстрація</a></li>
+			@endif
 		</ul>
 	</div>
 </nav>
