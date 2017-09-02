@@ -11,7 +11,7 @@
 
 				<div class="avatar">
 					<div class="uploader profile">
-						<img src="{{-- {{$profile['image']}} --}}" alt="foto">
+						<img src="{{$profile['image']}}" alt="foto">
 						<input type="file" name="avatar" id="filePhoto" />
 						<div class="round"><i class="fo fo-camera"></i></div>
 					</div>
@@ -19,10 +19,10 @@
 				{{-- ToDo: upload to server --}}
 
 				<ul class="menu">
-					<li><a href="#" class="link-back">Моя сторінка</a></li>
-					<li><a href="#">Про мене</a></li>
-					<li><a href="#" class="active">Пароль</a></li>
-					<li><a href="#">Адреса сторінки</a></li>
+					<li><a href="{{ route('profile.index') }}" class="link-back">Моя сторінка</a></li>
+					<li><a href="{{ route('profile.edit') }}">Про мене</a></li>
+					<li><a href="{{ route('profile.password') }}"  class="active">Пароль</a></li>
+					<li><a href="{{ route('profile.nickname') }}">Адреса сторінки</a></li>
 				</ul>
 
 			</div>

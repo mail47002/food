@@ -121,12 +121,11 @@ class LoginController extends Controller
         return view('frontend.login.forgot');
     }
 
-    public function information(Request $request)
+    public function information()
     {
         return view('frontend.login.information');
     }
 
-//http://food.loc/information?token=4bMZeKnua62PZK4zw27hSNDfxP77Cs
 
     public function save(Request $request)
     {
@@ -187,7 +186,7 @@ class LoginController extends Controller
     {
         Auth::guard('web')->logout();
 
-        return redirect()->route('home')->withLogout(1);
+        return redirect()->route('login')->withLogout(1);
     }
 
 }

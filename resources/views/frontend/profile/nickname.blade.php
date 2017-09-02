@@ -19,10 +19,10 @@
 				{{-- ToDo: upload to server --}}
 
 				<ul class="menu">
-					<li><a href="#" class="link-back">Моя сторінка</a></li>
-					<li><a href="#" class="active">Про мене</a></li>
-					<li><a href="#">Пароль</a></li>
-					<li><a href="#">Адреса сторінки</a></li>
+					<li><a href="{{ route('profile.index') }}" class="link-back">Моя сторінка</a></li>
+					<li><a href="{{ route('profile.edit') }}">Про мене</a></li>
+					<li><a href="{{ route('profile.password') }}">Пароль</a></li>
+					<li><a href="{{ route('profile.nickname') }}" class="active">Адреса сторінки</a></li>
 				</ul>
 
 			</div>
@@ -31,25 +31,24 @@
 		<div class="col-md-9 match-height">
 			<h5 class="text-upper underline-red">Змінити адресу сторінки</h5>
 			<hr>
-
-			<form action="/store" method="post" class="contact">
+			{{ Form::open([ 'route' => 'profile.updateNickname', 'method' => 'POST', 'class' => 'contact']) }}
 				<p class="message" id="message">Заповніть виділені поля</p>
-
-				<label for="url">Адреса вашої сторінки*</label>
+				{{ Form::label('nickname', 'Адреса вашої сторінки*', ['for' => 'nickname']) }}
 				<div class="url">
 					<span class="left">logo.com/</span>
-					<input name="url" id="url" type="text" required="required" />
-					<span class="right confirm alert">Дана адреса доступна</span>
-					<span class="right reject alert">Дана адреса недоступна. Виберіть іншу адресу</span>
+					{{ Form::text('nickname', $profile->nickname, ['id' => 'nickname', 'required' => 'required']) }}
+					{!! $errors->first('nickname', '<span class="right reject alert">Дана адреса недоступна. Виберіть іншу адресу</span>') !!}
+					{{-- <span class="right confirm alert">Дана адреса доступна</span> --}}
+
 				</div>
 
 
 
 				<div class="v-indent-30"></div>
 				<hr>
-				<input type="submit" class="button button-red profile" value="Зберегти">
-				<input type="submit" class="button dismiss profile" value="Скасувати">
-			</form>
+				{{Form::submit('Зберегти', ['class' => 'button button-red profile']) }}
+				{{Form::submit('Скасувати', ['class' => 'button dismiss profile']) }}
+				{{ Form::close() }}
 
  {{-- Вызывать: $('#modal_ok').modal('show'); --}}
 			<a href="#" class="link-blue" data-toggle="modal" data-target="#modal_ok">Модальное окно</a>

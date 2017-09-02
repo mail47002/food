@@ -8,6 +8,7 @@ use Auth;
 use App\User;
 use App\Adress;
 use Hash;
+use Validator;
 
 class ProfileController extends Controller
 {
@@ -114,7 +115,6 @@ class ProfileController extends Controller
         $user = User::find(Auth::id());
         $this->validate($request, [
             'name'                     => 'required',
-            // 'nickname'                 => 'nickname|unique:users,nickname',
             'phone'                    => 'required',
             'city'                     => 'required',
             'street'                   => 'required',
@@ -153,8 +153,8 @@ class ProfileController extends Controller
         }
 
         $user->save();
-        $adress = Adress::where('user_id', '=', Auth::id())->first();
-        $adress->user_id = Auth::id();
+        $adress_id = Adress::where('user_id', '=', Auth::id())->first();
+        $adress = Adress::find($adress_id['id']);
         $adress->city = $request->city;
         $adress->street = $request->street;
         $adress->build = $request->build;
@@ -166,23 +166,49 @@ class ProfileController extends Controller
 
     public function password()
     {
-        return view('frontend.profile.password');
+        $profile = User::find(Auth::id());
+        return view('frontend.profile.password', [
+            'profile' => $profile,
+            ]);
     }
 
     public function updatePassword(Request $request)
     {
-        $user = User::find(Auth::id());
-        // $this->validate($request, [
-        //     'email'                     => 'required|email|unique:users,email',
-        //     'oldPassword'               => 'required',
-        //     'password'                  => 'required|confirmed|min:5',
-        //     'confirm'                   => 'required',
-        // ]);
 
+        $this->validate($request, [
+            // 'email'                     => 'required|email|unique:users,email',
+            'oldPassword'               => 'required',
+            'password'                  => 'required|confirmed|min:5',
+            'confirm'                   => 'required',
+        ]);
+        $user = User::find(Auth::id());
         $user->password = Hash::make($request->password);
         $user->save();
         return redirect()
                 ->route('profile.index');
+    }
+
+    public function nickname()
+    {
+        $profile = User::find(Auth::id());
+        return view('frontend.profile.nickname', [
+            'profile' => $profile,
+            ]);
+    }
+
+    public function updateNickname(Request $request)
+    {
+
+
+        $this->validate($request, [
+            'nickname'          => 'required|unique:users,nickname|min:3',
+        ]);
+        $user = User::find(Auth::id());
+        $user->nickname = $request->nickname;
+        $user->save();
+        return redirect()
+                ->route('profile.index');
+
     }
 
     /**

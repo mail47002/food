@@ -30,6 +30,8 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::post('edit', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
     Route::get('password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
     Route::post('password', ['as' => 'profile.updatePassword', 'uses' => 'ProfileController@updatePassword']);
+    Route::get('nickname', ['as' => 'profile.nickname', 'uses' => 'ProfileController@nickname']);
+    Route::post('nickname', ['as' => 'profile.updateNickname', 'uses' => 'ProfileController@updateNickname']);
 
 
     //login & Register
@@ -42,6 +44,7 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::post('information', ['as' => 'login.save', 'uses' => 'LoginController@save']);
     Route::get('forgot', ['as' => 'forgot', 'uses' => 'LoginController@forgot']);
     Route::get('success', ['as' => 'success', 'uses' => 'LoginController@success']);
+    Route::get('logout', ['as' => 'login.logout', 'uses' => 'LoginController@logout']);
 
 
     // Pages
