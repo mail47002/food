@@ -1,11 +1,9 @@
 @extends('frontend.layouts.default')
-
-@include('frontend.layouts.nav')
 @section('title')Products - @stop
 @section('content')
 
 <div class="container">
-	<div class="row">
+	<div class="row flex-md">
 		<div class="col-md-3 match-height">
 			<div class="left-sidebar bg-yellow text-center">
 
@@ -24,8 +22,8 @@
 				<a href="{{ route('profile.edit') }}" class="button button-grey fo fo-edit fo-left fo-small">Редагувати профіль</a>
 
 				<ul class="menu">
-					<li><a href="#" class="active">Про мене</a></li>
-					<li><a href="#">Каталог страв</a></li>
+					<li><a href="/profile" class="active">Про мене</a></li>
+					<li><a href="/profile/products">Каталог страв</a></li>
 					<li><a href="#">Оголошення </a></li>
 					<li><a href="#">Мої повідомлення <span class="badge">3</span></a></li>
 					<li><a href="#">Мої замовлення</a></li>
@@ -251,8 +249,8 @@
 
 @section('scripts')
 <script>
-$( function() {
-	$('.match-height').matchHeight();
-});
+// $( function() {
+// 	$('.match-height').matchHeight();
+// });
 </script>
 @stop

@@ -37,7 +37,7 @@
 			<li><a href="#" class="button button-rounded dish-add"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
 			@if(Auth::check())
 			<li>
-				<div class="avatar"><div class="rounded"><img src="{{ Auth::user()->image }}" alt=""></div></div>
+				<div class="avatar"><div class="rounded"><img src="/{{ Auth::user()->image }}" alt=""></div></div>
 				<a href="/profile" class="link">{{ Auth::user()->name }}</a>
 			</li>
 			<li class="dropdown messages">
