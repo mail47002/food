@@ -159,3 +159,18 @@
 </div>
 
 @stop
+
+@section('scripts')
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+	$("#sorting").selectmenu({
+		change: function( e, ui ) {
+			var filter = $("#sorting").val();
+			{{-- Отсюда можна отсылать фильтр выпадайки --}}
+			console.log(filter);
+		}
+	});
+});
+</script>
+@stop
