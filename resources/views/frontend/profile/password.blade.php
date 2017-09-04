@@ -3,8 +3,8 @@
 @section('content')
 
 <div class="container">
-	<div class="row">
-		<div class="col-md-3 match-height">
+	<div class="row flex-md">
+		<div class="col-md-3">
 			<div class="left-sidebar bg-yellow text-center">
 
 				<div class="avatar">
@@ -26,7 +26,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-9 match-height">
+		<div class="col-md-9">
 			<h5 class="text-upper underline-red">Змінити пароль</h5>
 			<hr>
 			{{ Form::open([ 'route' => 'profile.updatePassword', 'method' => 'POST', 'class' => 'contact']) }}
@@ -53,11 +53,6 @@
 
 
 @section('scripts')
-<script>
-$( function() {
-	$('.match-height').matchHeight();
-});
-</script>
 
 {{-- Validation --}}
 <script src="/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>

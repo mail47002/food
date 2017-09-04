@@ -4,7 +4,7 @@
 
 <div class="container">
 	<div class="row flex-md">
-		<div class="col-md-3 match-height">
+		<div class="col-md-3">
 			<div class="left-sidebar bg-yellow text-center">
 
 				<div class="avatar">
@@ -24,17 +24,17 @@
 				<ul class="menu">
 					<li><a href="/profile" class="active">Про мене</a></li>
 					<li><a href="/profile/products">Каталог страв</a></li>
-					<li><a href="#">Оголошення </a></li>
-					<li><a href="#">Мої повідомлення <span class="badge">3</span></a></li>
-					<li><a href="#">Мої замовлення</a></li>
-					<li><a href="#">Мої відгуки</a></li>
-					<li><a href="#">Мої статті</a></li>
+					<li><a href="/profile/adverts">Оголошення </a></li>
+					<li><a href="/profile/messages">Мої повідомлення <span class="badge">3</span></a></li>
+					<li><a href="/profile/orders">Мої замовлення</a></li>
+					<li><a href="/profile/reviews">Мої відгуки</a></li>
+					<li><a href="/profile/articles">Мої статті</a></li>
 				</ul>
 
 			</div>
 		</div>
 
-		<div class="col-md-9 match-height">
+		<div class="col-md-9">
 			<div class="v-indent-40"></div>
 			<h1>{{$profile['name']}}</h1>
 			<p class="grey3">
@@ -244,13 +244,4 @@
 		</div>
 	</div>
 </div>
-@stop
-
-
-@section('scripts')
-<script>
-// $( function() {
-// 	$('.match-height').matchHeight();
-// });
-</script>
 @stop

@@ -126,3 +126,17 @@
 </div>
 
 @stop
+
+@section('scripts')
+<script>
+$( function() {
+	$("#sorting").selectmenu({
+		change: function( e, ui ) {
+			var filter = $("#sorting").val();
+			{{-- Отсюда можна отсылать фильтр выпадайки --}}
+			console.log(filter);
+		}
+	});
+});
+</script>
+@stop
