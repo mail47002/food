@@ -69,6 +69,9 @@ body {
 @white:   rgb(255, 255, 255);
 @yellow:  #f4f6f7;
 @green:   rgb(57, 181, 74);
+@greenLight: rgb(60, 184, 120);
+@orange: rgb(255, 130, 0);
+@orangeDark: rgb(255, 98, 0);
 
 h1 {
 	font-size: 30px;
@@ -450,6 +453,29 @@ span.stars span {
 			color: @white;
 			background-color: @red;
 			border-color: @red;
+		}
+}
+
+.button-green {
+		color: @white;
+		background-color: @greenLight;
+		border-color: @greenLight;
+		&:hover,
+		&:focus {
+			color: @white;
+			background-color: @green;
+			border-color: @green;
+		}
+}
+.button-orange {
+		color: @white;
+		background-color: @orange;
+		border-color: @orange;
+		&:hover,
+		&:focus {
+			color: @white;
+			background-color: @orangeDark;
+			border-color: @orangeDark;
 		}
 }
 
@@ -1301,6 +1327,7 @@ a:focus {outline: none;}
 		padding: 10px 0;
 		p {margin: 15px 0;}
 		.link-red-dark {font-size: 16px;}
+		.font-14 {font-size: 14px;}
 	}
 	.button {
 		display: block;
@@ -1309,7 +1336,7 @@ a:focus {outline: none;}
 		max-width: 210px;
 		height: 30px;
 		line-height: 30px;
-		font-size:px; 
+		font-size: 14px; 
 		&.disabled {
 			opacity: 0.5;
 			pointer-events: none;
@@ -1326,9 +1353,41 @@ a:focus {outline: none;}
 		width: 100%;
 		margin: 20px 10px 0;
 	}
+
+	&.profile-adverts {
+		.caption {
+			padding: 15px 0 0;
+			p {margin: 10px 0;}
+			.rating {
+				margin-top: 10px;
+				display: block;
+			}
+		}
+	}
 }
 .left-border {
 	border-left: 1px solid @grey1;
+}
+.grey-block {
+	border-radius: 11px;
+	background-color: @grey1;
+	display: inline-block;
+	font-size: 20px;
+	max-width: 210px;
+	margin-bottom: 10px;
+	width: 100%;
+	padding: 15px;
+	.text {
+		display: block;
+		font-size: 14px;
+		text-align: center;
+	}
+	&.wide {
+		margin-top: 20px;
+		max-width: 325px;
+		text-align: center;
+		p {font-size: 16px;}
+	}
 }
 
 .profile {
@@ -1419,11 +1478,8 @@ a:focus {outline: none;}
 		color: @grey3;
 		background-color: @white;
 		border-color: transparent;
-		&:hover, &:focus {
-			color: @grey3;
-			background-color: @white;
-			border-color: transparent;
-		}
+		pointer-events: none;
+		cursor: normal;
 	}
 
 	.count {
@@ -1462,9 +1518,8 @@ a:focus {outline: none;}
 		>.disabled>a,
 		>.disabled>span {
 			border-color: transparent;
-			&:hover, &:focus {
-				border-color: transparent;
-			}
+			pointer-events: none;
+			cursor: normal;
 		}
 	}
 }
