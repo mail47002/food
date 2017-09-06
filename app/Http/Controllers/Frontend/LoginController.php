@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Mail\TokenRegistered;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Mail\MailClass;
 use Auth;
 use Mail;
 use Validator;
 use App\User;
 use File;
 use Image;
-use App\Adress;
+use App\Address;
 use Hash;
 
 class LoginController extends Controller
@@ -34,14 +34,13 @@ class LoginController extends Controller
         ]);
 
         if (Auth::guard('web')->attempt($this->credentials($request))) {
-            $user = User::find(Auth::id());
-            if($user->token){
-                return redirect()
-                    ->route('login.information');
-            } else {
-                return redirect()
-                    ->route('profile.index');
+            $user = Auth::user();
+
+            if ($user->token){
+                return redirect()->route('login.information');
             }
+
+            return redirect()->route('profile.index');
         }
 
         return redirect()
@@ -64,13 +63,15 @@ class LoginController extends Controller
         ]);
         //запис в БД users
         $user = new User();
+
         $user->email = $request->email;
         $user->role_id = 1;
         $user->password = Hash::make($request->password);
         $user->token = str_random(30);
+
         $user->save();
         // відправка листа з токеном
-        Mail::to($user->email)->send(new MailClass($user->token));
+        Mail::to($user->email)->send(new TokenRegistered($user->token));
 
         return redirect()->route('success');
     }
@@ -80,18 +81,16 @@ class LoginController extends Controller
         return view('frontend.login.success');
     }
 
-    public function validationEmail(Request $request)
+    public function validate(Request $request)
     {
+        $user = User::where('token', $request->token)->first();
 
-        $user = User::where('token', '=', $request->token)
-            ->first();
-
-        if ($user->id){
+        if ($user){
             $user->activated = 1;
+
             $user->save();
 
-            return redirect()
-                ->route('login');
+            return redirect()->route('login');
         }
     }
 
@@ -118,7 +117,8 @@ class LoginController extends Controller
     public function save(Request $request)
     {
         // dd($request);
-        $user = User::find(Auth::id());
+        $user = Auth::user();
+
         $this->validate($request, [
             'name'                     => 'required',
             // 'nickname'                 => 'nickname|unique:users,nickname',
@@ -161,14 +161,16 @@ class LoginController extends Controller
 
         $user->save();
 
-        $adress = new Adress();
-        $adress->user_id = Auth::id();
-        $adress->city = $request->city;
-        $adress->street = $request->street;
-        $adress->build = $request->build;
-        $adress->save();
-        return redirect()
-                ->route('profile.index');
+        $address = new Address();
+
+        $address->user_id = $user->id();
+        $address->city = $request->city;
+        $address->street = $request->street;
+        $address->build = $request->build;
+
+        $address->save();
+
+        return redirect()->route('profile.index');
     }
 
     public function logout()

@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class MailClass extends Mailable
+class TokenRegistered extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,7 +16,7 @@ class MailClass extends Mailable
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param $token
      */
     public function __construct($token)
     {
