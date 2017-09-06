@@ -8,7 +8,7 @@
 			<div class="left-sidebar bg-yellow text-center">
 
 				<div class="avatar">
-					<div class="rounded"><img src="{{$profile['image']}}" alt="foto"></div>
+					<div class="rounded"><img src="/{{$profile['image']}}" alt="foto"></div>
 				</div>
 
 				<div class="phones fo fo-phone fo-indent fo-left red">

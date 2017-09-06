@@ -95,6 +95,13 @@
 @endfor
 
 
+{{-- Если пусто, выводить этот блок --}}
+			<div class="empty-block">
+				<i class="fo fo-dish-search fo-2x"></i> 
+				<p class="text">У вас немає страв</p>
+				<a href="#" class="button button-red button-big">Додати страву до меню</a>
+			</div>
+
 			<div class="paginate">
 				<ul class="pagination grey">
 					<li><a href="#" rel="prev"><</a></li>

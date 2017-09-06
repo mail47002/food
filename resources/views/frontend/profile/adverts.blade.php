@@ -188,6 +188,14 @@
 			</div>
 
 
+{{-- Если пусто, выводить этот блок --}}
+			<div class="empty-block">
+				<i class="fo fo-dish-search fo-2x"></i> 
+				<p class="text">У вас немає страв</p>
+				<a href="#" class="button button-red button-big">Додати страву до меню</a>
+			</div>
+
+
 
 			<div class="paginate">
 				<ul class="pagination grey">
@@ -198,10 +206,160 @@
 				</ul>
 			</div>
 
+			<p>модальные окна</p>
+			<p><a href="#" class="link-blue" data-toggle="modal" data-target="#modal_order">Замовлення ... 5.3.4</a></p>
+			<p><a href="#" class="link-blue" data-toggle="modal" data-target="#modal_cancel">Відмінити оголошення ...5.3.5.2</a></p>
+			<p><a href="#" class="link-blue" data-toggle="modal" data-target="#modal_clients">Клієнти на страву ...5.3.5.2</a></p>
+
 
 		</div>
 	</div>
 </div>
+
+
+{{-- 5.3.4 --}}
+<!-- Modal -->
+<div id="modal_order" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content text-center">
+			<div class="modal-header">
+				<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
+				<h4 class="modal-title">Нові замовлення (30)</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="alert" {{-- style="display: none;" --}} >
+					<p>Ваш запит на відмову клієнтам відправлено.</p>
+					<p>Після підтвердження , клієнт буде видаленій зі списку!</p>
+				</div>
+
+				<div class="content">
+{{-- Нові замовлення --}}
+@for($i=0;$i<4;$i++)
+					<div class="caption">
+						<a href="#" class="discard link-red"><i class="fo fo-close-rounded"></i></a>
+						<div class="avatar">
+							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+						</div>
+						<p><a href="#" class="link-blue name">Марк</a></p>
+						<p class="phone">+38 096 159 15 15</p>
+						<div class="rating">
+							<span class="stars">4</span>
+							<p>10 відгуків</p>
+						</div>
+						<a href="#" class="button button-red wide">Підтвердити</a>
+					</div>
+@endfor
+
+{{-- Клієнти на страву --}}
+					<div class="caption">
+						<div class="avatar">
+							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+						</div>
+						<p><a href="#" class="link-blue name">Марк</a></p>
+						<p class="phone">+38 096 159 15 15</p>
+						<div class="rating">
+							<span class="stars">4</span>
+							<p>10 відгуків</p>
+						</div>
+						<a href="#button" class="button button-green wide">
+							<i class="fo fo-ok"></i> 
+							Клієнт 
+							<object><a href="#reject" class="reject" title="Відмовити клієнту"><i class="fo fo-close-bold"></i></a></object>
+						</a>
+						<a href="#" class="button button-grey wide"><i class="fo fo-message"></i> Відгук</a>
+					</div>
+
+					<div class="caption">
+						<div class="avatar">
+							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+						</div>
+						<p><a href="#" class="link-blue name">Марк</a></p>
+						<p class="phone">+38 096 159 15 15</p>
+						<div class="rating">
+							<span class="stars">4</span>
+							<p>10 відгуків</p>
+						</div>
+						<a href="#button" class="button button-white wide hover-replace" text="Відмінити запит">Запит на відмову </a>
+						<a href="#" class="button button-grey wide"><i class="fo fo-message"></i> Відгук</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+{{-- 5.3.5.2 --}}
+<!-- Modal -->
+<div id="modal_cancel" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content text-center">
+			<div class="modal-header">
+				<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
+				<h4 class="modal-title">Відмінити оголошення</h4>
+			</div>
+			<div class="modal-body">
+				<h6>М'ясне рагу з овочами</h6>
+				<div class="step"><span>1</span></div>
+				<h5>У вас є 5 клієнтів</h5>
+				<div>Оголошення можна видалити після відмови ваших клієнтів на дану страву.</div>
+				<div>Для відмови клієнтам натисніть кнопку!</div>
+				<a href="#" class="button button-red button-big-modal">Далі</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+{{-- 5.3.5.2 --}}
+<!-- Modal -->
+<div id="modal_clients" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content text-center">
+			<div class="modal-header">
+				<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
+				<a href="#" type="button" class="back link-blue"><i class="fo fo-arrow-left fo-small"></i> Назад</a>
+				<h4 class="modal-title">Клієнти на страву (10)</h4>
+			</div>
+			<div class="modal-body">
+				<div class="content">
+
+					<div class="caption">
+						<div class="avatar">
+							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+						</div>
+						<p><a href="#" class="link-blue name">Марк</a></p>
+						<p class="phone">+38 096 159 15 15</p>
+						<a href="#button" class="button button-green wide">
+							<i class="fo fo-ok"></i> 
+							Клієнт 
+							<object><a href="#reject" class="reject" title="Відмовити клієнту"><i class="fo fo-close-bold"></i></a></object>
+						</a>
+					</div>
+
+					<div class="caption">
+						<div class="avatar">
+							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+						</div>
+						<p><a href="#" class="link-blue name">Марк</a></p>
+						<p class="phone">+38 096 159 15 15</p>
+						<a href="#button" class="button button-white wide hover-replace" text="Відмінити запит">Запит на відмову </a>
+					</div>
+
+					<a href="#" class="button button-red button-big-modal">Відмовити Усім Клієнтам</a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 @stop
 
 @section('scripts')
@@ -214,6 +372,10 @@ $( function() {
 			console.log(filter);
 		}
 	});
+
+	$(document).tooltip(
+			{position: {my: "left top+10"}}
+		);
 });
 </script>
 @stop

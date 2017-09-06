@@ -9,7 +9,7 @@
 
 				<div class="avatar">
 					<div class="uploader profile">
-						<img src="{{$profile['image']}}" alt="foto">
+						<img src="/{{$profile['image']}}" alt="foto">
 						<input type="file" name="avatar" id="filePhoto" />
 						<div class="round"><i class="fo fo-camera"></i></div>
 					</div>
@@ -62,7 +62,7 @@
 <div id="modal_ok" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content text-center">
-			<a href="#" type="button" class="close" data-dismiss="modal"></a>
+			<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
 			<div class="modal-body">
 				<h1 class="text-center red"><i class="fo fo-ok fo-large"></i></h1>
 				<p>Деталі вашого профілю успішно збережені</p>

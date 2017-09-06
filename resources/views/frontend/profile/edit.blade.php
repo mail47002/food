@@ -9,7 +9,7 @@
 
 				<div class="avatar">
 					<div class="uploader profile">
-						<img src="{{$profile['image']}}" alt="foto">
+						<img src="/{{$profile['image']}}" alt="foto">
 						<input type="file" name="avatar" id="filePhoto" />
 						<div class="round"><i class="fo fo-camera"></i></div>
 					</div>

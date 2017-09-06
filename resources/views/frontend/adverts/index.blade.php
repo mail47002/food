@@ -133,7 +133,7 @@
 		<!-- Modal content-->
 		<div class="modal-content text-center">
 			<div class="modal-header">
-				<a href="#" type="button" class="close" data-dismiss="modal"></a>
+				<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
 				<h4 class="modal-title">Змінити регіон</h4>
 			</div>
 			<div class="modal-body">
