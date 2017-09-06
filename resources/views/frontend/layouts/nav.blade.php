@@ -129,7 +129,7 @@
 				</div>
 			</li>
 
-			<li><a href="#" class="link"><i class="fo fo-like fo-small"></i></a></li>
+			<li><a href="#" class="link" data-toggle="modal" data-target="#modal_likes"><i class="fo fo-like fo-small"></i></a></li>
 			<li><a href="/logout" class="link"><i class="fo fo-exit fo-small"></i></a></li>
 			@else
 			<li><a class="link" href="/login">Вхід</a></li>

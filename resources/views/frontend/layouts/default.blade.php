@@ -17,14 +17,8 @@
 
 	@yield('content')
 
+	@include('frontend.layouts.footer')
 
-		<footer class="footer">
-			<div class="container">
-				<span>© Всі права захищені</span>
-				<a href="#">Умови використання та конфіденційність</a>
-				<a href="#">Контакти</a>
-			</div>
-		</footer>
 	</div>
 
 
