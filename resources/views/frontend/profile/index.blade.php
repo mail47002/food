@@ -19,7 +19,7 @@
 					</div>
 				</div>
 
-				<a href="{{ route('profile.edit') }}" class="button button-grey fo fo-edit fo-left fo-small">Редагувати профіль</a>
+				<a href="{{ route('profile.edit') }}" class="button button-grey">Редагувати профіль</a>
 
 				<ul class="menu">
 					<li><a href="/profile" class="active">Про мене</a></li>
@@ -38,7 +38,7 @@
 			<div class="v-indent-40"></div>
 			<h1>{{$profile['name']}}</h1>
 			<p class="grey3">
-				<i class="fo fo-big fo-marker red"></i> {{$adresses['street']}} {{$adresses['build']}}, {{$adresses['city']}}
+				<i class="fo fo-marker red"></i> {{$adresses['street']}} {{$adresses['build']}}, {{$adresses['city']}}
 				&nbsp;&nbsp;&nbsp;<a href="{{-- {{ route('profile.adresses') }} --}}" class="link-grey"><i class="fo fo-edit fo-small fo-indent"></i>Редагувати</a>
 			</p>
 			<div class="rating grey3"><span class="stars medium">4</span>30 відгуків</div>

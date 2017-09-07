@@ -93,6 +93,7 @@ h4 {
 h5 {
 	font-size: 20px;
 	font-weight: 500;
+	margin-top: 40px;
 }
 h6 {
 	font-size: 18px;
@@ -248,7 +249,7 @@ select {
 	border-radius: 10px;
 	background-color: @white;
 	height: 30px;
-	padding: 0 15px;
+	padding: 0 10px;
 }
 select{
 	background: url("../images/angle-select.png") no-repeat right #fff;
@@ -258,6 +259,8 @@ select{
 	background-position: right 10px center;
 	padding-right: 30px;
 }
+
+input.disabled {background: @yellow;}
 
 /* Base for label styling */
 [type="checkbox"]:not(:checked),
@@ -280,7 +283,7 @@ select{
 	width: 20px; height: 20px;
 	border: 1px solid @grey1;
 	border-radius: 5px;
-	background: transparent;
+	background: @white;
 }
 /* checked mark aspect */
 [type="checkbox"]:not(:checked) + label:after,
@@ -367,6 +370,7 @@ span.stars, span.stars span {
 	position: relative;
 	top: 0;
 	left: 0;
+	margin-right: 5px;
 }
 span.stars.medium, span.stars.medium span {
 	background-image: url('../images/stars-25-20.png');
@@ -798,7 +802,10 @@ a:focus {outline: none;}
 					&:hover, &:focus {background-color: #000;}
 				}
 			}
-			&:hover {display: block;}
+			&:hover {
+				opacity: 1;
+				visibility: visible;
+			}
 			&:before {
 				content: '';
 				position: absolute;
@@ -819,7 +826,7 @@ a:focus {outline: none;}
 				height: 12px;
 			}
 		}
-		&:hover .hover {
+		> a:hover + .hover {
 			opacity: 1;
 			visibility: visible;
 		}
@@ -1328,7 +1335,7 @@ a:focus {outline: none;}
 		font-weight: 700;
 		a {
 			font-size: 16px;
-			font-weight: 500;
+			// font-weight: 500;
 			margin-left: 20px;
 		}
 	}
@@ -1387,6 +1394,7 @@ a:focus {outline: none;}
 	overflow: hidden;
 	position: relative;
 	width: 100%;
+	&:hover {box-shadow: 0px 0px 10px 0px rgba(50, 52, 53, 0.2);}
 	img {width: 100%;}
 
 	.distance {
@@ -1403,6 +1411,7 @@ a:focus {outline: none;}
 		padding: 0 10px;
 		position: absolute;
 		top: 20px;
+		i:before {padding-right: 6px;}
 	}
 	.sticker {
 		position: absolute;
@@ -1440,6 +1449,7 @@ a:focus {outline: none;}
 			}
 		}
 		p {margin: 5px 0;}
+		.fo-time:before {padding-right: 5px;}
 
 	}
 	.order {
@@ -1458,6 +1468,14 @@ a:focus {outline: none;}
 		bottom: 20px;
 	}
 }
+.product-thumb .categories-dishes {
+	a {
+		margin-left: 10px;
+		i.fo-time:before {padding: 0;}
+	}
+}
+
+
 .wide-thumb {
 	min-height: auto;
 	background-color: @yellow;
@@ -1746,6 +1764,7 @@ a:focus {outline: none;}
 
 		.sign-body {
 			padding: 40px;
+			padding-bottom: 0;
 			display: table;
 			width: 100%;
 			.left, .right {
@@ -1767,7 +1786,10 @@ a:focus {outline: none;}
 					height: 40px;
 					margin-bottom: 20px;
 				}
-				.button {text-transform: uppercase;}
+				.button {
+					font-size: 18px;
+					text-transform: uppercase;
+				}
 			}
 			.terms {
 				text-align: left;
@@ -1839,6 +1861,11 @@ a:focus {outline: none;}
 					&:before {border-color: #002f8f;}
 				}
 			}
+			.alert {
+				border-radius: 10px;
+				text-align: center;
+				max-width: 305px;
+			}
 		}
 
 		.sign-footer {
@@ -1881,20 +1908,21 @@ a:focus {outline: none;}
 	bottom: 0;
 	left: 0;
 	right: 0;
+	overflow: auto;
 	.sign-content {
 		border-radius: 20px;
 		box-shadow: 0px 0px 5px 0px rgba(50, 52, 53, 0.3);
 		background: @white;
 		max-width: 750px;
 		width: 100%;
-		height: 651px;
+		min-height: 651px;
 		position: absolute;
 		margin: auto;
 		left: 0;
 		right: 0;
-		top: 0;
-		bottom: 0;
+		top: 100px;
 		overflow: hidden;
+		padding-bottom: 90px;
 	}
 }
 
@@ -2453,6 +2481,7 @@ a:focus {outline: none;}
 
 .left-sidebar {
 	max-width: 314px;
+	margin-left: -10px;
 	width: 100%;
 	padding-top: 30px;
 	height: 100%;
@@ -2463,10 +2492,21 @@ a:focus {outline: none;}
 	.phones {
 		position: relative;
 		width: 274px;
-		margin-top: 20px;
-		margin-bottom: 20px;
-		&:before {line-height: 40px;}
-		p {margin: 1px;}
+		margin-top: 12px;
+		margin-bottom: 16px;
+		&:before {
+			left: 7px;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+			height: 18px;
+			font-size: 22px;
+			line-height: 20px;
+		}
+		p {
+			margin: 1px;
+			font-size: 20px;
+		}
 	}
 	.button {
 		max-width: 274px;
@@ -2653,6 +2693,7 @@ a:focus {outline: none;}
 	&.profile {
 		width: 210px;
 		height: 210px;
+		margin-top: 0;
 		.round {
 			width: 50px;
 			height: 50px;
@@ -2779,11 +2820,11 @@ a:focus {outline: none;}
 		max-width: 440px;
 		width: 100%;
 		&.profile {
-			width: 230px;
+			max-width: 230px;
+			width: 100%;
 			height: 50px;
 			line-height: 50px;
 			font-size: 20px;
-			text-transform: uppercase;
 			margin: 30px 0;
 			&.dismiss {
 				margin-left: 62px;
@@ -2808,6 +2849,10 @@ a:focus {outline: none;}
 		color: @red;
 		margin: 55px auto 0;
 		text-align: center;
+	}
+	.half {
+		max-width: 440px;
+		margin: 55px 0 0;
 	}
 	.message.error {display: block;}
 
@@ -2836,6 +2881,7 @@ a:focus {outline: none;}
 			}
 		}
 		> div:first-child .remove {display: none;}
+		a {font-weight: normal;}
 	}
 	.marker {
 		position: relative;
@@ -2851,7 +2897,7 @@ a:focus {outline: none;}
 			width: 15px;
 			color: @red;
 		}
-		input {padding-left: 25px;}
+		input {padding-left: 30px;}
 	}
 
 	.url {

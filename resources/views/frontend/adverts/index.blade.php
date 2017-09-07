@@ -54,7 +54,7 @@
 					<input type="checkbox" id="supper" checked="checked"><label for="supper">Вечеря (після 16:00)</label>
 				</div>
 				<div class="col-md-3">
-					<label for="sorting">Сортутвати по:</label>
+					<label for="sorting" class="grey3">Сортутвати по:</label>
 					<select name="sorting" id="sorting">
 						<option value="">найближчі</option>
 						<option value="">найближчі</option>
@@ -67,7 +67,7 @@
 			<div class="prices-input text-center">
 				<label for="">Ціновий діапазон</label>
 				<input type="text" placeholder="">
-				<label for="">-</label>
+				<label for="">&#x2014;</label>
 				<input type="text" placeholder="">
 				<label for="">грн.</label>
 

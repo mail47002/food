@@ -34,6 +34,9 @@
 				{{ Form::label('name', 'Ім\'я*', ['for' => 'name']) }}
 				{{ Form::text('name', $profile['name'], ['id' => 'name', 'required' => 'required']) }}
 
+				<div class="v-indent-30"></div>
+				<hr>
+
 				{{ Form::label('phone', 'Телефон*', ['for' => 'phone']) }}
 				<div class="phone">
 					@foreach(json_decode($profile['phone']) as $phone)
@@ -62,10 +65,10 @@
 				</div>
 				<div class="v-indent-30"></div>
 				<hr>
-				{{ Form::label('about', 'Про себе', ['for' => 'about']) }}
+				{{ Form::label('about', 'Про мене', ['for' => 'about']) }}
 				{{ Form::textarea('about', $profile['about'], ['id' => 'about', 'class' => 'profile']) }}
 				<hr>
-				{{Form::submit('Продовжити', ['class' => 'button button-red profile']) }}
+				{{Form::submit('Зберегти', ['class' => 'button button-red profile text-upper']) }}
 			{{ Form::close() }}
 
 		</div>

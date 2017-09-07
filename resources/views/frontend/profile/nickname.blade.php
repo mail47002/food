@@ -44,7 +44,7 @@
 
 				<div class="v-indent-30"></div>
 				<hr>
-				{{Form::submit('Зберегти', ['class' => 'button button-red profile']) }}
+				{{Form::submit('Зберегти', ['class' => 'button button-red profile text-upper']) }}
 				{{Form::submit('Скасувати', ['class' => 'button dismiss profile']) }}
 				{{ Form::close() }}
 

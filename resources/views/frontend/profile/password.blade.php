@@ -30,9 +30,9 @@
 			<h5 class="text-upper underline-red">Змінити пароль</h5>
 			<hr>
 			{{ Form::open([ 'route' => 'profile.updatePassword', 'method' => 'POST', 'class' => 'contact']) }}
-				<p class="message" id="message">Заповніть виділені поля</p>
+				<p class="message half" id="message">Заповніть виділені поля</p>
 				{{ Form::label('email', 'Email*', ['for' => 'email']) }}
-				{{ Form::text('email', 'ussr983@gmail.com', ['id' => 'email', 'required' => 'required']) }}
+				{{ Form::text('email', 'ussr983@gmail.com', ['id' => 'email', 'required' => 'required', 'disabled' => 'disabled', 'class' => 'disabled']) }}
 
 				{{ Form::label('oldPassword', 'Старий пароль', ['for' => 'oldPassword']) }}
 				{{ Form::password('oldPassword', null, ['id' => 'oldPassword', 'required' => 'required']) }}
@@ -44,7 +44,7 @@
 				{{ Form::password('confirm', null, ['id' => 'confirm', 'required' => 'required']) }}
 				<div class="v-indent-30"></div>
 				<hr>
-				{{Form::submit('Зберегти', ['class' => 'button button-red profile']) }}
+				{{Form::submit('Зберегти', ['class' => 'button button-red profile text-upper']) }}
 			{{ Form::close() }}
 		</div>
 	</div>

@@ -12,7 +12,7 @@
 
 			<hr>
 			<div class="address text-center">
-				<i class="fo fo-small fo-marker red"></i>Вінниця 
+				<i class="fo fo-marker red"></i>Вінниця 
 				<a href="#" class="link-blue" data-toggle="modal" data-target="#modal_change_address">Змінити регіон</a>
 			</div>
 			<hr>
@@ -64,9 +64,9 @@
 							</span>
 						</p>
 						<div class="pull-right categories-dishes">
-							<a href="" class="link-red"><i class="fo fo-time"></i></a>
-							<a href="" class="link-red"><i class="fo fo-deal"></i></a>
-							<a href="" class="link-red"><i class="fo fo-dish-ready"></i></a>
+							<a href="" class="link-red-dark"><i class="fo fo-time"></i></a>
+							<a href="" class="link-red-dark"><i class="fo fo-deal"></i></a>
+							<a href="" class="link-red-dark"><i class="fo fo-dish-ready"></i></a>
 						</div>
 					</div>
 				</div>

@@ -12,10 +12,10 @@
 				{{ Form::open([ 'route' => 'login.session', 'method' => 'POST']) }}
 					{{ Form::label('email', 'Email', ['for' => 'email']) }}
 					{{ Form::email('email', null, ['id' => 'email', 'placeholder' => 'Email']) }}
-					{!! $errors->first('email', '<label class="control-label">:message</label>') !!}
+					{!! $errors->first('email', '<label class="control-label alert">:message</label>') !!}
 					{{ Form::label('password', 'Пароль', ['for' => 'password']) }}
 					{{ Form::password('password', null, ['id' => 'password', 'placeholder' => 'password']) }}
-					{!! $errors->first('password', '<label class="control-label">:message</label>') !!}
+					{!! $errors->first('password', '<label class="control-label alert">:message</label>') !!}
 					{{Form::submit('Увійти', ['class' => 'button button-red']) }}
 				{{ Form::close() }}
 
