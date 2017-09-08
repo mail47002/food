@@ -23,8 +23,8 @@
 
 
 
-<script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/assets/js/jquery-2.2.4.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
 <script src="/assets/js/dropdown.js" async></script>
 <script src="/assets/js/modal.js" async></script>
 {{-- <script src="/assets/js/jquery.matchHeight.js"></script> --}}
