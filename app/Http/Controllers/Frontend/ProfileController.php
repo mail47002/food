@@ -188,16 +188,29 @@ class ProfileController extends Controller
     {
 
         $this->validate($request, [
-            // 'email'                     => 'required|email|unique:users,email',
             'oldPassword'               => 'required',
-            'password'                  => 'required|confirmed|min:5',
-            'confirm'                   => 'required',
+            'password'                  => 'required',
+            'password_confirmation'     => 'required|same:password',
         ]);
+
         $user = User::find(Auth::id());
-        $user->password = Hash::make($request->password);
-        $user->save();
-        return redirect()
+
+        // $oldPassword = Hash::make($request->oldPassword);
+
+        if (Hash::check($request->oldPassword, $user->password)) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return redirect()
                 ->route('profile.index');
+        } else {
+            return redirect()
+                ->route('profile.password',[
+                    'erorr' => 'erorr old Password'
+                    ]);
+        }
+
+
+
     }
 
     public function nickname()
@@ -232,5 +245,38 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function editPhoto(Request $request)
+    {
+        $user = User::find(Auth::id());
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            if ($file->isValid()) {
+                $path   = 'uploads/users/' . $user->id. '/';
+                $name   = $file->getClientOriginalName();
+                // dd($name);
+                // deleting old if exists
+                File::deleteDirectory($path);
+
+                // creating directories
+                File::makeDirectory($path, 0777, true, true);
+
+                // Save
+                $file->move($path . '/', $name);
+
+                // //Resize if needed
+                if (Image::make($path . 'default/' . $name)->width() > 200)
+                    Image::make($path . 'default/' . $name)->widen(200)->save();
+
+                // Assign images
+                $user->image = $path . '/' . $name;
+            }
+        }
+
+        $user->save();
+
     }
 }

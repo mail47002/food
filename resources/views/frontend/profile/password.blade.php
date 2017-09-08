@@ -36,12 +36,17 @@
 
 				{{ Form::label('oldPassword', 'Старий пароль', ['for' => 'oldPassword']) }}
 				{{ Form::password('oldPassword', null, ['id' => 'oldPassword', 'required' => 'required']) }}
-
+				{!! $errors->first('oldPassword', 'erorr oldPassword') !!}
+				@if (isset($error))
+					{{$error}}
+				@endif
 				{{ Form::label('password', 'Новий пароль', ['for' => 'password']) }}
 				{{ Form::password('password', null, ['id' => 'password', 'required' => 'required']) }}
+				{!! $errors->first('password', 'erorr password') !!}
 
-				{{ Form::label('confirm', 'Повторити пароль', ['for' => 'confirm']) }}
-				{{ Form::password('confirm', null, ['id' => 'confirm', 'required' => 'required']) }}
+				{{ Form::label('password_confirmation', 'Повторити пароль', ['for' => 'password_confirmation']) }}
+				{{ Form::password('password_confirmation', null, ['id' => 'password_confirmation', 'required' => 'required']) }}
+				{!! $errors->first('password_confirmation', 'erorr password_confirmation') !!}
 				<div class="v-indent-30"></div>
 				<hr>
 				{{Form::submit('Зберегти', ['class' => 'button button-red profile text-upper']) }}
