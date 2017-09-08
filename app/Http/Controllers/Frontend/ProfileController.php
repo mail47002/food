@@ -34,8 +34,20 @@ class ProfileController extends Controller
             ]);
     }
 
-    public function profileProducts(){
-        return view('frontend.profile.products');
+    public function products()
+    {
+        return view('frontend.profile.products', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
+    }
+
+    public function adverts()
+    {
+        return view('frontend.profile.adverts', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
     }
 
     public function profileArticles(){

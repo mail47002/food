@@ -22,16 +22,17 @@ Route::group(['namespace' => 'Frontend'], function() {
 
     Route::resource('products', 'ProductsController');
 
-    Route::resource('profile', 'ProfileController');
-
     //Profile
-    Route::resource('profile', 'ProfileController');
-    Route::get('edit', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
-    Route::post('edit', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
-    Route::get('password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
-    Route::post('password', ['as' => 'profile.updatePassword', 'uses' => 'ProfileController@updatePassword']);
-    Route::get('nickname', ['as' => 'profile.nickname', 'uses' => 'ProfileController@nickname']);
-    Route::post('nickname', ['as' => 'profile.updateNickname', 'uses' => 'ProfileController@updateNickname']);
+    Route::get('/profile', ['as' => 'profile.index', 'uses' => 'ProfileController@index']);
+    Route::get('/profile/edit', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
+    Route::post('/profile/edit', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+    Route::get('/profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+    Route::post('/profile/password', ['as' => 'profile.updatePassword', 'uses' => 'ProfileController@updatePassword']);
+    Route::get('/profile/nickname', ['as' => 'profile.nickname', 'uses' => 'ProfileController@nickname']);
+    Route::post('/profile/nickname', ['as' => 'profile.updateNickname', 'uses' => 'ProfileController@updateNickname']);
+    Route::get('/profile/products', ['as' => 'profile.products', 'uses' => 'ProfileController@products']);
+    Route::get('/profile/adverts', ['as' => 'profile.adverts', 'uses' => 'ProfileController@adverts']);
+
 
 
     //login & Register
