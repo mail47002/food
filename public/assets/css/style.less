@@ -141,7 +141,7 @@ hr.red-border {
 .block {display: block;}
 .description {font-size: 18px;}
 .full-width {width: 100%;}
-.hide, .hidden {display: none;}
+.hide {display: none;}
 .img-responsive {max-width: 100%;}
 .invisible {visibility: hidden;}
 .margin-left-small {margin-left: 7px;}
@@ -2788,7 +2788,7 @@ a:focus {outline: none;}
 // Forms
 .contact, .edit {
 	label {
-		margin: 32px auto 8px;
+		margin: 26px auto 14px;
 		display: block;
 		&.error {
 			color: @red;
@@ -2943,32 +2943,80 @@ a:focus {outline: none;}
 }
 // Формы добавления рецептов ...
 .edit {
+	padding-top: 20px;
+
+	.link-red-dark {font-size: 16px;}
 	.catgories {
 		border: 1px solid @grey1;
 		border-radius: 10px;
-		padding: 10px 20px;
+		padding: 0 10px;
 		text-align: left;
 		label {
-			margin: 10px 0;
+			margin: 20px 0;
 		}
 	}
 	.ingredients {
 		max-width: 480px;
 		margin: 0 auto;
 		text-align: left;
+		div .remove {top: 10px;}
 	}
 	textarea {height: 100px;}
-	.videos {
-		text-align: left;
 
-		div, input {max-width: 100%;}
+	.uploader {
+		border-radius: 0;
+		margin: 0;
+		border: 1px solid @grey1;
+		background-color: @white;
+		.round {
+			text-align: center;
+			width: 50px;
+			height: 50px;
+			line-height: 58px;
+			background-color: rgba(240, 83, 77, 0.6);
+			i:before {
+				font-size: 34px;
+			}
+		}
+		input[type=file]:hover+.round {
+			background-color: rgba(240, 83, 77, 0.8);
+		}
 	}
-	.uploader {border-radius: 0;}
+
+	.fotos {
+		text-align: center;
+		margin: 0 -70px;
+		.wrap {
+			width: 177px;
+			height: 140px;
+			margin: 0 10px 20px;
+			display: inline-block;
+			.uploader {
+				height: 120px;
+				width: 100%;
+				margin: 0;
+				overflow: hidden;
+			}
+			a {
+				padding-top: 4px;
+				i:before {font-size: 20px;}
+			}
+			a.grey1:hover {
+				color: rgb(250, 205, 0);
+				span {display: inline-block;}
+			}
+		}
+	}
 
 	.recipes {
+		text-align: left;
 		> div {
 			.clearfix();
 			max-width: 100%;
+			.remove {
+				right: -40px;
+				top: 20px;
+			}
 		}
 		.title {
 			font-size: 16px;
@@ -2977,25 +3025,47 @@ a:focus {outline: none;}
 			width: 100%;
 			text-align: left;
 			padding-left: 120px;
-			margin-bottom: 8px;
+			margin-top: 8px;
+			margin-bottom: 12px;
 		}
 		.uploader {
 			float: left;
 			width: 100px;
 			height: 100px;
-			margin: 0;
 		}
 		textarea {
 			float: right;
 			max-width: 550px;
 			height: 130px;
+			margin-bottom: 10px;
 		}
+		a {margin-left: 120px;}
+	}
+
+	.videos {
+		text-align: left;
+
+		div, input {
+			max-width: 100%;
+			.remove {
+				right: -40px;
+				top: 10px;
+			}
+		}
+	}
+
+	.button {
+		height: 50px;
+		line-height: 50px;
+		font-size: 20px;
+		text-transform: uppercase;
+		margin: 45px auto 60px;
 	}
 }
 
 
 
-// Simple scrool bar
+// Simple scroll bar
 [data-simplebar] {
   position: relative;
   z-index: 0;

@@ -38,6 +38,14 @@
 		});
 	}
 
+	function handleImage(e) {
+		var reader = new FileReader();
+		reader.onload = function (event) {
+			$(e.target).parent().find('img').attr('src',event.target.result);
+		}
+		reader.readAsDataURL(e.target.files[0]);
+	}
+
 
 	$( document ).ready(function() {
 		$('span.stars').stars();

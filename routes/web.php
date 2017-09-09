@@ -50,4 +50,6 @@ Route::group(['namespace' => 'Frontend'], function() {
 
     // Pages
     Route::get('{slug}', 'PagesController@show');
+
+    Route::get('/temp/{slug}', 'PagesController@temp');
 });

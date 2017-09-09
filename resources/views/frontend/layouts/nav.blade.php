@@ -15,7 +15,7 @@
 
 				<li class="active"><a href="/adverts">Об'яви (2)</a></li>
 				<li class="active"><a href="/products">Блюда (12)</a></li>
-				<li class="active"><a href="/profile">Profile (5)</a></li>
+				<li class="active"><a href="/temp/add_recipe">add_recipe (15.1)</a></li>
 
 
 			</ul>

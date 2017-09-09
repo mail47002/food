@@ -25,4 +25,9 @@ class PagesController extends Controller
 
         abort(404);
     }
+
+    public function temp($slug)
+    {
+        return view('frontend.temp.'.$slug);
+    }
 }
