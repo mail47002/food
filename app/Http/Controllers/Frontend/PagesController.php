@@ -8,21 +8,36 @@ use App\Http\Controllers\Controller;
 
 class PagesController extends Controller
 {
-    public function index()
+    public function home()
     {
         return view('frontend.home');
     }
 
-    public function show($slug)
+    public function index($slug)
     {
         $page = Page::findBySlug($slug);
 
         if ($page) {
-            return view('frontend.pages.show', [
+            return view('frontend.pages.index', [
                 'page' => $page
             ]);
         }
 
-        abort(404);
+        return abort(404);
+    }
+
+    public function faq()
+    {
+        return view('frontend.pages.faq');
+    }
+
+    public function contact()
+    {
+        return view('frontend.pages.contact');
+    }
+
+    public function sitemap()
+    {
+        return view('frontend.pages.sitemap');
     }
 }

@@ -6,8 +6,8 @@
 
 	<title>Food</title>
 
+	@stack('styles')
 	<link href="/assets/css/style.css" type="text/css" rel="stylesheet">
-	@yield('styles')
 
 </head>
 <body class="body-{{Route::currentRouteName()}}">
@@ -24,6 +24,6 @@
 
 	});
 </script>
-@yield('scripts')
+@stack('scripts')
 </body>
 </html>

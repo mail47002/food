@@ -9,21 +9,32 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'image', 'name', 'phone', 'email', 'email_token', 'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getPhoneAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = json_encode($value);
+    }
+
+    public function address() {
+        return $this->hasOne('App\Address', 'user_id', 'id');
+    }
+
+    public function verified()
+    {
+        $this->verified = 1;
+
+        $this->save();
+    }
 }

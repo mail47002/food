@@ -12,12 +12,9 @@
 
 				<br><br>
 
-
 				<li class="active"><a href="/adverts">Об'яви (2)</a></li>
 				<li class="active"><a href="/products">Блюда (12)</a></li>
 				<li class="active"><a href="/profile">Profile (5)</a></li>
-
-
 			</ul>
 		</div>
 	</div>
@@ -35,8 +32,8 @@
 		</ul>
 		<ul class="list-inline pull-right">
 			<li><a href="#" class="button button-rounded dish-add"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
-			<li><a class="link" href="/login">Вхід</a></li>
-			<li><a class="link" href="/registration">Реєстрація</a></li>
+			<li><a class="link" href="{{ url('login') }}">Вхід</a></li>
+			<li><a class="link" href="{{ url('register') }}">Реєстрація</a></li>
 		</ul>
 	</div>
 </nav>

@@ -6,17 +6,17 @@
 
 	<title>Food</title>
 
-	<link href="/assets/css/style.css" type="text/css" rel="stylesheet">
-	<link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css">
+	<link href="{{ asset('frontend/vendor/font-awesome/css/font-awesome.min.css') }}'" type="text/css" rel="stylesheet">
 
+	@stack('styles')
+
+	<link href="{{ asset('frontend/css/style.css') }}" type="text/css" rel="stylesheet">
 </head>
-<body class="body-{{Route::currentRouteName()}}">
+<body>
 	<div id="wrapper">
+		@include('frontend.layouts.nav')
 
-	@include('frontend.layouts.nav')
-
-	@yield('content')
-
+		@yield('content')
 
 		<footer class="footer">
 			<div class="container">
@@ -27,28 +27,12 @@
 		</footer>
 	</div>
 
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script src="{{ asset('frontend/js/dropdown.js') }}" async></script>
+	<script src="{{ asset('frontend/js/modal.js') }}" async></script>
+	<script src="{{ asset('frontend/js/jquery.matchHeight.js') }}"></script>
 
-
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script src="/assets/js/dropdown.js" async></script>
-<script src="/assets/js/modal.js" async></script>
-<script src="/assets/js/jquery.matchHeight.js"></script>
-<script src="/assets/vendor/owlcarousel/owl.carousel.min.js"></script>
-
-<script>
-	$.fn.stars = function() {
-		return $(this).each(function() {
-			$(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * $(this).width()/5));
-		});
-	}
-
-
-	$( document ).ready(function() {
-		$('span.stars').stars();
-
-		@yield('scripts')
-	});
-</script>
+	@stack('scripts')
 
 </body>
 </html>

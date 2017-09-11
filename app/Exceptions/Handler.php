@@ -62,4 +62,26 @@ class Handler extends ExceptionHandler
 
         return redirect()->guest(route('login'));
     }
+
+    /**
+     * Render exceptions with Whoops
+     *
+     * @param $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function convertExceptionToResponse(Exception $exception)
+    {
+        if (config('app.debug')) {
+            $whoops = new \Whoops\Run;
+            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+
+            return response()->make(
+                $whoops->handleException($exception),
+                method_exists($exception, 'getStatusCode') ? $exception->getStatusCode() : 500,
+                method_exists($exception, 'getHeaders') ? $exception->getHeaders() : []
+            );
+        }
+
+        return parent::convertExceptionToResponse($exception);
+    }
 }

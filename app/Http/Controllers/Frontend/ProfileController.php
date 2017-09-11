@@ -2,57 +2,74 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Address;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use App\User;
-use App\Adress;
+use File;
+use Image;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware(['guest']);
+    }
+
     public function index()
     {
-        $profile = User::find(Auth::id());
-        $adresses = Adress::find(Auth::id());
-
         return view('frontend.profile.index', [
-            'profile' => $profile,
-            'adresses' => $adresses
-            ]);
+            'user' => Auth::user(),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('frontend.profile.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        $this->validate($request, [
+            'name'      => 'required',
+            // 'nickname'   => 'nickname|unique:users,nickname',
+            'phone'     => 'required',
+            'city'      => 'required',
+            'street'    => 'required',
+            'build'     => 'required',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            if ($file->isValid()) {
+                $path   = 'uploads/users/' . $user->id. '/';
+
+                $name   = $file->getClientOriginalName();
+
+                File::deleteDirectory($path);
+
+                File::makeDirectory($path, 0777, true, true);
+
+                $file->move($path . '/', $name);
+
+                if (Image::make($path . 'default/' . $name)->width() > 200) {
+                    Image::make($path . 'default/' . $name)->widen(200)->save();
+                }
+
+                $user->image = $path . '/' . $name;
+            }
+        }
+
+        $user->fill($request->all())->save();
+
+        $user->address()->save(new Address($request->all()));
+
+        return redirect()->route('profile.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         // $profile = Product::find($id);
@@ -61,35 +78,16 @@ class ProfileController extends Controller
         );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

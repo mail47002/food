@@ -1,23 +1,24 @@
 @extends('frontend.layouts.default')
 
-@include('frontend.layouts.nav')
 @section('title')Products - @stop
-@section('content')
 
-<div class="container">
+@section('content')
+	<div class="container">
 	<div class="row">
 		<div class="col-md-3 match-height">
 			<div class="left-sidebar bg-yellow text-center">
 
 				<div class="avatar">
-					<div class="rounded"><img src="{{$profile['image']}}" alt="foto"></div>
+					<div class="rounded"><img src="{{ $user->image }}"></div>
 				</div>
 
 				<div class="phones fo fo-phone fo-indent fo-left red">
 					<div class="inline black">
-						@foreach (json_decode($profile['phone']) as $value)
-							<p>{{$value}}</p>
-						@endforeach
+						@if ($user->phone)
+							@foreach ($user->phone as $value)
+								<p>{{ $value }}</p>
+							@endforeach
+						@endif
 					</div>
 				</div>
 
@@ -38,15 +39,15 @@
 
 		<div class="col-md-9 match-height">
 			<div class="v-indent-40"></div>
-			<h1>{{$profile['name']}}</h1>
+			<h1>{{$user['name']}}</h1>
 			<p class="grey3">
-				<i class="fo fo-big fo-marker red"></i> {{$adresses['street']}} {{$adresses['build']}}, {{$adresses['city']}}
+				<i class="fo fo-big fo-marker red"></i> {{ $user->address->street }} {{ $user->address->build }}, {{ $user->address->city }}
 				&nbsp;&nbsp;&nbsp;<a href="#" class="link-grey"><i class="fo fo-edit fo-small fo-indent"></i>Редагувати</a>
 			</p>
 			<div class="rating grey3"><span class="stars medium">4</span>30 відгуків</div>
 
 			<div class="description">
-				<p>{{$profile['about']}}</p>
+				<p>{{ $user['about'] }}</p>
 
 				{{-- <div class="red-round-border">
 					<i>Якщо ви любите запечене блюдо з хрусткою скоринкою, то посипте все сумішшю з панірувальних сухарів і натертого на тертці сиру. Запікайте в духовці при температурі 180-190С. Коли картопля стане м'яким, або помідори з цибулею і кабачками трохи підрум'яняться - овочевий рататуй з баклажанами готовий! Подавайте його до столу з будь-яким улюбленим вами соусом. Підійде сметана, домашній майонез або невеликий шматочок вершкового масла. Як стверджують французи, в будь-якому блюді є два незамінних інгредієнта - це фантазія і любов! Готуйте з задоволенням і радістю!</i>
@@ -151,7 +152,6 @@
 			<div class="reviews">
 				<h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">
 				<ul class="list-unstyled">
-<!--    -->
 					<li class="with-image bg-yellow clearfix">
 						<div class="title">
 							<p class="date">2 липня 2016</p>
@@ -195,7 +195,6 @@
 							<img src="/uploads/avatar.jpg" alt="foto">
 						</div>
 					</li>
-<!--    -->
 					<li class="with-image bg-yellow clearfix">
 						<div class="title">
 							<p class="date">2 липня 2016</p>
@@ -246,9 +245,9 @@
 		</div>
 	</div>
 </div>
-@stop
+@endsection
 
 
-@section('scripts')
+@push('scripts')
 	$('.match-height').matchHeight();
-@stop
+@endpush
