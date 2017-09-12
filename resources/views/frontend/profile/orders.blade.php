@@ -1,5 +1,5 @@
 @extends('frontend.layouts.default')
-@section('title')Reviews - @stop
+@section('title')Orders - @stop
 @section('content')
 
 <div class="container profile">
@@ -26,8 +26,8 @@
 					<li><a href="/profile/products">Каталог страв</a></li>
 					<li><a href="/profile/adverts">Оголошення </a></li>
 					<li><a href="/profile/messages">Мої повідомлення <span class="badge">3</span></a></li>
-					<li><a href="/profile/orders">Мої замовлення</a></li>
-					<li><a href="/profile/reviews" class="active">Мої відгуки</a></li>
+					<li><a href="/profile/orders" class="active">Мої замовлення</a></li>
+					<li><a href="/profile/reviews">Мої відгуки</a></li>
 					<li><a href="/profile/articles">Мої статті</a></li>
 				</ul>
 
@@ -38,7 +38,6 @@
 			<div class="v-indent-20"></div>
 	</div>
 </div>
-
 @stop
 
 @section('scripts')

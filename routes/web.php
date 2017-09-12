@@ -32,6 +32,11 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::post('/profile/nickname', ['as' => 'profile.updateNickname', 'uses' => 'ProfileController@updateNickname']);
     Route::get('/profile/products', ['as' => 'profile.products', 'uses' => 'ProfileController@products']);
     Route::get('/profile/adverts', ['as' => 'profile.adverts', 'uses' => 'ProfileController@adverts']);
+    Route::get('/profile/orders', ['as' => 'profile.orders', 'uses' => 'ProfileController@orders']);
+    Route::get('/profile/reviews', ['as' => 'profile.reviews', 'uses' => 'ProfileController@reviews']);
+    Route::get('/profile/articles', ['as' => 'profile.articles', 'uses' => 'ProfileController@articles']);
+    Route::get('/profile/messages', ['as' => 'profile.messages', 'uses' => 'ProfileController@messages']);
+    Route::post('/profile/image', ['as' => 'profile.updatePhoto', 'uses' => 'ProfileController@updatePhoto']);
 
 
 

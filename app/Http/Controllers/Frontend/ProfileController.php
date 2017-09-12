@@ -50,18 +50,37 @@ class ProfileController extends Controller
             ]);
     }
 
-    public function profileArticles(){
-        return view('frontend.profile.articles');
+    public function orders()
+    {
+        return view('frontend.profile.orders', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
     }
 
-    public function profileMessages(){
-        return view('frontend.profile.messages');
+    public function reviews()
+    {
+        return view('frontend.profile.reviews', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
     }
 
-    public function profileReviews(){
-        return view('frontend.profile.reviews');
+    public function messages()
+    {
+        return view('frontend.profile.messages', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
     }
 
+    public function articles()
+    {
+        return view('frontend.profile.articles', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -247,10 +266,10 @@ class ProfileController extends Controller
         //
     }
 
-    public function editPhoto(Request $request)
+    public function updatePhoto(Request $request)
     {
         $user = User::find(Auth::id());
-
+dd($request->image);
         if ($request->hasFile('image')) {
             $file = $request->file('image');
 
@@ -273,10 +292,14 @@ class ProfileController extends Controller
 
                 // Assign images
                 $user->image = $path . '/' . $name;
+                $user->save();
+                return 'ok';
+            } else {
+                return 'error validate';
             }
         }
 
-        $user->save();
+        return 'error request';
 
     }
 }
