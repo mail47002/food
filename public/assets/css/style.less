@@ -60,17 +60,27 @@ body {
 /* colors */
 @red:     rgb(240, 83, 77);
 @redDark: rgb(214, 0, 28);
+
 @grey1:   rgb(230, 232, 233);
 @grey2:   rgb(185, 187, 188);
 @grey3:   rgb(135, 137, 138);
 @grey4:   rgb(92, 94, 95);
+
 @black:   rgb(50, 52, 53);
-@blue:    rgb(3, 135, 213);
 @white:   rgb(255, 255, 255);
-@yellow:  #f4f6f7;
-@green:   rgb(57, 181, 74);
+
+@blueLight:  rgb(3, 155, 229);
+@blue:       rgb(3, 135, 213);
+@blueMedium: rgb(86, 116, 185);
+@blueDark:   rgb(58, 88, 162);
+
+@yellow:     #f4f6f7;
+@yellowDark: #edeff0;
+
+@green:      rgb(57, 181, 74);
 @greenLight: rgb(60, 184, 120);
-@orange: rgb(255, 130, 0);
+
+@orange:     rgb(255, 130, 0);
 @orangeDark: rgb(255, 98, 0);
 
 h1 {
@@ -482,6 +492,17 @@ span.stars span {
 			color: @white;
 			background-color: @orangeDark;
 			border-color: @orangeDark;
+		}
+}
+.button-blue-medium {
+		color: @white;
+		background-color: @blueMedium;
+		border-color: @blueMedium;
+		&:hover,
+		&:focus {
+			color: @white;
+			background-color: @blueDark;
+			border-color: @blueDark;
 		}
 }
 
@@ -1607,6 +1628,122 @@ a:focus {outline: none;}
 			background: transparent;
 		}
 	}
+}
+
+.profile-messages {
+	box-shadow: none;
+	border-radius: 0;
+	padding-left: 40px;
+	position: relative;
+	.transition();
+	@media @sm {display: flex;}
+	&:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 40px;
+	}
+	&:after {
+		content: '';
+		font-family: FontFood;
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 40px;
+		margin: auto;
+		height: 14px;
+		font-size: 25px;
+		line-height: 26px;
+		text-align: center;
+		color: @white;
+	}
+	&:hover {
+		background-color: @yellowDark;
+		box-shadow: none;
+	}
+	.left {
+		width: 77%;
+		float: left;
+		padding: 20px 20px 0;
+		position: relative;
+		.title {
+			font-size: 18px;
+			font-weight: 500;
+			a {
+				font-size: 18px;
+				font-weight: 500;
+			}
+		}
+		.avatar {
+			width: 50px;
+			height: 50px;
+			margin-top: 16px;
+			margin-right: 20px;
+			margin-bottom: 20px;
+			float: left;
+		}
+		.message {
+			width: 100%;
+			max-width: 630px;
+			float: left;
+			padding-top: 14px;
+			p {margin: 3px 0;}
+			a {font-size: 16px;}
+			.price {
+				font-size: 20px;
+				color: @red;
+				font-weight: 500;
+			}
+		}
+		.image {
+			max-width: 133px;
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
+		&.with-image {
+			min-height: 130px;
+			.title {max-width: 500px;}
+			.message {max-width: 500px;}
+		}
+	}
+	.right {
+		text-align: center;
+		width: 23%;
+		float: left;
+		padding: 20px;
+		position: relative;
+		p {margin: 0;}
+		.button {
+			position: absolute;
+			bottom: 10px;
+			left: 0;
+			right: 0;
+			max-width: 170px;
+			i {
+				position: absolute;
+				left: 10px;
+			}
+		}
+	}
+
+	&.email:after {content: '\0030';}
+	&.email:before {background-color: @blueMedium;}
+	&.phone:after {content: '\0023';}
+	&.phone:before {background-color: @blueLight;}
+	&.clients:after {content: '\002a';}
+	&.clients:before {background-color: @orange;}
+	&.order:after {content: '\0025';}
+	&.order:before {background-color: @red;}
+	&.order-discard:after {content: '\002b';}
+	&.order-discard:before {background-color: @red;}
+	&.review:after {content: '\002a';}
+	&.review:before {background-color: @greenLight;}
+	&.deleted:after {content: '\002b';}
+	&.deleted:before {background-color: @grey2;}
 }
 
 
