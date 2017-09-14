@@ -6,7 +6,6 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
-        "cviebrock/eloquent-sluggable": "^4.2",
         "filp/whoops": "^2.1",
         "greggilbert/recaptcha": "^2.2",
         "laravel/framework": "5.4.*",
@@ -25,7 +24,10 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": [
+            "app/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

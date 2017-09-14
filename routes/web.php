@@ -17,7 +17,7 @@ Route::get('/', 'Frontend\PagesController@home');
 // Backend
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     // Page
-    Route::resource('pages', 'PageController');
+    Route::resource('pages', 'PagesController');
 });
 
 // Frontend
