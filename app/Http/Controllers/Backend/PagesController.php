@@ -20,7 +20,7 @@ class PagesController extends Controller
         $order      = $request->has('order') ? $request->order : 'asc';
 
         $pages = Page::orderBy($sort, $order)->where('title', 'like', '%' . $search . '%')
-            ->paginate(4)->appends([
+            ->paginate()->appends([
                 's' => $search,
                 'sort' => $sort,
                 'order' => $order,

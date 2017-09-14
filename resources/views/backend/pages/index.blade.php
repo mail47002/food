@@ -7,14 +7,14 @@
                 <h1 class="heading-title">Страницы <small>Управление</small></h1>
             </div>
             <div class="col-md-6 text-right">
-                <a class="btn btn-success" href="{{ route('pages.create') }}"><i class="la la-plus"></i> Добавить</a>
+                <a class="btn btn-success" href="{{ route('admin.pages.create') }}"><i class="la la-plus"></i> Добавить</a>
             </div>
         </div>
         <div class="panel">
             <div class="panel-header text-right">
                 <div class="row">
                     <div class="col-md-4">
-                        {!! Form::open(['route' => 'pages.index', 'method' => 'get']) !!}
+                        {!! Form::open(['route' => 'admin.pages.index', 'method' => 'get']) !!}
                             <div class="input-group">
                                 {!! Form::text('s', null, ['class' => 'form-control', 'placeholder' => 'Искать...']) !!}
                                 <span class="input-group-btn">
@@ -29,14 +29,14 @@
                                 Сортировать <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="{{ route('pages.index', ['sort' => 'title', 'order' => 'asc', 'page' => request('page')]) }}"><i class="la la-sort-alpha-asc"></i> По названию</a></li>
-                                <li><a href="{{ route('pages.index', ['sort' => 'title', 'order' => 'desc', 'page' => request('page')]) }}"><i class="la la-sort-alpha-desc"></i> По названию</a></li>
+                                <li><a href="{{ route('admin.pages.index', ['sort' => 'title', 'order' => 'asc', 'page' => request('page')]) }}"><i class="la la-sort-alpha-asc"></i> По названию</a></li>
+                                <li><a href="{{ route('admin.pages.index', ['sort' => 'title', 'order' => 'desc', 'page' => request('page')]) }}"><i class="la la-sort-alpha-desc"></i> По названию</a></li>
                                 <li class="divider"></li>
-                                <li><a href="{{ route('pages.index', ['sort' => 'status', 'order' => 'asc', 'page' => request('page')]) }}"><i class="la la-sort-amount-asc"></i> По статусу</a></li>
-                                <li><a href="{{ route('pages.index', ['sort' => 'status', 'order' => 'desc', 'page' => request('page')]) }}"><i class="la la-sort-amount-desc"></i> По статусу</a></li>
+                                <li><a href="{{ route('admin.pages.index', ['sort' => 'status', 'order' => 'asc', 'page' => request('page')]) }}"><i class="la la-sort-amount-asc"></i> По статусу</a></li>
+                                <li><a href="{{ route('admin.pages.index', ['sort' => 'status', 'order' => 'desc', 'page' => request('page')]) }}"><i class="la la-sort-amount-desc"></i> По статусу</a></li>
                                 <li class="divider"></li>
-                                <li><a href="{{ route('pages.index', ['sort' => 'created_at', 'order' => 'asc', 'page' => request('page')]) }}"><i class="la la-sort-numeric-asc"></i> По дате создания</a></li>
-                                <li><a href="{{ route('pages.index', ['sort' => 'created_at', 'order' => 'desc', 'page' => request('page')]) }}"><i class="la la-sort-numeric-desc"></i> По дате создания</a></li>
+                                <li><a href="{{ route('admin.pages.index', ['sort' => 'created_at', 'order' => 'asc', 'page' => request('page')]) }}"><i class="la la-sort-numeric-asc"></i> По дате создания</a></li>
+                                <li><a href="{{ route('admin.pages.index', ['sort' => 'created_at', 'order' => 'desc', 'page' => request('page')]) }}"><i class="la la-sort-numeric-desc"></i> По дате создания</a></li>
                             </ul>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                             @foreach ($pages as $page)
                                 <tr>
                                     <td>{{ $page->id }}</td>
-                                    <td><a href="{{ route('pages.edit', $page->id) }}">{{ $page->title }}</a></td>
+                                    <td><a href="{{ route('admin.pages.edit', $page->id) }}">{{ $page->title }}</a></td>
                                     <td>{!! \App\Helpers\PageHelper::status($page->status) !!}</td>
                                     <td>{{ $page->created_at }}</td>
                                     <td>
@@ -67,7 +67,7 @@
                                                 Выбрать <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a href="{{ route('pages.edit', $page->id) }}"><i class="la la-pencil"></i> Редактировать</a></li>
+                                                <li><a href="{{ route('admin.pages.edit', $page->id) }}"><i class="la la-pencil"></i> Редактировать</a></li>
                                                 <li><a href="#" data-toggle="modal" data-target="#modal-delete" data-id="{{ $page->id }}"><i class="la la-trash"></i> Удалить</a></li>
                                             </ul>
                                         </div>
@@ -98,10 +98,10 @@
     <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                {!! Form::open(['route' => ['pages.destroy', null], 'method' => 'delete', 'id' => 'form-delete']) !!}
+                {!! Form::open(['route' => ['admin.pages.destroy', null], 'method' => 'delete', 'id' => 'form-delete']) !!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h3 class="modal-title" id="myModalLabel">Удалить</h3>
+                        <h3 class="modal-title" id="myModalLabel">Удалиние</h3>
                     </div>
                     <div class="modal-body">
                         <p>Вы действительно хотите удалить данную страницу?</p>

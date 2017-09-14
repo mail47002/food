@@ -8,6 +8,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('content', 'Содержание:') !!}
+                    <div id="summernote">{!! $page->content !!}</div>
                 </div>
             </div>
         </div>

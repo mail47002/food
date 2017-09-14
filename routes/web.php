@@ -16,8 +16,22 @@ Route::get('/', 'Frontend\PagesController@home');
 
 // Backend
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
+    // Dashboard
+    Route::get('dashboard', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
+
     // Page
-    Route::resource('pages', 'PagesController');
+    Route::resource('pages', 'PagesController',  ['names' => [
+        'index'     => 'admin.pages.index',
+        'create'    => 'admin.pages.create',
+        'store'     => 'admin.pages.store',
+        'show'      => 'admin.pages.show',
+        'edit'      => 'admin.pages.edit',
+        'update'    => 'admin.pages.update',
+        'destroy'   => 'admin.pages.destroy'
+    ]]);
+
+    // Upload
+    Route::post('upload', ['as' => 'admin.uploads.store', 'uses' => 'UploadsController@store']);
 });
 
 // Frontend

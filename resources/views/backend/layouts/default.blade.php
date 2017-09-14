@@ -33,8 +33,8 @@
         </div>
         <nav class="sidebar-nav">
             <ul class="menu">
-                <li class="{{ is_active('admin/dashboard*') }}"><a href="#"><i class="la la-desktop"></i> Панель управления</a></li>
-                <li class="{{ is_active('admin/pages*') }}"><a href="{{ route('pages.index') }}"><i class="la la-files-o"></i> Страницы</a></li>
+                <li class="{{ is_active('admin/dashboard*') }}"><a href="{{ route('admin.dashboard') }}"><i class="la la-desktop"></i> Панель управления</a></li>
+                <li class="{{ is_active('admin/pages*') }}"><a href="{{ route('admin.pages.index') }}"><i class="la la-files-o"></i> Страницы</a></li>
             </ul>
         </nav>
     </aside>

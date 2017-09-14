@@ -1,7 +1,6 @@
 * {
     outline: none !important;
 }
-
 html,
 body {
     height: 100%;
@@ -16,9 +15,10 @@ abbr {
     color: #e74a25;
 }
 .main {
-    height: 100%;
+    min-height: 100%;
     margin-left: 265px;
     background-color: #f4f8f9;
+    border-left: 1px solid #e5ebec;
 }
 .main .container-fluid {
     padding: 30px;
@@ -32,10 +32,9 @@ abbr {
 .sidebar {
     position: absolute;
     width: 265px;
-    height: 100%;
+    min-height: 100%;
     top: 0;
     background: #fff;
-    border-right: 1px solid #e5ebec;
     overflow-y: auto;
     z-index: 9;
 }
@@ -46,9 +45,6 @@ abbr {
     margin: 0;
     padding: 0;
     list-style: none;
-}
-.sidebar-nav .menu li {
-
 }
 .sidebar-nav .menu li a {
     display: block;
