@@ -10,7 +10,7 @@ class PagesController extends Controller
 {
     public function __construct()
     {
-
+        $this->middleware('admin.auth');
     }
 
     public function index(Request $request)
@@ -44,7 +44,7 @@ class PagesController extends Controller
 
         $page = Page::create($request->all());
 
-        return redirect()->route('pages.edit', $page->id)->with('success', 'Страница успешно создана!');
+        return redirect()->route('admin.pages.edit', $page->id)->with('success', 'Страница успешно создана!');
     }
 
     public function edit($id)
@@ -57,7 +57,7 @@ class PagesController extends Controller
             ]);
         }
 
-        return redirect()->route('pages.index');
+        return redirect()->route('admin.pages.index');
     }
 
     public function update($id, Request $request)
@@ -72,7 +72,7 @@ class PagesController extends Controller
             return redirect()->back()->with('success', 'Страница успешно обновлена!');
         }
 
-        return redirect()->route('pages.index');
+        return redirect()->route('admin.pages.index');
     }
 
     public function destroy($id)

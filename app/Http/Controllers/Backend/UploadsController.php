@@ -9,6 +9,11 @@ use Image;
 
 class UploadsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin.auth');
+    }
+
     public function store(Request $request)
     {
         if ($request->hasFile('file')) {

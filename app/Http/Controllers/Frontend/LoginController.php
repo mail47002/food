@@ -17,7 +17,7 @@ class LoginController extends Controller
     {
         $this->validateForm($request);
 
-        if (Auth::guard('web')->attempt($this->credentials($request))) {
+        if (Auth::guard('web')->attempt($this->credentials($request), true)) {
             if (Auth::user()->email_token){
                 return redirect()->route('profile.create');
             }

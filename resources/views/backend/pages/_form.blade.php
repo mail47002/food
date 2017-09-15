@@ -8,7 +8,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('content', 'Содержание:') !!}
-                    <div id="summernote">{!! $page->content !!}</div>
+                    {!! Form::textarea('meta_description', $page->content, ['name' => 'content', 'data-editor' => 'summernote']) !!}
                 </div>
             </div>
         </div>

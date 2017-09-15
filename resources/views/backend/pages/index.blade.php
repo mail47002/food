@@ -2,16 +2,10 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6">
-                <h1 class="heading-title">Страницы <small>Управление</small></h1>
-            </div>
-            <div class="col-md-6 text-right">
-                <a class="btn btn-success" href="{{ route('admin.pages.create') }}"><i class="la la-plus"></i> Добавить</a>
-            </div>
-        </div>
+        <h1 class="heading-title">Страницы <small>Управление</small></h1>
+        <a class="btn btn-success pull-right" href="{{ route('admin.pages.create') }}"><i class="la la-plus"></i> Добавить</a>
         <div class="panel">
-            <div class="panel-header text-right">
+            <div class="panel-header">
                 <div class="row">
                     <div class="col-md-4">
                         {!! Form::open(['route' => 'admin.pages.index', 'method' => 'get']) !!}
@@ -24,11 +18,13 @@
                         {!! Form::close() !!}
                     </div>
                     <div class="col-md-8">
-                        <div class="btn-group">
+                        <div class="btn-group pull-right">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Сортировать <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="{{ route('admin.pages.index') }}"><i class="la la-signal"></i> По умолчанию</a></li>
+                                <li class="divider"></li>
                                 <li><a href="{{ route('admin.pages.index', ['sort' => 'title', 'order' => 'asc', 'page' => request('page')]) }}"><i class="la la-sort-alpha-asc"></i> По названию</a></li>
                                 <li><a href="{{ route('admin.pages.index', ['sort' => 'title', 'order' => 'desc', 'page' => request('page')]) }}"><i class="la la-sort-alpha-desc"></i> По названию</a></li>
                                 <li class="divider"></li>
@@ -39,6 +35,7 @@
                                 <li><a href="{{ route('admin.pages.index', ['sort' => 'created_at', 'order' => 'desc', 'page' => request('page')]) }}"><i class="la la-sort-numeric-desc"></i> По дате создания</a></li>
                             </ul>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -47,7 +44,7 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Заголовок</th>
+                        <th>Название</th>
                         <th>Статус</th>
                         <th>Дата создания</th>
                         <th>Действие</th>
@@ -59,7 +56,7 @@
                                 <tr>
                                     <td>{{ $page->id }}</td>
                                     <td><a href="{{ route('admin.pages.edit', $page->id) }}">{{ $page->title }}</a></td>
-                                    <td>{!! \App\Helpers\PageHelper::status($page->status) !!}</td>
+                                    <td>{!! status($page->status) !!}</td>
                                     <td>{{ $page->created_at }}</td>
                                     <td>
                                         <div class="btn-group">
@@ -82,16 +79,18 @@
                     </tbody>
                 </table>
             </div>
-            <div class="panel-footer">
-                <div class="row">
-                    <div class="col-md-6">
-                        <span class="table-info">Страница {{ $pages->currentPage() }} из {{ $pages->lastPage() }}</span>
-                    </div>
-                    <div class="col-md-6 text-right">
-                        {{ $pages->links() }}
+            @if (count($pages) > 0)
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span class="table-info">Страница {{ $pages->currentPage() }} из {{ $pages->lastPage() }}</span>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            {{ $pages->links() }}
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 

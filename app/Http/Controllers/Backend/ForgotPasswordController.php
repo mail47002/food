@@ -1,25 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Backend;
 
-use App\Mail\EmailVerification;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Mail;
 
 class ForgotPasswordController extends Controller
 {
     public function index()
     {
-        return view('frontend.login.forgot');
+        return view('backend.password.index');
     }
 
     public function forgot(Request $request)
     {
         $this->validateForm($request);
 
-        return view('frontend.login.success');
+        return view('backend.password.success');
     }
 
     protected function validateForm(Request $request)

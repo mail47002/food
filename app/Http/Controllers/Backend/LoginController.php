@@ -17,8 +17,10 @@ class LoginController extends Controller
     {
         $this->validateForm($request);
 
-        if (Auth::guard('admin')->attempt($this->credentials($request))) {
-            return redirect()->route('dashboard');
+        $remember = $request->has('remember') ? true : false;
+
+        if (Auth::guard('admin')->attempt($this->credentials($request), $remember)) {
+            return redirect()->route('admin.dashboard');
         }
 
         return redirect()->back()->withInput();
@@ -37,7 +39,7 @@ class LoginController extends Controller
         return [
             'email'     => $request->email,
             'password'  => $request->password,
-            'role_id'   => 1
+            'role_id'   => 1,
         ];
     }
 
@@ -45,6 +47,6 @@ class LoginController extends Controller
     {
         Auth::guard('admin')->logout();
 
-        return redirect('login');
+        return redirect('/admin');
     }
 }
