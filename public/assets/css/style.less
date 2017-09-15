@@ -195,6 +195,7 @@ hr.red-border {
 .grey3 {color: @grey3;}
 .grey4 {color: @grey4;}
 .white {color: @white;}
+.green-light {color: @greenLight;}
 
 .center-block {
 	display: block;
@@ -675,6 +676,12 @@ a:focus {outline: none;}
 				vertical-align: middle;
 		}
 }
+
+/* Font-size helpers */
+.f14 {font-size: 14px;}
+.f16 {font-size: 16px;}
+.f18 {font-size: 18px;}
+.f20 {font-size: 20px;}
 
 
 
@@ -1505,8 +1512,9 @@ a:focus {outline: none;}
 	}
 	img {display: block;}
 	.caption {
-		padding: 10px 0;
+		padding: 10px 0 0;
 		p {margin: 15px 0;}
+		.text {margin-bottom: 0;}
 		.link-red-dark {font-size: 16px;}
 		.font-14 {font-size: 14px;}
 	}
@@ -1545,9 +1553,21 @@ a:focus {outline: none;}
 			}
 		}
 	}
+	.v40 {
+		height: 40px;
+		line-height: 40px;
+	}
 }
 .left-border {
 	border-left: 1px solid @grey1;
+}
+.info-block {
+	border: 1px solid;
+	border-radius: 11px;
+	padding: 20px;
+	text-align: center;
+	max-width: 210px;
+	margin: 20px auto;
 }
 .grey-block {
 	border-radius: 11px;
@@ -1744,6 +1764,12 @@ a:focus {outline: none;}
 	&.review:before {background-color: @greenLight;}
 	&.deleted:after {content: '\002b';}
 	&.deleted:before {background-color: @grey2;}
+}
+
+.profile-orders {
+	.caption {
+		p {margin: 5px 0;}
+	}
 }
 
 
