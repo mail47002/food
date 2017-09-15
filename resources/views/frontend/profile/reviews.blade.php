@@ -45,10 +45,7 @@
 				<hr class="red-border">
 			</div>
 
-			<div class="v-indent-20"></div>
-
-						<div class="reviews">
-							<h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">
+						<div class="reviews profile-reviews">
 							<ul class="list-unstyled">
 			<!--    -->
 								<li class="with-image bg-yellow clearfix">
