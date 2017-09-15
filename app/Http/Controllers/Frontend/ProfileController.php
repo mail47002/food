@@ -7,7 +7,11 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\User;
 use App\Adress;
+use App\Review;
+use App\Advert;
 use Hash;
+use File;
+use Image;
 use Validator;
 
 class ProfileController extends Controller
@@ -23,14 +27,43 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
+     /**
+     * index page profile.
+     *
+     * @param
+     * @return return view frontend.profile.index
+     */
+
     public function index()
     {
         $profile = User::find(Auth::id());
-        $adresses = Adress::where('user_id', '=', Auth::id())->first();
+        //відгуки від користувачів
+        // $reviews_from = DB::table('reviews')
+        //                     ->leftJoin('advert_to_user', 'reviews.advert_id', '=', 'advert_to_user.advert_id')
+        //                     ->leftJoin('users', 'reviews.user_id', '=', 'users.id')
+        //                     ->leftJoin('review_answers', 'reviews.id', '=', 'review_answers.review_id')
+        //                     ->select('reviews.text', 'reviews.rating', 'reviews.created_at', 'users.name', 'users.image', 'review_answers.answer')
+        //                     ->where('advert_to_user.user_id', '=', Auth::id())
+        //                     ->where('reviews.status', '=', 1)
+        //                     ->get();
+        // dd($reviews_from);
+        // відгуки користувачам
+        // $reviews_to = DB::table('reviews')
+        //                     ->leftJoin('advert_to_user', 'reviews.advert_id', '=', 'advert_to_user.advert_id')
+        //                     ->leftJoin('adverts', 'reviews.advert_id', '=', 'adverts.id')
+        //                     ->leftJoin('users', 'advert_to_user.user_id', '=', 'users.id')
+        //                     ->select('reviews.text', 'reviews.rating', 'reviews.created_at', 'users.name', 'users.image',)
+
+        //відгуки від користувачів
+        // $reviews_from = Advert::where('user_id', '=', Auth::id())
+        // ->select('name', 'user_id')
+        // ->get();
+        $test = Auth::user()->adverts();
+        dd(Auth::user()->adverts());
 
         return view('frontend.profile.index', [
             'profile' => $profile,
-            'adresses' => $adresses
+            'reviews_from' => $reviews_from,
             ]);
     }
 
@@ -137,7 +170,7 @@ class ProfileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -157,33 +190,8 @@ class ProfileController extends Controller
         $user->nickname = $request->nickname ? $request->nickname : str_random(7);
         $user->about = $request->about ? $request->about : '';
         $user->token = '';
-
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-
-            if ($file->isValid()) {
-                $path   = 'uploads/users/' . $user->id. '/';
-                $name   = $file->getClientOriginalName();
-                // dd($name);
-                // deleting old if exists
-                File::deleteDirectory($path);
-
-                // creating directories
-                File::makeDirectory($path, 0777, true, true);
-
-                // Save
-                $file->move($path . '/', $name);
-
-                // //Resize if needed
-                if (Image::make($path . 'default/' . $name)->width() > 200)
-                    Image::make($path . 'default/' . $name)->widen(200)->save();
-
-                // Assign images
-                $user->image = $path . '/' . $name;
-            }
-        }
-
         $user->save();
+
         $adress_id = Adress::where('user_id', '=', Auth::id())->first();
         $adress = Adress::find($adress_id['id']);
         $adress->city = $request->city;
@@ -214,8 +222,6 @@ class ProfileController extends Controller
 
         $user = User::find(Auth::id());
 
-        // $oldPassword = Hash::make($request->oldPassword);
-
         if (Hash::check($request->oldPassword, $user->password)) {
             $user->password = Hash::make($request->password);
             $user->save();
@@ -227,8 +233,6 @@ class ProfileController extends Controller
                     'erorr' => 'erorr old Password'
                     ]);
         }
-
-
 
     }
 
@@ -269,14 +273,14 @@ class ProfileController extends Controller
     public function updatePhoto(Request $request)
     {
         $user = User::find(Auth::id());
-dd($request->image);
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
 
             if ($file->isValid()) {
                 $path   = 'uploads/users/' . $user->id. '/';
                 $name   = $file->getClientOriginalName();
-                // dd($name);
+
                 // deleting old if exists
                 File::deleteDirectory($path);
 
@@ -284,14 +288,16 @@ dd($request->image);
                 File::makeDirectory($path, 0777, true, true);
 
                 // Save
-                $file->move($path . '/', $name);
+                $file->move($path, $name);
+                // $file->move($path . '/', $name);
 
-                // //Resize if needed
-                if (Image::make($path . 'default/' . $name)->width() > 200)
-                    Image::make($path . 'default/' . $name)->widen(200)->save();
+                // // //Resize if needed
+                // if (Image::make($path . 'default/' . $name)->width() > 200)
+                //     Image::make($path . 'default/' . $name)->widen(200)->save();
 
                 // Assign images
-                $user->image = $path . '/' . $name;
+                $user->image = $path . $name;
+                // $user->image = $path . '/' . $name;
                 $user->save();
                 return 'ok';
             } else {

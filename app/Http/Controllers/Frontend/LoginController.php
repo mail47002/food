@@ -12,6 +12,7 @@ use App\User;
 use File;
 use Image;
 use App\Adress;
+use App\Reviews;
 use Hash;
 
 class LoginController extends Controller
@@ -38,7 +39,7 @@ class LoginController extends Controller
 
             if($user->token){
                 $token_time = strtotime(date("Y-m-d H:i:s")) - strtotime($user->created_at);
-                if ($token_time >=901) {
+                if ($token_time >= 901) {
                     $user->token = str_random(30);
                     $user->save();
                     Mail::to($user->email)->send(new MailClass($user->token));
@@ -151,7 +152,7 @@ class LoginController extends Controller
             if ($file->isValid()) {
                 $path   = 'uploads/users/' . $user->id. '/';
                 $name   = $file->getClientOriginalName();
-                // dd($name);
+
                 // deleting old if exists
                 File::deleteDirectory($path);
 

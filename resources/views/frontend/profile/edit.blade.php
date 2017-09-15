@@ -10,7 +10,7 @@
 				<div class="avatar">
 					<div class="uploader profile">
 						{{ Form::open([ 'route' => 'profile.updatePhoto', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'send_image']) }}
-							<img src="{{$profile['image']}}" alt="">
+							<img src="/{{$profile['image']}}" alt="">
 							{{ Form::file('image', ['id' => 'filePhoto']) }}
 							<div class="round"><i class="fo fo-camera"></i></div>
 						{{ Form::close() }}

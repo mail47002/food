@@ -38,10 +38,10 @@
 			<div class="v-indent-40"></div>
 			<h1>{{$profile['name']}}</h1>
 			<p class="grey3">
-				<i class="fo fo-marker red"></i> {{$adresses['street']}} {{$adresses['build']}}, {{$adresses['city']}}
+				<i class="fo fo-marker red"></i> {{$profile->adresses['street']}} {{$profile->adresses['build']}}, {{$profile->adresses['city']}}
 				&nbsp;&nbsp;&nbsp;<a href="{{-- {{ route('profile.adresses') }} --}}" class="link-grey"><i class="fo fo-edit fo-small fo-indent"></i>Редагувати</a>
 			</p>
-			<div class="rating grey3"><span class="stars medium">4</span>30 відгуків</div>
+			<div class="rating grey3"><span class="stars medium">4</span>{{count($reviews_from)}} відгуків</div>
 
 			<div class="description">
 				<p>{{$profile['about']}}</p>
@@ -53,82 +53,38 @@
 
 
 			<div class="reviews">
-				<h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">
+				<h5 class="text-upper underline-red">Відгуки ({{count($reviews_from)}})</h5><hr class="zerro-top">
 				<ul class="list-unstyled">
-
+				@foreach ($reviews_from as $review)
 					<li class="clearfix">
 						<div class="left">
 							<div class="avatar">
-								<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+								<div class="rounded"><img src="/{{$review->image}}" alt="foto"></div>
 							</div>
-							<a href="#" class="link-blue name">Вікторія</a>
+							<a href="#" class="link-blue name">{{$review->name}}</a>
 						</div>
 						<div class="right bg-yellow">
-							<div class="date">2 липня 2016</div>
-							<span class="stars">4</span>
+							<div class="date">{{$review->created_at}}</div>
+							<span class="stars">{{$review->rating}}</span>
 							<div class="message">
-								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
+								{{$review->text}}
 							</div>
-						</div>
-					</li>
-
-					<li class="clearfix">
-						<div class="left">
-							<div class="avatar">
-								<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-							</div>
-							<a href="#" class="link-blue name">Вікторія</a>
-						</div>
-
-						<div class="right bg-yellow">
-							<div class="date">2 липня 2016</div>
-							<span class="stars">4</span>
-							<div class="message">
-								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-							</div>
-
 							<div class="answer clearfix">
 								<div class="title">Ваша відповідь</div>
 								<div class="message">
-									В принципе вкусно,если сделать для одного раза,а так: гарнир
+									{{$review->answer}}
 								</div>
 								<div class="right-avatar">
 									<div class="avatar">
-										<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+										<div class="rounded"><img src="/{{$profile['image']}}" alt="foto"></div>
 									</div>
 								</div>
 							</div>
-
-							<div class="message">
-								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-							</div>
-
 							<hr>
 							<a href="#" class="link-blue pull-right">Приховати</a>
-
 						</div>
 					</li>
-
-					<li class="clearfix">
-						<div class="left">
-							<div class="avatar">
-								<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-							</div>
-							<a href="#" class="link-blue name">Марія</a>
-						</div>
-						<div class="right bg-yellow">
-							<div class="date">2 липня 2016</div>
-							<span class="stars">4</span>
-							<div class="message">
-								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-							</div>
-
-							<hr>
-							<a href="#" class="link-red pull-left">Відповісти</a>
-							<a href="#" class="link-blue pull-right">Показати все</a>
-						</div>
-					</li>
-
+					@endforeach
 				</ul>
 				<div class="paginate">
 					<ul class="pagination grey">
