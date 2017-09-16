@@ -54,6 +54,8 @@ Route::group(['namespace' => 'Frontend'], function() {
 
 
     // Pages
+    Route::get('/faq', 'PagesController@faq');
+    Route::get('/contact', 'PagesController@contact');
     Route::get('{slug}', 'PagesController@show');
 
     Route::get('/temp/{slug}', 'PagesController@temp');

@@ -26,6 +26,16 @@ class PagesController extends Controller
         abort(404);
     }
 
+    public function faq()
+    {
+        return view('frontend.pages.faq');
+    }
+
+    public function contact()
+    {
+        return view('frontend.pages.contact');
+    }
+
     public function temp($slug)
     {
         return view('frontend.temp.'.$slug);
