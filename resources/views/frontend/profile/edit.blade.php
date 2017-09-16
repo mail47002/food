@@ -85,7 +85,7 @@
 <script src="/assets/js/jquery.maskedinput.js"></script>
 <script>
 	jQuery(function($){
-		$(".phone-input").mask("+38 (999) 999-9999");
+		$(".phone-input").mask("+38 999 999 99 99");
 	});
 </script>
 
