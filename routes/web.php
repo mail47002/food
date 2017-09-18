@@ -70,8 +70,8 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::post('password/reset', ['as' => 'forgot', 'uses' => 'ForgotPasswordController@forgot']);
 
     // Profile
-    Route::get('profile/create', ['as' => 'login.information', 'uses' => 'LoginController@information']);
-    Route::post('profile/create', ['as' => 'login.save', 'uses' => 'LoginController@save']);
+    Route::get('profile/create', ['as' => 'login.information', 'uses' => 'ProfileController@create']);
+    Route::post('profile/store', ['as' => 'login.save', 'uses' => 'ProfileController@store']);
 
     Route::get('success', ['as' => 'success', 'uses' => 'LoginController@success']);
 
