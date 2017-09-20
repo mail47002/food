@@ -196,11 +196,15 @@ select{
 input.disabled {background: @yellow;}
 
 /* Base for label styling */
+[type="radio"]:not(:checked),
+[type="radio"]:checked,
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
 	position: absolute;
 	left: -9999px;
 }
+[type="radio"]:not(:checked) + label,
+[type="radio"]:checked + label,
 [type="checkbox"]:not(:checked) + label,
 [type="checkbox"]:checked + label {
 	position: relative;
@@ -208,18 +212,24 @@ input.disabled {background: @yellow;}
 	cursor: pointer;
 }
 /* checkbox aspect */
+[type="radio"]:not(:checked) + label:before,
+[type="radio"]:checked + label:before,
 [type="checkbox"]:not(:checked) + label:before,
 [type="checkbox"]:checked + label:before {
 	content: '';
 	position: absolute;
-	left: 0; top: 0;
+	left: 0; top: 0; bottom: 0;
+	margin: auto;
 	width: 20px; height: 20px;
 	border: 1px solid @grey1;
 	border-radius: 5px;
 	background: @white;
 }
+[type="radio"]:not(:checked) + label:before,
+[type="radio"]:checked + label:before {
+	border-radius: 50%;
+}
 /* checked mark aspect */
-[type="checkbox"]:not(:checked) + label:after,
 [type="checkbox"]:checked + label:after {
 	content: '';
 	background: url("../images/checked.png") no-repeat center @red;
@@ -230,16 +240,41 @@ input.disabled {background: @yellow;}
 	top: 0; left: 0;
 	transition: all .2s;
 }
+[type="radio"]:checked + label:before {
+	content: '';
+	background: @red;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 0; left: 0;
+	transition: all .2s;
+}
+[type="radio"]:checked + label:after {
+	content: '';
+	background: rgb(249, 198, 197);
+	border-radius: 50%;
+	width: 8px;
+	height: 8px;
+	position: absolute;
+	top: 0; left: 6px; bottom: 0;
+	margin: auto;
+	transition: all .2s;
+}
 /* checked mark aspect changes */
+[type="radio"]:not(:checked) + label:after,
 [type="checkbox"]:not(:checked) + label:after {
 	opacity: 0;
 	transform: scale(0);
 }
+[type="radio"]:checked + label:after,
 [type="checkbox"]:checked + label:after {
 	opacity: 1;
 	transform: scale(1);
 }
 /* accessibility */
+[type="radio"]:checked:focus + label:before,
+[type="radio"]:not(:checked):focus + label:before,
 [type="checkbox"]:checked:focus + label:before,
 [type="checkbox"]:not(:checked):focus + label:before {
 	border: 1px solid @grey1;
@@ -1272,6 +1307,32 @@ a:focus {outline: none;}
 		}
 	}
 }
+.ui-widget.ui-widget-content.ui-autocomplete {
+	background: @white;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-top: none;
+	border: 1px solid @grey1;
+	display: none;
+	left: 0;
+	list-style: none;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	z-index: 100;
+	li {
+		padding: 0 15px;
+		height: 30px;
+		line-height: 30px;
+		&:hover {
+			cursor: pointer;
+			background: @yellow;
+		}
+	}
+
+}
 
 
 /* catalouge filter */
@@ -1539,7 +1600,11 @@ a:focus {outline: none;}
 		margin-top: 20px;
 		max-width: 325px;
 		text-align: center;
-		p {font-size: 16px;}
+		p {
+			font-size: 16px;
+			&.f14 {font-size: 14px;}
+			&.f20 {font-size: 20px;}
+		}
 	}
 }
 .empty-block {
@@ -3025,6 +3090,8 @@ a:focus {outline: none;}
 			font-size: 22px;
 			left: 5px;
 			top: 0;
+			bottom: 0;
+			margin: auto;
 			height: 40px;
 			line-height: 40px;
 			width: 15px;
@@ -3072,7 +3139,32 @@ a:focus {outline: none;}
 			&.alert {display: inline-block;}
 		}
 	}
-	.wide {max-width: 100%;}
+	.wide {
+		max-width: 100%;
+		width: 100%;
+	}
+	.inline {display: inline-block;}
+	label.inline {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	.stickers {
+		margin: 0;
+		label {margin: 0 10px;}
+	}
+	.address {
+		.left {
+			text-align: left;
+			max-width: 345px;
+			width: 100%;
+			margin-right: 20px;
+		}
+		.right {
+			text-align: left;
+			max-width: 115px;
+			width: 100%;
+		}
+	}
 }
 // Формы добавления рецептов ... блюд
 .add-food-select {
@@ -3258,6 +3350,18 @@ a:focus {outline: none;}
 		font-size: 20px;
 		text-transform: uppercase;
 		margin: 45px auto 60px;
+	}
+	.zerro-bottom {margin-bottom: 0;}
+	.inline {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.everyday {
+		label {margin-bottom: 0;}
+	}
+	.two-in-line {
+		label {margin: 0 10px;}
+		input {max-width: 220px;}
 	}
 }
 
