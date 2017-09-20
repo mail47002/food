@@ -13,7 +13,7 @@
 
 // For dev
 Route::get('/', 'Frontend\PagesController@index');
-Route::get('/temp/{slug}', 'PagesController@temp');
+Route::get('temp/{slug}', 'Frontend\PagesController@temp');
 
 // Backend
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {

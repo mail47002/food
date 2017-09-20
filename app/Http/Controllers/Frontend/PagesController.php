@@ -25,4 +25,9 @@ class PagesController extends Controller
 
         return redirect()->back();
     }
+
+    // For development
+    public function temp($slug) {
+        return view('frontend.temp.' . $slug);
+    }
 }
