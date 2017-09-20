@@ -13,6 +13,7 @@
 
 // For dev
 Route::get('/', 'Frontend\PagesController@index');
+Route::get('/temp/{slug}', 'PagesController@temp');
 
 // Backend
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
@@ -51,7 +52,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
 });
 
 
-//Frontend
+// Frontend
 Route::group(['namespace' => 'Frontend'], function() {
     // Adverts
     Route::resource('adverts', 'AdvertsController');
@@ -74,8 +75,6 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::get('/profile/messages', ['as' => 'profile.messages', 'uses' => 'ProfileController@messages']);
     Route::post('/profile/image', ['as' => 'profile.updatePhoto', 'uses' => 'ProfileController@updatePhoto']);
 
-
-
     //login & Register
     Route::get('login', ['as' => 'login', 'uses' => 'LoginController@index']);
     Route::post('login', ['as' => 'login.session', 'uses' => 'LoginController@login']);
@@ -88,11 +87,7 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::get('success', ['as' => 'success', 'uses' => 'LoginController@success']);
     Route::get('logout', ['as' => 'login.logout', 'uses' => 'LoginController@logout']);
 
-
     // Pages
-    Route::get('/faq', 'PagesController@faq');
-    Route::get('/contact', 'PagesController@contact');
+    Route::get('faqs', 'FaqsController@show');
     Route::get('{slug}', 'PagesController@show');
-
-    Route::get('/temp/{slug}', 'PagesController@temp');
 });

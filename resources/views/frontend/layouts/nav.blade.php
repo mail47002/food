@@ -4,7 +4,7 @@
 			<a id="total-menu" class="dropdown-toggle fo fo-menu" href="#" type="button" data-toggle="dropdown"></a>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="total-menu">
 				<li><a href="{{ url('pro-proekt') }}">Про проект</a></li>
-				<li><a href="/faq">Допомога</a></li>
+				<li><a href="{{ url('faqs') }}">Допомога</a></li>
 				<li><a href="{{ url('pravila') }}">Правила</a></li>
 				<li><a href="{{ url('umovi-ta-konfidentsiynist') }}">Уммови та конфіденційність</a></li>
 				<li><a href="/contact">Зворотній зв'язок</a></li>
