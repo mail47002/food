@@ -18,6 +18,7 @@
 				<li class="active"><a href="/temp/add_food">add_food (7.1)</a></li>
 				<li class="active"><a href="/temp/add_food_new_dish">add_food_new_dish (7.2)</a></li>
 				<li class="active"><a href="/temp/add_food_new_dish_2">add_food_new_dish (7.4.1)</a></li>
+				<li class="active"><a href="/temp/add_food_new_dish_742">add_food_new_dish (7.4.2)</a></li>
 				<li class="active"><a href="/temp/add_recipe">add_recipe (15.1)</a></li>
 
 
