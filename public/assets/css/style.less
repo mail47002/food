@@ -3363,6 +3363,11 @@ a:focus {outline: none;}
 		label {margin: 0 10px;}
 		input {max-width: 220px;}
 	}
+	.price {
+		background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='40px' width='40px'><text x='0' y='15' fill='red' font-size='16' font-family='Roboto'>UAH</text></svg>");
+		background-repeat: no-repeat;
+		background-position: top 10px right 5px;
+	}
 }
 
 
@@ -3441,6 +3446,73 @@ a:focus {outline: none;}
   min-width: 10px;
   width: auto;
 }
+
+
+/* Datepicker */
+.ui-datepicker {
+	border: 1px solid @grey1;
+	background: @white;
+	width: 17em;
+	padding: .2em .2em 0;
+	.ui-datepicker-header {
+		position: relative;
+		padding: .2em 0;
+	}
+	.ui-datepicker-prev,
+	.ui-datepicker-next {
+		position: absolute;
+		top: 2px;
+		width: 1.8em;
+		height: 1.8em;
+		&:hover {cursor: pointer;}
+	}
+	.ui-datepicker-prev {left: 2px;}
+	.ui-datepicker-next {right: 2px;}
+	.ui-datepicker-title {
+		margin: 0 2.3em;
+		line-height: 1.8em;
+		text-align: center;
+	}
+	table {
+		width: 100%;
+		font-size: .9em;
+		border-collapse: collapse;
+		margin: 0 0 .4em;
+	}
+	th {
+		padding: .7em .3em;
+		text-align: center;
+		font-weight: bold;
+		border: 0;
+	}
+	td {
+		border: 0;
+		padding: 1px;
+		a {
+			display: block;
+			padding: .2em;
+			text-align: right;
+			text-decoration: none;
+		}
+		.ui-state-default{
+			border: 1px solid @grey1;
+			background: @yellow;
+			font-weight: normal;
+			color: @black;
+		}
+		.ui-state-highlight {
+			border: 1px solid @grey3;
+			background: @yellowDark;
+			color: @red;
+		}
+		&.ui-state-disabled {
+			cursor: default !important;
+			pointer-events: none;
+		}
+	}
+}
+
+
 
 
 

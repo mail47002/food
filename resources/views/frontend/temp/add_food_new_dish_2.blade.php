@@ -110,7 +110,9 @@
 	jQuery(function($){
 
 		$("#count").selectmenu();
-		$(".datepicker").datepicker();
+		$(".datepicker").datepicker({
+			dateFormat: "dd.mm.yy"
+		});
 
 		$('#repeat').on('change', function() {
 			if($(this).is(":checked")) {
@@ -214,3 +216,7 @@ $( function() {
 </script>
 
 @stop
+
+@section('styles')
+	{{-- <link rel="stylesheet" href="/assets/css/jquery-ui.css"> --}}
+ @stop
