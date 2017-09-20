@@ -54,7 +54,7 @@
 					<input type="checkbox" id="supper" checked="checked"><label for="supper">Вечеря (після 16:00)</label>
 				</div>
 				<div class="col-md-3">
-					<label for="sorting">Сортутвати по:</label>
+					<label for="sorting" class="grey3">Сортутвати по:</label>
 					<select name="sorting" id="sorting">
 						<option value="">найближчі</option>
 						<option value="">найближчі</option>
@@ -67,7 +67,7 @@
 			<div class="prices-input text-center">
 				<label for="">Ціновий діапазон</label>
 				<input type="text" placeholder="">
-				<label for="">-</label>
+				<label for="">&#x2014;</label>
 				<input type="text" placeholder="">
 				<label for="">грн.</label>
 
@@ -133,7 +133,7 @@
 		<!-- Modal content-->
 		<div class="modal-content text-center">
 			<div class="modal-header">
-				<a href="#" type="button" class="close" data-dismiss="modal"></a>
+				<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
 				<h4 class="modal-title">Змінити регіон</h4>
 			</div>
 			<div class="modal-body">
@@ -158,4 +158,18 @@
 	</div>
 </div>
 
+@stop
+
+@section('scripts')
+<script>
+$( function() {
+	$("#sorting").selectmenu({
+		change: function( e, ui ) {
+			var filter = $("#sorting").val();
+			{{-- Отсюда можна отсылать фильтр выпадайки --}}
+			console.log(filter);
+		}
+	});
+});
+</script>
 @stop

@@ -1,5 +1,4 @@
 @extends('frontend.layouts.default')
-
 @section('title')Products - @stop
 @section('content')
 
@@ -13,7 +12,7 @@
 
 			<hr>
 			<div class="address text-center">
-				<i class="fo fo-small fo-marker red"></i>Вінниця 
+				<i class="fo fo-marker red"></i>Вінниця 
 				<a href="#" class="link-blue" data-toggle="modal" data-target="#modal_change_address">Змінити регіон</a>
 			</div>
 			<hr>
@@ -65,9 +64,9 @@
 							</span>
 						</p>
 						<div class="pull-right categories-dishes">
-							<a href="" class="link-red"><i class="fo fo-time"></i></a>
-							<a href="" class="link-red"><i class="fo fo-deal"></i></a>
-							<a href="" class="link-red"><i class="fo fo-dish-ready"></i></a>
+							<a href="" class="link-red-dark"><i class="fo fo-time"></i></a>
+							<a href="" class="link-red-dark"><i class="fo fo-deal"></i></a>
+							<a href="" class="link-red-dark"><i class="fo fo-dish-ready"></i></a>
 						</div>
 					</div>
 				</div>
@@ -101,7 +100,7 @@
 		<!-- Modal content-->
 		<div class="modal-content text-center">
 			<div class="modal-header">
-				<a href="#" type="button" class="close" data-dismiss="modal"></a>
+				<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
 				<h4 class="modal-title">Змінити регіон</h4>
 			</div>
 			<div class="modal-body">
@@ -126,4 +125,18 @@
 	</div>
 </div>
 
+@stop
+
+@section('scripts')
+<script>
+$( function() {
+	$("#sorting").selectmenu({
+		change: function( e, ui ) {
+			var filter = $("#sorting").val();
+			{{-- Отсюда можна отсылать фильтр выпадайки --}}
+			console.log(filter);
+		}
+	});
+});
+</script>
 @stop

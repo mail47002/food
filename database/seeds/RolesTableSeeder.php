@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
 
 class RolesTableSeeder extends Seeder
 {
@@ -14,12 +13,12 @@ class RolesTableSeeder extends Seeder
     {
         DB::table('roles')->insert([
             'role' => 'user',
-            'created_at' => Carbon::now()->toDateTimeString()
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
 
         DB::table('roles')->insert([
             'role' => 'administrator',
-            'created_at' => Carbon::now()->toDateTimeString()
+            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
         ]);
     }
 }

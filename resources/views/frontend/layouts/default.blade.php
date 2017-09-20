@@ -3,38 +3,56 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
 	<title>Food</title>
 
-	<!-- begin Styles -->
-	<link href="{{ asset('frontend/vendor/font-awesome/css/font-awesome.min.css') }}" type="text/css" rel="stylesheet">
-	@stack('styles')
-	<link href="{{ asset('frontend/css/style.css') }}" type="text/css" rel="stylesheet">
+	<link href="/assets/css/style.css" type="text/css" rel="stylesheet">
 
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
+	@yield('styles')
 </head>
-<body>
+<body class="body-{{Route::currentRouteName()}}">
 	<div id="wrapper">
-		@include('frontend.layouts.nav')
 
-		@yield('content')
+	@include('frontend.layouts.nav')
 
-		<footer class="footer">
-			<div class="container">
-				<span>© Всі права захищені</span>
-				<a href="#">Умови використання та конфіденційність</a>
-				<a href="#">Контакти</a>
-			</div>
-		</footer>
+	@yield('content')
+
+	@include('frontend.layouts.footer')
+
 	</div>
 
-	<!-- begin Scripts -->
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	<script src="{{ asset('frontend/js/dropdown.js') }}" async></script>
-	<script src="{{ asset('frontend/js/modal.js') }}" async></script>
-	<script src="{{ asset('frontend/js/jquery.matchHeight.js') }}"></script>
-	@stack('scripts')
+
+
+<script src="/assets/js/jquery-2.2.4.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/assets/js/dropdown.js" async></script>
+<script src="/assets/js/modal.js" async></script>
+{{-- <script src="/assets/js/jquery.matchHeight.js"></script> --}}
+<script src="/assets/vendor/owlcarousel/owl.carousel.min.js"></script>
+<script src="/assets/js/simplebar.js"></script>
+
+<script>
+	$.fn.stars = function() {
+		return $(this).each(function() {
+			$(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * $(this).width()/5));
+		});
+	}
+
+	function handleImage(e) {
+		var reader = new FileReader();
+		reader.onload = function (event) {
+			$(e.target).parent().find('img').attr('src',event.target.result);
+		}
+		reader.readAsDataURL(e.target.files[0]);
+	}
+
+
+	$( document ).ready(function() {
+		$('span.stars').stars();
+	});
+</script>
+
+@yield('scripts')
+
 </body>
 </html>

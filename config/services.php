@@ -35,22 +35,4 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
-    'google' => [
-        'client_id' => 'your-google-app-id',
-        'client_secret' => 'your-google-app-secret',
-        'redirect' => 'http://your-callback-url',
-    ],
-
-    'facebook' => [
-        'client_id' => 'your-facebook-app-id',
-        'client_secret' => 'your-facebook-app-secret',
-        'redirect' => 'http://your-callback-url',
-    ],
-
-    'twitter' => [
-        'client_id' => 'your-twitter-app-id',
-        'client_secret' => 'your-twitter-app-secret',
-        'redirect' => 'http://your-callback-url',
-    ],
-
 ];

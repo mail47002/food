@@ -9,9 +9,11 @@
 
 				<div class="avatar">
 					<div class="uploader profile">
-						<img src="/{{$profile['image']}}" alt="foto">
-						<input type="file" name="avatar" id="filePhoto" />
-						<div class="round"><i class="fo fo-camera"></i></div>
+						{{ Form::open([ 'route' => 'profile.updatePhoto', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'send_image']) }}
+							<img src="/{{$profile['image']}}" alt="">
+							{{ Form::file('image', ['id' => 'filePhoto']) }}
+							<div class="round"><i class="fo fo-camera"></i></div>
+						{{ Form::close() }}
 					</div>
 				</div>
 				{{-- ToDo: upload to server --}}
@@ -83,7 +85,7 @@
 <script src="/assets/js/jquery.maskedinput.js"></script>
 <script>
 	jQuery(function($){
-		$(".phone-input").mask("+38 (999) 999-9999");
+		$(".phone-input").mask("+38 999 999 99 99");
 	});
 </script>
 
@@ -139,5 +141,32 @@ function handleImage(e) {
 			$(this).parent().remove();
 		});
 	});
+</script>
+{{-- update Photo user --}}
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	$('input[type="file"]').change(function(e){
+		e.preventDefault();
+		var my = new FormData($('#send_image')[0]);
+		console.log(my);
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('input[name="_token"]').val()
+			},
+			url: '{{route('profile.updatePhoto')}}',
+			method: 'POST',
+			processData: false,
+			contentType: false,
+			data: new FormData($('#send_image')[0])
+		})
+		.done(function(file){
+			console.log(file);
+		})
+	});
+
+});
+
 </script>
 @stop

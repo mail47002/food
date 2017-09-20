@@ -10,12 +10,12 @@ class PagesController extends Controller
 {
     public function index()
     {
-        return view('frontend.pages.index');
+        return view('frontend.home');
     }
 
     public function show($slug)
     {
-        $page = Page::where('slug', $slug)->first();
+        $page = Page::findBySlug($slug);
 
         if ($page) {
             return view('frontend.pages.show', [
@@ -23,6 +23,21 @@ class PagesController extends Controller
             ]);
         }
 
-        return redirect()->back();
+        abort(404);
+    }
+
+    public function faq()
+    {
+        return view('frontend.pages.faq');
+    }
+
+    public function contact()
+    {
+        return view('frontend.pages.contact');
+    }
+
+    public function temp($slug)
+    {
+        return view('frontend.temp.'.$slug);
     }
 }

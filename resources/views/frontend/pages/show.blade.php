@@ -18,5 +18,6 @@
 				</ul>
 			</div>
 		</div>
+
 	</div>
 @endsection

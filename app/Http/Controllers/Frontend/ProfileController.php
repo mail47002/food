@@ -2,74 +2,146 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Address;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use App\User;
+use App\Adress;
+use App\Review;
+use App\Advert;
+use Hash;
 use File;
 use Image;
+use Validator;
 
 class ProfileController extends Controller
 {
-    public function __construct()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    function __construct()
     {
-        $this->middleware(['guest']);
+        $this->middleware('auth');
     }
+
+     /**
+     * index page profile.
+     *
+     * @param
+     * @return return view frontend.profile.index
+     */
 
     public function index()
     {
+        $profile = User::find(Auth::id());
+        //відгуки від користувачів
+        // $reviews_from = DB::table('reviews')
+        //                     ->leftJoin('advert_to_user', 'reviews.advert_id', '=', 'advert_to_user.advert_id')
+        //                     ->leftJoin('users', 'reviews.user_id', '=', 'users.id')
+        //                     ->leftJoin('review_answers', 'reviews.id', '=', 'review_answers.review_id')
+        //                     ->select('reviews.text', 'reviews.rating', 'reviews.created_at', 'users.name', 'users.image', 'review_answers.answer')
+        //                     ->where('advert_to_user.user_id', '=', Auth::id())
+        //                     ->where('reviews.status', '=', 1)
+        //                     ->get();
+        // dd($reviews_from);
+        // відгуки користувачам
+        // $reviews_to = DB::table('reviews')
+        //                     ->leftJoin('advert_to_user', 'reviews.advert_id', '=', 'advert_to_user.advert_id')
+        //                     ->leftJoin('adverts', 'reviews.advert_id', '=', 'adverts.id')
+        //                     ->leftJoin('users', 'advert_to_user.user_id', '=', 'users.id')
+        //                     ->select('reviews.text', 'reviews.rating', 'reviews.created_at', 'users.name', 'users.image',)
+
+        //відгуки від користувачів
+        // $reviews_from = Advert::where('user_id', '=', Auth::id())
+        // ->select('name', 'user_id')
+        // ->get();
+        $test = Auth::user()->adverts();
+        dd(Auth::user()->adverts());
+
         return view('frontend.profile.index', [
-            'user' => Auth::user(),
-        ]);
+            'profile' => $profile,
+            'reviews_from' => $reviews_from,
+            ]);
     }
 
+    public function products()
+    {
+        return view('frontend.profile.products', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
+    }
+
+    public function adverts()
+    {
+        return view('frontend.profile.adverts', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
+    }
+
+    public function orders()
+    {
+        return view('frontend.profile.orders', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
+    }
+
+    public function reviews()
+    {
+        return view('frontend.profile.reviews', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
+    }
+
+    public function messages()
+    {
+        return view('frontend.profile.messages', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
+    }
+
+    public function articles()
+    {
+        return view('frontend.profile.articles', [
+            'profile' => User::find(Auth::id()),
+            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        return view('frontend.profile.create');
+        //
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        $user = Auth::user();
-
-        $this->validate($request, [
-            'name'      => 'required',
-            // 'nickname'   => 'nickname|unique:users,nickname',
-            'phone'     => 'required',
-            'city'      => 'required',
-            'street'    => 'required',
-            'build'     => 'required',
-        ]);
-
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-
-            if ($file->isValid()) {
-                $path   = 'uploads/users/' . $user->id. '/';
-
-                $name   = $file->getClientOriginalName();
-
-                File::deleteDirectory($path);
-
-                File::makeDirectory($path, 0777, true, true);
-
-                $file->move($path . '/', $name);
-
-                if (Image::make($path . 'default/' . $name)->width() > 200) {
-                    Image::make($path . 'default/' . $name)->widen(200)->save();
-                }
-
-                $user->image = $path . '/' . $name;
-            }
-        }
-
-        $user->fill($request->all())->save();
-
-        $user->address()->save(new Address($request->all()));
-
-        return redirect()->route('profile.index');
+        //
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
         // $profile = Product::find($id);
@@ -78,18 +150,162 @@ class ProfileController extends Controller
         );
     }
 
-    public function edit($id)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit()
     {
-        //
+        $profile = User::find(Auth::id());
+        $adresses = Adress::where('user_id', '=', Auth::id())->first();
+        return view('frontend.profile.edit',[
+            'profile' =>$profile,
+            'adresses' =>$adresses,
+            ]);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
     {
-        //
+        // dd($request);
+        $user = User::find(Auth::id());
+        $this->validate($request, [
+            'name'                     => 'required',
+            'phone'                    => 'required',
+            'city'                     => 'required',
+            'street'                   => 'required',
+            'build'                     => 'required',
+        ]);
+
+        $user->name = $request->name;
+        $user->phone = json_encode($request->phone);
+        $user->nickname = $request->nickname ? $request->nickname : str_random(7);
+        $user->about = $request->about ? $request->about : '';
+        $user->token = '';
+        $user->save();
+
+        $adress_id = Adress::where('user_id', '=', Auth::id())->first();
+        $adress = Adress::find($adress_id['id']);
+        $adress->city = $request->city;
+        $adress->street = $request->street;
+        $adress->build = $request->build;
+
+        $adress->save();
+        return redirect()
+                ->route('profile.index');
     }
 
+    public function password()
+    {
+        $profile = User::find(Auth::id());
+        return view('frontend.profile.password', [
+            'profile' => $profile,
+            ]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+
+        $this->validate($request, [
+            'oldPassword'               => 'required',
+            'password'                  => 'required',
+            'password_confirmation'     => 'required|same:password',
+        ]);
+
+        $user = User::find(Auth::id());
+
+        if (Hash::check($request->oldPassword, $user->password)) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return redirect()
+                ->route('profile.index');
+        } else {
+            return redirect()
+                ->route('profile.password',[
+                    'erorr' => 'erorr old Password'
+                    ]);
+        }
+
+    }
+
+    public function nickname()
+    {
+        $profile = User::find(Auth::id());
+        return view('frontend.profile.nickname', [
+            'profile' => $profile,
+            ]);
+    }
+
+    public function updateNickname(Request $request)
+    {
+
+
+        $this->validate($request, [
+            'nickname'          => 'required|unique:users,nickname|min:3',
+        ]);
+        $user = User::find(Auth::id());
+        $user->nickname = $request->nickname;
+        $user->save();
+        return redirect()
+                ->route('profile.index');
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         //
+    }
+
+    public function updatePhoto(Request $request)
+    {
+        $user = User::find(Auth::id());
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            if ($file->isValid()) {
+                $path   = 'uploads/users/' . $user->id. '/';
+                $name   = $file->getClientOriginalName();
+
+                // deleting old if exists
+                File::deleteDirectory($path);
+
+                // creating directories
+                File::makeDirectory($path, 0777, true, true);
+
+                // Save
+                $file->move($path, $name);
+                // $file->move($path . '/', $name);
+
+                // // //Resize if needed
+                // if (Image::make($path . 'default/' . $name)->width() > 200)
+                //     Image::make($path . 'default/' . $name)->widen(200)->save();
+
+                // Assign images
+                $user->image = $path . $name;
+                // $user->image = $path . '/' . $name;
+                $user->save();
+                return 'ok';
+            } else {
+                return 'error validate';
+            }
+        }
+
+        return 'error request';
+
     }
 }

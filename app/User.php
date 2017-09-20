@@ -4,37 +4,38 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
     use Notifiable;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'image', 'name', 'phone', 'email', 'email_token', 'password',
+        'name', 'email', 'password',
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    public function getPhoneAttribute($value)
+    public function adresses()
     {
-        return json_decode($value);
+        return $this->hasOne('App\Adress');
     }
 
-    public function setPhoneAttribute($value)
+    public function adverts()
     {
-        $this->attributes['phone'] = json_encode($value);
+        return $this->hasMany('App\Advert');
     }
 
-    public function address() {
-        return $this->hasOne('App\Address');
-    }
-
-    public function verified()
-    {
-        $this->verified = 1;
-
-        $this->save();
-    }
 }

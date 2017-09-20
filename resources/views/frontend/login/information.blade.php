@@ -71,7 +71,7 @@
 <script src="/assets/js/jquery.maskedinput.js"></script>
 <script>
 	jQuery(function($){
-		$(".phone-input").mask("+38 (999) 999-9999");
+		$(".phone-input").mask("+38 999 999 99 99");
 	});
 </script>
 
@@ -81,7 +81,7 @@
 		var inputPhone = '<input name="phone[]" class="phone-input" type="text" placeholder="">';
 		$("#clonePhone").on("click", function(){
 			$(inputPhone).insertBefore(this);
-			$(".phone-input").mask("+38 (999) 999-9999");
+			$(".phone-input").mask("+38 999 999 99 99");
 		});
 	});
 </script>
