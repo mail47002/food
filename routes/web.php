@@ -14,6 +14,42 @@
 // For dev
 Route::get('/', 'Frontend\PagesController@index');
 
+// Backend
+Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
+    // Login
+    Route::get('/', 'LoginController@index');
+    Route::post('/', ['as' => 'admin.login', 'uses' => 'LoginController@login']);
+    Route::get('/logout', ['as' => 'admin.logout', 'uses' => 'LoginController@logout']);
+
+    // Dashboard
+    Route::get('dashboard', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
+
+    // Pages
+    Route::resource('pages', 'PagesController',  ['names' => [
+        'index'     => 'admin.pages.index',
+        'create'    => 'admin.pages.create',
+        'store'     => 'admin.pages.store',
+        'show'      => 'admin.pages.show',
+        'edit'      => 'admin.pages.edit',
+        'update'    => 'admin.pages.update',
+        'destroy'   => 'admin.pages.destroy'
+    ]]);
+
+    // FAQs
+    Route::resource('faqs', 'FaqsController',  ['names' => [
+        'index'     => 'admin.faqs.index',
+        'create'    => 'admin.faqs.create',
+        'store'     => 'admin.faqs.store',
+        'show'      => 'admin.faqs.show',
+        'edit'      => 'admin.faqs.edit',
+        'update'    => 'admin.faqs.update',
+        'destroy'   => 'admin.faqs.destroy'
+    ]]);
+
+    // Upload
+    Route::post('upload', ['as' => 'admin.uploads.store', 'uses' => 'UploadsController@store']);
+});
+
 
 //Frontend
 Route::group(['namespace' => 'Frontend'], function() {
