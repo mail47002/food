@@ -47,6 +47,17 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
         'destroy'   => 'admin.faqs.destroy'
     ]]);
 
+    // Settings
+    Route::resource('settings', 'SettingsController',  ['names' => [
+        'index'     => 'admin.settings.index',
+        'create'    => 'admin.settings.create',
+        'store'     => 'admin.settings.store',
+        'show'      => 'admin.settings.show',
+        'edit'      => 'admin.settings.edit',
+        'update'    => 'admin.settings.update',
+        'destroy'   => 'admin.settings.destroy'
+    ]]);
+
     // Upload
     Route::post('upload', ['as' => 'admin.uploads.store', 'uses' => 'UploadsController@store']);
 });

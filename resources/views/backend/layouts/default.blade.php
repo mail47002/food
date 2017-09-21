@@ -44,6 +44,8 @@
                 <li class="{{ is_active('admin/users*') }}"><a href="#"><i class="la la-users"></i> Пользователи</a></li>
                 <li class="{{ is_active('admin/pages*') }}"><a href="{{ route('admin.pages.index') }}"><i class="la la-files-o"></i> Страницы</a></li>
                 <li class="{{ is_active('admin/faqs*') }}"><a href="{{ route('admin.faqs.index') }}"><i class="la la-comment"></i> FAQs</a></li>
+                <li class="divider"></li>
+                <li class="{{ is_active('admin/settings*') }}"><a href="{{ route('admin.settings.index') }}"><i class="la la-cog"></i> Настройки</a></li>
             </ul>
         </nav>
     </aside>
