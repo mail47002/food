@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('token')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->integer('verified')->default(0);
             $table->text('about')->nullable();
             $table->integer('status')->default(0);
             $table->string('ip')->nullable();
