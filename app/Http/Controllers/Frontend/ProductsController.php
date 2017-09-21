@@ -15,7 +15,11 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('frontend.products.index');
+        $products = Product::latest()->get();
+
+        return view('frontend.products.index', [
+            'products' => $products
+        ]);
     }
 
     /**

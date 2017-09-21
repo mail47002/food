@@ -46,32 +46,32 @@
 
 	<div class="container">
 		<div class="row">
-		@for ($i=0; $i < 10; $i++)
-			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-				<div class="product-thumb">
+			@foreach($products as $product)
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="product-thumb">
 
-					<div class="image">
-						<img src="/uploads/food1.jpg" class="img-responsive" alt="">
-						<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
-					</div>
+						<div class="image">
+							<img src="{{ $product->image }}" class="img-responsive" alt="{{ $product->name }}">
+							<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
+						</div>
 
-					<div class="caption">
-						<a href="/products/1" class="title link-black">М'ясне рагу з овочами</a>
-						<p class="pull-left">
-							<span class="rating">
-								<span class="stars">{{ rand(0,5) }}</span>
-								<span class="block">10 відгуків</span>
-							</span>
-						</p>
-						<div class="pull-right categories-dishes">
-							<a href="" class="link-red-dark"><i class="fo fo-time"></i></a>
-							<a href="" class="link-red-dark"><i class="fo fo-deal"></i></a>
-							<a href="" class="link-red-dark"><i class="fo fo-dish-ready"></i></a>
+						<div class="caption">
+							<a href="/products/1" class="title link-black">{{ $product->name }}</a>
+							<p class="pull-left">
+								<span class="rating">
+									<span class="stars">{{ rand(0,5) }}</span>
+									<span class="block">10 відгуків</span>
+								</span>
+							</p>
+							<div class="pull-right categories-dishes">
+								<a href="" class="link-red-dark"><i class="fo fo-time"></i></a>
+								<a href="" class="link-red-dark"><i class="fo fo-deal"></i></a>
+								<a href="" class="link-red-dark"><i class="fo fo-dish-ready"></i></a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		@endfor
+			@endforeach
 		</div>
 	</div>
 
