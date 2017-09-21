@@ -13,16 +13,16 @@ class CreateProductsTable extends Migration {
 	public function up()
 	{
 		Schema::create('products', function (Blueprint $table) {
-      $table->increments('id');
-      $table->string('name');
-      $table->text('description');
-      $table->json('ingredients');
-      $table->string('image');
-      $table->string('video');
-      $table->integer('sort_order');
-      $table->integer('status');
-      $table->timestamps();
-    });
+            $table->increments('id');
+            $table->string('name');
+            $table->text('description');
+            $table->json('ingredients');
+            $table->string('image');
+            $table->string('video');
+            $table->integer('sort_order');
+            $table->integer('status');
+            $table->timestamps();
+        });
 	}
 
 	/**

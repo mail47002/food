@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdvertCategoriesTableSeeder::class);
         $this->call(AdvertCoockingTimeTableSeeder::class);
         $this->call(AdvertEverydayTermsTableSeeder::class);
-        $this->call(AdvertImageTableSeeder::class);
+        $this->call(AdvertImagesTableSeeder::class);
         $this->call(AdvertProductTermsTableSeeder::class);
         $this->call(AdvertStickersTableSeeder::class);
         $this->call(AdvertToCategoryTableSeeder::class);
@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductImageTableSeeder::class);
         $this->call(ProductToCategoryTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
-        $this->call(ReviewAnsversTableSeeder::class);
+        $this->call(ReviewAnswersTableSeeder::class);
         $this->call(ReviewsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
     }

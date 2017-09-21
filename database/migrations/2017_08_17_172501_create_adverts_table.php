@@ -13,21 +13,19 @@ class CreateAdvertsTable extends Migration {
 	public function up()
 	{
 		Schema::create('adverts', function (Blueprint $table) {
-      $table->increments('id');
-      $table->string('name');
-      $table->text('description');
-      $table->integer('product_id');
-      $table->integer('quantity');
-      $table->decimal('price', 5, 2);
-      $table->decimal('custom_price', 5, 2);
-      $table->integer('everyday');
-      $table->integer('category_id');
-      $table->integer('sticker_id');
-      $table->integer('sort_order');
-      $table->integer('status');
-      $table->integer('coocking_time_id');
-      $table->timestamps();
-    });
+            $table->increments('id');
+            $table->string('name');
+            $table->text('description');
+            $table->integer('product_id');
+            $table->integer('quantity');
+            $table->decimal('price', 5, 2);
+            $table->decimal('custom_price', 5, 2);
+            $table->integer('category_id');
+            $table->integer('sticker_id');
+            $table->integer('sort_order');
+            $table->integer('status');
+            $table->timestamps();
+        });
 	}
 
 	/**

@@ -25,7 +25,13 @@ class AdvertsController extends Controller
      */
     public function index()
     {
-        return view('frontend.adverts.index');
+        $adverts = Advert::with(['product', 'reviews', 'images' => function($query) {
+                return $query->orderBy('sort_order', 'asc');
+            }])->latest()->get();
+
+        return view('frontend.adverts.index', [
+            'adverts' => $adverts
+        ]);
     }
 
     public function show($id)

@@ -78,33 +78,32 @@
 
 	<div class="container">
 		<div class="row">
-		<?php for ($i=0; $i < 10; $i++) : ?> 
-			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-				<div class="product-thumb">
+			@foreach ($adverts as $advert)
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="product-thumb">
+						<div class="image">
+							<img src="{{ asset($advert->product->image) }}" class="img-responsive" alt="{{ $advert->name }}">
+							<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
+							@php $actions=['discount','new', 'heart']; @endphp <!-- class: discount new heart -->
+							<div class="sticker {{ $actions[array_rand($actions)] }}"></div>
+						</div>
 
-					<div class="image">
-						<img src="/uploads/food1.jpg" class="img-responsive" alt="">
-						<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
-					@php $actions=['discount','new', 'heart']; @endphp <!-- class: discount new heart -->
-						<div class="sticker {{ $actions[array_rand($actions)] }}"></div>
+						<div class="caption">
+							<a href="#" class="title link-black">{{ $advert->name }}</a>
+							<p>
+								<span class="price">{{ $advert->price }} грн.</span>
+								<span class="rating">
+									<span class="stars">{{rand(0,5)}}</span>{{ $advert->reviews->count() }} відгуків
+								</span>
+							</p>
+							<p><i class="fo fo-time red"></i>15 грудня (обід)</p>
+						</div>
+
+						<button type="button" class="button button-grey order">Замовити</button>
+
 					</div>
-
-					<div class="caption">
-						<a href="/adverts/1" class="title link-black">М'ясне рагу з овочами</a>
-						<p>
-							<span class="price">80 грн.</span>
-							<span class="rating">
-								<span class="stars">{{rand(0,5)}}</span>10 відгуків
-							</span>
-						</p>
-						<p><i class="fo fo-time red"></i>15 грудня (обід)</p>
-					</div>
-
-					<button type="button" class="button button-grey order">Замовити</button>
-
-				</div>
 			</div>
-		<?php endfor ?>
+			@endforeach
 		</div>
 	</div>
 
