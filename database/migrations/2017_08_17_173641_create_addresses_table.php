@@ -12,7 +12,7 @@ class CreateAddressesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('addresses', function (Blueprint $table) {
+		Schema::create('adresses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->string('city');
@@ -29,7 +29,7 @@ class CreateAddressesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('addresses');
+		Schema::drop('adresses');
 	}
 
 }
