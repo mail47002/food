@@ -40,19 +40,19 @@ class ProfileController extends Controller
 
         $reviewsFrom = Advert::with(['reviews' => function($query){
                 $query->with(['user', 'answer']);
-            }])
+            }, 'product'])
             ->orderBy('created_at')
             ->where('user_id', Auth::id())
             ->get();
 
         $reviewsTo = Review::with([
             'advert' => function($query){
-                $query->with(['usermy']);
+                $query->with(['user', 'product']);
             },
             'answer'])
             ->where('user_id', Auth::id())
             ->get();
-
+            // dd($reviewsTo);
         return view('frontend.profile.index', [
             'profile' => $profile,
             'reviewsFrom' => $reviewsFrom,
@@ -62,6 +62,7 @@ class ProfileController extends Controller
 
     public function products()
     {
+        // $products = Advert::with();
         return view('frontend.profile.products', [
             'profile' => User::find(Auth::id()),
             'adresses' => Adress::where('user_id', '=', Auth::id())->first()

@@ -8,11 +8,6 @@ class Advert extends Model
 {
 	public function user()
 	{
-		return $this->hasOne('App\User');
-	}
-
-	public function usermy()
-	{
 		return $this->belongsTo('App\User');
 	}
 

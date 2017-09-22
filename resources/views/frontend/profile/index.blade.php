@@ -57,6 +57,7 @@
 				<ul class="list-unstyled">
 				@foreach ($reviewsFrom as $reviewFrom)
 					@foreach ($reviewFrom->reviews as $from)
+					<!-- {{dump($from)}} -->
 					<li class="clearfix">
 						<div class="left">
 							<div class="avatar">
@@ -66,14 +67,16 @@
 						</div>
 						<div class="right bg-yellow">
 							<div class="date">{{$from->created_at}}</div>
+							<p class="black"><a href="#" class="link-blue">{{$reviewFrom->name}}</a></p>
 							<span class="stars">{{$from->rating}}</span>
 							<div class="message">
 								{{$from->text}}
 							</div>
+							@if ($from->answer)
 							<div class="answer clearfix">
 								<div class="title">Ваша відповідь</div>
 								<div class="message">
-									{{$from->answer}}
+									{{$from->answer->text}}
 								</div>
 								<div class="right-avatar">
 									<div class="avatar">
@@ -81,6 +84,7 @@
 									</div>
 								</div>
 							</div>
+							@endif
 							<hr>
 							<a href="#" class="link-blue pull-right">Приховати</a>
 						</div>
@@ -108,39 +112,36 @@
 				<h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">
 				<ul class="list-unstyled">
 <!--    -->
+					@foreach($reviewsTo as $reviewTo)
 					<li class="with-image bg-yellow clearfix">
 						<div class="title">
-							<p class="date">2 липня 2016</p>
-							<p class="black">Відгук для <a href="#" class="link-blue">Оксана</a> про <a href="#" class="link-blue">М'ясне рагу з овочами</a></p>
+							<p class="date">{{$reviewTo->created_at}}</p>
+							<p class="black">Відгук для <a href="#" class="link-blue">{{$reviewTo->advert->user->name}}</a> про <a href="#" class="link-blue">{{$reviewTo->advert->name}}</a></p>
 						</div>
 						<div class="left">
 							<div class="avatar">
-								<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+								<div class="rounded"><img src="/{{$profile['image']}}" alt="foto"></div>
 							</div>
-							<a href="#" class="link-blue name">Вікторія</a>
+							<a href="#" class="link-blue name">{{$profile['name']}}</a>
 						</div>
 
 						<div class="right">
 							<div class="date">2 липня 2016</div>
-							<span class="stars">4</span>
+							<span class="stars">{{$reviewTo->rating}}</span>
 							<div class="message">
-								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
+								{{$reviewTo->text}}
 							</div>
 
 							<div class="answer clearfix">
-								<div class="title">Ваша відповідь</div>
+								<div class="title">Відповідь</div>
 								<div class="message">
-									В принципе вкусно,если сделать для одного раза,а так: гарнир
+									{{$reviewTo->answer->text}}
 								</div>
 								<div class="right-avatar">
 									<div class="avatar">
-										<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+										<div class="rounded"><img src="/{{$reviewTo->advert->user->image}}" alt="foto"></div>
 									</div>
 								</div>
-							</div>
-
-							<div class="message">
-								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
 							</div>
 
 							<hr>
@@ -148,9 +149,10 @@
 
 						</div>
 						<div class="image">
-							<img src="/uploads/avatar.jpg" alt="foto">
+							<img src="{{$reviewTo->advert->product->image}}" alt="foto">
 						</div>
 					</li>
+					@endforeach
 <!--    -->
 					<li class="with-image bg-yellow clearfix">
 						<div class="title">
