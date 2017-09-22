@@ -502,6 +502,33 @@ span.stars span {
 		margin: 0 auto 10px;
 	}
 }
+.button-rectang {
+	display: inline-block;
+	border: 2px solid @red;
+	border-radius: 20px;
+	color: @white;
+	background-color: @red;
+	max-width: 260px;
+	width: 100%;
+	text-decoration: none;
+	vertical-align: middle;
+	padding: 20px 6px;
+	font-size: 20px;
+	line-height: 20px;
+	margin: 20px;
+	.transition();
+	&:hover, &:focus {
+		background-color: @redDark;
+		text-decoration: none;
+		i {background-position-x: right;}
+	}
+	i {
+		display: block;
+		margin: 0 auto 10px;
+		height: 35px;
+		line-height: 40px;
+	}
+}
 .button-big {
 	display: block;
 	max-width: 365px;
@@ -644,6 +671,16 @@ a:focus {outline: none;}
 	.transition();
 	&:hover, &:focus {
 		color: @grey3;
+	}
+}
+.link-grey3 {
+	color: @grey3;
+	font-size: 14px;
+	font-weight: 400;
+	text-decoration: none;
+	.transition();
+	&:hover, &:focus {
+		color: @grey4;
 	}
 }
 
@@ -3153,6 +3190,7 @@ a:focus {outline: none;}
 		label {margin: 0 10px;}
 	}
 	.address {
+		label {padding-left: 5px;}
 		.left {
 			text-align: left;
 			max-width: 345px;
