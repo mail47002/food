@@ -99,6 +99,21 @@
 			</div>
 
 
+			{{-- если 0  --}}
+			<p>если рецептів (0)</p>
+			<div class="empty-block">
+				<i class="fo fo-dish fo-3x block"></i>
+				<p>У повара ще немає рецептів!</p>
+			</div>
+
+			{{-- если 0  --}}
+			<p>если порад (0)</p>
+			<div class="empty-block">
+				<i class="fo fo-articles fo-3x block"></i>
+				<p>У повара ще немає порад!</p>
+			</div>
+
+
 
 		</div>
 	</div>

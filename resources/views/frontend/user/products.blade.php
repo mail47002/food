@@ -106,7 +106,7 @@
 			{{-- если 0  --}}
 			<p>если Каталог страв (0)</p>
 			<div class="empty-block">
-				<i class="fo fo-dish-search fo-big block"></i>
+				<i class="fo fo-dish-search fo-2x block"></i>
 				<p>У повара ще немає страв!</p>
 			</div>
 
