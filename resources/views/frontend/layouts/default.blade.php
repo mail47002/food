@@ -27,6 +27,7 @@
 <script src="/assets/js/jquery-ui.min.js"></script>
 <script src="/assets/js/dropdown.js" async></script>
 <script src="/assets/js/modal.js" async></script>
+<script src="/assets/js/collapse.js" async></script>
 {{-- <script src="/assets/js/jquery.matchHeight.js"></script> --}}
 <script src="/assets/vendor/owlcarousel/owl.carousel.min.js"></script>
 <script src="/assets/js/simplebar.js"></script>

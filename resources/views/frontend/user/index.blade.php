@@ -85,57 +85,42 @@
 						<div class="right bg-yellow with-image">
 							<div class="blk-left">
 								<div class="date">2 липня 2016</div>
+								<div><a href="#" class="link-blue f16">М'ясне рагу з овочами</a></div>
 								<span class="stars">4</span>
 								<div class="message">
 									В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
 								</div>
 
-								<div class="answer clearfix">
-									<div class="title">Ваша відповідь</div>
-									<div class="message">
-										В принципе вкусно,если сделать для одного раза,а так: гарнир
-									</div>
-									<div class="right-avatar">
-										<div class="avatar">
-											<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+								<div class="collapse" id="collapse_01">
+
+									<div class="answer clearfix">
+										<div class="title">Ваша відповідь</div>
+										<div class="message">
+											В принципе вкусно,если сделать для одного раза,а так: гарнир
+										</div>
+										<div class="right-avatar">
+											<div class="avatar">
+												<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+											</div>
 										</div>
 									</div>
-								</div>
 
-								<div class="message">
-									В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-								</div>
+									<div class="message" id="message_01">
+										В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
+									</div>
 
-								<hr>
-								<a href="#" class="link-blue pull-right">Приховати</a>
-							</div>
-							<div class="blk-right"><img src="/uploads/food2.jpg" ></div>
-
-						</div>
-					</li>
-
-					<li class="clearfix">
-						<div class="left">
-							<div class="avatar">
-								<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-							</div>
-							<a href="#" class="link-blue name">Марія</a>
-						</div>
-						<div class="right bg-yellow with-image">
-							<div class="blk-left">
-								<div class="date">2 липня 2016</div>
-								<span class="stars">4</span>
-								<div class="message">
-									В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
 								</div>
 
 								<hr>
 								<a href="#" class="link-red pull-left"><i class="fo fo-back"></i> Відповісти</a>
-								<a href="#" class="link-blue pull-right">Показати все</a>
+								<a href="#collapse_01" class="link-blue pull-right" data-toggle="collapse" aria-expanded="false" aria-controls="collapse_01" opened="Приховати" closed="Показати все" /></a>
+
 							</div>
 							<div class="blk-right"><img src="/uploads/food2.jpg" ></div>
+
 						</div>
 					</li>
+
 
 				</ul>
 				<div class="paginate">
@@ -188,45 +173,30 @@
 								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
 							</div>
 
-							<div class="answer clearfix">
-								<div class="title">Ваша відповідь</div>
-								<div class="message">
-									В принципе вкусно,если сделать для одного раза,а так: гарнир
-								</div>
-								<div class="right-avatar">
-									<div class="avatar">
-										<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+							<div class="collapse" id="collapse_02">
+
+								<div class="answer clearfix">
+									<div class="title">Ваша відповідь</div>
+									<div class="message">
+										В принципе вкусно,если сделать для одного раза,а так: гарнир
+									</div>
+									<div class="right-avatar">
+										<div class="avatar">
+											<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+										</div>
 									</div>
 								</div>
-							</div>
 
-							<div class="message">
-								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-							</div>
+								<div class="message">
+									В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
+								</div>
 
-							<hr>
-							<a href="#" class="link-blue pull-right">Приховати</a>
-
-						</div>
-					</li>
-
-					<li class="clearfix">
-						<div class="left">
-							<div class="avatar">
-								<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-							</div>
-							<a href="#" class="link-blue name">Марія</a>
-						</div>
-						<div class="right bg-yellow">
-							<div class="date">2 липня 2016</div>
-							<span class="stars">4</span>
-							<div class="message">
-								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
 							</div>
 
 							<hr>
 							<a href="#" class="link-red pull-left"><i class="fo fo-back"></i> Відповісти</a>
-							<a href="#" class="link-blue pull-right">Показати все</a>
+							<a href="#collapse_02" class="link-blue pull-right" data-toggle="collapse" aria-expanded="false" aria-controls="collapse_02" opened="Приховати" closed="Показати все" /></a>
+
 						</div>
 					</li>
 
