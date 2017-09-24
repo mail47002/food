@@ -96,6 +96,21 @@
 			</div>
 
 
+			{{-- если пустой поиск  --}}
+			<p>если пустой поиск</p>
+			<div class="empty-search-block">
+				<p>За запитом «Піца на лаваші» знайдено матеріалів: 0</p>
+				<a href="#" class="button button-red button-empty-block" >Всі страви</a>
+			</div>
+
+			{{-- если 0  --}}
+			<p>если Каталог страв (0)</p>
+			<div class="empty-block">
+				<i class="fo fo-dish-search fo-big block"></i>
+				<p>У повара ще немає страв!</p>
+			</div>
+
+
 {{-- С дизайном не понятно как срастить --}}
 			<div class="row">
 				<div class="bottom-block text-right">
