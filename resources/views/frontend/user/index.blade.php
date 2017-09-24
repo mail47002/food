@@ -137,6 +137,14 @@
 				</div>
 			</div>
 
+			{{-- если 0  --}}
+			<h6 class="zerro-bottom">Відгуки від клієнтів (0)</h6>
+			<div class="empty-block">
+				<i class="fo fo-dish-search fo-big block"></i>
+				<p>У повара ще немає відгуків!</p>
+				<a href="#" class="button button-red button-empty-block" data-toggle="modal" data-target="#modal_warning">Залишити відгук</a>
+			</div>
+
 
 			<div class="reviews">
 				<h6 class="zerro-bottom">Відгуки від поварів (5)</h6>
@@ -201,10 +209,34 @@
 					</li>
 
 				</ul>
+
+				{{-- если 0  --}}
+				<h6 class="zerro-bottom">Відгуки від поварів (0)</h6>
+				<div class="empty-block">
+					<i class="fo fo-people fo-big block"></i>
+					<p>Це ваш клієнт!</p>
+					<a href="#" class="button button-red button-empty-block" data-toggle="modal" data-target="#modal_warning">Залишити відгук</a>
+				</div>
 			</div>
 
 
 		</div>
 	</div>
 </div>
+
+
+<!-- Modal -->
+<div id="modal_warning" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content text-center">
+			<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
+			<div class="modal-body">
+				<p class="f18">Спершу зробіть замовлення, щоб залишити відгук про повара</p>
+
+				<a href="#" class="button button-red button-big-modal">Замовити страву</a>
+			</div>
+		</div>
+	</div>
+</div>
+
 @stop
