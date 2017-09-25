@@ -1846,6 +1846,68 @@ a:focus {outline: none;}
 	&.deleted:after {content: '\002b';}
 	&.deleted:before {background-color: @grey2;}
 }
+/* Відповісти */
+.your-message {
+	margin-top: 10px;
+	padding: 0;
+	position: relative;
+	width: 100%;
+	&:after {
+		content: '';
+		background: @grey1;
+		bottom: 0;
+		position: absolute;
+		right: 60px;
+		top: 0;
+		width: 1px;
+	}
+	form {
+		margin: 0;
+		padding: 0;
+	}
+	textarea {
+		border-radius: 20px;
+		border: 1px solid @grey1;
+		display: block;
+		font-size: 16px;
+		height: 100px;
+		margin: 0;
+		padding: 20px 80px 20px 20px;
+		width: 100%;
+	}
+	button {
+		font-size: 14px;
+		background: none;
+		border: none;
+		height: 20px;
+		margin: auto;
+		position: absolute;
+		right: 10px;
+		top: 0; bottom: 0;
+		&:hover {cursor: pointer;}
+	}
+}
+.your-message-link {
+	font-size: 14px;
+	&[aria-expanded="true"] {
+		color: @blue;
+		&:hover {text-decoration: underline;}
+	}
+	&[aria-expanded="false"] {
+		position: relative;
+		padding-left: 25px;
+		color: @redDark;
+		&:hover {color: @red;}
+		&:after {
+			content: '\005c';
+			font-family: FontFood;
+			font-size: 20px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	}
+}
 
 .profile-letters {
 	box-shadow: none;
@@ -2701,7 +2763,7 @@ a:focus {outline: none;}
 			}
 
 			.answer {
-				margin-bottom: 8px;
+				//margin-bottom: 8px;
 				.title {
 					font-size: 14px;
 					font-weight: 500;

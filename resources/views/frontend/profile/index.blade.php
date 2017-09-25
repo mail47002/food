@@ -51,47 +51,76 @@
 				</div> --}}
 			</div>
 
+			<h5 class="text-upper underline-red">Відгуки (15)</h5><hr class="zerro-top">
+
 
 			<div class="reviews">
-				<h5 class="text-upper underline-red">Відгуки (5)</h5><hr class="zerro-top">
+				<h6 class="zerro-bottom">Відгуки про повара (10)</h6>
+
 				<ul class="list-unstyled">
-				@foreach ($reviewsFrom as $reviewFrom)
-					@foreach ($reviewFrom->reviews as $from)
-					<!-- {{dump($from)}} -->
+					@foreach($reviewsTo as $reviewTo)
 					<li class="clearfix">
 						<div class="left">
 							<div class="avatar">
-								<div class="rounded"><img src="/{{$from->user->image}}" alt="foto"></div>
+								<div class="rounded"><img src="/{{$reviewTo->advert->user->image}}" alt="foto"></div>
 							</div>
-							<a href="#" class="link-blue name">{{$from->user->name}}</a>
+							<a href="#" class="link-blue name">{{$reviewTo->advert->user->name}}</a>
 						</div>
-						<div class="right bg-yellow">
-							<div class="date">{{$from->created_at}}</div>
-							<p class="black"><a href="#" class="link-blue">{{$reviewFrom->name}}</a></p>
-							<span class="stars">{{$from->rating}}</span>
-							<div class="message">
-								{{$from->text}}
-							</div>
-							@if ($from->answer)
-							<div class="answer clearfix">
-								<div class="title">Ваша відповідь</div>
+
+						<div class="right bg-yellow with-image">
+							<div class="blk-left">
+								<div class="date">{{$reviewTo->created_at}}</div>
+								<div><a href="#" class="link-blue f16">{{$reviewTo->advert->name}}</a></div>
+								<span class="stars">{{$reviewTo->rating}}</span>
 								<div class="message">
-									{{$from->answer->text}}
+									{{$reviewTo->text}}
 								</div>
-								<div class="right-avatar">
-									<div class="avatar">
-										<div class="rounded"><img src="/{{$profile['image']}}" alt="foto"></div>
+
+								@if ($reviewTo->answer)
+								<div class="collapse" id="collapse_to_{{$reviewTo->answer->id}}">
+
+									<div class="answer clearfix">
+										<div class="title">Ваша відповідь</div>
+										<div class="message">
+											{{$reviewTo->answer->text}}
+										</div>
+										<div class="right-avatar">
+											<div class="avatar">
+												<div class="rounded"><img src="/{{$profile['image']}}" alt="foto"></div>
+											</div>
+										</div>
 									</div>
+
+									<div class="message" id="message_01">
+										В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
+									</div>
+
 								</div>
+								@endif
+
+								<div class="collapse your-message" id="collapse_your_answer_to_{{$reviewTo->id}}">
+									<form action="#to-{{$reviewTo->id}}">
+										<textarea name="message" id="" placeholder="Ваша відповідь"></textarea>
+										<button class="link-red-dark" type="submit"><i class="fo fo-plane fo-2x"></i></button>
+									</form>
+								</div>
+
+								<hr>
+
+								<a href="#collapse_your_answer_to_{{$reviewTo->id}}" class="your-message-link pull-right"  data-toggle="collapse" aria-expanded="false" aria-controls="collapse_your_answer_to_{{$reviewTo->id}}" opened="Відмінити" closed="Відповісти" /></a>
+
+								@if ($reviewTo->answer)
+								<a href="#collapse_to_{{$reviewTo->answer->id}}" class="link-blue pull-left" data-toggle="collapse" aria-expanded="false" aria-controls="collapse_to_{{$reviewTo->answer->id}}" opened="Приховати" closed="Показати все" /></a>
+								@endif
+
 							</div>
-							@endif
-							<hr>
-							<a href="#" class="link-blue pull-right">Приховати</a>
+							<div class="blk-right"><img src="/{{$reviewTo->advert->product->image}}" ></div>
+
 						</div>
 					</li>
 					@endforeach
-				@endforeach
 				</ul>
+
 				<div class="paginate">
 					<ul class="pagination grey">
 						<li><a href="#" rel="prev"><</a></li>
@@ -107,99 +136,64 @@
 			</div>
 
 
-
 			<div class="reviews">
-				<h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">
+				<h6 class="zerro-bottom">Відгуки від поварів (5)</h6>
 				<ul class="list-unstyled">
-<!--    -->
-					@foreach($reviewsTo as $reviewTo)
-					<li class="with-image bg-yellow clearfix">
-						<div class="title">
-							<p class="date">{{$reviewTo->created_at}}</p>
-							<p class="black">Відгук для <a href="#" class="link-blue">{{$reviewTo->advert->user->name}}</a> про <a href="#" class="link-blue">{{$reviewTo->advert->name}}</a></p>
-						</div>
+				@foreach ($reviewsFrom as $reviewFrom)
+					@foreach ($reviewFrom->reviews as $from)
+					<!-- {{dump($from)}} -->
+					<li class="clearfix">
 						<div class="left">
 							<div class="avatar">
-								<div class="rounded"><img src="/{{$profile['image']}}" alt="foto"></div>
+								<div class="rounded"><img src="/{{$from->user->image}}" alt="foto"></div>
 							</div>
-							<a href="#" class="link-blue name">{{$profile['name']}}</a>
+							<a href="#" class="link-blue name">{{$from->user->name}}</a>
 						</div>
-
-						<div class="right">
-							<div class="date">2 липня 2016</div>
-							<span class="stars">{{$reviewTo->rating}}</span>
+						<div class="right bg-yellow">
+							<div class="date">{{$from->created_at}}</div>
+							{{-- <p class="black"><a href="#" class="link-blue">{{$reviewFrom->name}}</a></p> --}}
+							<span class="stars">{{$from->rating}}</span>
 							<div class="message">
-								{{$reviewTo->text}}
+								{{$from->text}}
 							</div>
-
-							<div class="answer clearfix">
-								<div class="title">Відповідь</div>
-								<div class="message">
-									{{$reviewTo->answer->text}}
-								</div>
-								<div class="right-avatar">
-									<div class="avatar">
-										<div class="rounded"><img src="/{{$reviewTo->advert->user->image}}" alt="foto"></div>
+							@if ($from->answer)
+							<div class="collapse" id="collapse_from_{{$from->answer->id}}">
+								<div class="answer clearfix">
+									<div class="title">Ваша відповідь</div>
+									<div class="message">
+										{{$from->answer->text}}
+									</div>
+									<div class="right-avatar">
+										<div class="avatar">
+											<div class="rounded"><img src="/{{$profile['image']}}" alt="foto"></div>
+										</div>
 									</div>
 								</div>
 							</div>
+							@endif
+
+							<div class="collapse your-message" id="collapse_your_answer_{{$from->id}}">
+								<form action="#from-{{$from->id}}">
+									<textarea name="message" id="" placeholder="Ваша відповідь"></textarea>
+									<button class="link-red-dark" type="submit"><i class="fo fo-plane fo-2x"></i></button>
+								</form>
+							</div>
 
 							<hr>
-							<a href="#" class="link-blue pull-right">Приховати</a>
 
-						</div>
-						<div class="image">
-							<img src="{{$reviewTo->advert->product->image}}" alt="foto">
+							<a href="#collapse_your_answer_{{$from->id}}" class="your-message-link pull-right"  data-toggle="collapse" aria-expanded="false" aria-controls="collapse_your_answer_{{$from->id}}" opened="Відмінити" closed="Відповісти" /></a>
+
+							@if ($from->answer)
+							<a href="#collapse_from_{{$from->answer->id}}" class="link-blue pull-left" data-toggle="collapse" aria-expanded="false" aria-controls="collapse_from_{{$from->answer->id}}" opened="Приховати" closed="Показати все" /></a>
+							@endif
+
 						</div>
 					</li>
 					@endforeach
-<!--    -->
-					<li class="with-image bg-yellow clearfix">
-						<div class="title">
-							<p class="date">2 липня 2016</p>
-							<p class="black">Відгук про клієнта <a href="#" class="link-blue">Оксана</a></p>
-						</div>
-						<div class="left">
-							<div class="avatar">
-								<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-							</div>
-							<a href="#" class="link-blue name">Вікторія</a>
-						</div>
+				@endforeach
+				</ul>
+			</div>
 
-						<div class="right">
-							<div class="date">2 липня 2016</div>
-							<span class="stars">4</span>
-							<div class="message">
-								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-							</div>
-
-							<div class="answer clearfix">
-								<div class="title">Ваша відповідь</div>
-								<div class="message">
-									В принципе вкусно,если сделать для одного раза,а так: гарнир
-								</div>
-								<div class="right-avatar">
-									<div class="avatar">
-										<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-									</div>
-								</div>
-							</div>
-
-							<div class="message">
-								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-							</div>
-
-							<hr>
-							<a href="#" class="link-blue pull-right">Приховати</a>
-
-						</div>
-						<div class="image">
-							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-						</div>
-					</li>
-
-			</ul>
-		</div>
 
 		</div>
 	</div>
