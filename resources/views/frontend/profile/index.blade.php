@@ -146,20 +146,10 @@
 			<div class="reviews">
 				<h6 class="zerro-bottom">Відгуки від поварів (5)</h6>
 				<ul class="list-unstyled">
-<<<<<<< HEAD
-
-					@foreach($reviewsTo as $reviewTo)
-					<li class="with-image bg-yellow clearfix">
-						<div class="title">
-							<p class="date">{{$reviewTo->created_at}}</p>
-							<p class="black">Відгук для <a href="#" class="link-blue">{{$reviewTo->product->user->name}}</a> про <a href="#" class="link-blue">{{$reviewTo->product->name}}</a></p>
-						</div>
-=======
 				@foreach ($reviewsFrom as $reviewFrom)
 					@foreach ($reviewFrom->reviews as $from)
 					<!-- {{dump($from)}} -->
 					<li class="clearfix">
->>>>>>> 5b03a3da1d899bfb82eb81b0ffee09c3c42c7c1a
 						<div class="left">
 							<div class="avatar">
 								<div class="rounded"><img src="/{{$from->user->image}}" alt="foto"></div>
@@ -173,58 +163,6 @@
 							<div class="message">
 								{{$from->text}}
 							</div>
-<<<<<<< HEAD
-
-							<div class="answer clearfix">
-								<div class="title">Відповідь</div>
-								<div class="message">
-									{{$reviewTo->answer->text}}
-								</div>
-								<div class="right-avatar">
-									<div class="avatar">
-										<div class="rounded"><img src="/{{$reviewTo->product->user->image}}" alt="foto"></div>
-									</div>
-								</div>
-							</div>
-
-							<hr>
-							<a href="#" class="link-blue pull-right">Приховати</a>
-
-						</div>
-						<div class="image">
-							<img src="{{$reviewTo->product->image}}" alt="foto">
-						</div>
-					</li>
-					@endforeach
-
-					<li class="with-image bg-yellow clearfix">
-						<div class="title">
-							<p class="date">2 липня 2016</p>
-							<p class="black">Відгук про клієнта <a href="#" class="link-blue">Оксана</a></p>
-						</div>
-						<div class="left">
-							<div class="avatar">
-								<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-							</div>
-							<a href="#" class="link-blue name">Вікторія</a>
-						</div>
-
-						<div class="right">
-							<div class="date">2 липня 2016</div>
-							<span class="stars">4</span>
-							<div class="message">
-								В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-							</div>
-
-							<div class="answer clearfix">
-								<div class="title">Ваша відповідь</div>
-								<div class="message">
-									В принципе вкусно,если сделать для одного раза,а так: гарнир
-								</div>
-								<div class="right-avatar">
-									<div class="avatar">
-										<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-=======
 							@if ($from->answer)
 							<div class="collapse" id="collapse_from_{{$from->answer->id}}">
 								<div class="answer clearfix">
@@ -236,7 +174,6 @@
 										<div class="avatar">
 											<div class="rounded"><img src="/{{$profile['image']}}" alt="foto"></div>
 										</div>
->>>>>>> 5b03a3da1d899bfb82eb81b0ffee09c3c42c7c1a
 									</div>
 								</div>
 							</div>
