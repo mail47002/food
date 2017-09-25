@@ -121,6 +121,13 @@
 					@endforeach
 				</ul>
 
+				@if (count($reviewsTo) < 1)
+				<div class="empty-block">
+					<i class="fo fo-dish-search fo-big block"></i>
+					<p>У вас ще немає відгуків!</p>
+				</div>
+				@endif
+
 				<div class="paginate">
 					<ul class="pagination grey">
 						<li><a href="#" rel="prev"><</a></li>
@@ -192,6 +199,15 @@
 					@endforeach
 				@endforeach
 				</ul>
+
+				@if (count($reviewsFrom) < 1)
+				<div class="empty-block">
+					<i class="fo fo-people fo-big block"></i>
+					<p>Ви ще не робили замовлення. Не має відгуків!</p>
+					<a href="#" class="button button-red button-empty-block" data-toggle="modal" data-target="#modal_warning">Замовити страву</a>
+				</div>
+				@endif
+
 			</div>
 
 
