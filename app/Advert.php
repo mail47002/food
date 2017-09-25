@@ -8,12 +8,17 @@ class Advert extends Model
 {
 	public function user()
 	{
-		return $this->hasOne('App\User');
+		return $this->belongsTo('App\User');
 	}
 
 	public function reviews()
 	{
 		return $this->hasMany('App\Review');
+	}
+
+	public function answer()
+	{
+		return $this->hasOne('App\ReviewAnswer');
 	}
 
 	public function product()

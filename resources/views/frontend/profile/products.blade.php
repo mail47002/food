@@ -96,6 +96,7 @@
 
 
 {{-- Если пусто, выводить этот блок --}}
+			<div class="v-indent-40"></div>
 			<div class="empty-block">
 				<i class="fo fo-dish-search fo-2x"></i> 
 				<p class="text">У вас немає страв</p>

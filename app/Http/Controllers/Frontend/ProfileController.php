@@ -36,39 +36,33 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $profile = User::find(Auth::id());
-        //відгуки від користувачів
-        // $reviews_from = DB::table('reviews')
-        //                     ->leftJoin('advert_to_user', 'reviews.advert_id', '=', 'advert_to_user.advert_id')
-        //                     ->leftJoin('users', 'reviews.user_id', '=', 'users.id')
-        //                     ->leftJoin('review_answers', 'reviews.id', '=', 'review_answers.review_id')
-        //                     ->select('reviews.text', 'reviews.rating', 'reviews.created_at', 'users.name', 'users.image', 'review_answers.answer')
-        //                     ->where('advert_to_user.user_id', '=', Auth::id())
-        //                     ->where('reviews.status', '=', 1)
-        //                     ->get();
-        // dd($reviews_from);
-        // відгуки користувачам
-        // $reviews_to = DB::table('reviews')
-        //                     ->leftJoin('advert_to_user', 'reviews.advert_id', '=', 'advert_to_user.advert_id')
-        //                     ->leftJoin('adverts', 'reviews.advert_id', '=', 'adverts.id')
-        //                     ->leftJoin('users', 'advert_to_user.user_id', '=', 'users.id')
-        //                     ->select('reviews.text', 'reviews.rating', 'reviews.created_at', 'users.name', 'users.image',)
+        $profile = Auth::user();
 
-        //відгуки від користувачів
-        // $reviews_from = Advert::where('user_id', '=', Auth::id())
-        // ->select('name', 'user_id')
-        // ->get();
-        $test = Auth::user()->adverts();
-        dd(Auth::user()->adverts());
+        $reviewsFrom = Advert::with(['reviews' => function($query){
+                $query->with(['user', 'answer']);
+            }, 'product'])
+            ->orderBy('created_at')
+            ->where('user_id', Auth::id())
+            ->get();
 
+        $reviewsTo = Review::with([
+            'advert' => function($query){
+                $query->with(['user', 'product']);
+            },
+            'answer'])
+            ->where('user_id', Auth::id())
+            ->get();
+            // dd($reviewsTo);
         return view('frontend.profile.index', [
             'profile' => $profile,
-            'reviews_from' => $reviews_from,
+            'reviewsFrom' => $reviewsFrom,
+            'reviewsTo' => $reviewsTo,
             ]);
     }
 
     public function products()
     {
+        // $products = Advert::with();
         return view('frontend.profile.products', [
             'profile' => User::find(Auth::id()),
             'adresses' => Adress::where('user_id', '=', Auth::id())->first()

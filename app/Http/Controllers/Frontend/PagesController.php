@@ -28,6 +28,6 @@ class PagesController extends Controller
 
     // For development
     public function temp($slug) {
-        return view('frontend.temp.' . $slug);
+        return view('frontend.' . $slug);
     }
 }
