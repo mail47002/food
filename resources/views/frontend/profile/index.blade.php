@@ -62,15 +62,15 @@
 					<li class="clearfix">
 						<div class="left">
 							<div class="avatar">
-								<div class="rounded"><img src="/{{$reviewTo->advert->user->image}}" alt="foto"></div>
+								<div class="rounded"><img src="/{{$reviewTo->product->user->image}}" alt="foto"></div>
 							</div>
-							<a href="#" class="link-blue name">{{$reviewTo->advert->user->name}}</a>
+							<a href="#" class="link-blue name">{{$reviewTo->product->user->name}}</a>
 						</div>
 
 						<div class="right bg-yellow with-image">
 							<div class="blk-left">
 								<div class="date">{{$reviewTo->created_at}}</div>
-								<div><a href="#" class="link-blue f16">{{$reviewTo->advert->name}}</a></div>
+								<div><a href="#" class="link-blue f16">{{$reviewTo->product->name}}</a></div>
 								<span class="stars">{{$reviewTo->rating}}</span>
 								<div class="message">
 									{{$reviewTo->text}}
@@ -114,7 +114,7 @@
 								@endif
 
 							</div>
-							<div class="blk-right"><img src="/{{$reviewTo->advert->product->image}}" ></div>
+							<div class="blk-right"><img src="/{{$reviewTo->product->image}}" ></div>
 
 						</div>
 					</li>
