@@ -39,14 +39,18 @@
 
 			<div class="filter-block">
 				<ul class="categories list-inline text-center">
-					<li><a href="#" class="link-red text-upper active">Меню по датам</a></li>
-					<li><a href="#" class="link-red text-upper">Готові страви</a></li>
-					<li><a href="#" class="link-red text-upper">Страви під замовлення</a></li>
+					<li class="active"><a data-toggle="tab" href="#menu" class="link-red text-upper">Меню по датам</a></li>
+					<li><a data-toggle="tab" href="#ready" class="link-red text-upper">Готові страви</a></li>
+					<li><a data-toggle="tab" href="#order" class="link-red text-upper">Страви під замовлення</a></li>
 				</ul>
 				<hr class="red-border">
 			</div>
 
+	<div class="tab-content">
+		<div id="menu" class="tab-pane fade in active">
+
 			<a href="#" class="button button-red button-big">Додати страву до меню</a>
+			<div class="v-indent-30"></div>
 
 			<hr>
 			<div class="bg-yellow">
@@ -109,7 +113,7 @@
 				</div>
 			</div>
 
-{{-- 5.3.2 --}}
+
 			<div class="wide-thumb profile-adverts">
 				<div class="row">
 					<div class="col-md-4">
@@ -148,7 +152,181 @@
 			</div>
 
 
+			<div class="paginate">
+				<ul class="pagination grey">
+					<li><a href="#" rel="prev"><</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#" rel="next">></a></li>
+				</ul>
+			</div>
+
+
+{{-- Если пусто, выводить этот блок --}}
+			<div class="v-indent-40"></div>
+			<div class="empty-block">
+				<i class="fo fo-dish-search fo-2x"></i>
+				<p class="text">У вас немає страв</p>
+				<a href="#" class="button button-red button-big">Додати страву до меню</a>
+			</div>
+
+		</div>
+		<div id="ready" class="tab-pane fade">
+
+{{-- 5.3.2 --}}
+
+
+			<a href="#" class="button button-red button-big">Додати готову страву</a>
+			<div class="v-indent-30"></div>
+
+			<hr>
+			<div class="bg-yellow">
+				<div class="row">
+					<div class="col-md-6">
+						<form action="#" class="search" method="get">
+							<input type="text" name="search" placeholder="Пошук">
+							<button type="submit" class="btn-search"><i class="fo fo-search fo-small"></i></button>
+						</form>
+					</div>
+					<div class="col-md-6">
+						<select name="sorting" id="sorting">
+							<option value="all">Всі страви</option>
+							<option value="1">Готові</option>
+							<option value="2">У меню</option>
+							<option value="3">Під замовлення</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="v-indent-20"></div>
+
+
+			<div class="wide-thumb profile-adverts">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="image">
+							<img src="/uploads/food1.jpg" class="img-responsive" alt="">
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="caption">
+							<a href="/adverts/1" class="title link-black">М'ясне рагу з овочами</a>
+
+							<span class="rating">
+								<span class="stars">{{rand(0,5)}}</span>10 відгуків
+							</span>
+
+							<p><span class="price">80 грн.</span></p>
+
+							<p><i class="fo fo-dish-ready red"></i>10 - 15 грудня</p>
+							<p><a href="#" class="link-blue"><i class="fo fo-edit fo-inheirt"></i> Редагувати</a></p>
+							<p><a href="#" class="link-grey"><i class="fo fo-delete fo-inheirt"></i> Відмінити</a></p>
+
+						</div>
+					</div>
+					<div class="col-md-3 left-border">
+						<div class="caption text-center">
+							<div class="grey-block red">
+								<i class="fo fo-dish-search"></i>
+								<span class="red">2</span><span class="black">/5</span>
+								<p class="text">Залишилося порцій</p>
+							</div>
+
+							<a href="#" class="button button-green"><i class="fo fo-ok"></i> Клієнти на страву </a>
+							<a href="#" class="button button-orange"><i class="fo fo-peoples"></i> Нові замовленя</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="wide-thumb profile-adverts">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="image">
+							<img src="/uploads/food1.jpg" class="img-responsive" alt="">
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="caption">
+							<a href="/adverts/1" class="title link-black">М'ясне рагу з овочами</a>
+
+							<span class="rating">
+								<span class="stars">{{rand(0,5)}}</span>10 відгуків
+							</span>
+
+							<div class="grey-block grey3 wide">
+								<i class="fo fo-serving fo-2x"></i>
+								<p class="text">Пропозиція закінчилася</p>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-md-3 left-border">
+						<div class="caption text-center">
+							<div class="grey-block red">
+								<i class="fo fo-dish-search"></i>
+								<span class="red">0</span><span class="black">/5</span>
+								<p class="text">Залишилося порцій</p>
+							</div>
+
+							<a href="#" class="button button-green disabled"><i class="fo fo-ok"></i> Клієнти на страву </a>
+							<a href="#" class="button button-orange disabled"><i class="fo fo-peoples"></i> Нові замовленя</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="paginate">
+				<ul class="pagination grey">
+					<li><a href="#" rel="prev"><</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#" rel="next">></a></li>
+				</ul>
+			</div>
+
+{{-- Если пусто, выводить этот блок --}}
+			<div class="v-indent-40"></div>
+			<div class="empty-block">
+				<i class="fo fo-dish-search fo-2x"></i>
+				<p class="text">У вас немає страв</p>
+				<a href="#" class="button button-red button-big">Додати готову страву</a>
+			</div>
+
+		</div>
+		<div id="order" class="tab-pane fade">
+
 {{-- 5.3.3 --}}
+
+
+			<a href="#" class="button button-red button-big">Додати страву під замовлення</a>
+			<div class="v-indent-30"></div>
+
+			<hr>
+			<div class="bg-yellow">
+				<div class="row">
+					<div class="col-md-6">
+						<form action="#" class="search" method="get">
+							<input type="text" name="search" placeholder="Пошук">
+							<button type="submit" class="btn-search"><i class="fo fo-search fo-small"></i></button>
+						</form>
+					</div>
+					<div class="col-md-6">
+						<select name="sorting" id="sorting">
+							<option value="all">Всі страви</option>
+							<option value="1">Готові</option>
+							<option value="2">У меню</option>
+							<option value="3">Під замовлення</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="v-indent-20"></div>
+
+
 			<div class="wide-thumb profile-adverts">
 				<div class="row">
 					<div class="col-md-4">
@@ -187,15 +365,42 @@
 				</div>
 			</div>
 
+			<div class="wide-thumb profile-adverts">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="image">
+							<img src="/uploads/food1.jpg" class="img-responsive" alt="">
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="caption">
+							<a href="/adverts/1" class="title link-black">М'ясне рагу з овочами</a>
 
-{{-- Если пусто, выводить этот блок --}}
-			<div class="v-indent-40"></div>
-			<div class="empty-block">
-				<i class="fo fo-dish-search fo-2x"></i>
-				<p class="text">У вас немає страв</p>
-				<a href="#" class="button button-red button-big">Додати страву до меню</a>
+							<span class="rating">
+								<span class="stars">{{rand(0,5)}}</span>10 відгуків
+							</span>
+
+							<div class="grey-block grey3 wide">
+								<i class="fo fo-serving fo-2x"></i>
+								<p class="text">Пропозиція неактивна</p>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-md-3 left-border">
+						<div class="caption text-center">
+							<div class="grey-block red">
+								<i class="fo fo-dish-search"></i>
+								<span class="red">20</span>
+								<p class="text">Замовлень</p>
+							</div>
+
+							<a href="#" class="button button-green disabled"><i class="fo fo-ok"></i> Клієнти на страву </a>
+							<a href="#" class="button button-orange disabled"><i class="fo fo-peoples"></i> Нові замовленя</a>
+						</div>
+					</div>
+				</div>
 			</div>
-
 
 
 			<div class="paginate">
@@ -206,6 +411,21 @@
 					<li><a href="#" rel="next">></a></li>
 				</ul>
 			</div>
+
+
+{{-- Если пусто, выводить этот блок --}}
+			<div class="v-indent-40"></div>
+			<div class="empty-block">
+				<i class="fo fo-dish-search fo-2x"></i>
+				<p class="text">У вас немає страв</p>
+				<a href="#" class="button button-red button-big">Додати страву під замовлення</a>
+			</div>
+
+		</div>
+	</div>
+
+
+
 
 			<p>модальные окна</p>
 			<p><a href="#" class="link-blue" data-toggle="modal" data-target="#modal_order">Замовлення ... 5.3.4</a></p>
