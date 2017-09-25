@@ -35,7 +35,7 @@
 		</div>
 
 		<div class="col-md-9">
-			<h5 class="text-upper underline-red">Оголошення (10)</h5><hr class="zerro-top">
+			<h5 class="text-upper underline-red">Оголошення ({{count($adverts)}})</h5><hr class="zerro-top">
 
 			<div class="filter-block">
 				<ul class="categories list-inline text-center">
@@ -97,7 +97,7 @@
 					<div class="col-md-3 left-border">
 						<div class="caption text-center">
 							<div class="grey-block red">
-								<i class="fo fo-dish-search"></i> 
+								<i class="fo fo-dish-search"></i>
 								<span class="red">2</span><span class="black">/5</span>
 								<p class="text">Залишилося порцій</p>
 							</div>
@@ -126,7 +126,7 @@
 							</span>
 
 							<div class="grey-block grey3 wide">
-								<i class="fo fo-serving fo-2x"></i> 
+								<i class="fo fo-serving fo-2x"></i>
 								<p class="text">Пропозиція закінчилася</p>
 							</div>
 
@@ -135,7 +135,7 @@
 					<div class="col-md-3 left-border">
 						<div class="caption text-center">
 							<div class="grey-block red">
-								<i class="fo fo-dish-search"></i> 
+								<i class="fo fo-dish-search"></i>
 								<span class="red">0</span><span class="black">/5</span>
 								<p class="text">Залишилося порцій</p>
 							</div>
@@ -175,7 +175,7 @@
 					<div class="col-md-3 left-border">
 						<div class="caption text-center">
 							<div class="grey-block red">
-								<i class="fo fo-dish-search"></i> 
+								<i class="fo fo-dish-search"></i>
 								<span class="red">20</span>
 								<p class="text">Замовлень</p>
 							</div>
@@ -190,7 +190,7 @@
 
 {{-- Если пусто, выводить этот блок --}}
 			<div class="empty-block">
-				<i class="fo fo-dish-search fo-2x"></i> 
+				<i class="fo fo-dish-search fo-2x"></i>
 				<p class="text">У вас немає страв</p>
 				<a href="#" class="button button-red button-big">Додати страву до меню</a>
 			</div>
@@ -265,8 +265,8 @@
 							<p>10 відгуків</p>
 						</div>
 						<a href="#button" class="button button-green wide">
-							<i class="fo fo-ok"></i> 
-							Клієнт 
+							<i class="fo fo-ok"></i>
+							Клієнт
 							<object><a href="#reject" class="reject" title="Відмовити клієнту"><i class="fo fo-close-bold"></i></a></object>
 						</a>
 						<a href="#" class="button button-grey wide"><i class="fo fo-message"></i> Відгук</a>
@@ -337,8 +337,8 @@
 						<p><a href="#" class="link-blue name">Марк</a></p>
 						<p class="phone">+38 096 159 15 15</p>
 						<a href="#button" class="button button-green wide">
-							<i class="fo fo-ok"></i> 
-							Клієнт 
+							<i class="fo fo-ok"></i>
+							Клієнт
 							<object><a href="#reject" class="reject" title="Відмовити клієнту"><i class="fo fo-close-bold"></i></a></object>
 						</a>
 					</div>

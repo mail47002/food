@@ -12,9 +12,9 @@ class Review extends Model
 		return $this->belongsTo('App\User');
 	}
 
-	public function advert()
+	public function product()
 	{
-		return $this->belongsTo('App\Advert');
+		return $this->belongsTo('App\Product');
 	}
 
 	public function answer()

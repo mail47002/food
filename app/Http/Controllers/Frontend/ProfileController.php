@@ -9,6 +9,7 @@ use App\User;
 use App\Adress;
 use App\Review;
 use App\Advert;
+use App\Product;
 use Hash;
 use File;
 use Image;
@@ -38,21 +39,24 @@ class ProfileController extends Controller
     {
         $profile = Auth::user();
 
-        $reviewsFrom = Advert::with(['reviews' => function($query){
+        $reviewsFrom = Product::with(['reviews' => function($query){
                 $query->with(['user', 'answer']);
-            }, 'product'])
+            }, 'advert'])
             ->orderBy('created_at')
             ->where('user_id', Auth::id())
             ->get();
+        // dd($reviewsFrom);
 
         $reviewsTo = Review::with([
-            'advert' => function($query){
-                $query->with(['user', 'product']);
+            'product' => function($query){
+                $query->with(['user', 'advert']);
             },
             'answer'])
             ->where('user_id', Auth::id())
             ->get();
             // dd($reviewsTo);
+
+
         return view('frontend.profile.index', [
             'profile' => $profile,
             'reviewsFrom' => $reviewsFrom,
@@ -62,8 +66,12 @@ class ProfileController extends Controller
 
     public function products()
     {
-        // $products = Advert::with();
+        $products = Product::with(['advert'])
+        ->orderBy('created_at', 'desc')
+            ->where('user_id', Auth::id())
+            ->get();
         return view('frontend.profile.products', [
+            'products' => $products,
             'profile' => User::find(Auth::id()),
             'adresses' => Adress::where('user_id', '=', Auth::id())->first()
             ]);
@@ -71,7 +79,13 @@ class ProfileController extends Controller
 
     public function adverts()
     {
+        $adverts = Advert::with(['product'])
+        ->orderBy('created_at', 'desc')
+            ->where('user_id', Auth::id())
+            ->get();
+
         return view('frontend.profile.adverts', [
+            'adverts' => $adverts,
             'profile' => User::find(Auth::id()),
             'adresses' => Adress::where('user_id', '=', Auth::id())->first()
             ]);

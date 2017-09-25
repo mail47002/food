@@ -35,7 +35,7 @@
 		</div>
 
 		<div class="col-md-9">
-			<h5 class="text-upper underline-red">Каталог страв (10)</h5><hr class="zerro-top">
+			<h5 class="text-upper underline-red">Каталог страв ({{count($products)}})</h5><hr class="zerro-top">
 			<a href="#" class="button button-red button-big">Додати страву до каталогу</a>
 
 			<hr>
@@ -59,18 +59,18 @@
 			</div>
 
 			<div class="v-indent-20"></div>
-
-@for ($i=0; $i < 3; $i++)
+			@if($products)
+			@foreach ($products as $product)
 			<div class="wide-thumb">
 				<div class="row">
 					<div class="col-md-4">
 						<div class="image">
-							<img src="/uploads/food1.jpg" class="img-responsive" alt="">
+							<img src="/{{$product->image}}" class="img-responsive" alt="{{$product->name}}">
 						</div>
 					</div>
 					<div class="col-md-5">
 						<div class="caption">
-							<a href="/adverts/1" class="title link-black">М'ясне рагу з овочами</a>
+							<a href="/adverts/1" class="title link-black">{{$product->name}}</a>
 							<p>
 								<span class="rating">
 									<span class="stars">{{rand(0,5)}}</span>10 відгуків
@@ -92,16 +92,7 @@
 					</div>
 				</div>
 			</div>
-@endfor
-
-
-{{-- Если пусто, выводить этот блок --}}
-			<div class="empty-block">
-				<i class="fo fo-dish-search fo-2x"></i> 
-				<p class="text">У вас немає страв</p>
-				<a href="#" class="button button-red button-big">Додати страву до меню</a>
-			</div>
-
+			@endforeach
 			<div class="paginate">
 				<ul class="pagination grey">
 					<li><a href="#" rel="prev"><</a></li>
@@ -110,8 +101,13 @@
 					<li><a href="#" rel="next">></a></li>
 				</ul>
 			</div>
-
-
+			@else
+			<div class="empty-block">
+				<i class="fo fo-dish-search fo-2x"></i>
+				<p class="text">У вас немає страв</p>
+				<a href="#" class="button button-red button-big">Додати страву до меню</a>
+			</div>
+			@endif
 		</div>
 	</div>
 </div>

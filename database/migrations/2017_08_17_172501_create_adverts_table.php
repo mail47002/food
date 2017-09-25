@@ -16,6 +16,7 @@ class CreateAdvertsTable extends Migration {
             $table->increments('id');
             $table->string('name');
             $table->text('description');
+            $table->integer('user_id');
             $table->integer('product_id');
             $table->integer('quantity');
             $table->decimal('price', 5, 2);

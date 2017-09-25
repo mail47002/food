@@ -111,12 +111,12 @@
 			<div class="reviews">
 				<h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">
 				<ul class="list-unstyled">
-<!--    -->
+
 					@foreach($reviewsTo as $reviewTo)
 					<li class="with-image bg-yellow clearfix">
 						<div class="title">
 							<p class="date">{{$reviewTo->created_at}}</p>
-							<p class="black">Відгук для <a href="#" class="link-blue">{{$reviewTo->advert->user->name}}</a> про <a href="#" class="link-blue">{{$reviewTo->advert->name}}</a></p>
+							<p class="black">Відгук для <a href="#" class="link-blue">{{$reviewTo->product->user->name}}</a> про <a href="#" class="link-blue">{{$reviewTo->product->name}}</a></p>
 						</div>
 						<div class="left">
 							<div class="avatar">
@@ -139,7 +139,7 @@
 								</div>
 								<div class="right-avatar">
 									<div class="avatar">
-										<div class="rounded"><img src="/{{$reviewTo->advert->user->image}}" alt="foto"></div>
+										<div class="rounded"><img src="/{{$reviewTo->product->user->image}}" alt="foto"></div>
 									</div>
 								</div>
 							</div>
@@ -149,11 +149,11 @@
 
 						</div>
 						<div class="image">
-							<img src="{{$reviewTo->advert->product->image}}" alt="foto">
+							<img src="{{$reviewTo->product->image}}" alt="foto">
 						</div>
 					</li>
 					@endforeach
-<!--    -->
+
 					<li class="with-image bg-yellow clearfix">
 						<div class="title">
 							<p class="date">2 липня 2016</p>
