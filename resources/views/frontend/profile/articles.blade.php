@@ -45,6 +45,7 @@
 				</div>
 			</div>
 
+			<div class="v-indent-30"></div>
 			<hr>
 			<div class="bg-yellow">
 				<div class="row">

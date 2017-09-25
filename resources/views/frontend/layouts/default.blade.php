@@ -9,6 +9,7 @@
 	<link href="/assets/css/style.css" type="text/css" rel="stylesheet">
 
 	@yield('styles')
+	@stack('styles')
 </head>
 <body class="body-{{Route::currentRouteName()}}">
 	<div id="wrapper">
@@ -27,6 +28,8 @@
 <script src="/assets/js/jquery-ui.min.js"></script>
 <script src="/assets/js/dropdown.js" async></script>
 <script src="/assets/js/modal.js" async></script>
+<script src="/assets/js/collapse.js" async></script>
+<script src="/assets/js/tabs.js" async></script>
 {{-- <script src="/assets/js/jquery.matchHeight.js"></script> --}}
 <script src="/assets/vendor/owlcarousel/owl.carousel.min.js"></script>
 <script src="/assets/js/simplebar.js"></script>
@@ -36,7 +39,7 @@
 		return $(this).each(function() {
 			$(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * $(this).width()/5));
 		});
-	}
+	};
 
 	function handleImage(e) {
 		var reader = new FileReader();
@@ -53,6 +56,7 @@
 </script>
 
 @yield('scripts')
+@stack('scripts')
 
 </body>
 </html>

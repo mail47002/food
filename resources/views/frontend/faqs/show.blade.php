@@ -1,9 +1,5 @@
 @extends('frontend.layouts.default')
 
-@push('styles')
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-@endpush
-
 @section('content')
     <div class="container pages">
         <div class="row">
@@ -36,7 +32,6 @@
 @endsection
 
 @push('scripts')
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
         (function($) {
             $('#accordion').accordion({

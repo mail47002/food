@@ -26,7 +26,7 @@ class AdvertsController extends Controller
     public function index()
     {
         $adverts = Advert::with(['product', 'reviews', 'images' => function($query) {
-                return $query->orderBy('sort_order', 'asc');
+                $query->orderBy('sort_order', 'asc');
             }])->latest()->get();
 
         return view('frontend.adverts.index', [
@@ -38,6 +38,10 @@ class AdvertsController extends Controller
     {
         $advert = Advert::find($id);
 
-        return view('frontend.adverts.show', ['advert' => $advert]);
+        if ($advert) {
+            return view('frontend.adverts.show', [
+                'advert' => $advert
+            ]);
+        }
     }
 }

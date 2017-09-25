@@ -92,7 +92,21 @@
 					</div>
 				</div>
 			</div>
+<<<<<<< HEAD
 			@endforeach
+=======
+@endfor
+
+
+{{-- Если пусто, выводить этот блок --}}
+			<div class="v-indent-40"></div>
+			<div class="empty-block">
+				<i class="fo fo-dish-search fo-2x"></i> 
+				<p class="text">У вас немає страв</p>
+				<a href="#" class="button button-red button-big">Додати страву до меню</a>
+			</div>
+
+>>>>>>> 5b03a3da1d899bfb82eb81b0ffee09c3c42c7c1a
 			<div class="paginate">
 				<ul class="pagination grey">
 					<li><a href="#" rel="prev"><</a></li>

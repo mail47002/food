@@ -100,5 +100,7 @@ Route::group(['namespace' => 'Frontend'], function() {
 
     // Pages
     Route::get('faqs', 'FaqsController@show');
+    Route::get('feedback', 'FeedbackController@show');
+    Route::post('feedback', ['as' => 'feedback.store', 'uses' => 'FeedbackController@store']);
     Route::get('{slug}', 'PagesController@show');
 });
