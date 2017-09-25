@@ -9,6 +9,7 @@
 	<link href="/assets/css/style.css" type="text/css" rel="stylesheet">
 
 	@yield('styles')
+	@stack('styles')
 </head>
 <body class="body-{{Route::currentRouteName()}}">
 	<div id="wrapper">
@@ -38,7 +39,7 @@
 		return $(this).each(function() {
 			$(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * $(this).width()/5));
 		});
-	}
+	};
 
 	function handleImage(e) {
 		var reader = new FileReader();

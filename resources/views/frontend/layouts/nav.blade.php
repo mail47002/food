@@ -7,7 +7,7 @@
 				<li><a href="{{ url('faqs') }}">Допомога</a></li>
 				<li><a href="{{ url('pravila') }}">Правила</a></li>
 				<li><a href="{{ url('umovi-ta-konfidentsiynist') }}">Уммови та конфіденційність</a></li>
-				<li><a href="/contact">Зворотній зв'язок</a></li>
+				<li><a href="{{ url('feedback') }}">Зворотній зв'язок</a></li>
 				<li><a href="#">Карта сайту</a></li>
 <hr>
 				<li class="active"><a href="/temp/user.index">user_page (4.1)</a></li>
