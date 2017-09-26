@@ -16,6 +16,11 @@
 			<div class="address text-center">
 				<i class="fo fo-big fo-marker red"></i>Соборна, буд. 10/2, Вінниця 
 				<a href="#" class="link-blue" data-toggle="modal" data-target="#modal_change_address">Змінити регіон</a>
+
+				<div class="slider-distance">
+					<label for="distance">Радіус: </label><input type="text" id="distance" readonly />
+					<div id="slider"></div>
+				</div>
 			</div>
 			<hr>
 			<ul class="buttons list-inline text-center">
@@ -162,6 +167,20 @@
 @section('scripts')
 <script>
 $( function() {
+	$("#slider").slider({
+		orientation: "horizontal",
+		range: "min",
+		value:5,
+		min: 0,
+		max: 50,
+		step: 1,
+		slide: function(event, ui) {
+			if (ui.value < 5) return false; // restrict 0 - 5 km
+			$("#distance").val(ui.value + " км");
+		}
+	});
+	$("#distance").val($("#slider").slider("value") + " км");
+
 	$("#sorting").selectmenu({
 		change: function( e, ui ) {
 			var filter = $("#sorting").val();

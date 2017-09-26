@@ -1422,6 +1422,7 @@ a:focus {outline: none;}
 		height: 60px;
 		line-height: 60px;
 		font-weight: 700;
+		position: relative;
 		a {
 			font-size: 16px;
 			// font-weight: 500;
@@ -1469,6 +1470,80 @@ a:focus {outline: none;}
 					color: @white;
 				}
 			}
+		}
+	}
+/* Слайдер відстані */
+	.slider-distance {
+		line-height: 40px;
+		position: absolute;
+		right: 0;
+		text-align: center;
+		top: 0;
+		width: 200px;
+		label {
+			color: @grey3;
+			font-size: 14px;
+			font-weight: normal;
+		}
+		input {
+			background: 0 0;
+			border: none;
+			color: @red;
+			display: inline;
+			float: none;
+			font-size: 14px;
+			font-weight: bold;
+			padding: 0;
+			width: 43px;
+		}
+
+		.ui-widget.ui-widget-content {
+			background: @grey2;
+			position: relative;
+			height: 2px;
+			&:before {
+				position: absolute;
+				content: '';
+				left: -3px;
+				top: -2px;
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background-color: @red;
+			}
+			&:after {
+				position: absolute;
+				content: '';
+				right: -3px;
+				top: -2px;
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background-color: @grey2;
+			}
+		}
+		.ui-slider-range {
+			height: 2px;
+			background-color: @red;
+		}
+		.ui-slider .ui-slider-handle {
+			&:before {
+				content: '\0052';
+				font-family: FontFood;
+			}
+			position: absolute;
+			z-index: 2;
+			width: 14px;
+			height: 12px;
+			line-height: 14px;
+			cursor: pointer;
+			-ms-touch-action: none;
+			touch-action: none;
+			font-size: 14px;
+			color: @red;
+			top: -6px;
+			margin-left: -7px;
+			&:hover {color: @redDark;}
 		}
 	}
 
@@ -3606,77 +3681,77 @@ a:focus {outline: none;}
 
 // Simple scroll bar
 [data-simplebar] {
-  position: relative;
-  z-index: 0;
-  overflow: hidden;
-  -webkit-overflow-scrolling: touch; /* Trigger native scrolling for mobile, if not supported, plugin is used. */
+	position: relative;
+	z-index: 0;
+	overflow: hidden;
+	-webkit-overflow-scrolling: touch; /* Trigger native scrolling for mobile, if not supported, plugin is used. */
 }
 
 [data-simplebar="init"] {
-  display: flex;
+	display: flex;
 }
 
 .simplebar-scroll-content {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  min-width: 100%;
-  box-sizing: content-box;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	min-width: 100%;
+	box-sizing: content-box;
 }
 
 .simplebar-content {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  box-sizing: border-box;
-  min-height: 100%;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	box-sizing: border-box;
+	min-height: 100%;
 }
 
 .simplebar-track {
-  z-index: 1;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 11px;
+	z-index: 1;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 11px;
 }
 
 .simplebar-scrollbar {
-  position: absolute;
-  right: 5px;
-  border-radius: 7px;
-  min-height: 10px;
-  width: 5px;
-  opacity: 0;
-  transition: opacity 0.2s linear;
-  background: @grey3;
-  background-clip: padding-box;
+	position: absolute;
+	right: 5px;
+	border-radius: 7px;
+	min-height: 10px;
+	width: 5px;
+	opacity: 0;
+	transition: opacity 0.2s linear;
+	background: @grey3;
+	background-clip: padding-box;
 }
 
 .simplebar-track:hover .simplebar-scrollbar {
-  /* When hovered, remove all transitions from drag handle */
-  opacity: 0.5;
-  transition: opacity 0 linear;
+	/* When hovered, remove all transitions from drag handle */
+	opacity: 0.5;
+	transition: opacity 0 linear;
 }
 
 .simplebar-track .simplebar-scrollbar.visible {
-  opacity: 0.5;
+	opacity: 0.5;
 }
 
 .simplebar-track.horizontal {
-  left: 0;
-  width: auto;
-  height: 11px;
+	left: 0;
+	width: auto;
+	height: 11px;
 }
 
 .simplebar-track.vertical {
-  top: 0;
+	top: 0;
 }
 
 .horizontal.simplebar-track .simplebar-scrollbar {
-  right: auto;
-  top: 2px;
-  height: 7px;
-  min-height: 0;
-  min-width: 10px;
-  width: auto;
+	right: auto;
+	top: 2px;
+	height: 7px;
+	min-height: 0;
+	min-width: 10px;
+	width: auto;
 }
 
 
@@ -3748,30 +3823,30 @@ a:focus {outline: none;}
 
 /* Collapse */
 .collapse {
-  display: none;
-  &.in {
-    display: block;
-  }
+	display: none;
+	&.in {
+		display: block;
+	}
 }
 tr.collapse.in {
-  display: table-row;
+	display: table-row;
 }
 tbody.collapse.in {
-  display: table-row-group;
+	display: table-row-group;
 }
 .collapsing {
-  position: relative;
-  height: 0;
-  overflow: hidden;
-  -webkit-transition-property: height, visibility;
-  -o-transition-property: height, visibility;
-     transition-property: height, visibility;
-  -webkit-transition-duration: 0.35s;
-  -o-transition-duration: 0.35s;
-     transition-duration: 0.35s;
-  -webkit-transition-timing-function: ease;
-  -o-transition-timing-function: ease;
-     transition-timing-function: ease;
+	position: relative;
+	height: 0;
+	overflow: hidden;
+	-webkit-transition-property: height, visibility;
+	-o-transition-property: height, visibility;
+		 transition-property: height, visibility;
+	-webkit-transition-duration: 0.35s;
+	-o-transition-duration: 0.35s;
+		 transition-duration: 0.35s;
+	-webkit-transition-timing-function: ease;
+	-o-transition-timing-function: ease;
+		 transition-timing-function: ease;
 }
 a[data-toggle="collapse"] {
 	&[aria-expanded="true"]:before {content: attr(opened);}
@@ -3779,19 +3854,19 @@ a[data-toggle="collapse"] {
 }
 /* Tabs */
 .fade {
-  opacity: 0;
-  -webkit-transition: opacity 0.15s linear;
-  -o-transition: opacity 0.15s linear;
-  transition: opacity 0.15s linear;
+	opacity: 0;
+	-webkit-transition: opacity 0.15s linear;
+	-o-transition: opacity 0.15s linear;
+	transition: opacity 0.15s linear;
 }
 .fade.in {
-  opacity: 1;
+	opacity: 1;
 }
 .tab-content > .tab-pane {
-  display: none;
+	display: none;
 }
 .tab-content > .active {
-  display: block;
+	display: block;
 }
 
 
