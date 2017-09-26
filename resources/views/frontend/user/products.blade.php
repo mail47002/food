@@ -25,10 +25,10 @@
 				<a href="#" class="button button-grey left-icon"><i class="fo fo-edit fo-small"></i> Зв'язатися</a>
 
 				<ul class="menu">
-					<li><a href="/user/reviews">Відгуки</a></li>
-					<li><a href="/user/products" class="active">Каталог страв</a></li>
-					<li><a href="/user/adverts">Оголошення </a></li>
-					<li><a href="/user/articles">Статті</a></li>
+					<li><a href="/temp/user.index">Відгуки</a></li>
+					<li><a href="/temp/user.products" class="active">Каталог страв</a></li>
+					<li><a href="/temp/user.adverts">Оголошення </a></li>
+					<li><a href="/temp/user.articles">Статті</a></li>
 				</ul>
 
 			</div>

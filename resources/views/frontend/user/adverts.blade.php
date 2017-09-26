@@ -25,10 +25,10 @@
 				<a href="#" class="button button-grey left-icon"><i class="fo fo-edit fo-small"></i> Зв'язатися</a>
 
 				<ul class="menu">
-					<li><a href="/user/reviews">Відгуки</a></li>
-					<li><a href="/user/products">Каталог страв</a></li>
-					<li><a href="/user/adverts" class="active">Оголошення </a></li>
-					<li><a href="/user/articles">Статті</a></li>
+					<li><a href="/temp/user.index">Відгуки</a></li>
+					<li><a href="/temp/user.products">Каталог страв</a></li>
+					<li><a href="/temp/user.adverts" class="active">Оголошення </a></li>
+					<li><a href="/temp/user.articles">Статті</a></li>
 				</ul>
 
 			</div>
@@ -69,42 +69,99 @@
 
 			<div class="filter-block">
 				<ul class="categories list-inline text-center">
-					<li><a href="#" class="link-red text-upper active">Меню по датам</a></li>
-					<li><a href="#" class="link-red text-upper">Готові страви</a></li>
-					<li><a href="#" class="link-red text-upper">Страви під замовлення</a></li>
+					<li class="active"><a data-toggle="tab" href="#bydate" class="link-red text-upper">Меню по датам</a></li>
+					<li><a data-toggle="tab" href="#ready" class="link-red text-upper">Готові страви</a></li>
+					<li><a data-toggle="tab" href="#order" class="link-red text-upper">Страви під замовлення</a></li>
 				</ul>
 				<hr class="red-border">
 			</div>
 
 			<div class="v-indent-30"></div>
 
-			<div class="row">
-			@for ($i=0; $i < 4; $i++)
-				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-					<div class="product-thumb">
+			<div class="tab-content">
+				<div id="bydate" class="tab-pane fade in active">
+{{-- 4.3.1 --}}
+					<div class="row">
+					@for ($i=0; $i < 4; $i++)
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+							<div class="product-thumb">
 
-						<div class="image">
-							<img src="/uploads/food1.jpg" class="img-responsive" alt="">
+								<div class="image">
+									<img src="/uploads/food1.jpg" class="img-responsive" alt="">
+								</div>
+
+								<div class="caption">
+									<a href="/products/1" class="title link-black">М'ясне рагу з овочами</a>
+									<p class="">
+										<span class="price">80 грн.</span>
+										<span class="rating">
+											<span class="stars">{{ rand(0,5) }}</span> 10 відгуків
+										</span>
+									</p>
+									<p><i class="fo fo-time red"></i>15 грудня (обід)</p>
+								</div>
+
+								<button type="button" class="button button-grey order">Замовити</button>
+							</div>
 						</div>
-
-						<div class="caption">
-							<a href="/products/1" class="title link-black">М'ясне рагу з овочами</a>
-							<p class="">
-								<span class="price">80 грн.</span>
-								<span class="rating">
-									<span class="stars">{{ rand(0,5) }}</span> 10 відгуків
-								</span>
-							</p>
-							<p><i class="fo fo-time red"></i>15 грудня (обід)</p>
-						</div>
-
-						<button type="button" class="button button-grey order">Замовити</button>
+					@endfor
 					</div>
+
 				</div>
-			@endfor
+				<div id="ready" class="tab-pane fade">
+{{-- 4.3.2 --}}
+					<div class="row">
+					@for ($i=0; $i < 4; $i++)
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+							<div class="product-thumb">
+
+								<div class="image">
+									<img src="/uploads/food1.jpg" class="img-responsive" alt="">
+								</div>
+
+								<div class="caption">
+									<a href="/products/1" class="title link-black">М'ясне рагу з овочами</a>
+									<p class="">
+										<span class="price">80 грн.</span>
+										<span class="rating">
+											<span class="stars">{{ rand(0,5) }}</span> 10 відгуків
+										</span>
+									</p>
+									<p><i class="fo fo-dish-ready red"></i>10 - 15 грудня</p>
+								</div>
+
+								<button type="button" class="button button-grey order">Замовити</button>
+							</div>
+						</div>
+					@endfor
+					</div>
+
+				</div>
+				<div id="order" class="tab-pane fade">
+{{-- 4.3.3 --}}
+					<div class="row">
+					@for ($i=0; $i < 4; $i++)
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+							<div class="product-thumb">
+
+								<div class="image">
+									<img src="/uploads/food1.jpg" class="img-responsive" alt="">
+								</div>
+
+								<div class="caption">
+									<a href="/products/1" class="title link-black">М'ясне рагу з овочами</a>
+									<p><span class="price"><i class="fo fo-deal red"></i> 800 - 2500 грн.</span></p>
+									<p><span class="rating"><span class="stars">{{ rand(0,5) }}</span> 10 відгуків</span></p>
+								</div>
+
+								<button type="button" class="button button-grey order">Замовити</button>
+							</div>
+						</div>
+					@endfor
+					</div>
+
+				</div>
 			</div>
-
-
 
 		</div>
 	</div>

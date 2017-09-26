@@ -25,10 +25,10 @@
 				<a href="#" class="button button-grey left-icon"><i class="fo fo-edit fo-small"></i> Зв'язатися</a>
 
 				<ul class="menu">
-					<li><a href="/user/reviews">Відгуки</a></li>
-					<li><a href="/user/products">Каталог страв</a></li>
-					<li><a href="/user/adverts">Оголошення </a></li>
-					<li><a href="/user/articles" class="active">Статті</a></li>
+					<li><a href="/temp/user.index">Відгуки</a></li>
+					<li><a href="/temp/user.products">Каталог страв</a></li>
+					<li><a href="/temp/user.adverts">Оголошення </a></li>
+					<li><a href="/temp/user.articles" class="active">Статті</a></li>
 				</ul>
 
 			</div>
@@ -53,64 +53,97 @@
 
 			<div class="filter-block">
 				<ul class="categories list-inline text-center">
-					<li><a href="#" class="link-red text-upper active">Рецепти</a></li>
-					<li><a href="#" class="link-red text-upper">Поради</a></li>
+					<li class="active"><a  data-toggle="tab" href="#recipes" class="link-red text-upper active">Рецепти</a></li>
+					<li><a  data-toggle="tab" href="#advice" class="link-red text-upper">Поради</a></li>
 				</ul>
 				<hr class="red-border">
 			</div>
 
 			<div class="v-indent-30"></div>
 
-			<form action="#" class="search margin-zerro" method="get">
-				<input type="text" name="search" placeholder="Пошук">
-				<button type="submit" class="btn-search"><i class="fo fo-search"></i></button>
-			</form>
+			<div class="tab-content">
+				<div id="recipes" class="tab-pane fade in active">
 
-			<a href="#" class="button-filter top-20">Супи</a>
-			<a href="#" class="button-filter top-20">Другі страви</a>
-			<a href="#" class="button-filter top-20">Салати</a>
-			<a href="#" class="button-filter top-20">Випічка і пироги</a>
-			<a href="#" class="button-filter top-20">Каші </a>
-			<a href="#" class="button-filter top-20">Закуски</a>
-			<a href="#" class="button-filter top-20">Десерти і торти</a>
+					<form action="#" class="search margin-zerro" method="get">
+						<input type="text" name="search" placeholder="Пошук">
+						<button type="submit" class="btn-search"><i class="fo fo-search"></i></button>
+					</form>
+
+					<a href="#" class="button-filter top-20">Супи</a>
+					<a href="#" class="button-filter top-20">Другі страви</a>
+					<a href="#" class="button-filter top-20">Салати</a>
+					<a href="#" class="button-filter top-20">Випічка і пироги</a>
+					<a href="#" class="button-filter top-20">Каші </a>
+					<a href="#" class="button-filter top-20">Закуски</a>
+					<a href="#" class="button-filter top-20">Десерти і торти</a>
 
 
-			<div class="v-indent-30"></div>
+					<div class="v-indent-30"></div>
 
-			<div class="row">
-			@for ($i=0; $i < 4; $i++)
-				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-					<div class="product-thumb">
+					<div class="row">
+					@for ($i=0; $i < 4; $i++)
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+							<div class="product-thumb">
 
-						<div class="image">
-							<img src="/uploads/article1.jpg" class="img-responsive" alt="">
+								<div class="image">
+									<img src="/uploads/article1.jpg" class="img-responsive" alt="">
+								</div>
+
+								<div class="caption">
+									<a href="/products/1" class="title link-black">М'ясне рагу з овочами</a>
+									<p class="bottom">
+										Так приятно начать неспешное воскресное утро со вкусных блинчиков и чашки чая.
+									</p>
+								</div>
+
+							</div>
 						</div>
-
-						<div class="caption">
-							<a href="/products/1" class="title link-black">М'ясне рагу з овочами</a>
-							<p class="bottom">
-								Так приятно начать неспешное воскресное утро со вкусных блинчиков и чашки чая.
-							</p>
-						</div>
-
+					@endfor
 					</div>
+
+
+					{{-- если 0  --}}
+					<p>если рецептів (0)</p>
+					<div class="empty-block">
+						<i class="fo fo-dish fo-3x block"></i>
+						<p>У повара ще немає рецептів!</p>
+					</div>
+
 				</div>
-			@endfor
-			</div>
+				<div id="advice" class="tab-pane fade">
 
 
-			{{-- если 0  --}}
-			<p>если рецептів (0)</p>
-			<div class="empty-block">
-				<i class="fo fo-dish fo-3x block"></i>
-				<p>У повара ще немає рецептів!</p>
-			</div>
 
-			{{-- если 0  --}}
-			<p>если порад (0)</p>
-			<div class="empty-block">
-				<i class="fo fo-articles fo-3x block"></i>
-				<p>У повара ще немає порад!</p>
+					<div class="row">
+					@for ($i=0; $i < 4; $i++)
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+							<div class="product-thumb">
+
+								<div class="image">
+									<img src="/uploads/article1.jpg" class="img-responsive" alt="">
+								</div>
+
+								<div class="caption">
+									<a href="/products/1" class="title link-black">М'ясне рагу з овочами</a>
+									<p class="bottom">
+										Так приятно начать неспешное воскресное утро со вкусных блинчиков и чашки чая.
+									</p>
+								</div>
+
+							</div>
+						</div>
+					@endfor
+					</div>
+
+					{{-- если 0  --}}
+					<p>если порад (0)</p>
+					<div class="empty-block">
+						<i class="fo fo-articles fo-3x block"></i>
+						<p>У повара ще немає порад!</p>
+					</div>
+
+
+				</div>
 			</div>
 
 

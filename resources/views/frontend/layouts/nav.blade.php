@@ -11,9 +11,6 @@
 				<li><a href="#">Карта сайту</a></li>
 <hr>
 				<li class="active"><a href="/temp/user.index">user_page (4.1)</a></li>
-				<li class="active"><a href="/temp/user.products">user_page_products (4.2)</a></li>
-				<li class="active"><a href="/temp/user.adverts">user_page_adverts (4.3)</a></li>
-				<li class="active"><a href="/temp/user.articles">user_page_articles (4.4)</a></li>
 <hr>
 				<li class="active"><a href="/adverts">Об'яви (2)</a></li>
 				<li class="active"><a href="/products">Блюда (12)</a></li>
