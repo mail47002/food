@@ -14,7 +14,7 @@ use Image;
 use App\Adress;
 use App\Reviews;
 use Hash;
-
+//test
 class LoginController extends Controller
 {
     /**
