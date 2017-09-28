@@ -77,6 +77,11 @@ class ProfileController extends Controller
             ]);
     }
 
+    public function product($id)
+    {
+        $product = Product::find($id);
+    }
+
     public function adverts()
     {
         $adverts = Advert::with(['product'])

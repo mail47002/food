@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdvertCategoriesTable extends Migration {
+class CreateAdvertTypesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateAdvertCategoriesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('advert_categories', function (Blueprint $table) {
+		Schema::create('advert_types', function (Blueprint $table) {
       $table->increments('id');
       $table->string('name');
       $table->integer('sort_order');
@@ -28,7 +28,7 @@ class CreateAdvertCategoriesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('advert_categories');
+		Schema::drop('advert_types');
 	}
 
 }
