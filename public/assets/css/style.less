@@ -149,6 +149,11 @@ hr.red-border {
 }
 
 
+ul {
+	list-style: none;
+	padding: 0;
+}
+
 .badge {
 	border-radius: 50%;
 	border: 1px solid @red;
@@ -2592,6 +2597,14 @@ a:focus {outline: none;}
 			z-index: 2;
 		}
 	}
+	&.with-header {
+		.container {
+			padding: 30px 0;
+			> h1 {
+				margin-bottom: 30px;
+			}
+		}
+	}
 	.owl-carousel {
 		padding: 0 60px;
 		.owl-nav [class*='owl-'] {
@@ -2833,6 +2846,24 @@ a:focus {outline: none;}
 				border-color: transparent @yellow transparent transparent;
 			}
 
+			&.border-grey {
+				border: 1px solid @grey1;
+				&:before {
+					border-color: transparent @grey1 transparent transparent;
+				}
+				&:after {
+					content: '';
+					position: absolute;
+					left: -9px;
+					top: 30px;
+					width: 0;
+					height: 0;
+					border-style: solid;
+					border-width: 10px 10px 10px 0;
+					border-color: transparent @white transparent transparent;
+				}
+			}
+
 			.date {
 				font-size: 14px;
 				color: @grey3;
@@ -2903,6 +2934,11 @@ a:focus {outline: none;}
 
 		}
 
+		.right-empty {
+			float: left;
+			width: 89%;
+		}
+
 
 		.with-image {
 			position: relative;
@@ -2967,6 +3003,34 @@ a:focus {outline: none;}
 }
 
 
+/* Рецепт */
+.food-recipe {
+	.description p {margin-top: 0;}
+}
+.cooking-steps {
+	padding-top: 15px;
+	li {
+		background-color: @white;
+		border-radius: 5px;
+		border: 1px solid @grey1;
+		display: block;
+		margin-bottom: 20px;
+		overflow: hidden;
+
+		img {
+			float: left;
+			margin-right: 20px;
+		}
+		h5 {
+			font-weight: bold;
+			margin-top: 25px;
+		}
+
+		&:hover {box-shadow: 0 0 10px 0 rgba(50,52,53,.2);}
+	}
+}
+
+/* Ваш повар в відгуках */
 .your-cook {
 	padding-bottom: 50px;
 	hr {margin-bottom: 30px;}
