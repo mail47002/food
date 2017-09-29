@@ -12,6 +12,8 @@
 <hr>
 				<li class="active"><a href="/temp/user.index">user_page (4.1)</a></li>
 <hr>
+				<li class="active"><a href="/temp/profile.mydish">food_my_dish (21.1)</a></li>
+<hr>
 				<li class="active"><a href="/adverts">Об'яви (2)</a></li>
 				<li class="active"><a href="/products">Блюда (12)</a></li>
 				<li class="active"><a href="/temp/temp.add_food">add_food (7.1)</a></li>
