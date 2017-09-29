@@ -13,6 +13,9 @@
 				<li class="active"><a href="/temp/user.index">user_page (4.1)</a></li>
 <hr>
 				<li class="active"><a href="/temp/profile.mydish">food_my_dish (21.1)</a></li>
+				<li class="active"><a href="/temp/profile.myproduct">food_my_product (21.2)</a></li>
+				<li class="active"><a href="/temp/profile.myrecipe">food_my_recipe (21.3)</a></li>
+				<li class="active"><a href="/temp/profile.myadvice">food_my_advice (21.4)</a></li>
 <hr>
 				<li class="active"><a href="/adverts">Об'яви (2)</a></li>
 				<li class="active"><a href="/products">Блюда (12)</a></li>
