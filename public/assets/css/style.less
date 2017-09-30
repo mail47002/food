@@ -1202,6 +1202,34 @@ a:focus {outline: none;}
 			}
 		}
 	}
+
+	&.login-popup {
+		.modal-content {
+			padding: 0;
+			.modal-header {
+				border-bottom: none;
+				border-top-left-radius: 20px;
+				border-top-right-radius: 20px;
+				background: @yellow;
+				padding: 30px 40px 0;
+				.login-popup-title {
+					font-size: 30px;
+					text-transform: uppercase;
+					margin: 0;
+				}
+				p {
+					margin-top: 0;
+					margin-bottom: 25px;
+					font-size: 18px;
+					text-align: center;
+				}
+			}
+			.modal-body {
+				padding: 30px 40px;
+				.signin-page {margin-top: 0;}
+			}
+		}
+	}
 }
 .modal-open {
 	overflow: hidden;
@@ -2316,6 +2344,7 @@ a:focus {outline: none;}
 					border-right: 1px solid @grey1;
 					vertical-align: middle;
 					margin-right: 18px;
+					.transition();
 				}
 				&:after {
 					content: '';
@@ -2936,7 +2965,7 @@ a:focus {outline: none;}
 
 		.right-empty {
 			float: left;
-			width: 89%;
+			width: 89%; 
 		}
 
 
