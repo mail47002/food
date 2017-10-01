@@ -298,29 +298,43 @@ label:hover:before {
 		margin: 0; padding: 0;
 		&:hover, &:hover:before {
 			outline: none;
-			border: none;
+			border: none !important;
 		}
 	}
 	fieldset {
-		border: none;
+		border: none !important;
 		display: inline-block;
 		vertical-align: middle;
-		> input { display: none; }
+		> input { display: none !important; }
 		> label:before { 
-			margin: 2px;
-			font-family: FontAwesome;
-			display: inline-block;
-			content: "\f005";
+			margin: 2px !important;
+			font-family: FontFood;
+			display: inline-block !important;
+			content: "\004a" !important;
+			position: relative !important;
+			border: none !important;
+			background: none !important;
+			width: auto !important;
+			font-size: 50px;
+			height: 48px !important;
+		}
+		> .half {
+			margin: 0 !important;
 		}
 		> .half:before { 
-			content: "\f089";
-			position: absolute;
+			content: "\0060" !important;
+			position: absolute !important;
 		}
 		> label { 
 			color: #ddd; 
 		 float: right; 
+		 padding: 0 !important;
+		 margin: 0 !important;
 		}
-		> input:checked ~ label { color: #FFD700;  } /* show gold star when clicked */
+		> input:checked ~ label {
+			color: #FFD700; /* show gold star when clicked */
+			&:after {display: none;}
+			}
 	}
 	/***** CSS Magic to Highlight Stars on Hover *****/
 	&.with-hover fieldset {
@@ -1413,6 +1427,12 @@ a:focus {outline: none;}
 		}
 	}
 
+}
+/* wide select */
+select.wide + span.ui-button {
+	max-width: 100%;
+	height: 40px;
+	line-height: 40px;
 }
 
 
@@ -3970,6 +3990,25 @@ a[data-toggle="collapse"] {
 }
 .tab-content > .active {
 	display: block;
+}
+
+
+.loading {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(255,255,254,0.6);
+	margin: auto;
+	img {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
 }
 
 
