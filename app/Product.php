@@ -17,12 +17,22 @@ class Product extends Model
     }
 
     public function reviews()
-		{
-			return $this->hasMany('App\Review');
-		}
+	{
+		return $this->hasMany('App\Review');
+	}
 
-		public function user()
-		{
-			return $this->belongsTo('App\User');
-		}
+    public function productImages()
+    {
+        return $this->hasMany('App\ProductImage');
+    }
+
+    public function productToCatecory()
+    {
+        return $this->hasMany('App\ProductToCategory');
+    }
+
+	public function user()
+	{
+		return $this->belongsTo('App\User');
+	}
 }

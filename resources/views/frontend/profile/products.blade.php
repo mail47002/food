@@ -71,7 +71,7 @@
 					</div>
 					<div class="col-md-5">
 						<div class="caption">
-							<a href="/adverts/1" class="title link-black">{{$product->name}}</a>
+							<a href="products/{{$product->id}}" class="title link-black">{{$product->name}}</a>
 							<p>
 								<span class="rating">
 									<span class="stars">{{rand(0,5)}}</span>10 відгуків

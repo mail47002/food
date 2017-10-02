@@ -8,7 +8,7 @@
 			<div class="left-sidebar bg-yellow text-center">
 
 				<div class="avatar">
-					<div class="rounded"><img src="/{{$profile['image']}}" alt="foto"></div>
+					<div class="rounded"><img src="{{ asset($profile->image) }}"></div>
 				</div>
 
 				<div class="phones fo fo-phone fo-indent fo-left red">
@@ -86,7 +86,7 @@
 										</div>
 										<div class="right-avatar">
 											<div class="avatar">
-												<div class="rounded"><img src="/{{$profile['image']}}" alt="foto"></div>
+												<div class="rounded"><img src="{{ asset($profile->image) }}"></div>
 											</div>
 										</div>
 									</div>
@@ -147,56 +147,59 @@
 				<h6 class="zerro-bottom">Відгуки від поварів (5)</h6>
 				<ul class="list-unstyled">
 				@foreach ($reviewsFrom as $reviewFrom)
-					@foreach ($reviewFrom->reviews as $from)
-					<!-- {{dump($from)}} -->
-					<li class="clearfix">
-						<div class="left">
-							<div class="avatar">
-								<div class="rounded"><img src="/{{$from->user->image}}" alt="foto"></div>
+					@if ($reviewFrom->reviews)
+						@foreach ($reviewFrom->reviews as $from)
+							@if ($from->user)
+								<li class="clearfix">
+							<div class="left">
+								<div class="avatar">
+									<div class="rounded"><img src="{{ asset($from->user->image) }}"></div>
+								</div>
+								<a href="#" class="link-blue name">{{$from->user->name}}</a>
 							</div>
-							<a href="#" class="link-blue name">{{$from->user->name}}</a>
-						</div>
-						<div class="right bg-yellow">
-							<div class="date">{{$from->created_at}}</div>
-							{{-- <p class="black"><a href="#" class="link-blue">{{$reviewFrom->name}}</a></p> --}}
-							<span class="stars">{{$from->rating}}</span>
-							<div class="message">
-								{{$from->text}}
-							</div>
-							@if ($from->answer)
-							<div class="collapse" id="collapse_from_{{$from->answer->id}}">
-								<div class="answer clearfix">
-									<div class="title">Ваша відповідь</div>
-									<div class="message">
-										{{$from->answer->text}}
-									</div>
-									<div class="right-avatar">
-										<div class="avatar">
-											<div class="rounded"><img src="/{{$profile['image']}}" alt="foto"></div>
+							<div class="right bg-yellow">
+								<div class="date">{{$from->created_at}}</div>
+								{{-- <p class="black"><a href="#" class="link-blue">{{$reviewFrom->name}}</a></p> --}}
+								<span class="stars">{{$from->rating}}</span>
+								<div class="message">
+									{{$from->text}}
+								</div>
+								@if ($from->answer)
+								<div class="collapse" id="collapse_from_{{$from->answer->id}}">
+									<div class="answer clearfix">
+										<div class="title">Ваша відповідь</div>
+										<div class="message">
+											{{$from->answer->text}}
+										</div>
+										<div class="right-avatar">
+											<div class="avatar">
+												<div class="rounded"><img src="{{ asset($profile->image) }}"></div>
+											</div>
 										</div>
 									</div>
 								</div>
+								@endif
+
+								<div class="collapse your-message" id="collapse_your_answer_{{$from->id}}">
+									<form action="#from-{{$from->id}}">
+										<textarea name="message" id="" placeholder="Ваша відповідь"></textarea>
+										<button class="link-red-dark" type="submit"><i class="fo fo-plane fo-2x"></i></button>
+									</form>
+								</div>
+
+								<hr>
+
+								<a href="#collapse_your_answer_{{$from->id}}" class="your-message-link pull-right"  data-toggle="collapse" aria-expanded="false" aria-controls="collapse_your_answer_{{$from->id}}" opened="Відмінити" closed="Відповісти" /></a>
+
+								@if ($from->answer)
+								<a href="#collapse_from_{{$from->answer->id}}" class="link-blue pull-left" data-toggle="collapse" aria-expanded="false" aria-controls="collapse_from_{{$from->answer->id}}" opened="Приховати" closed="Показати все" /></a>
+								@endif
+
 							</div>
+						</li>
 							@endif
-
-							<div class="collapse your-message" id="collapse_your_answer_{{$from->id}}">
-								<form action="#from-{{$from->id}}">
-									<textarea name="message" id="" placeholder="Ваша відповідь"></textarea>
-									<button class="link-red-dark" type="submit"><i class="fo fo-plane fo-2x"></i></button>
-								</form>
-							</div>
-
-							<hr>
-
-							<a href="#collapse_your_answer_{{$from->id}}" class="your-message-link pull-right"  data-toggle="collapse" aria-expanded="false" aria-controls="collapse_your_answer_{{$from->id}}" opened="Відмінити" closed="Відповісти" /></a>
-
-							@if ($from->answer)
-							<a href="#collapse_from_{{$from->answer->id}}" class="link-blue pull-left" data-toggle="collapse" aria-expanded="false" aria-controls="collapse_from_{{$from->answer->id}}" opened="Приховати" closed="Показати все" /></a>
-							@endif
-
-						</div>
-					</li>
-					@endforeach
+						@endforeach
+					@endif
 				@endforeach
 				</ul>
 

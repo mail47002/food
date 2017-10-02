@@ -78,7 +78,14 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::post('/profile/password', ['as' => 'profile.updatePassword', 'uses' => 'ProfileController@updatePassword']);
     Route::get('/profile/nickname', ['as' => 'profile.nickname', 'uses' => 'ProfileController@nickname']);
     Route::post('/profile/nickname', ['as' => 'profile.updateNickname', 'uses' => 'ProfileController@updateNickname']);
+
+    //Profile product
     Route::get('/profile/products', ['as' => 'profile.products', 'uses' => 'ProfileController@products']);
+    Route::get('/profile/products/{id}', ['as' => 'profile.product', 'uses' => 'ProfileController@product']);
+    Route::get('/profile/products/edit/{id}', ['as' => 'profile.product.edit', 'uses' => 'ProfileController@productEdit']);
+    Route::post('/profile/products/edit', ['as' => 'profile.products.productUpdate', 'uses' => 'ProfileController@productUpdate']);
+
+    //Profile adverts
     Route::get('/profile/adverts', ['as' => 'profile.adverts', 'uses' => 'ProfileController@adverts']);
     Route::get('/profile/orders', ['as' => 'profile.orders', 'uses' => 'ProfileController@orders']);
     Route::get('/profile/reviews', ['as' => 'profile.reviews', 'uses' => 'ProfileController@reviews']);

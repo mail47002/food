@@ -14,28 +14,28 @@ class ReviewsTableSeeder extends Seeder
     {
         DB::table('reviews')->insert([
             [
-                'advert_id'  => 1,
+                'product_id' => 1,
                 'user_id'    => 1,
                 'text'       => 'review 1',
                 'rating'     => 3.2,
                 'status'     => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
-                'advert_id'  => 2,
+                'product_id' => 1,
                 'user_id'    => 2,
                 'text'       => 'review 2',
                 'rating'     => 4.2,
                 'status'     => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
-                'advert_id'  => 3,
+                'product_id' => 1,
                 'user_id'    => 3,
                 'text'       => 'review 3',
                 'rating'     => 5.0,
                 'status'     => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
-                'advert_id'  => 4,
+                'product_id' => 1,
                 'user_id'    => 4,
                 'text'       => 'review 4',
                 'rating'     => 2.5,

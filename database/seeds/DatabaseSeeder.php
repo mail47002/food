@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(AddressesTableSeeder::class);
         $this->call(AdvertAdressesTableSeeder::class);
-        $this->call(AdvertCategoriesTableSeeder::class);
+        $this->call(AdvertTypesTableSeeder::class);
         $this->call(AdvertCoockingTimeTableSeeder::class);
         $this->call(AdvertEverydayTermsTableSeeder::class);
         $this->call(AdvertImagesTableSeeder::class);

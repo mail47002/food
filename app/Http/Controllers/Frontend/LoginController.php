@@ -11,7 +11,7 @@ use Validator;
 use App\User;
 use File;
 use Image;
-use App\Adress;
+use App\Address;
 use App\Reviews;
 use Hash;
 //test
@@ -173,7 +173,7 @@ class LoginController extends Controller
 
         $user->save();
 
-        $adress = new Adress();
+        $adress = new Address();
         $adress->user_id = Auth::id();
         $adress->city = $request->city;
         $adress->street = $request->street;

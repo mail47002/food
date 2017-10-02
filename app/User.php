@@ -28,14 +28,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function adresses()
+    public function addresses()
     {
-        return $this->hasOne('App\Adress');
+        return $this->hasOne('App\Address');
     }
 
     public function adverts()
     {
         return $this->hasMany('App\Advert');
     }
-
 }
