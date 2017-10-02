@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\User;
-use App\Adress;
+use App\Address;
 use App\Review;
 use App\Advert;
 use App\Product;
@@ -74,7 +74,7 @@ class ProfileController extends Controller
         return view('frontend.profile.products', [
             'products' => $products,
             'profile' => Auth::user(),
-            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            'adresses' => Address::where('user_id', '=', Auth::id())->first()
             ]);
     }
 
@@ -126,7 +126,7 @@ class ProfileController extends Controller
         return view('frontend.profile.adverts', [
             'adverts' => $adverts,
             'profile' => Auth::user(),
-            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            'adresses' => Address::where('user_id', '=', Auth::id())->first()
             ]);
     }
 
@@ -134,7 +134,7 @@ class ProfileController extends Controller
     {
         return view('frontend.profile.orders', [
             'profile' => Auth::user(),
-            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            'adresses' => Address::where('user_id', '=', Auth::id())->first()
             ]);
     }
 
@@ -142,7 +142,7 @@ class ProfileController extends Controller
     {
         return view('frontend.profile.reviews', [
             'profile' => Auth::user(),
-            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            'adresses' => Address::where('user_id', '=', Auth::id())->first()
             ]);
     }
 
@@ -150,7 +150,7 @@ class ProfileController extends Controller
     {
         return view('frontend.profile.messages', [
             'profile' => Auth::user(),
-            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            'adresses' => Address::where('user_id', '=', Auth::id())->first()
             ]);
     }
 
@@ -158,7 +158,7 @@ class ProfileController extends Controller
     {
         return view('frontend.profile.articles', [
             'profile' => Auth::user(),
-            'adresses' => Adress::where('user_id', '=', Auth::id())->first()
+            'adresses' => Address::where('user_id', '=', Auth::id())->first()
             ]);
     }
 
@@ -206,7 +206,7 @@ class ProfileController extends Controller
     public function edit()
     {
         $profile = Auth::user();
-        $adresses = Adress::where('user_id', '=', Auth::id())->first();
+        $adresses = Address::where('user_id', '=', Auth::id())->first();
         return view('frontend.profile.edit',[
             'profile' =>$profile,
             'adresses' =>$adresses,
@@ -239,8 +239,8 @@ class ProfileController extends Controller
         $user->token = '';
         $user->save();
 
-        $adress_id = Adress::where('user_id', '=', Auth::id())->first();
-        $adress = Adress::find($adress_id['id']);
+        $adress_id = Address::where('user_id', '=', Auth::id())->first();
+        $adress = Address::find($adress_id['id']);
         $adress->city = $request->city;
         $adress->street = $request->street;
         $adress->build = $request->build;

@@ -12,7 +12,7 @@ class AddressesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('adresses')->insert([
+        DB::table('addresses')->insert([
             [
                 'user_id'    => 1,
                 'city'       => 'Vinnica',
