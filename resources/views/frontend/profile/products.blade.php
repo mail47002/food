@@ -87,7 +87,7 @@
 							<a href="#" class="button button-grey"><i class="fo fo-time"></i> Додати до меню</a>
 							<a href="#" class="button button-grey disabled"><i class="fo fo-dish-ready"></i> Готова страва</a>
 							<a href="#" class="button button-grey"><i class="fo fo-deal"></i> Під замовлення</a>
-							<a href="#" class="button-half link-blue"><i class="fo fo-edit fo-small"></i> Редагувати</a>
+							<a href="/profile/products/edit/{{ $product->id }}" class="button-half link-blue"><i class="fo fo-edit fo-small"></i> Редагувати</a>
 							<a href="#" class="button-half link-grey"><i class="fo fo-delete fo-small"></i> Видалити</a>
 						</div>
 					</div>

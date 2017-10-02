@@ -18,8 +18,9 @@
 	{{ Form::open([ 'route' => 'profile.products.productUpdate', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'edit']) }}
 		<p class="message" id="message">Заповніть виділені поля</p>
 
-		<label for="title">Назва страви*</label>
-		<input name="title" id="title" value="{{ $product->name }}" type="text" class="wide" required="required" />
+		<label for="name">Назва страви*</label>
+		<input name="id" value="{{ $product->id }}" type="hidden" />
+		<input name="name" id="name" value="{{ $product->name }}" type="text" class="wide" required="required" />
 
 		<label for="phone">Виберіть одну або декілька категорій*</label>
 		<div class="catgories clearfix">
@@ -28,15 +29,16 @@
 				@php $i++; @endphp
 				@foreach ($product->productToCatecory as $productToCatecory)
 					@if ($productToCatecory->category_id == $category->id)
-						<div class="col-md-4">
-							<input id="cat{{ $i }}" checked="checked" type="checkbox" name="category[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
-						</div>
+						@php
+							$on = 1;
+						@endphp
 					@else
-						<div class="col-md-4">
-							<input id="cat{{ $i }}" type="checkbox" name="category[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
-						</div>
+						@php $on = 0; @endphp
 					@endif
 				@endforeach
+				<div class="col-md-4">
+					<input id="cat{{ $i }}" checked="checked" type="checkbox" name="category[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
+				</div>
 			@endforeach
 		</div>
 
@@ -56,6 +58,19 @@
 
 		<label for="foto">Фото</label>
 		<div class="fotos">
+			<div class="wrap">
+					<input type="hidden" id="titleFoto" name="images[]" value="0">
+					<div class="uploader">
+						<img src="{!! asset($product->image) !!}"/>
+						<input type="file" name="images[]" id="foto-0" />
+						<div class="round"><i class="fo fo-camera"></i></div>
+					</div>
+
+					{{-- Решить как обозначать "Головне" фото и дописать скрипт --}}
+					<a href="#" data-id="0" class="pull-left grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+					{{-- Добавить скрипт на удаление фото --}}
+					<a href="#" data-id="0" class="pull-right link-red-dark remove"><i class="fo fo-close-rounded"></i></a>
+				</div>
 		@if ($product->productImages)
 			@foreach ($product->productImages as $productImage)
 				<div class="wrap">
@@ -78,7 +93,7 @@
 				<input type="hidden" id="titleFoto" name="image" value="0">
 				<div class="uploader">
 					<img src=""/>
-					<input type="file" name="image" id="foto" />
+					<input type="file" name="images[]" id="foto" />
 					<div class="round"><i class="fo fo-camera"></i></div>
 				</div>
 				<a href="#" class="pull-left hide grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>

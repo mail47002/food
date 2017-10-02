@@ -114,7 +114,29 @@ class ProfileController extends Controller
 
     public function productUpdate(Request $request)
     {
-        dd($request);
+        $user = Auth::user();
+        $product = Product::find($request->id);
+        dd($product);
+
+        // $this->validate($request, [
+        //     'name'                     => 'required',
+        //     'phone'                    => 'required',
+        //     'city'                     => 'required',
+        //     'street'                   => 'required',
+        //     'build'                     => 'required',
+        // ]);
+
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->user_id = $user->id;
+        $product->ingredients = json_encode($request->ingredients);
+        // $product->image = $request->images;
+        $product->videos = json_encode($request->videos);
+        $product->status = 1;
+        $product->save;
+
+        return redirect()
+                ->route('profile.products');
     }
 
     public function adverts()
