@@ -56,35 +56,36 @@
 
 		<label for="foto">Фото</label>
 		<div class="fotos">
-			<div class="wrap">
-				<input type="hidden" id="titleFoto" name="image" value="0">
-				<div class="uploader">
-					<img src="{!! asset($product->image) !!}"/>
-					<input type="file" name="image" id="foto" />
-					<div class="round"><i class="fo fo-camera"></i></div>
-				</div>
-
-{{-- Решить как обозначать "Головне" фото и дописать скрипт --}}
-				<a href="#" class="pull-left hide grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
-				<a href="#" class="pull-right link-red-dark hide remove"><i class="fo fo-close-rounded"></i></a>
-			</div>
-		</div><!--
 		@if ($product->productImages)
 			@foreach ($product->productImages as $productImage)
 				<div class="wrap">
 					<input type="hidden" id="titleFoto" name="images[]" value="0">
 					<div class="uploader">
 						<img src="{!! asset($productImage->image) !!}"/>
-						<input type="file" name="images[]" id="foto" />
+						<input type="file" name="images[]" id="foto-{{$productImage->product_image_id}}" />
 						<div class="round"><i class="fo fo-camera"></i></div>
 					</div>
 
-					<a href="#" class="pull-left hide grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
-					<a href="#" class="pull-right link-red-dark hide remove"><i class="fo fo-close-rounded"></i></a>
+					{{-- Решить как обозначать "Головне" фото и дописать скрипт --}}
+					<a href="#" data-id="{{$productImage->product_image_id}}" class="pull-left grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+					{{-- Добавить скрипт на удаление фото --}}
+					<a href="#" data-id="{{$productImage->product_image_id}}" class="pull-right link-red-dark remove"><i class="fo fo-close-rounded"></i></a>
 				</div>
 			@endforeach
 		@endif
-	-->
+			{{-- Это пустой блок - для нового фото --}}
+			<div class="wrap empty">
+				<input type="hidden" id="titleFoto" name="image" value="0">
+				<div class="uploader">
+					<img src=""/>
+					<input type="file" name="image" id="foto" />
+					<div class="round"><i class="fo fo-camera"></i></div>
+				</div>
+				<a href="#" class="pull-left hide grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+				<a href="#" class="pull-right link-red-dark hide remove"><i class="fo fo-close-rounded"></i></a>
+			</div>
+		</div>
+
 		<label for="video">Посилання на відео</label>
 		<div class="videos">
 			<div><input id="video" name="videos[]" type="text" required="required" /><span class="remove"></span></div>
@@ -120,7 +121,7 @@
 
 {{-- Клонируем фото --}}
 		var i = 0;
-		var fotos = $('.fotos > div').clone();
+		var fotos = $('.fotos .wrap.empty').clone(); {{-- Клонировать пустой блок --}}
 		$('body').on('change', '.fotos .uploader:last input:file', function (){
 			$(this).closest('.wrap').find('a').show();
 			// Спрятать иконку
