@@ -10,6 +10,7 @@ use App\Adress;
 use App\Review;
 use App\Advert;
 use App\Product;
+use App\Category;
 use Hash;
 use File;
 use Image;
@@ -72,14 +73,47 @@ class ProfileController extends Controller
             ->get();
         return view('frontend.profile.products', [
             'products' => $products,
-            'profile' => User::find(Auth::id()),
+            'profile' => Auth::user(),
             'adresses' => Adress::where('user_id', '=', Auth::id())->first()
             ]);
     }
 
     public function product($id)
     {
-        $product = Product::find($id);
+        $product = Product::where('id', $id)
+            ->with([
+                'reviews' => function($query){
+                    $query->with(['user', 'answer']);
+                },
+                'advert'
+            ])
+            ->first();
+            // dd($product);
+        $profile = Auth::user();
+
+        // dd($product->productImages());
+        return view('frontend.profile.product', [
+            'product' => $product,
+            'profile' => $profile
+        ]);
+
+    }
+
+    public function productEdit($id)
+    {
+
+        $product = Product::where('id', $id)->with(['productImages', 'productToCatecory'])->first();
+        $categories = Category::where('status', '=', 1)->get();
+        return view('frontend.profile.product_edit', [
+            'product' => $product,
+            'categories' => $categories
+        ]);
+
+    }
+
+    public function updateProduct(Request $request)
+    {
+
     }
 
     public function adverts()
@@ -91,7 +125,7 @@ class ProfileController extends Controller
 
         return view('frontend.profile.adverts', [
             'adverts' => $adverts,
-            'profile' => User::find(Auth::id()),
+            'profile' => Auth::user(),
             'adresses' => Adress::where('user_id', '=', Auth::id())->first()
             ]);
     }
@@ -99,7 +133,7 @@ class ProfileController extends Controller
     public function orders()
     {
         return view('frontend.profile.orders', [
-            'profile' => User::find(Auth::id()),
+            'profile' => Auth::user(),
             'adresses' => Adress::where('user_id', '=', Auth::id())->first()
             ]);
     }
@@ -107,7 +141,7 @@ class ProfileController extends Controller
     public function reviews()
     {
         return view('frontend.profile.reviews', [
-            'profile' => User::find(Auth::id()),
+            'profile' => Auth::user(),
             'adresses' => Adress::where('user_id', '=', Auth::id())->first()
             ]);
     }
@@ -115,7 +149,7 @@ class ProfileController extends Controller
     public function messages()
     {
         return view('frontend.profile.messages', [
-            'profile' => User::find(Auth::id()),
+            'profile' => Auth::user(),
             'adresses' => Adress::where('user_id', '=', Auth::id())->first()
             ]);
     }
@@ -123,7 +157,7 @@ class ProfileController extends Controller
     public function articles()
     {
         return view('frontend.profile.articles', [
-            'profile' => User::find(Auth::id()),
+            'profile' => Auth::user(),
             'adresses' => Adress::where('user_id', '=', Auth::id())->first()
             ]);
     }
@@ -171,7 +205,7 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        $profile = User::find(Auth::id());
+        $profile = Auth::user();
         $adresses = Adress::where('user_id', '=', Auth::id())->first();
         return view('frontend.profile.edit',[
             'profile' =>$profile,
@@ -189,7 +223,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         // dd($request);
-        $user = User::find(Auth::id());
+        $user = Auth::user();
         $this->validate($request, [
             'name'                     => 'required',
             'phone'                    => 'required',
@@ -218,7 +252,7 @@ class ProfileController extends Controller
 
     public function password()
     {
-        $profile = User::find(Auth::id());
+        $profile = Auth::user();
         return view('frontend.profile.password', [
             'profile' => $profile,
             ]);
@@ -233,7 +267,7 @@ class ProfileController extends Controller
             'password_confirmation'     => 'required|same:password',
         ]);
 
-        $user = User::find(Auth::id());
+        $user = Auth::user();
 
         if (Hash::check($request->oldPassword, $user->password)) {
             $user->password = Hash::make($request->password);
@@ -251,7 +285,7 @@ class ProfileController extends Controller
 
     public function nickname()
     {
-        $profile = User::find(Auth::id());
+        $profile = Auth::user();
         return view('frontend.profile.nickname', [
             'profile' => $profile,
             ]);
@@ -264,7 +298,7 @@ class ProfileController extends Controller
         $this->validate($request, [
             'nickname'          => 'required|unique:users,nickname|min:3',
         ]);
-        $user = User::find(Auth::id());
+        $user = Auth::user();
         $user->nickname = $request->nickname;
         $user->save();
         return redirect()
@@ -285,7 +319,7 @@ class ProfileController extends Controller
 
     public function updatePhoto(Request $request)
     {
-        $user = User::find(Auth::id());
+        $user = Auth::user();
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
