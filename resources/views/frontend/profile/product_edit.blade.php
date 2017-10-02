@@ -26,15 +26,17 @@
 			@php $i = 0; @endphp
 			@foreach ($categories as $category)
 				@php $i++; @endphp
-			 	@if (!$category->id)
-				<div class="col-md-4">
-					<input id="cat{{ $i }}" checked="checked" type="checkbox" name="category[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
-				</div>
-				@else
-				<div class="col-md-4">
-					<input id="cat{{ $i }}" type="checkbox" name="category[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
-				</div>
-				@endif
+				@foreach ($product->productToCatecory as $productToCatecory)
+					@if ($productToCatecory->category_id == $category->id)
+						<div class="col-md-4">
+							<input id="cat{{ $i }}" checked="checked" type="checkbox" name="category[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
+						</div>
+					@else
+						<div class="col-md-4">
+							<input id="cat{{ $i }}" type="checkbox" name="category[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
+						</div>
+					@endif
+				@endforeach
 			@endforeach
 		</div>
 
@@ -54,11 +56,11 @@
 
 		<label for="foto">Фото</label>
 		<div class="fotos">
-		<input type="hidden" id="titleFoto" name="title_foto" value="0">
 			<div class="wrap">
+				<input type="hidden" id="titleFoto" name="image" value="0">
 				<div class="uploader">
 					<img src="{!! asset($product->image) !!}"/>
-					<input type="file" name="image[]" id="foto" />
+					<input type="file" name="image" id="foto" />
 					<div class="round"><i class="fo fo-camera"></i></div>
 				</div>
 
@@ -66,8 +68,23 @@
 				<a href="#" class="pull-left hide grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
 				<a href="#" class="pull-right link-red-dark hide remove"><i class="fo fo-close-rounded"></i></a>
 			</div>
-		</div>
+		</div><!--
+		@if ($product->productImages)
+			@foreach ($product->productImages as $productImage)
+				<div class="wrap">
+					<input type="hidden" id="titleFoto" name="images[]" value="0">
+					<div class="uploader">
+						<img src="{!! asset($productImage->image) !!}"/>
+						<input type="file" name="images[]" id="foto" />
+						<div class="round"><i class="fo fo-camera"></i></div>
+					</div>
 
+					<a href="#" class="pull-left hide grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+					<a href="#" class="pull-right link-red-dark hide remove"><i class="fo fo-close-rounded"></i></a>
+				</div>
+			@endforeach
+		@endif
+	-->
 		<label for="video">Посилання на відео</label>
 		<div class="videos">
 			<div><input id="video" name="videos[]" type="text" required="required" /><span class="remove"></span></div>

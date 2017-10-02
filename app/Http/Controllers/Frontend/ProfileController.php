@@ -103,6 +103,7 @@ class ProfileController extends Controller
     {
 
         $product = Product::where('id', $id)->with(['productImages', 'productToCatecory'])->first();
+        // dd($product);
         $categories = Category::where('status', '=', 1)->get();
         return view('frontend.profile.product_edit', [
             'product' => $product,
@@ -111,9 +112,9 @@ class ProfileController extends Controller
 
     }
 
-    public function updateProduct(Request $request)
+    public function productUpdate(Request $request)
     {
-
+        dd($request);
     }
 
     public function adverts()
