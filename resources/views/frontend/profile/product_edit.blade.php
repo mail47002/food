@@ -61,23 +61,10 @@
 
 		<label for="foto">Фото</label>
 		<div class="fotos">
-			<div class="wrap">
-					<input type="hidden" id="titleFoto" name="images[]" value="0">
-					<div class="uploader">
-						<img src="{!! asset($product->image) !!}"/>
-						<input type="file" name="images[]" id="foto-0" />
-						<div class="round"><i class="fo fo-camera"></i></div>
-					</div>
-
-					{{-- Решить как обозначать "Головне" фото и дописать скрипт --}}
-					<a href="#" data-id="0" class="pull-left grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
-					{{-- Добавить скрипт на удаление фото --}}
-					<a href="#" data-id="0" class="pull-right link-red-dark remove"><i class="fo fo-close-rounded"></i></a>
-				</div>
+			<input type="hidden" id="titleFoto" name="images[]" value="0">
 		@if ($product->productImages)
 			@foreach ($product->productImages as $productImage)
 				<div class="wrap">
-					<input type="hidden" id="titleFoto" name="images[]" value="0">
 					<div class="uploader">
 						<img src="{!! asset($productImage->image) !!}"/>
 						<input type="file" name="images[]" id="foto-{{$productImage->product_image_id}}" />
@@ -106,8 +93,9 @@
 
 		<label for="video">Посилання на відео</label>
 		<div class="videos">
-			<div><input id="video" name="videos[]" type="text" required="required" /><span class="remove"></span></div>
-
+			@foreach(json_decode($product->videos) as $video)
+			<div><input id="video" name="videos[]" type="text" value="{{ $video }}" required="required" /><span class="remove"></span></div>
+			@endforeach
 			<a href="#" id="cloneVideo" class="link-red-dark">+ Додати</a>
 		</div>
 
