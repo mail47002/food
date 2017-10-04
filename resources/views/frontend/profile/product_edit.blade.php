@@ -27,18 +27,21 @@
 			@php $i = 0; @endphp
 			@foreach ($categories as $category)
 				@php $i++; @endphp
+				@php $on = 0; @endphp
 				@foreach ($product->productToCatecory as $productToCatecory)
 					@if ($productToCatecory->category_id == $category->id)
-						@php
-							$on = 1;
-						@endphp
-					@else
-						@php $on = 0; @endphp
+						@php $on = 1;	@endphp
 					@endif
 				@endforeach
-				<div class="col-md-4">
-					<input id="cat{{ $i }}" checked="checked" type="checkbox" name="category[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
-				</div>
+				@if ($on == 1)
+					<div class="col-md-4">
+						<input id="cat{{ $i }}" checked="checked" type="checkbox" name="category[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
+					</div>
+				@else
+					<div class="col-md-4">
+						<input id="cat{{ $i }}" type="checkbox" name="category[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
+					</div>
+				@endif
 			@endforeach
 		</div>
 
