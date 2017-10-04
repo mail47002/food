@@ -81,8 +81,11 @@ Route::group(['namespace' => 'Frontend'], function() {
 
     //Profile product
     Route::get('/profile/products', ['as' => 'profile.products', 'uses' => 'ProfileController@products']);
+    Route::get('/profile/products/new', ['as' => 'profile.product.new', 'uses' => 'ProfileController@productNew']);
+    Route::post('/profile/products/new', ['as' => 'profile.products.productCreate', 'uses' => 'ProfileController@productCreate']);
     Route::get('/profile/products/{id}', ['as' => 'profile.product', 'uses' => 'ProfileController@product']);
     Route::get('/profile/products/edit/{id}', ['as' => 'profile.product.edit', 'uses' => 'ProfileController@productEdit']);
+    Route::get('/profile/products/destroy/{id}', ['as' => 'profile.product.destroy', 'uses' => 'ProfileController@productDestroy']);
     Route::post('/profile/products/edit', ['as' => 'profile.products.productUpdate', 'uses' => 'ProfileController@productUpdate']);
 
     //Profile adverts

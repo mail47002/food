@@ -11,6 +11,8 @@ use App\Review;
 use App\Advert;
 use App\Product;
 use App\Category;
+use App\ProductToCategory;
+use App\ProductImage;
 use Hash;
 use File;
 use Image;
@@ -78,6 +80,67 @@ class ProfileController extends Controller
             ]);
     }
 
+    public function productNew()
+    {
+        $categories = Category::where('status', '=', 1)->get();
+        return view('frontend.profile.product_new', [
+            'categories' => $categories
+        ]);
+
+    }
+
+    public function productCreate(Request $request)
+    {
+        // dd($request);
+        $user = Auth::user();
+        $product = new Product;
+        $product->name = $request->name;
+        $product->user_id = $user->id;
+        $product->ingredients = json_encode($request->ingredients);
+        $product->description = $request->description;
+        $product->image = '';
+        $product->sort_order = 0;
+        $product->status = 1;
+        $product->videos = json_encode($request->videos);
+        $product->save();
+
+
+
+        foreach ($request->categories as $category) {
+            $productToCategory = new ProductToCategory;
+            $productToCategory->product_id = $product->id;
+            $productToCategory->category_id = $category;
+            $productToCategory->save();
+        }
+
+        $i = 0;
+        $path   = 'uploads/products/' . $product->id. '/';
+        File::deleteDirectory($path);
+        File::makeDirectory($path, 0777, true, true);
+
+        foreach($request->file() as $files){
+            foreach($files as $file){
+                $name   = $file->getClientOriginalName();
+                $file->move($path, $name);
+                $productImage = new ProductImage;
+                $productImage->product_id = $product->id;
+                $productImage->image = $path . $name;
+                $productImage->status = 1;
+                $productImage->alt = 'product';
+                $productImage->sort_order = 0;
+                $productImage->save();
+                if($i == $request->main){
+                    $product->image = $path . $name;
+                    $product->save();
+                }
+                $i++;
+            }
+        }
+
+        return redirect()
+                ->route('profile.products');
+    }
+
     public function product($id)
     {
         $product = Product::where('id', $id)
@@ -116,7 +179,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $product = Product::find($request->id);
-        dd($product);
+        // dd($product);
 
         // $this->validate($request, [
         //     'name'                     => 'required',
@@ -127,16 +190,42 @@ class ProfileController extends Controller
         // ]);
 
         $product->name = $request->name;
+        if ($request->categories) {
+            $productToCate = ProductToCategory::where('product_id', $request->id)->delete();
+
+            foreach ($request->categories as $categories){
+                $productToCatecory = new ProductToCategory;
+                $productToCatecory->product_id = $request->id;
+                $productToCatecory->category_id = $categories;
+                $productToCatecory->save();
+            }
+
+        }
+
         $product->description = $request->description;
         $product->user_id = $user->id;
         $product->ingredients = json_encode($request->ingredients);
         // $product->image = $request->images;
         $product->videos = json_encode($request->videos);
         $product->status = 1;
-        $product->save;
+        // dd($product);
+        $product->save();
 
         return redirect()
                 ->route('profile.products');
+    }
+
+    public function productDestroy($id){
+
+        $product = Product::where('id', '=', $id)->delete();
+        $productImage = ProductImage::where('product_id', '=', $id)->delete();
+        $productToCategory = ProductToCategory::where('product_id', '=', $id)->delete();
+        $path   = 'uploads/products/' . $id;
+        File::deleteDirectory($path);
+
+        return redirect()
+                ->route('profile.products');
+
     }
 
     public function adverts()

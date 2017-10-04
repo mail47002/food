@@ -36,7 +36,7 @@
 
 		<div class="col-md-9">
 			<h5 class="text-upper underline-red">Каталог страв ({{count($products)}})</h5><hr class="zerro-top">
-			<a href="#" class="button button-red button-big">Додати страву до каталогу</a>
+			<a href="/profile/products/new" class="button button-red button-big">Додати страву до каталогу</a>
 			<div class="v-indent-30"></div>
 
 			<hr>
@@ -88,7 +88,7 @@
 							<a href="#" class="button button-grey disabled"><i class="fo fo-dish-ready"></i> Готова страва</a>
 							<a href="#" class="button button-grey"><i class="fo fo-deal"></i> Під замовлення</a>
 							<a href="/profile/products/edit/{{ $product->id }}" class="button-half link-blue"><i class="fo fo-edit fo-small"></i> Редагувати</a>
-							<a href="#" class="button-half link-grey"><i class="fo fo-delete fo-small"></i> Видалити</a>
+							<a href="/profile/products/destroy/{{ $product->id }}" class="button-half link-grey"><i class="fo fo-delete fo-small"></i> Видалити</a>
 						</div>
 					</div>
 				</div>
