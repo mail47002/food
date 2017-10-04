@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration {
             $table->integer('user_id');
             $table->json('ingredients');
             $table->string('image');
-            $table->string('videos');
+            $table->json('videos');
             $table->integer('sort_order');
             $table->integer('status');
             $table->timestamps();

@@ -13,7 +13,7 @@ class ProductImageTableSeeder extends Seeder
     {
         DB::table('product_image')->insert([
             'product_id' => '1',
-            'image' => '/products/image11.jpg',
+            'image' => 'uploads/products/14/Ескіз12.png',
             'alt' => 'image 11',
             'sort_order' => 1,
             'status' => 1,
@@ -22,7 +22,7 @@ class ProductImageTableSeeder extends Seeder
 
         DB::table('product_image')->insert([
             'product_id' => '1',
-            'image' => '/products/image22.jpg',
+            'image' => 'uploads/products/14/Ескіз12.png',
             'alt' => 'image 22',
             'sort_order' => 1,
             'status' => 1,
@@ -31,7 +31,7 @@ class ProductImageTableSeeder extends Seeder
 
         DB::table('product_image')->insert([
             'product_id' => '2',
-            'image' => '/products/image33.jpg',
+            'image' => 'uploads/products/14/Ескіз12.png',
             'alt' => 'image 33',
             'sort_order' => 1,
             'status' => 1,
@@ -40,7 +40,7 @@ class ProductImageTableSeeder extends Seeder
 
         DB::table('product_image')->insert([
             'product_id' => '2',
-            'image' => '/products/image44.jpg',
+            'image' => 'uploads/products/14/Ескіз12.png',
             'alt' => 'image 33',
             'sort_order' => 1,
             'status' => 1,

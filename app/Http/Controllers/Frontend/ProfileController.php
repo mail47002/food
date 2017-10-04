@@ -67,6 +67,13 @@ class ProfileController extends Controller
             ]);
     }
 
+    /**
+     * page products.
+     *
+     * @param
+     * @return return view frontend.profile.products
+     */
+
     public function products()
     {
         $products = Product::with(['advert'])
@@ -80,6 +87,14 @@ class ProfileController extends Controller
             ]);
     }
 
+
+    /**
+     * page new product.
+     *
+     * @param
+     * @return return view frontend.profile.product_new
+     */
+
     public function productNew()
     {
         $categories = Category::where('status', '=', 1)->get();
@@ -88,6 +103,14 @@ class ProfileController extends Controller
         ]);
 
     }
+
+
+    /**
+     * created product.
+     *
+     * @param $request
+     * @return return view profile.products
+     */
 
     public function productCreate(Request $request)
     {
@@ -104,8 +127,6 @@ class ProfileController extends Controller
         $product->videos = json_encode($request->videos);
         $product->save();
 
-
-
         foreach ($request->categories as $category) {
             $productToCategory = new ProductToCategory;
             $productToCategory->product_id = $product->id;
@@ -120,7 +141,8 @@ class ProfileController extends Controller
 
         foreach($request->file() as $files){
             foreach($files as $file){
-                $name   = $file->getClientOriginalName();
+                // $name = str_random(7);
+                $name = $file->getClientOriginalName();
                 $file->move($path, $name);
                 $productImage = new ProductImage;
                 $productImage->product_id = $product->id;
@@ -140,6 +162,14 @@ class ProfileController extends Controller
         return redirect()
                 ->route('profile.products');
     }
+
+
+    /**
+     * page show product.
+     *
+     * @param $id
+     * @return return view frontend.profile.product
+     */
 
     public function product($id)
     {
@@ -162,6 +192,13 @@ class ProfileController extends Controller
 
     }
 
+    /**
+     * page edit product.
+     *
+     * @param $id
+     * @return return view frontend.profile.product
+     */
+
     public function productEdit($id)
     {
 
@@ -174,6 +211,13 @@ class ProfileController extends Controller
         ]);
 
     }
+
+    /**
+     * update product.
+     *
+     * @param $id
+     * @return return view frontend.profile.product
+     */
 
     public function productUpdate(Request $request)
     {
@@ -215,6 +259,13 @@ class ProfileController extends Controller
                 ->route('profile.products');
     }
 
+    /**
+     * destroy product.
+     *
+     * @param $id
+     * @return return view profile.products
+     */
+
     public function productDestroy($id){
 
         $product = Product::where('id', '=', $id)->delete();
@@ -227,6 +278,14 @@ class ProfileController extends Controller
                 ->route('profile.products');
 
     }
+
+
+    /**
+     * page adverts.
+     *
+     * @param
+     * @return return view profile.adverts
+     */
 
     public function adverts()
     {
