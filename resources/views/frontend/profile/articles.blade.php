@@ -35,13 +35,13 @@
 		</div>
 
 		<div class="col-md-9">
-			<h5 class="text-upper underline-red">Мії статті</h5><hr class="zerro-top">
+			<h5 class="text-upper underline-red">Мої статті</h5><hr class="zerro-top">
 			<div class="row text-center">
 				<div class="col-md-6">
 					<a href="#" class="button button-red button-big inline"><i class="fo fo-dish"></i> Новий рецепт</a>
 				</div>
 				<div class="col-md-6">
-					<a href="#" class="button button-red button-big inline"><i class="fo fo-articles"></i> Нова порада</a>
+					<a href="/articles/new" class="button button-red button-big inline"><i class="fo fo-articles"></i> Нова порада</a>
 				</div>
 			</div>
 

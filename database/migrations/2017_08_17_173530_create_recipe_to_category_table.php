@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdvertToCategoryTable extends Migration {
+class CreateRecipeToCategoryTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,9 @@ class CreateAdvertToCategoryTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('advert_to_category', function (Blueprint $table) {
+		Schema::create('recipe_to_category', function (Blueprint $table) {
       $table->increments('id');
-      $table->integer('advert_id');
+      $table->integer('recipe_id');
       $table->integer('category_id');
       $table->timestamps();
     });
@@ -27,7 +27,7 @@ class CreateAdvertToCategoryTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('advert_to_category');
+		Schema::drop('recipe_to_category');
 	}
 
 }

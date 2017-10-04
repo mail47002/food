@@ -88,11 +88,15 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::get('/profile/products/destroy/{id}', ['as' => 'profile.product.destroy', 'uses' => 'ProfileController@productDestroy']);
     Route::post('/profile/products/edit', ['as' => 'profile.products.productUpdate', 'uses' => 'ProfileController@productUpdate']);
 
+    //Profile articles
+    Route::get('/profile/articles', ['as' => 'profile.articles', 'uses' => 'ProfileController@articles']);
+    Route::get('/articles/new', ['as' => 'articles.new', 'uses' => 'ArticlesController@new']);
+    Route::post('/articles/new', ['as' => 'articles.create', 'uses' => 'ArticlesController@create']);
+
     //Profile adverts
     Route::get('/profile/adverts', ['as' => 'profile.adverts', 'uses' => 'ProfileController@adverts']);
     Route::get('/profile/orders', ['as' => 'profile.orders', 'uses' => 'ProfileController@orders']);
     Route::get('/profile/reviews', ['as' => 'profile.reviews', 'uses' => 'ProfileController@reviews']);
-    Route::get('/profile/articles', ['as' => 'profile.articles', 'uses' => 'ProfileController@articles']);
     Route::get('/profile/messages', ['as' => 'profile.messages', 'uses' => 'ProfileController@messages']);
     Route::post('/profile/image', ['as' => 'profile.updatePhoto', 'uses' => 'ProfileController@updatePhoto']);
 
