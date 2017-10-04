@@ -53,8 +53,8 @@
 			<a href="#" id="cloneIngredient" class="link-red-dark">+ Додати</a>
 		</div>
 
-		<label for="text">Про страву*</label>
-		<textarea name="text" id="text" type="text" class="wide" required="required" />
+		<label for="description">Про страву*</label>
+		<textarea name="description" id="description" type="text" class="wide" required="required" />
 			{!! $product->description !!}
 		</textarea>
 
