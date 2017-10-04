@@ -20,7 +20,6 @@ class CreateProductsTable extends Migration {
             $table->json('ingredients');
             $table->string('image');
             $table->json('videos');
-            $table->integer('sort_order');
             $table->integer('status');
             $table->timestamps();
         });

@@ -8,7 +8,7 @@ class Product extends Model
 {
     public function scopeLatest($query)
     {
-        return $query->orderBy('created_at', 'asc');
+        return $query->orderBy('created_at', 'desc');
     }
 
     public function advert()

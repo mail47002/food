@@ -122,7 +122,6 @@ class ProfileController extends Controller
         $product->ingredients = json_encode($request->ingredients);
         $product->description = $request->description;
         $product->image = '';
-        $product->sort_order = 0;
         $product->status = 1;
         $product->videos = json_encode($request->videos);
         $product->save();

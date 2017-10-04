@@ -20,7 +20,6 @@ class ProductsTableSeeder extends Seeder
                 'ingredients' => json_encode(['Картопля', 'Лосось', 'Цукіні', '"Оливкова олія']),
                 'image'       => 'uploads/food1.jpg',
                 'videos'      => json_encode(['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU']),
-                'sort_order'  => 0,
                 'status'      => 1,
                 'created_at'  => Carbon::now()->toDateTimeString()
             ], [
@@ -30,7 +29,6 @@ class ProductsTableSeeder extends Seeder
                 'ingredients' => json_encode(['Картопля', 'Лосось', 'Цукіні', '"Оливкова олія']),
                 'image'       => 'uploads/food1.jpg',
                 'videos'      => json_encode(['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU']),
-                'sort_order'  => 1,
                 'status'      => 1,
                 'created_at'  => Carbon::now()->toDateTimeString()
             ], [
@@ -40,7 +38,6 @@ class ProductsTableSeeder extends Seeder
                 'ingredients' => json_encode(['Картопля', 'Лосось', 'Цукіні', '"Оливкова олія']),
                 'image'       => 'uploads/food1.jpg',
                 'videos'      => json_encode(['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU']),
-                'sort_order'  => 2,
                 'status'      => 1,
                 'created_at'  => Carbon::now()->toDateTimeString()
             ], [
@@ -50,7 +47,6 @@ class ProductsTableSeeder extends Seeder
                 'ingredients' => json_encode(['Картопля', 'Лосось', 'Цукіні', '"Оливкова олія']),
                 'image'       => 'uploads/food1.jpg',
                 'videos'      => json_encode(['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU']),
-                'sort_order'  => 3,
                 'status'      => 1,
                 'created_at'  => Carbon::now()->toDateTimeString()
             ]
