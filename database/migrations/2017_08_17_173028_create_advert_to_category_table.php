@@ -15,7 +15,7 @@ class CreateAdvertToCategoryTable extends Migration {
 		Schema::create('advert_to_category', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('advert_id');
-      $table->integer('advert_category_id');
+      $table->integer('category_id');
       $table->timestamps();
     });
 	}

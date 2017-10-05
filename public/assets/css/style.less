@@ -4023,8 +4023,63 @@ a[data-toggle="collapse"] {
 			height: 90px;
 		}
 	}
-	.reviews {
-		padding-bottom: 110px;
+	.messages {
+		margin: 0;
+		padding: 20px 35px 140px;
+		li {
+			padding: 10px 0;
+			.left {
+				float: left;
+				width: 8%;
+				.avatar {
+					width: 50px;
+					height: 50px;
+					display: block;
+					margin: 0;
+				}
+			}
+			.right {
+				float: left;
+				width: 92%; 
+				.name {font-size: 16px;}
+				.date {
+					font-size: 14px;
+					padding-left: 10px;
+					color: @grey3
+				}
+				.message {
+					padding-top: 10px;
+					img {
+						max-width: 210px;
+						display: inline-block;
+						margin: 10px 20px 10px 0;
+					}
+				}
+			}
+		}
+
+		.date-line {
+			position: relative;
+			text-align: center;
+			z-index: 0;
+			&:before {
+				content: '';
+				position: absolute;
+				left: 0; right: 0;
+				top: 0; bottom: 0;
+				margin: auto;
+				height: 1px;
+				background-color: @grey1;
+				z-index: -1;
+			}
+			span {
+				display: inline-block;
+				color: @grey3;
+				font-size: 14px;
+				padding: 20px;
+				background: @white;
+			}
+		}
 	}
 }
 
@@ -4033,6 +4088,8 @@ a[data-toggle="collapse"] {
 	bottom: 40px;
 	left: 0;
 	right: 0;
+	.your-message {
+	}
 
 	+ .footer {
 		position: fixed;
@@ -4041,6 +4098,7 @@ a[data-toggle="collapse"] {
 
 	.input-message-area {
 		background: @grey1;
+		padding: 20px 45px;
 		position: relative;
 		&:before {
 			content: '';
@@ -4052,6 +4110,47 @@ a[data-toggle="collapse"] {
 			left: 0;
 			right: 0;
 			top: -20px;
+		}
+
+		.your-message {
+			margin: 0;
+			&:before {
+				content: '';
+				background: #e6e8e9;
+				bottom: 0;
+				position: absolute;
+				left: 60px;
+				top: 0;
+				width: 1px;
+			}
+
+			.fo-clip {
+				position: absolute;
+				width: 60px;
+				height: 28px;
+				top: 0; bottom: 0;
+				left: 0;
+				margin: auto;
+				color: @grey3;
+				text-align: center;
+				z-index: 1;
+				cursor: pointer;
+			}
+
+			input[type=file] {
+				position: absolute;
+				width: 60px;
+				height: 100%;
+				top: 0; bottom: 0;
+				left: 0;
+				z-index: 2;
+				opacity: 0;
+				cursor: pointer;
+				&:hover + .fo-clip {color: @grey4;}
+			}
+
+
+			textarea {padding: 20px 80px;}
 		}
 	}
 }

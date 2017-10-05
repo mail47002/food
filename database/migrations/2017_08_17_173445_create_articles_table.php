@@ -14,10 +14,13 @@ class CreateArticlesTable extends Migration {
 	{
 		Schema::create('articles', function (Blueprint $table) {
       $table->increments('id');
-      $table->integer('category_id');
       $table->string('name');
+      $table->integer('user_id');
       $table->string('slug');
       $table->text('description');
+      $table->string('image');
+      $table->json('videos');
+      $table->integer('status');
       $table->timestamps();
     });
 	}
