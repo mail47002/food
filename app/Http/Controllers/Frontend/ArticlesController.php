@@ -74,10 +74,10 @@ class ArticlesController extends Controller
 
     }
 
-    public function edit()
+    public function edit($id)
     {
 
-
+        return redirect()
 
     }
 

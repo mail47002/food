@@ -1,5 +1,5 @@
 @extends('frontend.layouts.default')
-@section('title')Adverts - @stop
+@section('title')Edit article - @stop
 @section('content')
 <div class="breadcrumbs">
 	<div class="container">
@@ -11,31 +11,49 @@
 
 
 <div class="bg-yellow">
-	<h5 class="title-with-indent red">Нова порада</h5>
+	<h5 class="title-with-indent red">Редагувати пораду</h5>
 </div>
 
 <div class="container-half text-center">
-
-	{{ Form::open([ 'route' => 'articles.create', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'edit']) }}
+	{{ Form::open([ 'route' => 'article.update', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'edit']) }}
 		<p class="message" id="message">Заповніть виділені поля</p>
 
-		<label for="name">Заголовок поради*</label>
-		<input name="name" id="name" type="text" class="wide" required="required" />
+		<label for="name">Назва поради*</label>
+		<input name="id" value="{{ $article->id }}" type="hidden" />
+		<input name="name" id="name" value="{{ $article->name }}" type="text" class="wide" required="required" />
 
 		<label for="description">Текст*</label>
-		<textarea name="description" id="description" type="text" class="wide" required="required" /></textarea>
+		<textarea name="description" id="description" type="text" class="wide" required="required" />
+			{!! $article->description !!}
+		</textarea>
 
 
-		<label for="foto">Додати фото*</label>
+		<label for="foto">Фото</label>
 		<div class="fotos">
-		<input type="hidden" id="titleFoto" name="main" value="0">
-			<div class="wrap">
+			<input type="hidden" id="main" name="main" value="0">
+		@if ($article->articleImages)
+			@foreach ($article->articleImages as $articleImage)
+				<div class="wrap">
+					<div class="uploader">
+						<img src="{!! asset($articleImage->image) !!}"/>
+						<input type="file" name="images[]" id="foto-{{$articleImage->article_image_id}}" />
+						<div class="round"><i class="fo fo-camera"></i></div>
+					</div>
+
+					{{-- Решить как обозначать "Головне" фото и дописать скрипт --}}
+					<a href="#" data-id="{{$articleImage->article_image_id}}" class="pull-left grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+					{{-- Добавить скрипт на удаление фото --}}
+					<a href="#" data-id="{{$articleImage->article_image_id}}" class="pull-right link-red-dark remove"><i class="fo fo-close-rounded"></i></a>
+				</div>
+			@endforeach
+		@endif
+			{{-- Это пустой блок - для нового фото --}}
+			<div class="wrap empty">
 				<div class="uploader">
 					<img src=""/>
 					<input type="file" name="images[]" id="foto" />
 					<div class="round"><i class="fo fo-camera"></i></div>
 				</div>
-{{-- Решить как обозначать "Головне" фото и дописать скрипт --}}
 				<a href="#" class="pull-left hide grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
 				<a href="#" class="pull-right link-red-dark hide remove"><i class="fo fo-close-rounded"></i></a>
 			</div>
@@ -43,13 +61,13 @@
 
 		<label for="video">Посилання на відео</label>
 		<div class="videos">
-			<div><input id="video" name="videos[]" type="text" required="required" /><span class="remove"></span></div>
-
+			@foreach(json_decode($article->videos) as $video)
+			<div><input id="video" name="videos[]" type="text" value="{{ $video }}" required="required" /><span class="remove"></span></div>
+			@endforeach
 			<a href="#" id="cloneVideo" class="link-red-dark">+ Додати</a>
 		</div>
 
-		<input type="submit" class="button button-red" value="Створити пораду">
-	{{ Form::close() }}
+		<input type="submit" class="button button-red" value="Оновити пораду"> {{ Form::close() }}
 
 </div>
 
@@ -62,21 +80,23 @@
 {{-- Clone --}}
 <script>
 	jQuery(function($){
-
+		var inputIngredient = '<div><input name="ingredients[]" type="text"/><span class="remove"></span></div>';
+		$("#cloneIngredient").on("click", function(e){
+			e.preventDefault();
+			$(inputIngredient).insertBefore(this);
+		});
 		var inputVideo = '<div><input name="videos[]" type="text"/><span class="remove"></span></div>';
 		$("#cloneVideo").on("click", function(e){
 			e.preventDefault();
 			$(inputVideo).insertBefore(this);
 		});
-
 {{-- Клонируем фото --}}
 		var i = 0;
-		var fotos = $('.fotos > div').clone();
+		var fotos = $('.fotos .wrap.empty').clone(); {{-- Клонировать пустой блок --}}
 		$('body').on('change', '.fotos .uploader:last input:file', function (){
 			$(this).closest('.wrap').find('a').show();
 			// Спрятать иконку
 			$(this).closest('.wrap').find('.round').hide();
-
 			i++;
 			var newBlock = fotos.clone();
 			newBlock.find('#foto').attr('id', 'foto'+i);
@@ -84,6 +104,7 @@
 			$('.fotos').append(newBlock);
 			document.getElementById('foto'+i)
 					.addEventListener('change', handleImage, false);
+
 			$("a.grey1").on("click", function(e){
 				e.preventDefault();
 				$(this).addClass('active');
@@ -91,21 +112,14 @@
 				$("#main").val($(this).data('main'));
 			});
 		});
-
-
-
 		$('body').on('click', '.remove', function(e){
 			e.preventDefault();
 			$(this).parent().remove();
 		});
-
 	});
-
-
 {{-- Загрузка картинок --}}
 	document.getElementById('foto')
 			.addEventListener('change', handleImage, false);
-
 </script>
 
 

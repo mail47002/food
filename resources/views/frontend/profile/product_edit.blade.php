@@ -61,7 +61,7 @@
 
 		<label for="foto">Фото</label>
 		<div class="fotos">
-			<input type="hidden" id="titleFoto" name="images[]" value="0">
+			<input type="hidden" id="main" name="main" value="0">
 		@if ($product->productImages)
 			@foreach ($product->productImages as $productImage)
 				<div class="wrap">
@@ -133,9 +133,16 @@
 			i++;
 			var newBlock = fotos.clone();
 			newBlock.find('#foto').attr('id', 'foto'+i);
+			newBlock.find('a.grey1').attr('data-main', i);
 			$('.fotos').append(newBlock);
 			document.getElementById('foto'+i)
 					.addEventListener('change', handleImage, false);
+			$("a.grey1").on("click", function(e){
+				e.preventDefault();
+				$(this).addClass('active');
+				console.log($(this).data('main'));
+				$("#main").val($(this).data('main'));
+			});
 		});
 		$('body').on('click', '.remove', function(e){
 			e.preventDefault();
