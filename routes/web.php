@@ -70,7 +70,7 @@ Route::group(['namespace' => 'Frontend'], function() {
 
     Route::resource('products', 'ProductsController');
 
-    //Profile
+    // Profile
     Route::get('/profile', ['as' => 'profile.index', 'uses' => 'ProfileController@index']);
     Route::get('/profile/edit', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
     Route::post('/profile/edit', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
@@ -79,16 +79,16 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::get('/profile/nickname', ['as' => 'profile.nickname', 'uses' => 'ProfileController@nickname']);
     Route::post('/profile/nickname', ['as' => 'profile.updateNickname', 'uses' => 'ProfileController@updateNickname']);
 
-    //Profile product
+    // Products
     Route::get('/profile/products', ['as' => 'profile.products', 'uses' => 'ProfileController@products']);
-    Route::get('/profile/products/new', ['as' => 'profile.product.new', 'uses' => 'ProfileController@productNew']);
-    Route::post('/profile/products/new', ['as' => 'profile.products.productCreate', 'uses' => 'ProfileController@productCreate']);
-    Route::get('/profile/products/{id}', ['as' => 'profile.product', 'uses' => 'ProfileController@product']);
-    Route::get('/profile/products/edit/{id}', ['as' => 'profile.product.edit', 'uses' => 'ProfileController@productEdit']);
-    Route::get('/profile/products/destroy/{id}', ['as' => 'profile.product.destroy', 'uses' => 'ProfileController@productDestroy']);
-    Route::post('/profile/products/edit', ['as' => 'profile.products.productUpdate', 'uses' => 'ProfileController@productUpdate']);
+    Route::get('/profile/products/new', ['as' => 'profile.product.new', 'uses' => 'ProductsController@create']);
+    Route::post('/profile/products/new', ['as' => 'profile.products.productCreate', 'uses' => 'ProductsController@store']);
+    Route::get('/profile/products/{id}', ['as' => 'profile.product', 'uses' => 'ProductsController@product']);
+    Route::get('/profile/products/edit/{id}', ['as' => 'profile.product.edit', 'uses' => 'ProductsController@productEdit']);
+    Route::get('/profile/products/destroy/{id}', ['as' => 'profile.product.destroy', 'uses' => 'ProductsController@productDestroy']);
+    Route::post('/profile/products/edit', ['as' => 'profile.products.productUpdate', 'uses' => 'ProductsController@productUpdate']);
 
-    //Profile adverts
+    // Adverts
     Route::get('/profile/adverts', ['as' => 'profile.adverts', 'uses' => 'ProfileController@adverts']);
     Route::get('/profile/orders', ['as' => 'profile.orders', 'uses' => 'ProfileController@orders']);
     Route::get('/profile/reviews', ['as' => 'profile.reviews', 'uses' => 'ProfileController@reviews']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
@@ -29,7 +30,13 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::orderBy('sort_order', 'asc')
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return view('frontend.products.create', [
+            'categories' => $categories
+        ]);
     }
 
     /**

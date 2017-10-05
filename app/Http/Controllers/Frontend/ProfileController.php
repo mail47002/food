@@ -89,23 +89,6 @@ class ProfileController extends Controller
 
 
     /**
-     * page new product.
-     *
-     * @param
-     * @return return view frontend.profile.product_new
-     */
-
-    public function productNew()
-    {
-        $categories = Category::where('status', '=', 1)->get();
-        return view('frontend.profile.product_new', [
-            'categories' => $categories
-        ]);
-
-    }
-
-
-    /**
      * created product.
      *
      * @param $request

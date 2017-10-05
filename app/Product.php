@@ -21,12 +21,12 @@ class Product extends Model
 		return $this->hasMany('App\Review');
 	}
 
-    public function productImages()
+    public function images()
     {
         return $this->hasMany('App\ProductImage');
     }
 
-    public function productToCatecory()
+    public function categories()
     {
         return $this->hasMany('App\ProductToCategory');
     }
