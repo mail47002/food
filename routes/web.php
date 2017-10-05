@@ -63,8 +63,8 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
 });
 
 
-// Frontend
-Route::group(['namespace' => 'Frontend'], function() {
+    // Frontend
+    Route::group(['namespace' => 'Frontend'], function() {
     // Adverts
     Route::resource('adverts', 'AdvertsController');
 

@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use Article;
-use ArticleImage;
+use App\Article;
+use App\ArticleImage;
 use File;
 
 
@@ -30,13 +30,14 @@ class ArticlesController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
 
     	// dd($request);
         $user = Auth::user();
         $article = new Article;
         $article->name = $request->name;
+        $article->slug = str_slug($request->name);
         $article->user_id = $user->id;
         $article->description = $request->description;
         $article->image = '';
