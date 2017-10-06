@@ -17,6 +17,7 @@ class CreateAdvertImagesTable extends Migration {
             $table->integer('advert_id');
             $table->string('image')->nullable();
             $table->string('alt')->nullable();
+            $table->integer('sort_order')->default(0);
             $table->timestamps();
         });
 	}
