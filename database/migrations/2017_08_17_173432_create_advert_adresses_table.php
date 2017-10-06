@@ -12,14 +12,14 @@ class CreateAdvertAdressesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('advert_adresses', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('advert_id');
-      $table->string('city');
-      $table->string('street');
-      $table->string('build');
-      $table->timestamps();
-    });
+		Schema::create('advert_addresses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('advert_id');
+            $table->string('city');
+            $table->string('street');
+            $table->string('build');
+            $table->timestamps();
+        });
 	}
 
 	/**
@@ -29,7 +29,7 @@ class CreateAdvertAdressesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('advert_adresses');
+		Schema::drop('advert_addresses');
 
 	}
 

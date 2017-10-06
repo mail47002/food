@@ -13,13 +13,12 @@ class CreateOptionValuesTable extends Migration {
 	public function up()
 	{
 		Schema::create('option_values', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('option_id');
-      $table->string('name');
-      $table->integer('sort_order');
-      $table->integer('required');
-      $table->timestamps();
-    });
+            $table->increments('id');
+            $table->integer('option_id');
+            $table->string('name');
+            $table->integer('required');
+            $table->timestamps();
+        });
 	}
 
 	/**

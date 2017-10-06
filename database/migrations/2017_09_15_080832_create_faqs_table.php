@@ -17,7 +17,6 @@ class CreateFaqsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('content')->nullable();
-            $table->integer('status')->default(1);
             $table->integer('sort_order')->default(0);
             $table->timestamps();
         });

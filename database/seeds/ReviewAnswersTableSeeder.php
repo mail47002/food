@@ -16,22 +16,18 @@ class ReviewAnswersTableSeeder extends Seeder
             [
                 'review_id'  => 1,
                 'text'       => 'text 1',
-                'status'     => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
                 'review_id'  => 2,
                 'text'       => 'text 2',
-                'status'     => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
                 'review_id'  => 3,
                 'text'       => 'text 3',
-                'status'     => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
                 'review_id'  => 4,
                 'text'       => 'text 4',
-                'status'     => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ]
         ]);

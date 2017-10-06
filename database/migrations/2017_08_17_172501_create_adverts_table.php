@@ -23,8 +23,6 @@ class CreateAdvertsTable extends Migration {
             $table->decimal('custom_price', 5, 2);
             $table->integer('category_id');
             $table->integer('sticker_id');
-            $table->integer('sort_order');
-            $table->integer('status');
             $table->timestamps();
         });
 	}

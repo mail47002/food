@@ -21,7 +21,6 @@ class CreateRecipesTable extends Migration
             $table->json('ingredients');
             $table->string('image');
             $table->json('videos');
-            $table->integer('status');
             $table->timestamps();
         });
     }

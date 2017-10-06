@@ -13,11 +13,11 @@ class CreateOptionToAdvertCategoryTable extends Migration {
 	public function up()
 	{
 		Schema::create('option_to_advert_category', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('advert_category_id');
-      $table->integer('option_id');
-      $table->timestamps();
-    });
+            $table->increments('id');
+            $table->integer('advert_category_id');
+            $table->integer('option_id');
+            $table->timestamps();
+        });
 	}
 
 	/**

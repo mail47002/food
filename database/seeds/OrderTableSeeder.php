@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class OrderTableSeeder extends Seeder
 {
@@ -12,31 +13,27 @@ class OrderTableSeeder extends Seeder
     public function run()
     {
         DB::table('order')->insert([
-            'advert_id' => 1,
-            'user_id' => 1,
-            'status' => 1,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('order')->insert([
-            'advert_id' => 2,
-            'user_id' => 1,
-            'status' => 1,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('order')->insert([
-            'advert_id' => 3,
-            'user_id' => 3,
-            'status' => 1,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('order')->insert([
-            'advert_id' => 4,
-            'user_id' => 4,
-            'status' => 1,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            [
+                'advert_id'  => 1,
+                'user_id'    => 1,
+                'status'     => 1,
+                'created_at' => Carbon::now()->toDateTimeString()
+            ], [
+                'advert_id'  => 2,
+                'user_id'    => 1,
+                'status'     => 1,
+                'created_at' => Carbon::now()->toDateTimeString()
+            ], [
+                'advert_id'  => 3,
+                'user_id'    => 3,
+                'status'     => 1,
+                'created_at' => Carbon::now()->toDateTimeString()
+            ], [
+                'advert_id'  => 4,
+                'user_id'    => 4,
+                'status'     => 1,
+                'created_at' => Carbon::now()->toDateTimeString()
+            ]
         ]);
     }
 }

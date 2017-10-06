@@ -13,32 +13,19 @@ class RecipeToCategoryTableSeeder extends Seeder
     {
         DB::table('recipe_to_category')->insert([
             'recipe_id' => 2,
-            'category_id' => 2,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('recipe_to_category')->insert([
+            'category_id' => 2
+        ], [
             'recipe_id' => 2,
-            'category_id' => 2,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('recipe_to_category')->insert([
+            'category_id' => 2
+        ], [
             'recipe_id' => 2,
-            'category_id' => 2,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('recipe_to_category')->insert([
+            'category_id' => 2
+        ], [
             'recipe_id' => 2,
-            'category_id' => 2,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('recipe_to_category')->insert([
+            'category_id' => 2
+        ], [
             'recipe_id' => 2,
-            'category_id' => 2,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            'category_id' => 2
         ]);
     }
 }

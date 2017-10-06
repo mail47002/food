@@ -13,12 +13,11 @@ class CreateReviewAnswersTable extends Migration {
 	public function up()
 	{
 		Schema::create('review_answers', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('review_id');
-      $table->text('text');
-      $table->integer('status');
-      $table->timestamps();
-    });
+            $table->increments('id');
+            $table->integer('review_id');
+            $table->text('text');
+            $table->timestamps();
+        });
 	}
 
 	/**

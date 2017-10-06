@@ -20,7 +20,6 @@ class ProductsTableSeeder extends Seeder
                 'ingredients' => json_encode(['Картопля', 'Лосось', 'Цукіні', '"Оливкова олія']),
                 'image'       => 'uploads/food1.jpg',
                 'videos'      => json_encode(['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU']),
-                'status'      => 1,
                 'created_at'  => Carbon::now()->toDateTimeString()
             ], [
                 'user_id'     => 1,
@@ -29,7 +28,6 @@ class ProductsTableSeeder extends Seeder
                 'ingredients' => json_encode(['Картопля', 'Лосось', 'Цукіні', '"Оливкова олія']),
                 'image'       => 'uploads/food1.jpg',
                 'videos'      => json_encode(['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU']),
-                'status'      => 1,
                 'created_at'  => Carbon::now()->toDateTimeString()
             ], [
                 'user_id'     => 1,
@@ -38,7 +36,6 @@ class ProductsTableSeeder extends Seeder
                 'ingredients' => json_encode(['Картопля', 'Лосось', 'Цукіні', '"Оливкова олія']),
                 'image'       => 'uploads/food1.jpg',
                 'videos'      => json_encode(['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU']),
-                'status'      => 1,
                 'created_at'  => Carbon::now()->toDateTimeString()
             ], [
                 'user_id'     => 1,
@@ -47,7 +44,6 @@ class ProductsTableSeeder extends Seeder
                 'ingredients' => json_encode(['Картопля', 'Лосось', 'Цукіні', '"Оливкова олія']),
                 'image'       => 'uploads/food1.jpg',
                 'videos'      => json_encode(['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU']),
-                'status'      => 1,
                 'created_at'  => Carbon::now()->toDateTimeString()
             ]
         ]);

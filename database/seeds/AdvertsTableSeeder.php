@@ -23,8 +23,6 @@ class AdvertsTableSeeder extends Seeder
                 'custom_price' => 140.5,
                 'category_id'  => 1,
                 'sticker_id'   => 2,
-                'sort_order'   => 1,
-                'status'       => 1,
                 'created_at'   => Carbon::now()->toDateTimeString()
             ], [
                 'name'         => 'Adverts 2',
@@ -36,8 +34,6 @@ class AdvertsTableSeeder extends Seeder
                 'custom_price' => 140.5,
                 'category_id'  => 1,
                 'sticker_id'   => 2,
-                'sort_order'   => 1,
-                'status'       => 1,
                 'created_at'   => Carbon::now()->toDateTimeString()
             ], [
                 'name'         => 'Adverts 3',
@@ -49,8 +45,6 @@ class AdvertsTableSeeder extends Seeder
                 'custom_price' => 140.5,
                 'category_id'  => 1,
                 'sticker_id'   => 2,
-                'sort_order'   => 1,
-                'status'       => 1,
                 'created_at'   => Carbon::now()->toDateTimeString()
             ], [
                 'name'         => 'Adverts 4',
@@ -62,8 +56,6 @@ class AdvertsTableSeeder extends Seeder
                 'custom_price' => 140.5,
                 'category_id'  => 1,
                 'sticker_id'   => 2,
-                'sort_order'   => 1,
-                'status'       => 1,
                 'created_at'   => Carbon::now()->toDateTimeString()
             ]
         ]);

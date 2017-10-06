@@ -13,12 +13,12 @@ class CreateOrderTable extends Migration {
 	public function up()
 	{
 		Schema::create('order', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('advert_id');
-      $table->integer('user_id');
-      $table->string('status');
-      $table->timestamps();
-    });
+            $table->increments('id');
+            $table->integer('advert_id');
+            $table->integer('user_id');
+            $table->string('status');
+            $table->timestamps();
+        });
 	}
 
 	/**

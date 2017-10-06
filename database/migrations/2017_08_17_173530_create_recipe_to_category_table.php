@@ -13,11 +13,11 @@ class CreateRecipeToCategoryTable extends Migration {
 	public function up()
 	{
 		Schema::create('recipe_to_category', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('recipe_id');
-      $table->integer('category_id');
-      $table->timestamps();
-    });
+            $table->increments('id');
+            $table->integer('recipe_id');
+            $table->integer('category_id');
+            $table->timestamps();
+        });
 	}
 
 	/**

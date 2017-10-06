@@ -13,12 +13,10 @@ class CreateAdvertTypesTable extends Migration {
 	public function up()
 	{
 		Schema::create('advert_types', function (Blueprint $table) {
-      $table->increments('id');
-      $table->string('name');
-      $table->integer('sort_order');
-      $table->integer('status');
-      $table->timestamps();
-    });
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
 	}
 
 	/**

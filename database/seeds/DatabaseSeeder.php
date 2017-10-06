@@ -14,16 +14,14 @@ class DatabaseSeeder extends Seeder
         $this->call(AddressesTableSeeder::class);
         $this->call(AdvertAdressesTableSeeder::class);
         $this->call(AdvertTypesTableSeeder::class);
-        $this->call(AdvertCoockingTimeTableSeeder::class);
-        $this->call(AdvertEverydayTermsTableSeeder::class);
         $this->call(AdvertImagesTableSeeder::class);
-        $this->call(AdvertProductTermsTableSeeder::class);
         $this->call(AdvertStickersTableSeeder::class);
         $this->call(AdvertToCategoryTableSeeder::class);
         $this->call(AdvertsTableSeeder::class);
         $this->call(RecipesTableSeeder::class);
         $this->call(RecipeToCategoryTableSeeder::class);
         $this->call(ArticlesTableSeeder::class);
+        $this->call(ArticleImageTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(OptionsTableSeeder::class);
         $this->call(OptionToAdvertCategoryTableSeeder::class);

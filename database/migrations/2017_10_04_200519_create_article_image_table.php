@@ -19,7 +19,6 @@ class CreateArticleImageTable extends Migration
           $table->string('image');
           $table->string('alt');
           $table->integer('sort_order');
-          $table->integer('status');
           $table->timestamps();
         });
     }

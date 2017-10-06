@@ -13,11 +13,11 @@ class CreateAdvertOptionValuesTable extends Migration {
 	public function up()
 	{
 		Schema::create('advert_option_values', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('option_value_id');
-      $table->string('value');
-      $table->timestamps();
-    });
+            $table->increments('id');
+            $table->integer('option_value_id');
+            $table->string('value');
+            $table->timestamps();
+        });
 	}
 
 	/**

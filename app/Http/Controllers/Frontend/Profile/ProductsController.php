@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Frontend\Profile;
 
 use App\Category;
 use Illuminate\Http\Request;

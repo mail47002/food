@@ -12,27 +12,19 @@ class AdvertToCategoryTableSeeder extends Seeder
     public function run()
     {
         DB::table('advert_to_category')->insert([
-            'advert_id' => 1,
-            'category_id' => 1,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('advert_to_category')->insert([
-            'advert_id' => 2,
-            'category_id' => 2,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('advert_to_category')->insert([
-            'advert_id' => 3,
-            'category_id' => 1,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('advert_to_category')->insert([
-            'advert_id' => 4,
-            'category_id' => 2,
-            'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
+            [
+                'advert_id'   => 1,
+                'category_id' => 1
+            ], [
+                'advert_id'   => 2,
+                'category_id' => 2
+            ], [
+                'advert_id'   => 3,
+                'category_id' => 1
+            ], [
+                'advert_id'   => 4,
+                'category_id' => 2
+            ]
         ]);
     }
 }
