@@ -84,7 +84,7 @@ class RecipesController extends Controller
         $recipe = Recipe::where('id', $id)->with(['images'])->first();
         // dd($recipe);
         return view('frontend.profile.recipe_edit',[
-            'categories' => Category::
+            'categories' => Category::where('status', '=', 1)->get(),
             'recipe' => $recipe,
         ]);
 

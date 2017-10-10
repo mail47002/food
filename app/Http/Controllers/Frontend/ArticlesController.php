@@ -79,7 +79,6 @@ class ArticlesController extends Controller
     {
 
         $article = Article::where('id', $id)->with(['images'])->first();
-        // dd($article);
         return view('frontend.profile.article_edit',[
             'article' => $article,
         ]);
@@ -90,27 +89,44 @@ class ArticlesController extends Controller
     {
 
         $user = Auth::user();
-        $article = Article::find($request->id);
-        // dd($article);
-
-        // $this->validate($request, [
-        //     'name'                     => 'required',
-        //     'phone'                    => 'required',
-        //     'city'                     => 'required',
-        //     'street'                   => 'required',
-        //     'build'                     => 'required',
-        // ]);
-
+        $article = Article::find($request->id);;
         $article->name = $request->name;
-
-        $article->description = $request->description;
+        $article->slug = str_slug($request->name);
         $article->user_id = $user->id;
-        $article->videos = json_encode($request->videos);
+        $article->description = $request->description;
+        $article->image = '';
         $article->status = 1;
+        $article->videos = json_encode($request->videos);
         $article->save();
+
+        $i = 0;
+
+        $path   = 'uploads/articles/' . $article->id. '/';
+        File::deleteDirectory($path);
+        File::makeDirectory($path, 0777, true, true);
+
+        foreach($request->file() as $files){
+            foreach($files as $file){
+                $name = $file->getClientOriginalName();
+                $file->move($path, $name);
+                $articleImage = new ArticleImage;
+                $articleImage->article_id = $article->id;
+                $articleImage->image = $path . $name;
+                $articleImage->status = 1;
+                $articleImage->alt = 'article';
+                $articleImage->sort_order = $i;
+                $articleImage->save();
+                if($i == $request->main){
+                    $article->image = $path . $name;
+                    $article->save();
+                }
+                $i++;
+            }
+        }
 
         return redirect()
                 ->route('profile.articles');
+
 
     }
 

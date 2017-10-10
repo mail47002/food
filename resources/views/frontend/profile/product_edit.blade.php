@@ -1,5 +1,5 @@
 @extends('frontend.layouts.default')
-@section('title')Product - @stop
+@section('title')Product edit - @stop
 @section('content')
 <div class="breadcrumbs">
 	<div class="container">
@@ -99,7 +99,7 @@
 			<a href="#" id="cloneVideo" class="link-red-dark">+ Додати</a>
 		</div>
 
-		<input type="submit" class="button button-red" value="Створити страву">
+		<input type="submit" class="button button-red" value="Оновити страву">
 	{{ Form::close() }}
 
 </div>
