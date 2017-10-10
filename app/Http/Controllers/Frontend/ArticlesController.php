@@ -89,7 +89,7 @@ class ArticlesController extends Controller
     {
 
         $user = Auth::user();
-        $article = Article::find($request->id);;
+        $article = Article::find($request->id);
         $article->name = $request->name;
         $article->slug = str_slug($request->name);
         $article->user_id = $user->id;

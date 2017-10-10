@@ -9,6 +9,7 @@ use App\Category;
 use Auth;
 use App\RecipeToCategory;
 use App\RecipeImage;
+use App\RecipeStep;
 use App\Recipe;
 use File;
 
@@ -30,7 +31,6 @@ class RecipesController extends Controller
 
     public function create(Request $request)
     {
-
     	$user = Auth::user();
         $recipe = new Recipe;
         $recipe->name = $request->name;
@@ -54,35 +54,51 @@ class RecipesController extends Controller
         File::deleteDirectory($path);
         File::makeDirectory($path, 0777, true, true);
 
-        foreach($request->file() as $files){
-            foreach($files as $file){
-                $name = $file->getClientOriginalName();
-                $file->move($path, $name);
-                $recipeImage = new RecipeImage;
-                $recipeImage->recipe_id = $recipe->id;
-                $recipeImage->image = $path . $name;
-                $recipeImage->status = 1;
-                $recipeImage->alt = 'recipe';
-                $recipeImage->sort_order = 0;
-                $recipeImage->save();
-                if($i == $request->main){
-                    $recipe->image = $path . $name;
-                    $recipe->save();
-                }
-                $i++;
+        foreach($request->file('images') as $file){
+            $name = $file->getClientOriginalName();
+            $file->move($path, $name);
+            $recipeImage = new RecipeImage;
+            $recipeImage->recipe_id = $recipe->id;
+            $recipeImage->image = $path . $name;
+            $recipeImage->status = 1;
+            $recipeImage->alt = 'recipe';
+            $recipeImage->sort_order = 0;
+            $recipeImage->save();
+            if($i == $request->main){
+                $recipe->image = $path . $name;
+                $recipe->save();
             }
+            $i++;
+        }
+
+        $n = 0;
+        $path   = 'uploads/recipes/' . $recipe->id. '/step/';
+        File::deleteDirectory($path);
+        File::makeDirectory($path, 0777, true, true);
+
+        foreach($request->file('step_images') as $step_image){
+            $name = $step_image->getClientOriginalName();
+            $step_image->move($path, $name);
+            $recipeStep = new RecipeStep;
+            $recipeStep->recipe_id = $recipe->id;
+            $recipeStep->image = $path . $name;
+            $recipeStep->text = $request->step_texts[$n];
+            $n++;
+            $recipeStep->sort_order = $n;
+            $recipeStep->status = 1;
+            $recipeStep->save();
         }
 
         return redirect()
-                ->route('profile.recipes');
+                ->route('profile.articles');
 
     }
 
     public function edit($id)
     {
 
-        $recipe = Recipe::where('id', $id)->with(['images'])->first();
-        // dd($recipe);
+        $recipe = Recipe::where('id', $id)->with(['images', 'steps', 'categories'])->first();
+        // dd($recipe->ingredients);
         return view('frontend.profile.recipe_edit',[
             'categories' => Category::where('status', '=', 1)->get(),
             'recipe' => $recipe,
@@ -92,38 +108,76 @@ class RecipesController extends Controller
 
     public function update(Request $request)
     {
-
+        // dd($request);
         $user = Auth::user();
-        $recipe = recipe::find($request->id);
-        // dd($recipe);
-
-        // $this->validate($request, [
-        //     'name'                     => 'required',
-        //     'phone'                    => 'required',
-        //     'city'                     => 'required',
-        //     'street'                   => 'required',
-        //     'build'                     => 'required',
-        // ]);
-
+        $recipe = Recipe::find($request->id);
         $recipe->name = $request->name;
-
-        $recipe->description = $request->description;
         $recipe->user_id = $user->id;
-        $recipe->videos = json_encode($request->videos);
+        $recipe->ingredients = $request->ingredients;
+        $recipe->description = $request->description;
+        $recipe->image = '';
         $recipe->status = 1;
+        $recipe->videos = $request->videos;
         $recipe->save();
 
+        foreach ($request->categories as $category) {
+            $recipeToCategory = new RecipeToCategory;
+            $recipeToCategory->recipe_id = $recipe->id;
+            $recipeToCategory->category_id = $category;
+            $recipeToCategory->save();
+        }
+
+        $i = 0;
+        $path   = 'uploads/recipes/' . $recipe->id. '/';
+        File::deleteDirectory($path);
+        File::makeDirectory($path, 0777, true, true);
+
+        foreach($request->file('images') as $file){
+            $name = $file->getClientOriginalName();
+            $file->move($path, $name);
+            $recipeImage = new RecipeImage;
+            $recipeImage->recipe_id = $recipe->id;
+            $recipeImage->image = $path . $name;
+            $recipeImage->status = 1;
+            $recipeImage->alt = 'recipe';
+            $recipeImage->sort_order = 0;
+            $recipeImage->save();
+            if($i == $request->main){
+                $recipe->image = $path . $name;
+                $recipe->save();
+            }
+            $i++;
+        }
+
+        $n = 0;
+        $path   = 'uploads/recipes/' . $recipe->id. '/step/';
+        File::deleteDirectory($path);
+        File::makeDirectory($path, 0777, true, true);
+
+        foreach($request->file('step_images') as $step_image){
+            $name = $step_image->getClientOriginalName();
+            $step_image->move($path, $name);
+            $recipeStep = new RecipeStep;
+            $recipeStep->recipe_id = $recipe->id;
+            $recipeStep->image = $path . $name;
+            $recipeStep->text = $request->step_texts[$n];
+            $n++;
+            $recipeStep->sort_order = $n;
+            $recipeStep->status = 1;
+            $recipeStep->save();
+        }
+
         return redirect()
-                ->route('profile.recipes');
+                ->route('profile.articles');
 
     }
 
     public function desroy()
     {
 
-    	$recipe = recipe::where('id', '=', $id)->delete();
+    	$recipe = Recipe::where('id', '=', $id)->delete();
         return redirect()
-                ->route('profile.recipes');
+                ->route('profile.articles');
 
     }
 }
