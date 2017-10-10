@@ -28,7 +28,7 @@
 
 		<label for="foto">Додати фото*</label>
 		<div class="fotos">
-		<input type="hidden" id="titleFoto" name="main" value="0">
+		<input type="hidden" id="main" name="main" value="0">
 			<div class="wrap">
 				<div class="uploader">
 					<img src=""/>

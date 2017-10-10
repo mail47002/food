@@ -72,7 +72,7 @@
 					</div>
 
 					{{-- Решить как обозначать "Головне" фото и дописать скрипт --}}
-					<a href="#" data-id="{{$productImage->product_image_id}}" class="pull-left grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+					<a href="#" data-main="0" data-id="{{$productImage->product_image_id}}" class="pull-left grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
 					{{-- Добавить скрипт на удаление фото --}}
 					<a href="#" data-id="{{$productImage->product_image_id}}" class="pull-right link-red-dark remove"><i class="fo fo-close-rounded"></i></a>
 				</div>
@@ -80,7 +80,7 @@
 		@endif
 			{{-- Это пустой блок - для нового фото --}}
 			<div class="wrap empty">
-				<input type="hidden" id="titleFoto" name="image" value="0">
+				<input type="hidden" id="main" name="image" value="0">
 				<div class="uploader">
 					<img src=""/>
 					<input type="file" name="images[]" id="foto" />

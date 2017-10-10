@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ArticleImageTableSeeder extends Seeder
+class ProductImagesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,36 +11,30 @@ class ArticleImageTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('article_image')->insert([
-            'article_id' => '1',
-            'image' => 'uploads/articles/14/Ескіз12.png',
+        DB::table('product_images')->insert([
+            'product_id' => '1',
+            'image' => 'uploads/products/14/Ескіз12.png',
             'alt' => 'image 11',
             'sort_order' => 1,
             'status' => 1,
             'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('article_image')->insert([
-            'article_id' => '1',
-            'image' => 'uploads/articles/14/Ескіз12.png',
+        ], [
+            'product_id' => '1',
+            'image' => 'uploads/products/14/Ескіз12.png',
             'alt' => 'image 22',
             'sort_order' => 1,
             'status' => 1,
             'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('article_image')->insert([
-            'article_id' => '2',
-            'image' => 'uploads/articles/14/Ескіз12.png',
+        ], [
+            'product_id' => '2',
+            'image' => 'uploads/products/14/Ескіз12.png',
             'alt' => 'image 33',
             'sort_order' => 1,
             'status' => 1,
             'created_at' => DB::raw('CURRENT_TIMESTAMP'), // для timestamp
-        ]);
-
-        DB::table('article_image')->insert([
-            'article_id' => '2',
-            'image' => 'uploads/articles/14/Ескіз12.png',
+        ], [
+            'product_id' => '2',
+            'image' => 'uploads/products/14/Ескіз12.png',
             'alt' => 'image 33',
             'sort_order' => 1,
             'status' => 1,

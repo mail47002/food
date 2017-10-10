@@ -24,7 +24,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
 
     // Dashboard
     Route::get('dashboard', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
-    
+
 
     // Pages
     Route::resource('pages', 'PagesController',  ['names' => [
@@ -93,6 +93,17 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     Route::get('/profile/articles', ['as' => 'profile.articles', 'uses' => 'ProfileController@articles']);
     Route::get('/articles/new', ['as' => 'articles.new', 'uses' => 'ArticlesController@new']);
     Route::post('/articles/new', ['as' => 'articles.create', 'uses' => 'ArticlesController@create']);
+    Route::get('/articles/edit/{id}', ['as' => 'articles.edit', 'uses' => 'ArticlesController@edit']);
+    Route::post('/articles/edit', ['as' => 'articles.update', 'uses' => 'ArticlesController@update']);
+    Route::post('/articles/destroy/{ad}', ['as' => 'articles.destroy', 'uses' => 'ArticlesController@destroy']);
+
+    //Profile Recipes
+    Route::get('/profile/recipes', ['as' => 'profile.recipes', 'uses' => 'RecipesController@recipes']);
+    Route::get('/recipes/new', ['as' => 'recipes.new', 'uses' => 'RecipesController@new']);
+    Route::post('/recipes/new', ['as' => 'recipes.create', 'uses' => 'RecipesController@create']);
+    Route::get('/recipes/edit/{id}', ['as' => 'recipes.edit', 'uses' => 'RecipesController@edit']);
+    Route::post('/recipes/edit', ['as' => 'recipes.update', 'uses' => 'RecipesController@update']);
+    Route::post('/recipes/destroy/{id}', ['as' => 'recipes.destroy', 'uses' => 'RecipesController@destroy']);
 
     //Profile adverts
     Route::get('/profile/adverts', ['as' => 'profile.adverts', 'uses' => 'ProfileController@adverts']);

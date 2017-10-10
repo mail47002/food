@@ -38,7 +38,7 @@
 			<h5 class="text-upper underline-red">Мої статті</h5><hr class="zerro-top">
 			<div class="row text-center">
 				<div class="col-md-6">
-					<a href="#" class="button button-red button-big inline"><i class="fo fo-dish"></i> Новий рецепт</a>
+					<a href="/recipes/new" class="button button-red button-big inline"><i class="fo fo-dish"></i> Новий рецепт</a>
 				</div>
 				<div class="col-md-6">
 					<a href="/articles/new" class="button button-red button-big inline"><i class="fo fo-articles"></i> Нова порада</a>
@@ -68,7 +68,7 @@
 			<div class="filter-block">
 				<ul class="categories list-inline text-center">
 					<li class="active"><a  data-toggle="tab" href="#recipes" class="link-red text-upper">Рецепти</a></li>
-					<li><a  data-toggle="tab" href="#advice" class="link-red text-upper">Поради</a></li>
+					<li><a  data-toggle="tab" href="#article" class="link-red text-upper">Поради</a></li>
 				</ul>
 				<hr class="red-border">
 			</div>
@@ -116,7 +116,7 @@
 
 
 				</div>
-				<div id="advice" class="tab-pane fade">
+				<div id="article" class="tab-pane fade">
 
 					<form action="#" class="search margin-zerro wide" method="get">
 						<input type="text" name="search" placeholder="Пошук">

@@ -13,4 +13,10 @@ class Article extends Model
   {
       return $query->orderBy('created_at', 'desc');
   }
+
+  public function images()
+    {
+        return $this->hasMany('App\ArticleImage');
+    }
+
 }

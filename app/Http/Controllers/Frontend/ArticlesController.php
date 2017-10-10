@@ -46,6 +46,7 @@ class ArticlesController extends Controller
         $article->save();
 
         $i = 0;
+
         $path   = 'uploads/articles/' . $article->id. '/';
         File::deleteDirectory($path);
         File::makeDirectory($path, 0777, true, true);
@@ -59,7 +60,7 @@ class ArticlesController extends Controller
                 $articleImage->image = $path . $name;
                 $articleImage->status = 1;
                 $articleImage->alt = 'article';
-                $articleImage->sort_order = 0;
+                $articleImage->sort_order = $i;
                 $articleImage->save();
                 if($i == $request->main){
                     $article->image = $path . $name;
@@ -77,17 +78,48 @@ class ArticlesController extends Controller
     public function edit($id)
     {
 
+        $article = Article::where('id', $id)->with(['images'])->first();
+        // dd($article);
+        return view('frontend.profile.article_edit',[
+            'article' => $article,
+        ]);
+
+    }
+
+    public function update(Request $request)
+    {
+
+        $user = Auth::user();
+        $article = Article::find($request->id);
+        // dd($article);
+
+        // $this->validate($request, [
+        //     'name'                     => 'required',
+        //     'phone'                    => 'required',
+        //     'city'                     => 'required',
+        //     'street'                   => 'required',
+        //     'build'                     => 'required',
+        // ]);
+
+        $article->name = $request->name;
+
+        $article->description = $request->description;
+        $article->user_id = $user->id;
+        $article->videos = json_encode($request->videos);
+        $article->status = 1;
+        $article->save();
+
         return redirect()
+                ->route('profile.articles');
 
     }
 
-    public function update()
+    public function desroy($id)
     {
 
-    }
-
-    public function desroy()
-    {
+        $article = Article::where('id', '=', $id)->delete();
+        return redirect()
+                ->route('profile.articles');
 
     }
 }

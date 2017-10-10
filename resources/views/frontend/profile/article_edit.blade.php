@@ -15,7 +15,7 @@
 </div>
 
 <div class="container-half text-center">
-	{{ Form::open([ 'route' => 'article.update', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'edit']) }}
+	{{ Form::open([ 'route' => 'articles.update', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'edit']) }}
 		<p class="message" id="message">Заповніть виділені поля</p>
 
 		<label for="name">Назва поради*</label>
@@ -31,19 +31,19 @@
 		<label for="foto">Фото</label>
 		<div class="fotos">
 			<input type="hidden" id="main" name="main" value="0">
-		@if ($article->articleImages)
-			@foreach ($article->articleImages as $articleImage)
+		@if ($article->images)
+			@foreach ($article->images as $images)
 				<div class="wrap">
 					<div class="uploader">
-						<img src="{!! asset($articleImage->image) !!}"/>
-						<input type="file" name="images[]" id="foto-{{$articleImage->article_image_id}}" />
+						<img src="{!! asset($images->image) !!}"/>
+						<input type="file" name="images[]" id="foto-{{$images->article_image_id}}" />
 						<div class="round"><i class="fo fo-camera"></i></div>
 					</div>
 
 					{{-- Решить как обозначать "Головне" фото и дописать скрипт --}}
-					<a href="#" data-id="{{$articleImage->article_image_id}}" class="pull-left grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+					<a href="#" data-id="{{$images->article_image_id}}" class="pull-left grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
 					{{-- Добавить скрипт на удаление фото --}}
-					<a href="#" data-id="{{$articleImage->article_image_id}}" class="pull-right link-red-dark remove"><i class="fo fo-close-rounded"></i></a>
+					<a href="#" data-id="{{$images->article_image_id}}" class="pull-right link-red-dark remove"><i class="fo fo-close-rounded"></i></a>
 				</div>
 			@endforeach
 		@endif
