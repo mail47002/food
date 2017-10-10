@@ -1,5 +1,6 @@
 @extends('frontend.layouts.default')
 @section('title')Adverts - @stop
+@section('breadcrumbs')with-bredcrumbs @stop
 @section('content')
 <div class="breadcrumbs">
 	<div class="container">
@@ -62,6 +63,7 @@
 
 		<label for="">Додати значок</label>
 		<div class="stickers">
+			<input id="empty" type="radio" name="type" value="" checked><label for="empty" class="inline">без значка</label>
 			<input id="discount" type="radio" name="type" value="discount"><label for="discount" class="inline"><i class="discount"></i></label>
 			<input id="new" type="radio" name="type" value="new"><label for="new" class="inline"><i class="new"></i></label>
 			<input id="like" type="radio" name="type" value="like"><label for="like" class="inline"><i class="heart"></i></label>

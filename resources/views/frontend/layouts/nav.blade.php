@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar @yield('breadcrumbs')">
 	<div class="menu">
 		<div class="dropdown">
 			<a id="total-menu" class="dropdown-toggle fo fo-menu" href="#" type="button" data-toggle="dropdown"></a>
@@ -13,7 +13,8 @@
 <hr>
 				<li class="active"><a href="/temp/user.index">user_page (4.1)</a></li>
 <hr>
-				<li class="active"><a href="/temp/profile.mydish">food_my_dish (21.1)</a></li>
+				<li class="active"><a href="/temp/profile.writemessage">profile.writemessage (5.4.4)</a></li>
+				{{-- <li class="active"><a href="/temp/profile.mydish">food_my_dish (21.1)</a></li> --}}
 				<li class="active"><a href="/temp/profile.myproduct">food_my_product (21.2)</a></li>
 				<li class="active"><a href="/temp/profile.myrecipe">food_my_recipe (21.3)</a></li>
 				<li class="active"><a href="/temp/profile.myadvice">food_my_advice (21.4)</a></li>
@@ -26,6 +27,14 @@
 				<li class="active"><a href="/temp/temp.add_food_new_dish_742">add_food_new_dish (7.4.2)</a></li>
 				<li class="active"><a href="/temp/temp.add_food_new_dish_75">add_food_new_dish (7.5)</a></li>
 				<li class="active"><a href="/temp/temp.add_recipe">add_recipe (15.1)</a></li>
+				<li class="active"><a href="/temp/temp.food_write_review_620">food_write_review_620 (6.2.0)</a></li>
+				<li class="active"><a href="/temp/temp.food_write_review_621">food_write_review_621 (6.2.1)</a></li>
+				<li class="active"><a href="/temp/temp.food_write_review_626">food_write_review_626 (6.2.6)</a></li>
+				<li class="active"><a href="/temp/temp.404">404</a></li>
+<br>
+<br>
+<br>
+<br>
 
 
 			</ul>

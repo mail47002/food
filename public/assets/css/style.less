@@ -248,14 +248,8 @@ input.disabled {background: @yellow;}
 	transition: all .2s;
 }
 [type="radio"]:checked + label:before {
-	content: '';
 	background: @red;
-	border-radius: 50%;
-	width: 20px;
-	height: 20px;
-	position: absolute;
-	top: 0; left: 0;
-	transition: all .2s;
+	border-color: @red;
 }
 [type="radio"]:checked + label:after {
 	content: '';
@@ -268,7 +262,6 @@ input.disabled {background: @yellow;}
 	margin: auto;
 	transition: all .2s;
 }
-/* checked mark aspect changes */
 [type="radio"]:not(:checked) + label:after,
 [type="checkbox"]:not(:checked) + label:after {
 	opacity: 0;
@@ -280,8 +273,6 @@ input.disabled {background: @yellow;}
 	transform: scale(1);
 }
 /* accessibility */
-[type="radio"]:checked:focus + label:before,
-[type="radio"]:not(:checked):focus + label:before,
 [type="checkbox"]:checked:focus + label:before,
 [type="checkbox"]:not(:checked):focus + label:before {
 	border: 1px solid @grey1;
@@ -871,6 +862,7 @@ a:focus {outline: none;}
 	box-shadow: 0px 0px 5px 0px rgba(51, 51, 51, 0.8);
 	background-color: @red;
 	z-index: 9;
+	&.with-bredcrumbs {box-shadow: none;}
 	@media @xm {
 		height: 100px;
 		padding-top: 20px;
@@ -1383,12 +1375,21 @@ a:focus {outline: none;}
 	background-color: @white;
 	height: 40px;
 	line-height: 40px;
-	box-shadow: 0 0 5px 0 rgba(51,51,51,.8);
 	z-index: 8;
 	position: relative;
 	a {
 		font-size: 14px;
 		margin: 0 5px;
+	}
+	&:after {
+		content: '';
+		position: absolute;
+		bottom: -5px;
+		left: 0; right: 0;
+		height: 5px;
+		background-image: -moz-linear-gradient(90deg,#f4f6f7 0,#e6e8e9 100%);;
+		background-image: -webkit-linear-gradient(90deg,#f4f6f7 0,#e6e8e9 100%);;
+		background-image: -ms-linear-gradient(90deg,#f4f6f7 0,#e6e8e9 100%);;
 	}
 }
 
@@ -3837,8 +3838,8 @@ select.wide + span.ui-button {
 			content: '\0046';
 			font-family: FontFood;
 			font-size: 22px;
-			left: 5px;
-			top: 0;
+			left: 10px;
+			top: 2px;
 			bottom: 0;
 			margin: auto;
 			height: 40px;
@@ -4205,12 +4206,12 @@ select.wide + span.ui-button {
 /* Datepicker */
 .ui-datepicker {
 	border: 1px solid @grey1;
+	border-radius: 5px;
 	background: @white;
-	width: 17em;
-	padding: .2em .2em 0;
+	padding: 5px 5px 0;
 	.ui-datepicker-header {
 		position: relative;
-		padding: .2em 0;
+		padding: 5px 0;
 	}
 	.ui-datepicker-prev,
 	.ui-datepicker-next {
@@ -4218,10 +4219,29 @@ select.wide + span.ui-button {
 		top: 2px;
 		width: 1.8em;
 		height: 1.8em;
+		text-indent: 9999px;
 		&:hover {cursor: pointer;}
+		&:before {
+			position: absolute;
+			font-family: FontFood;
+			top: 8px; bottom: 0;
+			text-indent: 0;
+		}
 	}
-	.ui-datepicker-prev {left: 2px;}
-	.ui-datepicker-next {right: 2px;}
+	.ui-datepicker-prev {
+		left: 2px;
+		&:before {
+			content: '\004c';
+			left: 5px;
+		}
+	}
+	.ui-datepicker-next {
+		right: 2px;
+		&:before {
+			content: '\004d';
+			right: 0;
+		}
+	}
 	.ui-datepicker-title {
 		margin: 0 2.3em;
 		line-height: 1.8em;
@@ -4244,7 +4264,7 @@ select.wide + span.ui-button {
 		padding: 1px;
 		a {
 			display: block;
-			padding: .2em;
+			padding: 10px;
 			text-align: right;
 			text-decoration: none;
 		}
