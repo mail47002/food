@@ -31,12 +31,12 @@
         <a href="{{ route('profile.users.edit', Auth::id()) }}" class="button button-grey">Редагувати профіль</a>
         <ul class="menu">
             <li><a class="{{ is_active('profile/' . Auth::id()) }}" href="{{ route('profile.users.show', Auth::id()) }}">Про мене</a></li>
-            <li><a class="{{ is_active('profile/products*') }}" href="{{ route('profile.products.index') }}">Каталог страв</a></li>
-            <li><a class="{{ is_active('profile/adverts*') }}" href="{{ route('profile.adverts.index') }}">Оголошення </a></li>
-            <li><a href="/profile/messages">Мої повідомлення <span class="badge">3</span></a></li>
-            <li><a href="/profile/orders">Мої замовлення</a></li>
-            <li><a href="/profile/reviews">Мої відгуки</a></li>
-            <li><a class="{{ is_active('profile/articles*') }}" href="{{ route('profile.articles.index') }}">Мої статті</a></li>
+            <li><a class="{{ is_active('profile/' . Auth::id() . '/products*') }}" href="{{ route('profile.products.index', Auth::id()) }}">Каталог страв</a></li>
+            <li><a class="{{ is_active('profile/' . Auth::id() . '/adverts*') }}" href="{{ route('profile.adverts.index', Auth::id()) }}">Оголошення </a></li>
+            <li><a href="#">Мої повідомлення <span class="badge">3</span></a></li>
+            <li><a href="#">Мої замовлення</a></li>
+            <li><a href="#">Мої відгуки</a></li>
+            <li><a class="{{ is_active('profile/' . Auth::id() . '/articles*') }}" href="{{ route('profile.articles.index', Auth::id()) }}">Мої статті</a></li>
         </ul>
      @endif
 </div>

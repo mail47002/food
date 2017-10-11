@@ -99,7 +99,7 @@ Route::group(['namespace' => 'Frontend'], function() {
         Route::match(['put', 'patch'], 'profile/{id}/password', ['as' => 'profile.password.update', 'uses' => 'PasswordController@update']);
 
         // Products
-        Route::resource('profile/products', 'ProductsController', [
+        Route::resource('profile/{id}/products', 'ProductsController', [
             'names' => [
                 'index'     => 'profile.products.index',
                 'create'    => 'profile.products.create',
@@ -112,7 +112,7 @@ Route::group(['namespace' => 'Frontend'], function() {
         ]);
 
         // Adverts
-        Route::resource('profile/adverts', 'AdvertsController', [
+        Route::resource('profile/{id}/adverts', 'AdvertsController', [
             'names' => [
                 'index'     => 'profile.adverts.index',
                 'create'    => 'profile.adverts.create',
@@ -125,7 +125,7 @@ Route::group(['namespace' => 'Frontend'], function() {
         ]);
 
         // Articles
-        Route::resource('profile/articles', 'ArticlesController', [
+        Route::resource('profile/{id}/articles', 'ArticlesController', [
             'names' => [
                 'index'     => 'profile.articles.index',
                 'create'    => 'profile.articles.create',

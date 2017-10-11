@@ -1,11 +1,10 @@
-@extends('frontend.layouts.default')
+@extends('frontend.layouts.profile')
 
 @section('title')Products - @stop
 
 @section('content')
-	<div class="col-md-9">
 		<h5 class="text-upper underline-red">Каталог страв ({{ $products->count() }})</h5><hr class="zerro-top">
-		<a href="{{ route('profile.products.create') }}" class="button button-red button-big">Додати страву до каталогу</a>
+		<a href="{{ route('profile.products.create', Auth::id()) }}" class="button button-red button-big">Додати страву до каталогу</a>
 		<div class="v-indent-30"></div>
 
 		<hr>
@@ -56,8 +55,8 @@
 								<a href="#" class="button button-grey"><i class="fo fo-time"></i> Додати до меню</a>
 								<a href="#" class="button button-grey disabled"><i class="fo fo-dish-ready"></i> Готова страва</a>
 								<a href="#" class="button button-grey"><i class="fo fo-deal"></i> Під замовлення</a>
-								<a href="{{ route('profile.products.edit', $product->id) }}" class="button-half link-blue"><i class="fo fo-edit fo-small"></i> Редагувати</a>
-								<a href="{{ route('profile.products.destroy', $product->id) }}" class="button-half link-grey"><i class="fo fo-delete fo-small"></i> Видалити</a>
+								<a href="{{ route('profile.products.edit', ['id' => Auth::id(), 'product' => $product->id]) }}" class="button-half link-blue"><i class="fo fo-edit fo-small"></i> Редагувати</a>
+								<a href="{{ route('profile.products.destroy', ['id' => Auth::id(), 'product' => $product->id]) }}" class="button-half link-grey"><i class="fo fo-delete fo-small"></i> Видалити</a>
 							</div>
 						</div>
 					</div>
@@ -80,7 +79,6 @@
 				<a href="#" class="button button-red button-big">Додати страву до меню</a>
 			</div>
 		@endif
-	</div>
 
 @stop
 
