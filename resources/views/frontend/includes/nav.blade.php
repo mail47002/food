@@ -53,15 +53,9 @@
 			</li>
 		</ul>
 		<ul class="list-inline pull-right">
-<<<<<<< HEAD:resources/views/frontend/includes/nav.blade.php
 			<li><a href="#" class="button button-rounded dish-add" data-toggle="modal" data-target="#modal_login"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
 			@if (Auth::check())
 			<li>
-=======
-			<li class="hidden-xm"><a href="#" class="button button-rounded dish-add" data-toggle="modal" data-target="#modal_login"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
-			@if(Auth::check())
-			<li class="hidden-xm">
->>>>>>> f5070fc54c9069fe71ca4af30590fcd8d1eec53b:resources/views/frontend/layouts/nav.blade.php
 				<div class="avatar"><div class="rounded"><img src="/{{ Auth::user()->image }}" alt=""></div></div>
 				<a href="{{ route('profile.users.show', Auth::id()) }}" class="link">{{ Auth::user()->name }}</a>
 			</li>
@@ -144,17 +138,10 @@
 			</li>
 
 			<li><a href="#" class="link" data-toggle="modal" data-target="#modal_likes"><i class="fo fo-like fo-small"></i></a></li>
-<<<<<<< HEAD:resources/views/frontend/includes/nav.blade.php
 			<li><a href="{{ url('logout') }}" class="link"><i class="fo fo-exit fo-small"></i></a></li>
 			@else
 			<li><a class="link" href="{{ url('login') }}">Вхід</a></li>
 			<li><a class="link" href="{{ url('registration') }}">Реєстрація</a></li>
-=======
-			<li class="hidden-xm"><a href="/logout" class="link"><i class="fo fo-exit fo-small"></i></a></li>
-			@else
-			<li class="hidden-xm"><a class="link" href="/login">Вхід</a></li>
-			<li class="hidden-xm"><a class="link" href="/registration">Реєстрація</a></li>
->>>>>>> f5070fc54c9069fe71ca4af30590fcd8d1eec53b:resources/views/frontend/layouts/nav.blade.php
 			@endif
 
 {{-- правое меню на мобильном --}}
