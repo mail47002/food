@@ -11,6 +11,7 @@
 </div>
 
 <div class="container text-center">
+	<div class="v-indent-20"></div>
 	<p class="f20">Тип оголошення</p>
 
 	<a href="#" class="button-rectang"><i class="fo fo-time fo-2x"></i>Страва на дату</a>

@@ -25,6 +25,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     // Dashboard
     Route::get('dashboard', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
 
+
     // Pages
     Route::resource('pages', 'PagesController',  [
         'names' => [

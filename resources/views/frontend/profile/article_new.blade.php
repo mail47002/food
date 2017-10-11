@@ -28,7 +28,7 @@
 
 		<label for="foto">Додати фото*</label>
 		<div class="fotos">
-		<input type="hidden" id="titleFoto" name="main" value="0">
+		<input type="hidden" id="main" name="main" value="0">
 			<div class="wrap">
 				<div class="uploader">
 					<img src=""/>
@@ -80,10 +80,16 @@
 			i++;
 			var newBlock = fotos.clone();
 			newBlock.find('#foto').attr('id', 'foto'+i);
-
+			newBlock.find('a.grey1').attr('data-main', i);
 			$('.fotos').append(newBlock);
 			document.getElementById('foto'+i)
 					.addEventListener('change', handleImage, false);
+			$("a.grey1").on("click", function(e){
+				e.preventDefault();
+				$(this).addClass('active');
+				console.log($(this).data('main'));
+				$("#main").val($(this).data('main'));
+			});
 		});
 
 

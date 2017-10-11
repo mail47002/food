@@ -10,12 +10,15 @@
 			<div class="left text-left separator">
 
 				{{ Form::open([ 'route' => 'login', 'method' => 'POST']) }}
+					{!! $errors->first('email', '<label class="control-label alert">:message</label>') !!}
+					{!! $errors->first('password', '<label class="control-label alert">:message</label>') !!}
+
 					{{ Form::label('email', 'Email', ['for' => 'email']) }}
 					{{ Form::email('email', null, ['id' => 'email', 'placeholder' => 'Email']) }}
-					{!! $errors->first('email', 'erorr email') !!}
+
 					{{ Form::label('password', 'Пароль', ['for' => 'password']) }}
 					{{ Form::password('password', null, ['id' => 'password', 'placeholder' => 'password']) }}
-					{!! $errors->first('password', 'erorr password') !!}
+
 					{{Form::submit('Увійти', ['class' => 'button button-red']) }}
 				{{ Form::close() }}
 

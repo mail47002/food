@@ -12,3 +12,4 @@ yarn-error.log
 .env
 sftp-config.json
 /public/uploads/users
+/nbproject/private/

@@ -1,5 +1,5 @@
 @extends('frontend.layouts.default')
-@section('title')Product - @stop
+@section('title')Product edit - @stop
 @section('content')
 <div class="breadcrumbs">
 	<div class="container">
@@ -61,7 +61,7 @@
 
 		<label for="foto">Фото</label>
 		<div class="fotos">
-			<input type="hidden" id="titleFoto" name="images[]" value="0">
+			<input type="hidden" id="main" name="main" value="0">
 		@if ($product->productImages)
 			@foreach ($product->productImages as $productImage)
 				<div class="wrap">
@@ -72,7 +72,7 @@
 					</div>
 
 					{{-- Решить как обозначать "Головне" фото и дописать скрипт --}}
-					<a href="#" data-id="{{$productImage->product_image_id}}" class="pull-left grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+					<a href="#" data-main="0" data-id="{{$productImage->product_image_id}}" class="pull-left grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
 					{{-- Добавить скрипт на удаление фото --}}
 					<a href="#" data-id="{{$productImage->product_image_id}}" class="pull-right link-red-dark remove"><i class="fo fo-close-rounded"></i></a>
 				</div>
@@ -80,7 +80,7 @@
 		@endif
 			{{-- Это пустой блок - для нового фото --}}
 			<div class="wrap empty">
-				<input type="hidden" id="titleFoto" name="image" value="0">
+				<input type="hidden" id="main" name="image" value="0">
 				<div class="uploader">
 					<img src=""/>
 					<input type="file" name="images[]" id="foto" />
@@ -99,7 +99,7 @@
 			<a href="#" id="cloneVideo" class="link-red-dark">+ Додати</a>
 		</div>
 
-		<input type="submit" class="button button-red" value="Створити страву">
+		<input type="submit" class="button button-red" value="Оновити страву">
 	{{ Form::close() }}
 
 </div>
@@ -133,9 +133,16 @@
 			i++;
 			var newBlock = fotos.clone();
 			newBlock.find('#foto').attr('id', 'foto'+i);
+			newBlock.find('a.grey1').attr('data-main', i);
 			$('.fotos').append(newBlock);
 			document.getElementById('foto'+i)
 					.addEventListener('change', handleImage, false);
+			$("a.grey1").on("click", function(e){
+				e.preventDefault();
+				$(this).addClass('active');
+				console.log($(this).data('main'));
+				$("#main").val($(this).data('main'));
+			});
 		});
 		$('body').on('click', '.remove', function(e){
 			e.preventDefault();
