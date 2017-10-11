@@ -15,8 +15,6 @@ class ForgotPasswordController extends Controller
     public function forgot(Request $request)
     {
         $this->validateForm($request);
-
-        return view('frontend.login.success');
     }
 
     protected function validateForm(Request $request)

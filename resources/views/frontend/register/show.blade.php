@@ -10,18 +10,21 @@
             </div>
             <div class="sign-body">
                 <div class="left separator">
-                    {{ Form::open(['route' => 'register', 'method' => 'POST']) }}
-                    {{ Form::label('email', 'Email', ['for' => 'email']) }}
-                    {{ Form::email('email', null, ['id' => 'email']) }}
-                    {{ $errors->first('email', '<label class="control-label">:message</label>') }}
-                    {{ Form::label('password', 'Пароль', ['for' => 'password']) }}
-                    {{ Form::password('password', null, ['id' => 'password', 'placeholder' => 'password']) }}
-                    {{ $errors->first('password', '<label class="control-label">:message</label>') }}
-                    {{ Recaptcha::render() }}
-                    {{ $errors->first('g-recaptcha-response', '<label class="control-label">:message</label>') }}
-                    {{ Form::submit('Зареєструватися', ['class' => 'button button-red']) }}
+                    {{ Form::open(['route' => 'register', 'method' => 'post']) }}
+                        <div class="form-group">
+                            {{ Form::label('email', 'Email', ['for' => 'email']) }}
+                            {{ Form::email('email', null, ['id' => 'input-email']) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('password', 'Пароль', ['for' => 'password']) }}
+                            {{ Form::password('password', ['id' => 'input-password']) }}
+                        </div>
+                        <div class="form-group">
+                            {!! Recaptcha::render() !!}
+                        </div>
+                        {{ Form::submit('Зареєструватися', ['class' => 'button button-red']) }}
                     {{ Form::close()}}
-                    <p class="terms">Зареєструвавшись або увійшовши, я визнаю і згоден з <a href="#" class="link-blue">умовами сайту</a> та <a href="#" class="link-blue">правилами конфіденційністі</a>.</p>
+                    <p class="terms">Зареєструвавшись або увійшовши, я визнаю і згоден з <a href="#" class="link-blue">Умовами сайту</a> та <a href="#" class="link-blue">Правилами конфіденційністі</a>.</p>
                 </div>
                 <div class="right text-right">
                     <a href="#" class="button login google">Продовжити з Google</a>
@@ -39,4 +42,41 @@
 
 @push('scripts')
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script type="text/javascript">
+        $(document).on('submit', 'form', function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+
+            $.ajax({
+                url: form.attr('action'),
+                method: form.attr('method'),
+                data: form.serialize(),
+                beforeSend: function() {
+                    form.find('input[type=submit]').attr('disabled', true);
+                    form.find('.has-error').removeClass('has-error');
+                    form.find('.error').removeClass('error');
+
+                    $('.body-overlay').addClass('active');
+                },
+                success: function(data) {
+                },
+                complete: function() {
+                    form.find('input[type=submit]').attr('disabled', false);
+
+                    $('.body-overlay').removeClass('active');
+                },
+                error: function(data) {
+                    var data = data.responseJSON;
+
+                    for (name in data.errors) {
+                        var target = form.find('#input-' + name);
+
+                        target.addClass('error');
+                        target.closest('.form-group').addClass('has-error');
+                    }
+                }
+            });
+        });
+    </script>
 @endpush

@@ -3,19 +3,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
     <title>Food</title>
-
     <link href="{{ asset('frontend/css/style.css') }}" type="text/css" rel="stylesheet">
     <link href="{{ asset('frontend/css/custom.css') }}" type="text/css" rel="stylesheet">
-
     @stack('styles')
 </head>
-<body class="body-{{Route::currentRouteName()}}">
+<body>
     <div id="wrapper">
-
         @include('frontend.includes.nav')
-
         <div class="container">
             <div class="row flex-md">
                 <div class="col-md-3">
@@ -26,11 +21,8 @@
                 </div>
             </div>
         </div>
-
         @include('frontend.includes.footer')
-
     </div>
-
     <div class="body-overlay">
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
@@ -47,29 +39,17 @@
     <script src="{{ asset('frontend/js/tabs.js') }}" async></script>
     <script src="{{ asset('frontend/vendor/owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/simplebar.js') }}"></script>
-
-    <script>
+    @stack('scripts')
+    <script type="text/javascript">
         $.fn.stars = function() {
             return $(this).each(function() {
                 $(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * $(this).width()/5));
             });
         };
 
-        function handleImage(e) {
-            var reader = new FileReader();
-            reader.onload = function (event) {
-                $(e.target).parent().find('img').attr('src',event.target.result);
-            }
-            reader.readAsDataURL(e.target.files[0]);
-        }
-
-
         $( document ).ready(function() {
             $('span.stars').stars();
         });
     </script>
-
-    @stack('scripts')
-
 </body>
 </html>

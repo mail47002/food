@@ -150,7 +150,11 @@ Route::group(['namespace' => 'Frontend'], function() {
 
     // Registration
     Route::get('register', 'RegisterController@show');
-    Route::post('register', ['as' => 'register', 'uses' => 'LoginController@register']);
+    Route::post('register', ['as' => 'register', 'uses' => 'RegisterController@register']);
+
+    // Forgot password
+    Route::get('password/forgot', 'ForgotPasswordController@show');
+    Route::post('password/forgot', ['as' => 'password.forgot', 'uses' => 'ForgotPasswordController@forgot']);
 
 //    Route::get('validation', ['as' => 'login.validation', 'uses' => 'LoginController@validationEmail']);
 //    Route::get('information', ['as' => 'login.information', 'uses' => 'LoginController@information']);

@@ -28,13 +28,15 @@ class LoginController extends Controller
 
         if (Auth::guard('web')->attempt($this->credentials($request), true)) {
             if (Auth::user()->email_token){
-                return redirect()->route('profile.users.create');
+                return response()->json([
+                    'url' => route('profile.users.create')
+                ]);
             }
 
-            return redirect()->route('profile.users.show', Auth::id());
+            return response()->json([
+                'url' => route('profile.users.show', Auth::id())
+            ]);
         }
-
-        return redirect()->back()->withInput();
     }
 
     public function logout()
