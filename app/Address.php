@@ -6,8 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
-    // public function user()
-    // {
-    // 	return $this->belongsTo('App\Address');
-    // }
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'city', 'street', 'build'
+    ];
+
+    public function user()
+    {
+        $this->belongsTo('App\User');
+    }
 }

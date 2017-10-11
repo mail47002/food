@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers\Frontend\Profile;
 
-use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Product;
 
-class ProductsController extends Controller
+class ArticlesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -21,11 +14,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->get();
-
-        return view('frontend.profile.products.index', [
-            'products' => $products
-        ]);
+        //
     }
 
     /**
@@ -35,11 +24,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
-
-        return view('frontend.profile.products.create', [
-            'categories' => $categories
-        ]);
+        //
     }
 
     /**
@@ -61,13 +46,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
-
-        if ($product) {
-            return view('frontend.profile.products.show', [
-                'product' => $product
-            ]);
-        }
+        //
     }
 
     /**
@@ -78,13 +57,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-
-        if ($product) {
-            return view('frontend.profile.products.edit', [
-                'product' => $product
-            ]);
-        }
+        //
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('frontend.layouts.default')
 
-@include('frontend.layouts.nav')
+@include('frontend.includes.nav')
 @section('title')Adverts - @stop
 @section('content')
 <div class="breadcrumbs">

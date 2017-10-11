@@ -10,13 +10,15 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const VERIFIED_USER = 1;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'phone', 'about', 'password'
     ];
 
     /**
@@ -28,7 +30,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function addresses()
+    public function address()
     {
         return $this->hasOne('App\Address');
     }
@@ -36,5 +38,22 @@ class User extends Authenticatable
     public function adverts()
     {
         return $this->hasMany('App\Advert');
+    }
+
+    public function getPhoneAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = json_encode($value);
+    }
+
+    public function verified()
+    {
+        $this->verified = self::VERIFIED_USER;
+
+        $this->save();
     }
 }
