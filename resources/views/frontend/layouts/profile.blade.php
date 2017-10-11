@@ -11,7 +11,7 @@
 <body>
     <div id="wrapper">
         @include('frontend.includes.nav')
-        <div class="container">
+        <div class="container profile">
             <div class="row flex-md">
                 <div class="col-md-3">
                     @include('frontend.includes.sidebar')
