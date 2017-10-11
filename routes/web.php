@@ -73,15 +73,6 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
 // Frontend
 Route::group(['namespace' => 'Frontend'], function() {
     // Profile
-//    Route::get('/profile', ['as' => 'profile.user.show', 'uses' => 'Profile\UsersController@show']);
-//    Route::get('/profile/edit', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
-//    Route::post('/profile/edit', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
-//    Route::get('/profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
-//    Route::post('/profile/password', ['as' => 'profile.updatePassword', 'uses' => 'ProfileController@updatePassword']);
-//    Route::get('/profile/nickname', ['as' => 'profile.nickname', 'uses' => 'ProfileController@nickname']);
-//    Route::post('/profile/nickname', ['as' => 'profile.updateNickname', 'uses' => 'ProfileController@updateNickname']);
-
-    // Profile
     Route::group(['namespace' => 'Profile'], function() {
         // User
         Route::resource('profile', 'UsersController', [
@@ -158,13 +149,14 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::get('logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 
     // Registration
-    Route::get('registration', ['as' => 'login.registration', 'uses' => 'LoginController@registration']);
-    Route::post('registration', ['as' => 'login.register', 'uses' => 'LoginController@register']);
-    Route::get('validation', ['as' => 'login.validation', 'uses' => 'LoginController@validationEmail']);
-    Route::get('information', ['as' => 'login.information', 'uses' => 'LoginController@information']);
-    Route::post('information', ['as' => 'login.save', 'uses' => 'LoginController@save']);
-    Route::get('forgot', ['as' => 'forgot', 'uses' => 'LoginController@forgot']);
-    Route::get('success', ['as' => 'success', 'uses' => 'LoginController@success']);
+    Route::get('register', 'RegisterController@show');
+    Route::post('register', ['as' => 'register', 'uses' => 'LoginController@register']);
+
+//    Route::get('validation', ['as' => 'login.validation', 'uses' => 'LoginController@validationEmail']);
+//    Route::get('information', ['as' => 'login.information', 'uses' => 'LoginController@information']);
+//    Route::post('information', ['as' => 'login.save', 'uses' => 'LoginController@save']);
+//    Route::get('forgot', ['as' => 'forgot', 'uses' => 'LoginController@forgot']);
+//    Route::get('success', ['as' => 'success', 'uses' => 'LoginController@success']);
 
     // Pages
     Route::get('faqs', 'FaqsController@show');

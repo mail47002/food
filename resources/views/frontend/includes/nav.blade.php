@@ -141,7 +141,7 @@
 			<li><a href="{{ url('logout') }}" class="link"><i class="fo fo-exit fo-small"></i></a></li>
 			@else
 			<li><a class="link" href="{{ url('login') }}">Вхід</a></li>
-			<li><a class="link" href="{{ url('registration') }}">Реєстрація</a></li>
+			<li><a class="link" href="{{ url('register') }}">Реєстрація</a></li>
 			@endif
 
 {{-- правое меню на мобильном --}}

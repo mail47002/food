@@ -57,7 +57,7 @@
 
 							<div class="left text-left separator">
 
-								{{ Form::open([ 'route' => 'login', 'method' => 'POST']) }}
+								{{ Form::open(['route' => 'login', 'method' => 'POST']) }}
 									{{ Form::label('email', 'Email', ['for' => 'email']) }}
 									{{ Form::email('email', null, ['id' => 'email', 'placeholder' => 'Email']) }}
 									{!! $errors->first('email', 'erorr email') !!}
@@ -76,7 +76,7 @@
 								<a href="#" class="button login facebook">Продовжити з Facebook</a>
 								<a href="#" class="button login twitter">Продовжити з Twitter</a>
 
-								<p class="signup">Вас ще немає на сайті?  <a href="{{ route('login.registration') }}" class="link-red">Зареєструватися</a></p>
+								<p class="signup">Вас ще немає на сайті?  <a href="{{ route('register') }}" class="link-red">Зареєструватися</a></p>
 							</div>
 
 						</div>

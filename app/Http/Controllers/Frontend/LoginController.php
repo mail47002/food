@@ -37,6 +37,13 @@ class LoginController extends Controller
         return redirect()->back()->withInput();
     }
 
+    public function logout()
+    {
+        Auth::guard('web')->logout();
+
+        return redirect('login');
+    }
+
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
@@ -52,12 +59,5 @@ class LoginController extends Controller
             'password'  => $request->password,
             'verified'  => 1
         ];
-    }
-
-    public function logout()
-    {
-        Auth::guard('web')->logout();
-
-        return redirect('login');
     }
 }

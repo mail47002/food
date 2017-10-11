@@ -181,6 +181,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
 
 
     ],
@@ -234,6 +235,7 @@ return [
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'Image' => Intervention\Image\Facades\Image::class,
+        'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
