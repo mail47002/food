@@ -8,7 +8,7 @@
 	<h1>{{ Auth::user()->name }}</h1>
 	<p class="grey3">
 		<i class="fo fo-marker red"></i> {{ Auth::user()->address->street }} {{ Auth::user()->address->build }}, {{ Auth::user()->address->city }}
-		&nbsp;&nbsp;&nbsp;<a href="{{ route('profile.users.edit', Auth::id()) }}" class="link-grey"><i class="fo fo-edit fo-small fo-indent"></i>Редагувати</a>
+		&nbsp;&nbsp;&nbsp;<a href="{{ route('profile.user.edit', Auth::id()) }}" class="link-grey"><i class="fo fo-edit fo-small fo-indent"></i>Редагувати</a>
 	</p>
 	<div class="rating grey3"><span class="stars medium">4</span>10 відгуків</div>
 

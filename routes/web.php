@@ -75,36 +75,31 @@ Route::group(['namespace' => 'Frontend'], function() {
     // Profile
     Route::group(['namespace' => 'Profile'], function() {
         // User
-        Route::resource('profile', 'UsersController', [
-            'names' => [
-                'index'     => 'profile.users.index',
-                'create'    => 'profile.users.create',
-                'store'     => 'profile.users.store',
-                'show'      => 'profile.users.show',
-                'edit'      => 'profile.users.edit',
-                'update'    => 'profile.users.update',
-                'destroy'   => 'profile.users.destroy'
-            ]
-        ]);
+        Route::get('profile/create', ['as' => 'profile.user.create', 'uses' => 'UsersController@create']);
+        Route::post('profile', ['as' => 'profile.user.store', 'uses' => 'UsersController@store']);
+        Route::get('profile/{id}', ['as' => 'profile.user.show', 'uses' => 'UsersController@show'])->where('id', '[0-9]+');
+        Route::get('profile/{id}/edit', ['as' => 'profile.user.edit', 'uses' => 'UsersController@edit'])->where('id', '[0-9]+');
+        Route::put('profile/{id}', ['as' => 'profile.user.update', 'uses' => 'UsersController@update'])->where('id', '[0-9]+');
 
-        Route::get('profile/{id}/password', ['as' => 'profile.password.edit', 'uses' => 'PasswordController@edit']);
-        Route::match(['put', 'patch'], 'profile/{id}/password', ['as' => 'profile.password.update', 'uses' => 'PasswordController@update']);
+        Route::get('profile/{id}/password', ['as' => 'profile.password.edit', 'uses' => 'PasswordController@edit'])->where('id', '[0-9]+');;
+        Route::put('profile/{id}/password', ['as' => 'profile.password.update', 'uses' => 'PasswordController@update'])->where('id', '[0-9]+');;
 
         // Products
-        Route::resource('profile/{id}/products', 'ProductsController', [
-            'names' => [
-                'index'     => 'profile.products.index',
-                'create'    => 'profile.products.create',
-                'store'     => 'profile.products.store',
-                'show'      => 'profile.products.show',
-                'edit'      => 'profile.products.edit',
-                'update'    => 'profile.products.update',
-                'destroy'   => 'profile.products.destroy'
-            ]
-        ]);
+        Route::get('profile/products', ['as' => 'profile.products.index', 'uses' => 'ProductsController@index']);
+        Route::get('profile/products/create', ['as' => 'profile.products.create', 'uses' => 'ProductsController@create']);
+        Route::post('profile/products', ['as' => 'profile.products.store', 'uses' => 'ProductsController@store']);
+        Route::get('profile/products/{id}', ['as' => 'profile.products.show', 'uses' => 'ProductsController@show'])->where('id', '[0-9]+');
+        Route::get('profile/products/{id}/edit', ['as' => 'profile.products.edit', 'uses' => 'ProductsController@edit'])->where('id', '[0-9]+');
+        Route::put('profile/products/{id}', ['as' => 'profile.products.update', 'uses' => 'ProductsController@update']);
+        Route::delete('profile/products/{id}', ['as' => 'profile.products.destroy', 'uses' => 'ProductsController@destroy']);
+        Route::get('profile/products/success', ['as' => 'profile.products.success', 'uses' => 'ProductsController@success']);
+
+        Route::post('profile/products/image/store', 'ProductImagesController@store');
+        Route::put('profile/products/image/{id}', 'ProductImagesController@update');
+        Route::delete('profile/products/image/{id}', 'ProductImagesController@destroy');
 
         // Adverts
-        Route::resource('profile/{id}/adverts', 'AdvertsController', [
+        Route::resource('profile/adverts', 'AdvertsController', [
             'names' => [
                 'index'     => 'profile.adverts.index',
                 'create'    => 'profile.adverts.create',
@@ -117,7 +112,7 @@ Route::group(['namespace' => 'Frontend'], function() {
         ]);
 
         // Articles
-        Route::resource('profile/{id}/articles', 'ArticlesController', [
+        Route::resource('profile/articles', 'ArticlesController', [
             'names' => [
                 'index'     => 'profile.articles.index',
                 'create'    => 'profile.articles.create',

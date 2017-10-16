@@ -14,11 +14,11 @@ class CreateRecipeStepsTable extends Migration
     public function up()
     {
         Schema::create('recipe_steps', function (Blueprint $table) {
-          $table->increments('id');
-          $table->integer('recipe_id');
-          $table->string('image');
-          $table->text('text');
-          $table->timestamps();
+            $table->increments('id');
+            $table->integer('recipe_id');
+            $table->string('image');
+            $table->text('text');
+            $table->timestamps();
         });
     }
 

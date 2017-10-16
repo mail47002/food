@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
                 'phone'      => json_encode(['+380111111111']),
                 'email'      => 'john@smith.com',
                 'password'   => bcrypt('123456'),
-                'verified'   => 1,
+                'verified'   => 0,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
                 'role_id'    => 2,

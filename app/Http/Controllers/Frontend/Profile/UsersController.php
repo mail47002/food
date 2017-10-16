@@ -101,12 +101,18 @@ class UsersController extends Controller
         $this->validateForm($request);
 
         if ($request->hasFile('image')) {
-            $this->uploadImage($request->file('image'));
+            $image = $this->storeImage($request->file('image'));
+
+            Auth::user()->image = $image;
+            Auth::user()->save();
         }
 
         Auth::user()->address->update($request->all());
-
         Auth::user()->fill($request->all())->save();
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     /**
@@ -137,18 +143,10 @@ class UsersController extends Controller
         ]);
     }
 
-    /**
-     * Resize & upload users image.
-     *
-     * @param Request $file
-     * @return string
-     */
-    protected function uploadImage($file)
+    protected function storeImage($file)
     {
         $path = 'uploads/users/' . Auth::id();
-
         $filename = str_random(18) . '.' . $file->getClientOriginalExtension();
-
         $filepath = $path . '/' . $filename;
 
         $image = Image::make($file)->resize(210, null, function ($constraint) {
@@ -157,8 +155,6 @@ class UsersController extends Controller
 
         Storage::put($filepath, $image->stream());
 
-        Auth::user()->image = $filepath;
-
-        Auth::user()->save();
+        return $filepath;
     }
 }

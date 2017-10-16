@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    public function scopeLatest($query)
-    {
-        return $query->orderBy('created_at', 'desc');
-    }
+    protected $fillable = [
+        'user_id', 'name', 'description', 'ingredient', 'video'
+    ];
+
+    protected $casts = [
+        'ingredient' => 'array',
+        'video'      => 'array'
+    ];
 
     public function advert()
     {
@@ -23,7 +27,7 @@ class Product extends Model
 
     public function images()
     {
-        return $this->hasMany('App\ProductImage');
+        return $this->hasMany('App\ProductImage')->orderBy('created_at', 'asc');
     }
 
     public function categories()

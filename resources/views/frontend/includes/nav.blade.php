@@ -57,7 +57,7 @@
 			@if (Auth::check())
 			<li>
 				<div class="avatar"><div class="rounded"><img src="/{{ Auth::user()->image }}" alt=""></div></div>
-				<a href="{{ route('profile.users.show', Auth::id()) }}" class="link">{{ Auth::user()->name }}</a>
+				<a href="{{ route('profile.user.show', Auth::id()) }}" class="link">{{ Auth::user()->name }}</a>
 			</li>
 			<li class="dropdown messages">
 				<a id="messages-menu" class="link" href="#" type="button" data-toggle="dropdown"><i class="fo fo-bell fo-small"><span class="count">3</span></i></a>

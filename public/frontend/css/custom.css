@@ -100,6 +100,7 @@
     color: #f0534d;
 }
 
-.has-error input.error {
+.has-error input.error,
+.has-error textarea.error{
     border-color: #f0534d;
 }

@@ -12,11 +12,11 @@
                 <div class="left separator">
                     {{ Form::open(['route' => 'register', 'method' => 'post']) }}
                         <div class="form-group">
-                            {{ Form::label('email', 'Email', ['for' => 'email']) }}
+                            {{ Form::label('email', 'Email') }}
                             {{ Form::email('email', null, ['id' => 'input-email']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('password', 'Пароль', ['for' => 'password']) }}
+                            {{ Form::label('password', 'Пароль') }}
                             {{ Form::password('password', ['id' => 'input-password']) }}
                         </div>
                         <div class="form-group">

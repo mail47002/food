@@ -30,6 +30,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'phone' => 'array'
+    ];
+
     public function address()
     {
         return $this->hasOne('App\Address');
@@ -38,16 +47,6 @@ class User extends Authenticatable
     public function adverts()
     {
         return $this->hasMany('App\Advert');
-    }
-
-    public function getPhoneAttribute($value)
-    {
-        return json_decode($value);
-    }
-
-    public function setPhoneAttribute($value)
-    {
-        $this->attributes['phone'] = json_encode($value);
     }
 
     public function verified()

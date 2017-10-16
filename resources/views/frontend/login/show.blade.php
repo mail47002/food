@@ -11,11 +11,11 @@
 
 					{{ Form::open([ 'route' => 'login', 'method' => 'post']) }}
 						<div class="form-group">
-							{{ Form::label('email', 'Email', ['for' => 'email']) }}
+							{{ Form::label('email', 'Email') }}
 							{{ Form::text('email', null, ['id' => 'input-email']) }}
 						</div>
 						<div class="form-group">
-							{{ Form::label('password', 'Пароль', ['for' => 'password']) }}
+							{{ Form::label('password', 'Пароль') }}
 							{{ Form::password('password', ['id' => 'input-password']) }}
 						</div>
 						{{Form::submit('Увійти', ['class' => 'button button-red']) }}
@@ -58,13 +58,12 @@
                         location = data['url'];
                     }
                 },
-                complete: function() {
+                error: function(data) {
+                    var data = data.responseJSON;
+
                     form.find('input[type=submit]').attr('disabled', false);
 
                     $('.body-overlay').removeClass('active');
-                },
-                error: function(data) {
-                    var data = data.responseJSON;
 
                     for (name in data.errors) {
                         var target = form.find('#input-' + name);

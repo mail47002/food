@@ -14,12 +14,11 @@ class CreateArticleImagesTable extends Migration
     public function up()
     {
         Schema::create('article_images', function (Blueprint $table) {
-          $table->increments('article_image_id');
-          $table->integer('article_id');
-          $table->string('image');
-          $table->string('alt');
-          $table->integer('sort_order');
-          $table->timestamps();
+            $table->increments('id');
+            $table->integer('article_id');
+            $table->string('image');
+            $table->string('alt');
+            $table->timestamps();
         });
     }
 

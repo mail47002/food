@@ -17,25 +17,21 @@ class AdvertImagesTableSeeder extends Seeder
                 'advert_id'  => 1,
                 'image'      => 'uploads/food1.jpg',
                 'alt'        => 'image1',
-                'sort_order' => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
                 'advert_id'  => 1,
                 'image'      => 'uploads/food1.jpg',
                 'alt'        => 'image1',
-                'sort_order' => 2,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
                 'advert_id'  => 2,
                 'image'      => 'uploads/food1.jpg',
                 'alt'        => 'image1',
-                'sort_order' => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
                 'advert_id'  => 2,
                 'image'      => 'uploads/food1.jpg',
                 'alt'        => 'image1',
-                'sort_order' => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ]
         ]);

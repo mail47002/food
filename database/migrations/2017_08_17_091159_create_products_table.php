@@ -17,9 +17,10 @@ class CreateProductsTable extends Migration {
             $table->integer('user_id');
             $table->string('name');
             $table->text('description');
-            $table->json('ingredients');
-            $table->string('image');
-            $table->json('videos');
+            $table->json('ingredient');
+            $table->string('thumbnail')->nullable();
+            $table->string('image')->nullable();
+            $table->json('video')->nullable();
             $table->timestamps();
         });
 	}

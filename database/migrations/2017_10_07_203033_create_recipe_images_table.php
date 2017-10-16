@@ -14,12 +14,11 @@ class CreateRecipeImagesTable extends Migration
     public function up()
     {
         Schema::create('recipe_images', function (Blueprint $table) {
-          $table->increments('recipe_image_id');
-          $table->integer('recipe_id');
-          $table->string('image');
-          $table->string('alt');
-          $table->integer('sort_order');
-          $table->timestamps();
+            $table->increments('id');
+            $table->integer('recipe_id');
+            $table->string('image');
+            $table->string('alt');
+            $table->timestamps();
         });
     }
 

@@ -7,7 +7,7 @@
 			<hr>
 			{{ Form::open(['route' => 'password.forgot', 'method' => 'post']) }}
 				<div class="form-group">
-					{{ Form::label('email', 'Введіть свій Email', ['for' => 'email']) }}
+					{{ Form::label('email', 'Введіть свій Email') }}
 					{{ Form::text('email', null, ['id' => 'input-email']) }}
 				</div>
 				{{Form::submit('Продовжити', ['class' => 'button button-red']) }}

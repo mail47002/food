@@ -12,13 +12,23 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    static $password;
-
+$factory->define(App\Product::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'user_id'     => $faker->randomDigitNotNull,
+        'name'        => $faker->name,
+        'description' => $faker->text,
+        'ingredient'  => [$faker->name, $faker->name, $faker->name, $faker->name],
+        'thumbnail'   => $faker->imageUrl($width = 325, $height = 220),
+        'image'       => $faker->imageUrl($width = 960, $height = 700),
+        'video'       => ['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU']
+    ];
+});
+
+$factory->define(\App\ProductImage::class, function ( Faker\Generator $faker) {
+    return [
+        'user_id'    => $faker->randomDigitNotNull,
+        'product_id' => $faker->randomDigitNotNull,
+        'thumbnail'  => $faker->imageUrl($width = 325, $height = 220),
+        'image'      => $faker->imageUrl($width = 960, $height = 700)
     ];
 });

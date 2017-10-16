@@ -14,10 +14,10 @@ class CreateProductImagesTable extends Migration {
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id');
+            $table->integer('user_id')->index();
+            $table->integer('product_id')->default(0)->index();
+            $table->string('thumbnail');
             $table->string('image');
-            $table->string('alt');
-            $table->integer('sort_order');
             $table->timestamps();
         });
     }

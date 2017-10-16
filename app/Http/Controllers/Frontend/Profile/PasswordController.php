@@ -82,6 +82,10 @@ class PasswordController extends Controller
         Auth::user()->password = Hash::make($request->password);
 
         Auth::user()->save();
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     /**

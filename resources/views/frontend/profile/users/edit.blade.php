@@ -5,10 +5,10 @@
 @section('content')
 	<h5 class="text-upper underline-red">Редагувати профіль</h5>
 	<hr>
-	{{ Form::open(['route' => ['profile.users.update', Auth::id()], 'method' => 'PUT', 'class' => 'contact']) }}
+	{{ Form::open(['route' => ['profile.user.update', Auth::id()], 'method' => 'put', 'class' => 'contact']) }}
 		<p class="message" id="message">Заповніть виділені поля</p>
 		<div class="form-group">
-			{{ Form::label('name', 'Ім\'я*', ['for' => 'name']) }}
+			{{ Form::label('name', 'Ім\'я*') }}
 			{{ Form::text('name', Auth::user()->name, ['id' => 'input-name']) }}
 		</div>
 
@@ -16,42 +16,56 @@
 		<hr>
 
 		<div class="form-group">
-			{{ Form::label('phone', 'Телефон*', ['for' => 'phone']) }}
-			<div class="phone phone-list">
-				@foreach (Auth::user()->phone as $i =>$phone)
+			{{ Form::label('phone', 'Телефон*') }}
+			<div class="phone js-phone">
+				@foreach (Auth::user()->phone as $i => $phone)
 					<div>
 						{{ Form::text('phone[]', $phone, ['id' => 'input-phone-' . $i, 'class' => 'phone-input']) }}
-						<span class="remove phone-delete"></span>
+						<span class="remove js-delete-phone"></span>
 					</div>
 				@endforeach
 			</div>
-			<a href="#" class="link-red phone-add">+ Додати</a>
+			<a href="#" class="link-red js-add-phone">+ Додати</a>
 		</div>
 		<div class="v-indent-30"></div>
 		<hr>
 		<div class="form-group">
-			{{ Form::label('city', 'Населений пункт*', ['for' => 'city']) }}
+			{{ Form::label('city', 'Населений пункт*') }}
 			<div class="marker">
 				{{ Form::text('city', Auth::user()->address->city, ['id' => 'input-city']) }}
 			</div>
 		</div>
 		<div class="form-group">
-			{{ Form::label('street', 'Вулиця*', ['for' => 'street']) }}
+			{{ Form::label('street', 'Вулиця*') }}
 			{{ Form::text('street',  Auth::user()->address->street, ['id' => 'input-street']) }}
 		</div>
 		<div class="form-group">
-			{{ Form::label('build', '№ будинку*', ['for' => 'build']) }}
+			{{ Form::label('build', '№ будинку*') }}
 			{{ Form::text('build', Auth::user()->address->build, ['id' => 'input-build']) }}
 		</div>
 		<div class="v-indent-30"></div>
 		<hr>
 		<div class="form-group">
-			{{ Form::label('about', 'Про мене', ['for' => 'about']) }}
+			{{ Form::label('about', 'Про мене') }}
 			{{ Form::textarea('about', Auth::user()->about, ['id' => 'input-about', 'class' => 'profile']) }}
 		</div>
 		<hr>
 		{{Form::submit('Зберегти', ['class' => 'button button-red profile text-upper']) }}
 	{{ Form::close() }}
+
+	<div id="modal_profile-update" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content text-center">
+				<div class="moda-header">
+					<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
+				</div>
+				<div class="modal-body">
+					<p><i class="fo fo-ok fo-large red"></i></p>
+					<p>Деталі вашого профіля успішно збережені!</p>
+				</div>
+			</div>
+		</div>
+	</div>
 @stop
 
 
@@ -79,23 +93,22 @@
 			initMaskInput();
 		});
 
-		$('.phone-add').on('click', function(e) {
+		$('.js-add-phone').on('click', function(e) {
 			e.preventDefault();
 
-			var i = $('.phone-list > div').length;
+			var i = $('.js-phone > div').length;
 
-
-			$('.phone').append('<div><input id="input-phone-' + i + '" class="phone-input" name="phone[]" type="text"><span class="remove phone-delete"></span></div>');
+			$('.js-phone').append('<div><input id="input-phone-' + i + '" class="phone-input" name="phone[]" type="text"><span class="remove js-delete-phone"></span></div>');
 
 			initMaskInput();
 		});
 
-		$('body').on('click', '.phone-delete', function(e) {
+		$('body').on('click', '.js-delete-phone', function(e) {
 			e.preventDefault();
 
 			$(this).parent().remove();
 
-            $('.phone-list > div').each(function(i) {
+            $('.js-phone > div').each(function(i) {
 				$(this).attr('id', 'input-phone-' + i);
             });
 		});
@@ -125,11 +138,14 @@
                     $('.body-overlay').addClass('active');
                 },
 				success: function(data) {
+				    if (data['success']) {
+                        $('#modal_profile-update').modal('show');
+					}
 				},
-                complete: function() {
+				complete: function () {
                     form.find('input[type=submit]').attr('disabled', false);
 
-				    $('.body-overlay').removeClass('active');
+                    $('.body-overlay').removeClass('active');
                 },
                 error: function(data) {
                     var data = data.responseJSON,
@@ -138,7 +154,6 @@
                     $('#message').show();
 
                     for (name in data.errors) {
-                        console.log(name);
                         if (name.indexOf('.') > 0) {
                             var parts = name.split('.');
 
