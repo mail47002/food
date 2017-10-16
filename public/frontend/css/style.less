@@ -719,6 +719,7 @@ a:focus {outline: none;}
 		color: @blue;
 		text-decoration: underline;
 	}
+	@media @xm {font-size: 30px;}
 }
 .link-grey {
 	color: @grey2;
@@ -821,6 +822,23 @@ a:focus {outline: none;}
 			background: #006dbf;
 			border-color: #006dbf;
 			&:before {border-color: #002f8f;}
+		}
+	}
+	@media @xm {
+		max-width: 416px;
+		font-size: 34px;
+		height: 80px;
+		line-height: 74px;
+		padding: 0;
+		&:before {
+			height: 60px;
+		}
+		&:after {
+			background-size: 120px 40px;
+			width: 40px;
+			height: 40px;
+			left: 19px;
+			top: 20px;
 		}
 	}
 }
@@ -2645,6 +2663,7 @@ select.wide + span.ui-button {
 	font-size: 12px;
 	color: @grey2;
 	a {
+		display: inline;
 		font-size: 12px;
 		color: @grey2;
 		padding: 0 8px;
@@ -2652,6 +2671,10 @@ select.wide + span.ui-button {
 		&:hover, &:focus {
 			color: @grey1;
 		}
+	}
+	.socials {
+		height: 40px;
+		float: right;
 	}
 }
 
@@ -2691,9 +2714,11 @@ select.wide + span.ui-button {
 			display: table;
 			width: 100%;
 			.left, .right {
-				display: table-cell;
-				width: 50%;
-				vertical-align: middle;
+				@media @md {
+					display: table-cell;
+					width: 50%;
+					vertical-align: middle;
+				}
 			}
 			form {
 				text-align: left;
@@ -2701,6 +2726,7 @@ select.wide + span.ui-button {
 					display: block;
 					margin-bottom: 5px;
 					padding-left: 8px;
+					@media @xm {font-size: 34px;}
 				}
 				input {
 					display: block;
@@ -2708,10 +2734,18 @@ select.wide + span.ui-button {
 					width: 100%;
 					height: 40px;
 					margin-bottom: 20px;
+					@media @xm {
+						height: 90px;
+						font-size: 34px;
+						margin-left: auto;
+						margin-right: auto;
+						max-width: 95vw;
+					}
 				}
 				.button {
 					font-size: 18px;
 					text-transform: uppercase;
+					@media @xm {font-size: 34px;}
 				}
 			}
 			.terms {
@@ -2720,7 +2754,10 @@ select.wide + span.ui-button {
 				color: @grey2;
 				a {font-size: 12px;}
 			}
-			.separator {border-right: 1px solid @grey1;}
+			@media @md {
+				.separator {border-right: 1px solid @grey1;}
+			}
+
 			.alert {
 				border-radius: 10px;
 				text-align: center;
@@ -2796,12 +2833,20 @@ select.wide + span.ui-button {
 			font-weight: 400;
 			text-align: left;
 			text-transform: uppercase;
+			@media @xm {
+				font-size: 60px;
+				padding-left: 16px;
+			}
 		}
 		.sign-body {
 			padding: 0;
-			.left, .right {vertical-align: top;}
+			.left, .right {
+				vertical-align: top;
+				@media @xm {padding: 0 16px;}
+			}
 			.right {
 				padding-top: 15px;
+				@media @xm {text-align: left;}
 				.signup {
 					max-width: 303px;
 					margin-top: 25px;
