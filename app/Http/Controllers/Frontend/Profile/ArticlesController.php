@@ -31,9 +31,10 @@ class ArticlesController extends Controller
             ->paginate();
 
         $recipes = Recipe::where('user_id', Auth::id())
+            ->with(['categories'])
             ->orderBy('created_at', 'desc')
             ->paginate();
-
+            // dd($recipes);
         return view('frontend.profile.articles.index', [
             'advices' => $advices,
             'recipes' => $recipes

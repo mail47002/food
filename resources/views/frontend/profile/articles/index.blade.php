@@ -66,9 +66,9 @@
 									</p>
 
 									<div class="bottom">
-										<a href="#" class="button-filter">Закуски</a>
-										<a href="#" class="button-filter">Десерти і торти</a>
-
+										@foreach($recipe->categories as $category)
+										<a href="#" class="button-filter">{{ $category->name }}</a>
+										@endforeach
 										<div class="v-indent-20"></div><hr>
 										<p>
 											<span class="black">{{ $recipe->created_at }}</span>
@@ -94,22 +94,22 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="image">
-									<img src="/uploads/article2.jpg" class="img-responsive" alt="">
+									<img src="{{ asset($advice->image) }}" class="img-responsive" alt="">
 								</div>
 							</div>
 							<div class="col-md-8">
 								<div class="caption">
-									<a href="/adverts/1" class="title link-black">Япония: что привезти и что попробовать</a>
+									<a href="{{ route('profile.advices.show', $advice->id) }}" class="title link-black">{{ $advice->name }}</a>
 									<p>
-										Визит в Страну восходящего солнца – это шок и восторг одновременно. Наши журналисты побывали на западе страны – в регионе Кансай, увидели храмы Киото, олений заповедник древней столицы Нара, встретились со шпионами ниндзя, ныряльщицами Ама и овладели местным искусством без сожаления спустить все деньги на еду в осакском квартале Дотомбори.
+										{{ $advice->description }}
 									</p>
 
 									<div class="bottom">
 										<div class="v-indent-20"></div><hr>
 										<p>
-											<span class="black">15 грудня 2016</span>
+											<span class="black">{{ $advice->created_at }}</span>
 											<a href="#" class="link-blue"><i class="fo fo-message fo-small"></i> 12 коментарів</a>
-											<a href="#" class="pull-right link-blue"><i class="fo fo-edit fo-small"></i> Редагувати</a>
+											<a href="{{ route('profile.advices.edit', $advice->id) }}" class="pull-right link-blue"><i class="fo fo-edit fo-small"></i> Редагувати</a>
 										</p>
 									</div>
 								</div>
