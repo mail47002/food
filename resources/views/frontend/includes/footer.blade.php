@@ -1,9 +1,14 @@
 
-<footer class="footer">
+<footer class="footer hidden-xm">
 	<div class="container">
 		<span>© Всі права захищені</span>
 		<a href="#">Умови використання та конфіденційність</a>
 		<a href="#">Контакти</a>
+		<div class="socials">
+			<a href="#" class="fo fo-facebook fo-small"></a>
+			<a href="#" class="fo fo-google fo-small"></a>
+			<a href="#" class="fo fo-twitter fo-small"></a>
+		</div>
 	</div>
 </footer>
 

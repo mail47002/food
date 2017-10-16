@@ -53,9 +53,9 @@
 			</li>
 		</ul>
 		<ul class="list-inline pull-right">
-			<li><a href="#" class="button button-rounded dish-add" data-toggle="modal" data-target="#modal_login"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
+			<li class="hidden-xm"><a href="#" class="button button-rounded dish-add" data-toggle="modal" data-target="#modal_login"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
 			@if (Auth::check())
-			<li>
+			<li class="hidden-xm">
 				<div class="avatar"><div class="rounded"><img src="/{{ Auth::user()->image }}" alt=""></div></div>
 				<a href="{{ route('profile.user.show', Auth::id()) }}" class="link">{{ Auth::user()->name }}</a>
 			</li>
@@ -138,10 +138,10 @@
 			</li>
 
 			<li><a href="#" class="link" data-toggle="modal" data-target="#modal_likes"><i class="fo fo-like fo-small"></i></a></li>
-			<li><a href="{{ url('logout') }}" class="link"><i class="fo fo-exit fo-small"></i></a></li>
+			<li class="hidden-xm"><a href="{{ url('logout') }}" class="link"><i class="fo fo-exit fo-small"></i></a></li>
 			@else
-			<li><a class="link" href="{{ url('login') }}">Вхід</a></li>
-			<li><a class="link" href="{{ url('register') }}">Реєстрація</a></li>
+			<li class="hidden-xm"><a class="link" href="{{ url('login') }}">Вхід</a></li>
+			<li class="hidden-xm"><a class="link" href="{{ url('register') }}">Реєстрація</a></li>
 			@endif
 
 {{-- правое меню на мобильном --}}
