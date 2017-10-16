@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
-class ArticleImagesTableSeeder extends Seeder
+class AdviceImagesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,24 +12,24 @@ class ArticleImagesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('article_images')->insert([
-            'article_id' => '1',
-            'image'      => 'uploads/articles/14/Ескіз12.png',
+        DB::table('advice_images')->insert([
+            'advice_id' => '1',
+            'image'      => 'uploads/advices/14/Ескіз12.png',
             'alt'        => 'image 11',
             'created_at' => Carbon::now()->toDateString()
         ], [
-            'article_id' => '1',
-            'image'      => 'uploads/articles/14/Ескіз12.png',
+            'advice_id' => '1',
+            'image'      => 'uploads/advices/14/Ескіз12.png',
             'alt'        => 'image 22',
             'created_at' => Carbon::now()->toDateString()
         ], [
-            'article_id' => '2',
-            'image'      => 'uploads/articles/14/Ескіз12.png',
+            'advice_id' => '2',
+            'image'      => 'uploads/advices/14/Ескіз12.png',
             'alt'        => 'image 33',
             'created_at' => Carbon::now()->toDateString()
         ], [
-            'article_id' => '2',
-            'image'      => 'uploads/articles/14/Ескіз12.png',
+            'advice_id' => '2',
+            'image'      => 'uploads/advices/14/Ескіз12.png',
             'alt'        => 'image 33',
             'created_at' => Carbon::now()->toDateString()
         ]);

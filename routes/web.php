@@ -115,12 +115,6 @@ Route::group(['namespace' => 'Frontend'], function() {
         Route::resource('profile/articles', 'ArticlesController', [
             'names' => [
                 'index'     => 'profile.articles.index',
-                'create'    => 'profile.articles.create',
-                'store'     => 'profile.articles.store',
-                'show'      => 'profile.articles.show',
-                'edit'      => 'profile.articles.edit',
-                'update'    => 'profile.articles.update',
-                'destroy'   => 'profile.articles.destroy'
             ]
         ]);
 

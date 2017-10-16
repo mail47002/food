@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticleImagesTable extends Migration
+class CreateAdviceImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateArticleImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_images', function (Blueprint $table) {
+        Schema::create('advice_images', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('article_id');
+            $table->integer('advice_id');
             $table->string('image');
             $table->string('alt');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateArticleImagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('article_images');
+        Schema::drop('advice_images');
     }
 }
