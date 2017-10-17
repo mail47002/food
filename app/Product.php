@@ -39,4 +39,14 @@ class Product extends Model
 	{
 		return $this->belongsTo('App\User');
 	}
+
+    public function getThumbnailAttribute($value)
+    {
+        return asset($value);
+    }
+
+    public function getImageAttribute($value)
+    {
+        return asset($value);
+    }
 }

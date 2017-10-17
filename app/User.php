@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'about', 'password'
+        'name', 'slug', 'about', 'phone', 'email', 'password'
     ];
 
     /**
@@ -49,10 +49,25 @@ class User extends Authenticatable
         return $this->hasMany('App\Advert');
     }
 
+    public function roles()
+    {
+        return $this->hasMany('App\UserRole');
+    }
+
     public function verified()
     {
         $this->verified = self::VERIFIED_USER;
 
         $this->save();
+    }
+
+    public function getThumbnailAttribute($value)
+    {
+        return asset($value);
+    }
+
+    public function getImageAttribute($value)
+    {
+        return asset($value);
     }
 }

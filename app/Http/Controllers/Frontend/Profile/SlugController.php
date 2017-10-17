@@ -4,17 +4,10 @@ namespace App\Http\Controllers\Frontend\Profile;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Rules\OldPassword;
 use Auth;
-use Hash;
 
-class PasswordController extends Controller
+class SlugController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +15,7 @@ class PasswordController extends Controller
      */
     public function index()
     {
-        //
+        $this->middleware('auth');
     }
 
     /**
@@ -65,7 +58,7 @@ class PasswordController extends Controller
      */
     public function edit($id)
     {
-        return view('frontend.profile.password.edit');
+        return view('frontend.profile.slug.edit');
     }
 
     /**
@@ -77,14 +70,7 @@ class PasswordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateForm($request);
-
-        Auth::user()->password = Hash::make($request->password);
-        Auth::user()->save();
-
-        return response()->json([
-            'success' => true
-        ]);
+        $this->validate();
     }
 
     /**
@@ -101,9 +87,7 @@ class PasswordController extends Controller
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'old_password'     => ['required', new OldPassword()],
-            'password'         => 'required|min:6',
-            'password_confirm' => 'required|same:password'
+            'slug' => 'required|unique:users,slug'
         ]);
     }
 }

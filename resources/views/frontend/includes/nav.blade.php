@@ -1,4 +1,4 @@
-<nav class="navbar @yield('breadcrumbs')">
+<nav class="navbar">
 	<div class="menu">
 		<div class="dropdown">
 			<a id="total-menu" class="dropdown-toggle fo fo-menu" href="#" type="button" data-toggle="dropdown"></a>

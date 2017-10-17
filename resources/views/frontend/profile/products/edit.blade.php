@@ -57,7 +57,7 @@
                     @foreach ($product->images as $image)
                         <div class="wrap js-foto">
                             <div class="uploader">
-                                <img src="{{ asset($image->thumbnail) }}">
+                                <img src="{{ $image->thumbnail }}">
                                 {{ Form::file(null, ['class' => 'input-upload']) }}
                                 {{ Form::hidden('images[]', $image->id) }}
                             </div>

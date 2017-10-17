@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Profile;
 
-use App\Address;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
@@ -57,7 +57,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $products = Product::with([
-            'reviews' => function($query){
+            'reviews' => function ($query) {
                 $query->with(['user', 'answer']);
             }, 'advert'])
             ->orderBy('created_at')
@@ -65,7 +65,7 @@ class UsersController extends Controller
             ->get();
 
         $reviews = Review::with([
-            'product' => function($query){
+            'product' => function ($query) {
                 $query->with(['user', 'advert']);
             },
             'answer'])
@@ -134,12 +134,12 @@ class UsersController extends Controller
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'image'            => 'nullable',
-            'name'             => 'required',
-            'phone.*'          => 'required',
-            'city'             => 'required',
-            'street'           => 'required',
-            'build'            => 'required'
+            'image'   => 'nullable',
+            'name'    => 'required',
+            'phone.*' => 'required',
+            'city'    => 'required',
+            'street'  => 'required',
+            'build'   => 'required'
         ]);
     }
 

@@ -3,7 +3,7 @@
 @section('content')
     <h5 class="text-upper underline-red">Змінити пароль</h5>
     <hr>
-    {{ Form::open(['route' => ['profile.password.update', Auth::id()], 'method' => 'PUT', 'class' => 'contact']) }}
+    {{ Form::open(['route' => ['profile.password.update', Auth::id()], 'method' => 'put', 'class' => 'contact']) }}
         <p class="message half" id="message">Заповніть виділені поля</p>
         <div class="form-group">
             {{ Form::label('email', 'Email*', ['for' => 'email']) }}
