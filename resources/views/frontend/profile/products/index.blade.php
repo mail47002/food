@@ -32,7 +32,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="image">
-							<img src="{{ asset($product->thumbnail) }}" class="img-responsive" alt="{{ $product->name }}">
+							<img src="{{ $product->thumbnail }}" class="img-responsive" alt="{{ $product->name }}">
 						</div>
 					</div>
 					<div class="col-md-5">
