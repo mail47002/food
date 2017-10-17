@@ -118,14 +118,35 @@ Route::group(['namespace' => 'Frontend'], function() {
         Route::resource('articles', 'ArticlesController', [
             'names' => [
                 'index'     => 'profile.articles.index',
-                'create'    => 'profile.articles.create',
-                'store'     => 'profile.articles.store',
-                'show'      => 'profile.articles.show',
-                'edit'      => 'profile.articles.edit',
-                'update'    => 'profile.articles.update',
-                'destroy'   => 'profile.articles.destroy'
             ]
         ]);
+
+        // Advices
+        Route::resource('profile/advices', 'AdvicesController', [
+            'names' => [
+                // 'index'     => 'profile.advices.index',
+                'create'    => 'profile.advices.create',
+                'store'     => 'profile.advices.store',
+                'show'      => 'profile.advices.show',
+                'edit'      => 'profile.advices.edit',
+                'update'    => 'profile.advices.update',
+                'destroy'   => 'profile.advices.destroy'
+            ]
+        ]);
+
+        // Recipes
+        Route::resource('profile/recipes', 'RecipesController', [
+            'names' => [
+                // 'index'     => 'profile.recipes.index',
+                'create'    => 'profile.recipes.create',
+                'store'     => 'profile.recipes.store',
+                'show'      => 'profile.recipes.show',
+                'edit'      => 'profile.recipes.edit',
+                'update'    => 'profile.recipes.update',
+                'destroy'   => 'profile.recipes.destroy'
+            ]
+        ]);
+
 
     });
 

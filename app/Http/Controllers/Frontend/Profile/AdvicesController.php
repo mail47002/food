@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Frontend\Profile;
 
+use App\AdviceImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Advice;
-use App\Recipe;
 use Auth;
 use DB;
 use Session;
 use Storage;
 
-class ArticlesController extends Controller
+class AdvicesController extends Controller
 {
 
      public function __construct()
@@ -30,14 +30,8 @@ class ArticlesController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate();
 
-        $recipes = Recipe::where('user_id', Auth::id())
-            ->with(['categories'])
-            ->orderBy('created_at', 'desc')
-            ->paginate();
-            // dd($recipes);
-        return view('frontend.profile.articles.index', [
-            'advices' => $advices,
-            'recipes' => $recipes
+        return view('frontend.profile.Advices.index', [
+            'advices' => $advices
         ]);
     }
 
