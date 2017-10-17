@@ -1,7 +1,7 @@
 @extends('frontend.layouts.profile')
 
 @section('content')
-		<div class="col-md-9">
+
 			<h5 class="text-upper underline-red">Мої статті</h5><hr class="zerro-top">
 			<div class="row text-center">
 				<div class="col-md-6">
@@ -61,7 +61,7 @@
 							<div class="col-md-8">
 								<div class="caption">
 									<a href="{{ route('profile.recipes.show', $recipe->id) }}" class="title link-black">{{ $recipe->name }} </a>
-									<p>
+									<p class="max-height">
 										{{ $recipe->description }}
 									</p>
 
@@ -100,7 +100,7 @@
 							<div class="col-md-8">
 								<div class="caption">
 									<a href="{{ route('profile.advices.show', $advice->id) }}" class="title link-black">{{ $advice->name }}</a>
-									<p>
+									<p class="max-height">
 										{{ $advice->description }}
 									</p>
 
@@ -121,8 +121,8 @@
 			</div>
 
 
-	</div>
-</div>
+
+
 
 @stop
 
