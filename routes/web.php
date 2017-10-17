@@ -132,17 +132,13 @@ Route::group(['namespace' => 'Frontend'], function() {
         ]);
 
         // Recipes
-        Route::resource('profile/recipes', 'RecipesController', [
-            'names' => [
-                // 'index'     => 'profile.recipes.index',
-                'create'    => 'profile.recipes.create',
-                'store'     => 'profile.recipes.store',
-                'show'      => 'profile.recipes.show',
-                'edit'      => 'profile.recipes.edit',
-                'update'    => 'profile.recipes.update',
-                'destroy'   => 'profile.recipes.destroy'
-            ]
-        ]);
+        Route::get('profile/recipes/create', ['as' => 'profile.recipes.create', 'uses' => 'RecipesController@create']);
+        Route::post('profile/recipes', ['as' => 'profile.recipes.store', 'uses' => 'RecipesController@store']);
+        Route::get('profile/recipes/{id}', ['as' => 'profile.recipes.show', 'uses' => 'RecipesController@show'])->where('id', '[0-9]+');
+        Route::get('profile/recipes/{id}/edit', ['as' => 'profile.recipes.edit', 'uses' => 'RecipesController@edit'])->where('id', '[0-9]+');
+        Route::put('profile/recipes/{id}', ['as' => 'profile.recipes.update', 'uses' => 'RecipesController@update']);
+        Route::delete('profile/recipes/{id}', ['as' => 'profile.recipes.destroy', 'uses' => 'RecipesController@destroy']);
+        Route::get('profile/recipes/success', ['as' => 'profile.recipes.success', 'uses' => 'RecipesController@success']);
 
 
     });

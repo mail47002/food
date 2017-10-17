@@ -18,9 +18,10 @@ class CreateRecipesTable extends Migration
             $table->integer('user_id');
             $table->string('name');
             $table->text('description');
-            $table->json('ingredients');
+            $table->json('ingredient');
+            $table->string('thumbnail');
             $table->string('image');
-            $table->json('videos');
+            $table->json('video');
             $table->timestamps();
         });
     }

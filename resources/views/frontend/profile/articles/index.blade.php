@@ -5,10 +5,10 @@
 			<h5 class="text-upper underline-red">Мої статті</h5><hr class="zerro-top">
 			<div class="row text-center">
 				<div class="col-md-6">
-					<a href="/recipes/new" class="button button-red button-big inline"><i class="fo fo-dish"></i> Новий рецепт</a>
+					<a href="{{ route('profile.recipes.create') }}" class="button button-red button-big inline"><i class="fo fo-dish"></i> Новий рецепт</a>
 				</div>
 				<div class="col-md-6">
-					<a href="/articles/new" class="button button-red button-big inline"><i class="fo fo-articles"></i> Нова порада</a>
+					<a href="{{ route('profile.advices.create') }}" class="button button-red button-big inline"><i class="fo fo-articles"></i> Нова порада</a>
 				</div>
 			</div>
 
@@ -66,8 +66,10 @@
 									</p>
 
 									<div class="bottom">
-										@foreach($recipe->categories as $category)
-										<a href="#" class="button-filter">{{ $category->name }}</a>
+										@foreach($categories as $category)
+											@if(in_array($category->id, $recipe->categories->pluck('category_id')->toArray()))
+											<a href="#" class="button-filter">{{ $category->name }}</a>
+											@endif
 										@endforeach
 										<div class="v-indent-20"></div><hr>
 										<p>

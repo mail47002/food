@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Advice;
 use App\Recipe;
+use App\Category;
 use Auth;
 use DB;
 use Session;
@@ -35,9 +36,13 @@ class ArticlesController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate();
             // dd($recipes);
+
+        $categories = Category::orderBy('name', 'asc')->get();
+
         return view('frontend.profile.articles.index', [
             'advices' => $advices,
-            'recipes' => $recipes
+            'recipes' => $recipes,
+            'categories' => $categories
         ]);
     }
 

@@ -1,209 +1,307 @@
 @extends('frontend.layouts.default')
-@section('title')Adverts edit - @stop
+
 @section('content')
-<div class="breadcrumbs">
-	<div class="container">
-		<ul class="list-inline">
-			<li><a href="#" class="link-blue back"><i class="fo fo-arrow-left fo-small"></i>  Повернутися</a></li>
-		</ul>
-	</div>
-</div>
+    <div class="breadcrumbs">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="{{ route('profile.adverts.index') }}" class="link-blue back"><i class="fo fo-arrow-left fo-small"></i> Повернутися</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="bg-yellow">
+        <h5 class="title-with-indent red">Редагувати рецепт</h5>
+    </div>
+    <div class="container-half text-center">
+        {{ Form::open(['route' => ['profile.recipes.update', $recipe->id], 'method' => 'put', 'enctype' => 'multipart/form-data', 'class' => 'edit']) }}
+            <p class="message" id="message">Заповніть виділені поля</p>
+
+            <div class="form-group">
+                {{ Form::label('name', 'Назва страви*') }}
+                {{ Form::text('name', $recipe->name, ['id' => 'input-name', 'class' => 'wide']) }}
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('name', 'Виберіть одну або декілька категорій*') }}
+                <div id="input-category" class="catgories clearfix">
+                    @foreach ($categories as $category)
+                        <div class="col-md-4">
+                            {{ Form::checkbox('category[]', $category->id, in_array($category->id, $recipe->categories->pluck('category_id')->toArray()) ? true : false, ['id' => 'cat-' . $category->id]) }}
+                            {{ Form::label('cat-' . $category->id, $category->name) }}
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('ingredients', 'Інгредієнти*') }}
+                <div class="ingredients js-ingredients">
+                    @foreach ($recipe->ingredients as $i => $ingredient)
+                        <div>
+                            {{ Form::text('ingredient[]', $ingredient, ['id' => 'input-ingredient-' . $i]) }}
+                            <span class="remove js-delete-ingredient"></span>
+                        </div>
+                    @endforeach
+                </div>
+                <a href="#" class="link-red-dark js-add-ingredient">+ Додати</a>
+            </div>
 
 
-<div class="bg-yellow">
-	<h5 class="title-with-indent red">Редагувати рецепт</h5>
-</div>
+            <div class="form-group">
+                {{ Form::label('description', 'Про страву*') }}
+                {{ Form::textarea('description', $recipe->description, ['id' => 'input-description', 'class' => 'wide']) }}
+            </div>
 
-<div class="container-half text-center">
+            <div class="form-group">
+                {{ Form::label('fotos', 'Додати фото*') }}
+                <div id="input-images" class="fotos">
+                    @foreach ($recipe->images as $image)
+                        <div class="wrap js-foto">
+                            <div class="uploader">
+                                <img src="{{ asset($image->thumbnail) }}">
+                                {{ Form::file(null, ['class' => 'input-upload']) }}
+                                {{ Form::hidden('images[]', $image->id) }}
+                            </div>
+                            <a href="#" class="pull-left grey1 js-main-foto {{ $recipe->thumbnail === $image->thumbnail ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                            <a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
+                        </div>
+                    @endforeach
+                    <div class="wrap js-foto">
+                        <div class="uploader">
+                            <img src="">
+                            <div class="round"><i class="fo fo-camera"></i></div>
+                            {{ Form::file(null, ['class' => 'input-upload']) }}
+                            {{ Form::hidden('images[]', null) }}
+                        </div>
+                        <a href="#" class="pull-left hide grey1 js-main-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                        <a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
+                    </div>
+                </div>
+                {{ Form::hidden('image', null, ['id' => 'recipe-image']) }}
+            </div>
 
-	{{ Form::open([ 'route' => 'recipes.update', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'edit']) }}
-		<p class="message" id="message">Заповніть виділені поля</p>
+            <div class="form-group">
+            <label for="recipe">Спосіб приготування</label>
+							<div class="recipes">
+								<div>
+									<span class="title">Крок 1</span><span class="remove"></span>
+									<div class="uploader">
+										<img src=""/>
+										<input type="file" name="image" id="image" />
+										<div class="round"><i class="fo fo-camera"></i></div>
+									</div>
+									{{-- Удаление фото?? Нужно?? --}}
+									<textarea id="recipe" name="recipes[]" type="text" required="required" /></textarea>
+								</div>
+								<a href="#" id="cloneRecipe" class="link-red-dark">+ Додати</a>
+							</div>
+						</div>
+            <div class="form-group">
+                <label for="video">Посилання на відео</label>
+                <div class="videos js-video">
+                    @if ($recipe->video)
+                        @foreach ($recipe->video as $i => $video)
+                            <div>
+                                {{ Form::text('video[]', $video, ['id' => 'input-video-' . $i]) }}
+                                <span class="remove js-delete-video"></span>
+                            </div>
+                        @endforeach
+                    @else
+                        <div>
+                            {{ Form::text('video[]', null, ['id' => 'input-video-0']) }}
+                            <span class="remove js-delete-video"></span>
+                        </div>
+                    @endif
+                </div>
+                <a href="#" class="link-red-dark js-add-video">+ Додати</a>
+            </div>
 
-		<label for="name">Заголовок рецепту*</label>
-		<input name="id" value="{{ $recipe->id }}" type="hidden" />
-		<input name="name" id="name" type="text" value="{{ $recipe->name }}" class="wide" required="required" />
-
-		<label for="phone">Виберіть одну або декілька категорій*</label>
-		<div class="catgories clearfix">
-			@php $i = 0; @endphp
-			@foreach ($categories as $category)
-				@php $i++; @endphp
-				@php $on = 0; @endphp
-				@foreach ($recipe->categories as $categories)
-					@if ($categories->category_id == $category->id)
-						@php $on = 1;	@endphp
-					@endif
-				@endforeach
-				@if ($on == 1)
-					<div class="col-md-4">
-						<input id="cat{{ $i }}" checked="checked" type="checkbox" name="categories[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
-					</div>
-				@else
-					<div class="col-md-4">
-						<input id="cat{{ $i }}" type="checkbox" name="category[]" value="{{ $category->id }}"><label for="cat{{ $i }}">{{ $category->name }}</label>
-					</div>
-				@endif
-			@endforeach
-		</div>
-
-		<label for="ingredient">Інгредієнти*</label>
-		<div class="ingredients">
-			@foreach ($recipe->ingredients as $ingredient)
-				<div><input id="ingredient" name="ingredients[]" type="text" required="required" value="{{ $ingredient }}" /><span class="remove"></span></div>
-			@endforeach
-			<a href="#" id="cloneIngredient" class="link-red-dark">+ Додати</a>
-		</div>
-
-		<label for="description">Вступний текст</label>
-		<textarea name="description" value="{{ $recipe->description }}" id="description" type="description" class="wide"></textarea>
-
-
-		<label for="foto">Фото</label>
-		<div class="fotos">
-			<input type="hidden" id="main" name="main" value="0">
-		@if ($recipe->images)
-			@foreach ($recipe->images as $recipeImage)
-				<div class="wrap">
-					<div class="uploader">
-						<img src="{!! asset($recipeImage->image) !!}"/>
-						<input type="file" value="{{ $recipeImage->image }}" name="images[]" id="foto-{{$recipeImage->recipe_image_id}}" />
-						<div class="round"><i class="fo fo-camera"></i></div>
-					</div>
-
-					{{-- Решить как обозначать "Головне" фото и дописать скрипт --}}
-					<a href="#" data-main="0" data-id="{{$recipeImage->recipe_image_id}}" class="pull-left grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
-					{{-- Добавить скрипт на удаление фото --}}
-					<a href="#" data-id="{{$recipeImage->recipe_image_id}}" class="pull-right link-red-dark remove"><i class="fo fo-close-rounded"></i></a>
-				</div>
-			@endforeach
-		@endif
-			{{-- Это пустой блок - для нового фото --}}
-			<div class="wrap empty">
-				<input type="hidden" id="main" name="image" value="0">
-				<div class="uploader">
-					<img src=""/>
-					<input type="file" name="images[]" id="foto" />
-					<div class="round"><i class="fo fo-camera"></i></div>
-				</div>
-				<a href="#" class="pull-left hide grey1"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
-				<a href="#" class="pull-right link-red-dark hide remove"><i class="fo fo-close-rounded"></i></a>
-			</div>
-		</div>
-
-
-		<label for="recipe">Спосіб приготування</label>
-		<div class="recipes">
-			@foreach($recipe->steps as $step)
-			<div>
-				<span class="title">Крок {{ $step->sort_order}}</span><span class="remove"></span>
-				<div class="uploader">
-					<img src="{!! asset($step->image) !!}"/>
-					<input type="file" name="step_images[]" value="{{ $step->image }}" id="image" />
-					<div class="round"><i class="fo fo-camera"></i></div>
-				</div>
-				{{-- Удаление фото?? Нужно?? --}}
-				<textarea id="recipe" name="step_texts[]" type="text" required="required">{{ $step->text}}</textarea>
-			</div>
-			@endforeach
-			<a href="#" id="cloneRecipe" class="link-red-dark">+ Додати</a>
-		</div>
-
-
-
-		<label for="video">Посилання на відео</label>
-		<div class="videos">
-			@foreach($recipe->videos as $video)
-			<div><input id="video" name="videos[]" type="text" value="{{ $video }}" required="required" /><span class="remove"></span></div>
-			@endforeach
-			<a href="#" id="cloneVideo" class="link-red-dark">+ Додати</a>
-		</div>
-
-		<input type="submit" class="button button-red" value="Оновити рецепт">
-	{{ Form::close() }}
-
-</div>
-
-
-
+            {{ Form::submit('Зберегти', ['class' => 'button button-red']) }}
+        {{ Form::close() }}
+        <a href="{{ route('profile.adverts.index') }}" class="grey3">Відмінити</a>
+    </div>
 @stop
 
+@push('scripts')
+    <script type="text/javascript">
 
-@section('scripts')
-{{-- Clone --}}
-<script>
-	jQuery(function($){
-		var inputIngredient = '<div><input name="ingredients[]" type="text"/><span class="remove"></span></div>';
-		$("#cloneIngredient").on("click", function(e){
-			e.preventDefault();
-			$(inputIngredient).insertBefore(this);
-		});
+    		var count = 0;
+				var inputRecipe = $('.recipes > div').clone();
+				$("#cloneRecipe").on("click", function(e){
+					e.preventDefault();
 
-{{-- Клонируем шаг рецепта --}}
-		var count = 0;
-		var inputRecipe = $('.recipes > div').clone();
-		$("#cloneRecipe").on("click", function(e){
-			e.preventDefault();
+					count++;
+					recipeCount = $('.recipes').children().length; // Для номера "Крок"
+					var newBlock = inputRecipe.clone();
+					newBlock.find('#image').attr('id', 'image'+count);
+					newBlock.find('.title').text('Крок '+recipeCount);
 
-			count++;
-			recipeCount = $('.recipes').children().length; // Для номера "Крок"
-			var newBlock = inputRecipe.clone();
-			newBlock.find('#image').attr('id', 'image'+count);
-			newBlock.find('.title').text('Крок '+recipeCount);
+					$(newBlock).insertBefore(this);
 
-			$(newBlock).insertBefore(this);
+					document.getElementById('image'+count)
+							.addEventListener('change', handleImage, false);
+				});
+        // Ingredient
+        $('.js-add-ingredient').on('click', function(e) {
+            e.preventDefault();
 
-			document.getElementById('image'+count)
-					.addEventListener('change', handleImage, false);
-		});
+            var i = $('.js-ingredients > div').length;
 
-		var inputVideo = '<div><input name="videos[]" type="text"/><span class="remove"></span></div>';
-		$("#cloneVideo").on("click", function(e){
-			e.preventDefault();
-			$(inputVideo).insertBefore(this);
-		});
+            $('.js-ingredients').append('<div><input id="input-ingredient-' + i + '" name="ingredient[]" type="text" /><span class="remove js-delete-ingredient"></span></div>');
+        });
 
-{{-- Клонируем фото --}}
-		var i = 0;
-		var fotos = $('.fotos > div').clone();
-		$('body').on('change', '.fotos .uploader:last input:file', function (){
-			$(this).closest('.wrap').find('a').show();
-			// Спрятать иконку
-			$(this).closest('.wrap').find('.round').hide();
+        $('body').on('click', '.js-delete-ingredient', function(e) {
+            e.preventDefault();
 
-			i++;
-			var newBlock = fotos.clone();
-			newBlock.find('#foto').attr('id', 'foto'+i);
-			newBlock.find('a.grey1').attr('data-main', i);
+            $(this).parent().remove();
 
-			$('.fotos').append(newBlock);
-			document.getElementById('foto'+i)
-					.addEventListener('change', handleImage, false);
-			$("a.grey1").on("click", function(e){
-				e.preventDefault();
-				$(this).addClass('active');
-				console.log($(this).data('main'));
-				$("#main").val($(this).data('main'));
-			});
-		});
+            $('.js-ingredients > div').each(function(i) {
+                $(this).attr('id', 'input-ingredient-' + i);
+            });
+        });
 
+        // Video
+        $('.js-add-video').on('click', function(e) {
+            e.preventDefault();
 
+            var i = $('.js-video > div').length;
 
-		$('body').on('click', '.remove', function(e){
-			e.preventDefault();
-			$(this).parent().remove();
-		});
+            $('.js-video').append('<div><input id="input-video-' + i + '" name="video[]" type="text" /><span class="remove js-delete-video"></span></div>');
+        });
 
-	});
+        $('body').on('click', '.js-delete-video', function(e) {
+            e.preventDefault();
 
+            $(this).parent().remove();
 
-{{-- Загрузка картинок --}}
-	document.getElementById('foto')
-			.addEventListener('change', handleImage, false);
+            $('.js-video > div').each(function(i) {
+                $(this).attr('id', 'input-video-' + i);
+            });
+        });
 
-	document.getElementById('image')
-			.addEventListener('change', handleImage, false);
+        // Fotos
+        $('body').on('change', '.input-upload', function() {
+            var self = $(this),
+                i = $('.fotos > .js-foto').length,
+                id = self.closest('.uploader').find('input[name="images[]"]').val(),
+                url =  id ? '{{ url('profile/recipes/image') }}/' + id : '{{ url('profile/recipes/image/store') }}',
+                data = new FormData();
 
+            data.append('_token', '{{ csrf_token() }}');
 
-</script>
+            if (id) {
+                data.append('_method', 'put');
+            }
 
-@stop
+            data.append('image', self[0].files[0]);
+
+            $.ajax({
+                url: url,
+                method: 'post',
+                data: data,
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    if ((self.closest('.js-foto').index() + 1) == i) {
+                        $('.fotos .js-foto:last-child').clone().appendTo('.fotos');
+                        $('.fotos .js-foto:last-child').find('img').attr('src', '');
+                        $('.fotos .js-foto:last-child').find(':file').val('');
+
+                        $('.fotos .js-foto:not(:last-child)').find('a').removeClass('hide');
+                        $('.fotos .js-foto:not(:last-child)').find('.round').remove();
+                    }
+                },
+                success: function(data) {
+                    if (data['success']) {
+                        self.closest('.uploader').find('img').attr('src', data['image']['thumbnail']);
+                        self.closest('.uploader').find('input[name="images[]"]').val(data['image']['id']);
+
+                        if (i == 1) {
+                            self.closest('.js-foto').find('.js-main-foto').addClass('active');
+                            $('#recipe-image').val(data['image']['id']);
+                        }
+                    }
+                },
+                error: function(data) {
+                    var data = data.responseJSON;
+                }
+            });
+        });
+
+        $('body').on('click', '.js-main-foto', function(e) {
+            e.preventDefault();
+
+            $('.fotos .js-main-foto').removeClass('active');
+
+            $(this).addClass('active');
+
+            $('#recipe-image').val($(this).closest('.js-foto').find('input[name="images[]"]').val());
+        });
+
+        $('body').on('click', '.js-delete-foto', function(e) {
+            e.preventDefault();
+
+            var self = $(this),
+                id = $(this).closest('.js-foto').find('input[name="images[]"]').val(),
+                data = {
+                    '_token': '{{ csrf_token() }}',
+                    '_method': 'delete'
+                };
+
+            $.post('{{ url('profile/recipes/image') }}/' + id, data).done(function(data) {
+                if (data['success']) {
+                    self.parent().remove();
+                }
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).on('submit', 'form', function(e) {
+            e.preventDefault();
+
+            var form = $(this);
+
+            $.ajax({
+                url: form.attr('action'),
+                method: form.attr('method'),
+                data: form.serialize(),
+                beforeSend: function() {
+                    $('#message').hide();
+
+                    form.find(':submit').attr('disabled', true);
+                    form.find('.has-error').removeClass('has-error');
+                    form.find('.error').removeClass('error');
+
+                    $('.body-overlay').addClass('active');
+                },
+                success: function(data) {
+                    if (data['success']) {
+                        location = '{{ route('profile.recipes.success') }}';
+                    }
+                },
+                error: function(data) {
+                    var data = data.responseJSON;
+
+                    form.find(':submit').attr('disabled', false);
+
+                    $('.body-overlay').removeClass('active');
+
+                    $('#message').show();
+
+                    for (name in data.errors) {
+                        if (name.indexOf('.') > 0) {
+                            var parts = name.split('.');
+
+                            target = form.find('#input-' + parts[0] + '-' + parts[1]);
+                        } else {
+                            target = form.find('#input-' + name);
+                        }
+
+                        target.addClass('error');
+                        target.closest('.form-group').addClass('has-error');
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

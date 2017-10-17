@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Recipe extends Model
 {
@@ -30,6 +31,12 @@ class Recipe extends Model
 	{
 			return json_decode($data, true);
 	}
+
+  //accessor created_at
+  public function getCreatedAtAttribute($data)
+  {
+      return Carbon::parse($data)->format('H:i d M Y');
+  }
 
 	public function categories()
   {
