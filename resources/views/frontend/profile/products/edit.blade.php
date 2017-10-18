@@ -57,11 +57,11 @@
                     @foreach ($product->images as $image)
                         <div class="wrap js-foto">
                             <div class="uploader">
-                                <img src="{{ $image->thumbnail }}">
+                                <img src="{{ asset($image->image) }}">
                                 {{ Form::file(null, ['class' => 'input-upload']) }}
                                 {{ Form::hidden('images[]', $image->id) }}
                             </div>
-                            <a href="#" class="pull-left grey1 js-main-foto {{ $product->thumbnail === $image->thumbnail ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                            <a href="#" class="pull-left grey1 js-main-foto {{ $product->image === $image->image ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
                             <a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
                         </div>
                     @endforeach
@@ -70,7 +70,6 @@
                             <img src="">
                             <div class="round"><i class="fo fo-camera"></i></div>
                             {{ Form::file(null, ['class' => 'input-upload']) }}
-                            {{ Form::hidden('images[]', null) }}
                         </div>
                         <a href="#" class="pull-left hide grey1 js-main-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
                         <a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
@@ -98,6 +97,8 @@
                 </div>
                 <a href="#" class="link-red-dark js-add-video">+ Додати</a>
             </div>
+
+            {{ Form::hidden('product_id', $product->id) }}
 
             {{ Form::submit('Зберегти', ['class' => 'button button-red']) }}
         {{ Form::close() }}
@@ -153,12 +154,12 @@
                 url =  id ? '{{ url('profile/products/image') }}/' + id : '{{ url('profile/products/image/store') }}',
                 data = new FormData();
 
-            data.append('_token', '{{ csrf_token() }}');
-
             if (id) {
                 data.append('_method', 'put');
             }
 
+            data.append('_token', '{{ csrf_token() }}');
+            data.append('product_id', '{{ $product->id }}');
             data.append('image', self[0].files[0]);
 
             $.ajax({
@@ -179,7 +180,7 @@
                 },
                 success: function(data) {
                     if (data['success']) {
-                        self.closest('.uploader').find('img').attr('src', data['image']['thumbnail']);
+                        self.closest('.uploader').find('img').attr('src', data['image']['image']);
                         self.closest('.uploader').find('input[name="images[]"]').val(data['image']['id']);
 
                         if (i == 1) {
@@ -208,10 +209,12 @@
             e.preventDefault();
 
             var self = $(this),
+                i = $('.fotos > .js-foto').length,
                 id = $(this).closest('.js-foto').find('input[name="images[]"]').val(),
                 data = {
                     '_token': '{{ csrf_token() }}',
-                    '_method': 'delete'
+                    '_method': 'delete',
+                    'product_id': '{{ $product->id }}'
                 };
 
             $.post('{{ url('profile/products/image') }}/' + id, data).done(function(data) {
@@ -219,7 +222,6 @@
                     self.parent().remove();
                 }
             });
-
         });
     </script>
     <script type="text/javascript">

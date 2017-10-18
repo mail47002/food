@@ -43,9 +43,12 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        $product = Product::create(['user_id' => Auth::id()]);
+
         $categories = Category::orderBy('name', 'asc')->get();
 
         return view('frontend.profile.products.create', [
+            'product'    => $product,
             'categories' => $categories
         ]);
     }
@@ -58,27 +61,33 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateForm($request);
+        $product = Product::where('id', $request->product_id)
+            ->where('user_id', Auth::id())
+            ->first();
 
-        DB::beginTransaction();
+        if ($product) {
+            $this->validateForm($request);
 
-        $product = new Product;
-        $product->fill($request->all());
-        $product->user_id = Auth::id();
-        $product->save();
+            DB::beginTransaction();
 
-        $this->storeCategories($request, $product);
+            $product->fill($request->all());
+            $product->image = $this->storeImage($request);
+            $product->status = 1;
+            $product->save();
 
-        $this->storeImages($request, $product);
+            $this->storeCategories($request);
 
-        $this->storeImage($request, $product);
+            DB::commit();
 
-        DB::commit();
+            Session::flash('product', $product);
 
-        Session::flash('product', $product);
+            return response()->json([
+                'success' => true
+            ]);
+        }
 
         return response()->json([
-            'success' => true
+            'error' => 'Oops! Something wet wrong.'
         ]);
     }
 
@@ -161,15 +170,13 @@ class ProductsController extends Controller
 
             DB::beginTransaction();
 
-            $product->fill($request->all())->save();
-
             $product->categories()->delete();
 
-            $this->storeCategories($request, $product);
+            $this->storeCategories($request);
 
-            $this->storeImages($request, $product);
-
-            $this->storeImage($request, $product);
+            $product->fill($request->all());
+            $product->image = $this->storeImage($request);
+            $product->save();
 
             DB::commit();
 
@@ -229,88 +236,29 @@ class ProductsController extends Controller
         ]);
     }
 
-    protected function storeCategories(Request $request, $product)
+    protected function storeCategories(Request $request)
     {
         foreach ($request->category as $category) {
             ProductToCategory::create([
-                'product_id'  => $product->id,
+                'product_id'  => $request->product_id,
                 'category_id' => $category
             ]);
         }
     }
 
     /**
-     * Store product images to storage.
+     * Store product image.
      *
      * @param Request $request
-     * @param $product
      */
-    protected function storeImages(Request $request, $product)
-    {
-        $productImages = ProductImage::where('product_id', 0)->pluck('id')->toArray();
-
-        $idsToInsert = array_intersect($productImages, $request->images);
-        $idsToDelete = array_udiff($productImages, $request->images,'strcasecmp');
-
-        foreach ($idsToInsert as $id) {
-            $productImage = ProductImage::find($id);
-
-            if ($productImage) {
-                $productImage->product_id = $product->id;
-                $productImage->save();
-            }
-        }
-
-        foreach ($idsToDelete as $id) {
-            $productImage = ProductImage::find($id);
-
-            if ($productImage) {
-                Storage::delete($productImage->thumbnail);
-                Storage::delete($productImage->image);
-
-                $productImage->delete();
-            }
-        }
-    }
-
-    /**
-     * Store product image to storage.
-     *
-     * @param Request $request
-     * @param $product
-     */
-    protected function storeImage(Request $request, $product)
+    protected function storeImage(Request $request)
     {
         $productImage = ProductImage::where('id', $request->image)
-            ->where('user_id', Auth::id())
-            ->where('product_id', $product->id)
+            ->where('product_id', $request->product_id)
             ->first();
 
         if ($productImage) {
-            $product->thumbnail = $productImage->thumbnail;
-            $product->image = $productImage->image;
-            $product->save();
-        }
-    }
-
-    /**
-     * Delete product images from storage.
-     *
-     * @param $product
-     */
-    protected function deleteImages($product)
-    {
-        $productImages = ProductImage::where('product_id', $product->id)
-            ->where('user_id', Auth::id())
-            ->get();
-
-        if ($productImages) {
-            foreach ($productImages as $productImage) {
-                Storage::delete($productImage->thumbnail);
-                Storage::delete($productImage->image);
-
-                $productImage->delete();
-            }
+            return $productImage->image;
         }
     }
 }

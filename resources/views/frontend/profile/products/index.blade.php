@@ -3,7 +3,7 @@
 @section('content')
 	<h5 class="text-upper underline-red">Каталог страв ({{ $products->count() }})</h5>
 	<hr class="zerro-top">
-	<a href="{{ route('profile.products.create', Auth::id()) }}" class="button button-red button-big">Додати страву до каталогу</a>
+	<a href="{{ route('profile.products.create') }}" class="button button-red button-big">Додати страву до каталогу</a>
 	<div class="v-indent-30"></div>
 	<hr>
 	<div class="bg-yellow">
@@ -32,7 +32,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="image">
-							<img src="{{ $product->thumbnail }}" class="img-responsive" alt="{{ $product->name }}">
+							<img src="{{ asset($product->image) }}" class="img-responsive" alt="{{ $product->name }}">
 						</div>
 					</div>
 					<div class="col-md-5">
@@ -63,7 +63,7 @@
 		<div class="empty-block">
 			<i class="fo fo-dish-search fo-2x"></i>
 			<p class="text">У вас немає страв</p>
-			<a href="{{ route('profile.products.create', Auth::id()) }}" class="button button-red button-big">Додати страву до каталогу</a>
+			<a href="{{ route('profile.products.create') }}" class="button button-red button-big">Додати страву до каталогу</a>
 		</div>
 	@endif
 

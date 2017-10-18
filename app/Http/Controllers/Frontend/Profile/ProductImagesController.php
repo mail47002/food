@@ -27,20 +27,16 @@ class ProductImagesController extends Controller
         if ($request->hasFile('image')) {
             $this->validateForm($request);
 
-            $thumbnail = $this->storeThumbnail($request->file('image'));
-            $image = $this->storeImage($request->file('image'));
-
             $productImage = ProductImage::create([
-                'user_id'    => Auth::id(),
-                'thumbnail'  => $thumbnail,
-                'image'      => $image
+                'product_id' => $request->product_id,
+                'image'      => $this->storeImage($request)
             ]);
 
             return response()->json([
                 'success' => true,
                 'image'   => [
-                    'id'        => $productImage->id,
-                    'thumbnail' => asset($productImage->thumbnail)
+                    'id'    => $productImage->id,
+                    'image' => asset($productImage->image)
                 ]
             ]);
         }
@@ -56,24 +52,22 @@ class ProductImagesController extends Controller
     public function update(Request $request, $id)
     {
         $productImage = ProductImage::where('id', $id)
-            ->where('user_id', Auth::id())
+            ->where('product_id', $request->product_id)
             ->first();
 
         if ($productImage && $request->hasFile('image')) {
             $this->validateForm($request);
 
-            $thumbnail = $this->storeThumbnail($request->file('image'));
-            $image = $this->storeImage($request->file('image'));
+            Storage::delete($productImage->image);
 
-            $productImage->thumbnail = $thumbnail;
-            $productImage->image = $image;
+            $productImage->image = $this->storeImage($request);
             $productImage->save();
 
             return response()->json([
                 'success' => true,
                 'image'   => [
-                    'id'        => $productImage->id,
-                    'thumbnail' => asset($productImage->thumbnail)
+                    'id'    => $productImage->id,
+                    'image' => asset($productImage->image)
                 ]
             ]);
         }
@@ -82,16 +76,16 @@ class ProductImagesController extends Controller
     /**
      * Delete image from storage.
      *
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id) {
+    public function destroy(Request $request, $id) {
         $productImage = ProductImage::where('id', $id)
-            ->where('user_id', Auth::id())
+            ->where('product_id', $request->product_id)
             ->first();
 
         if ($productImage) {
-            Storage::delete($productImage->thumbnail);
             Storage::delete($productImage->image);
 
             $productImage->delete();
@@ -115,42 +109,30 @@ class ProductImagesController extends Controller
     }
 
     /**
-     * Store product thumbnail.
+     * Store product image & thumbnail.
      *
-     * @param $file
+     * @param Request $request
      * @return string
      */
-    protected function storeThumbnail($file)
+    protected function storeImage(Request $request)
     {
-        $path = 'uploads/' . Auth::id() . '/products/thumbnail';
-        $filename = str_random(18) . '.' . $file->getClientOriginalExtension();
-        $filepath = $path . '/' . $filename;
-
-        $thumb = Image::make($file)->fit(325, 220);
-
-        Storage::put($filepath, $thumb->stream());
-
-        return $filepath;
-    }
-
-    /**
-     * Store product image.
-     *
-     * @param $file
-     * @return string
-     */
-    protected function storeImage($file)
-    {
-        $path = 'uploads/' . Auth::id() . '/products';
-        $filename = str_random(18) . '.' . $file->getClientOriginalExtension();
-        $filepath = $path . '/' . $filename;
+        $file = $request->file('image');
+        $fileName = str_random(18) . '.' . $file->getClientOriginalExtension();
+        $filePath = 'uploads/' . md5(Auth::id()) . '/' . $fileName;;
 
         $image = Image::make($file)->resize(null, 700, function ($constraint) {
             $constraint->aspectRatio();
         });
 
-        Storage::put($filepath, $image->stream());
+        Storage::put($filePath, $image->stream());
 
-        return $filepath;
+        // Thumbnail
+//        $thumbnailFilePath = $filePath . '/thumbnail/' . $fileName;
+//
+//        $thumbnail = Image::make($file)->fit(325, 220);
+//
+//        Storage::put($thumbnailFilePath, $thumbnail->stream());
+
+        return $filePath;
     }
 }

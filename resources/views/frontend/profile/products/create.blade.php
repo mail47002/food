@@ -77,6 +77,8 @@
 					<a href="#" class="link-red-dark js-add-video">+ Додати</a>
 				</div>
 
+				{{ Form::hidden('product_id', $product->id) }}
+
 				{{ Form::submit('Створити страву', ['class' => 'button button-red']) }}
 			{{ Form::close() }}
 		</div>
@@ -132,7 +134,12 @@
                 url =  id ? '{{ url('profile/products/image') }}/' + id : '{{ url('profile/products/image/store') }}',
 				data = new FormData();
 
+			if (id) {
+				data.append('_method', 'put');
+			}
+
 			data.append('_token', '{{ csrf_token() }}');
+            data.append('product_id', '{{ $product->id }}');
 			data.append('image', self[0].files[0]);
 
 			$.ajax({
@@ -153,7 +160,7 @@
                 },
 				success: function(data) {
 					if (data['success']) {
-						self.closest('.uploader').find('img').attr('src', data['image']['thumbnail']);
+						self.closest('.uploader').find('img').attr('src', data['image']['image']);
 						self.closest('.uploader').find('input[name="images[]"]').val(data['image']['id']);
 
 						if (i == 1) {
@@ -182,10 +189,12 @@
             e.preventDefault();
 
             var self = $(this),
+                i = $('.fotos > .js-foto').length,
 				id = $(this).closest('.js-foto').find('input[name="images[]"]').val(),
 				data = {
 					'_token': '{{ csrf_token() }}',
-					'_method': 'delete'
+					'_method': 'delete',
+                    'product_id': '{{ $product->id }}'
 				};
 
             $.post('{{ url('profile/products/image') }}/' + id, data).done(function(data) {
@@ -193,7 +202,6 @@
                     self.parent().remove();
 				}
             });
-
 		});
 	</script>
 	<script type="text/javascript">

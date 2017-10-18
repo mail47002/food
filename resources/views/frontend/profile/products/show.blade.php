@@ -15,7 +15,7 @@
 		<div class="container">
 			<div class="owl-carousel">
 				@foreach ($product->images as $image)
-					<div class="item"><img src="{{ $image->image }}"></div>
+					<div class="item"><img src="{{ asset($image->image) }}"></div>
 				@endforeach
 			</div>
 			<div class="slider-counter"></div>

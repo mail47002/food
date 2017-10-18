@@ -18,17 +18,15 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
         'name'        => $faker->name,
         'description' => $faker->text,
         'ingredient'  => [$faker->name, $faker->name, $faker->name, $faker->name],
-        'thumbnail'   => $faker->imageUrl($width = 325, $height = 220),
         'image'       => $faker->imageUrl($width = 960, $height = 700),
-        'video'       => ['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU']
+        'video'       => ['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU'],
+        'status'      => 1
     ];
 });
 
 $factory->define(App\ProductImage::class, function (Faker\Generator $faker) {
     return [
-        'user_id'    => $faker->randomDigitNotNull,
         'product_id' => $faker->randomDigitNotNull,
-        'thumbnail'  => $faker->imageUrl($width = 325, $height = 220),
         'image'      => $faker->imageUrl($width = 960, $height = 700)
     ];
 });
