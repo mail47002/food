@@ -92,7 +92,7 @@
 										<p>
 											<span class="black">{{ $advice->created_at }}</span>
 											<a href="#" class="link-blue"><i class="fo fo-message fo-small"></i> 12 коментарів</a>
-											<a href="{{ route('profile.advices.edit', $advice->id) }}" class="pull-right link-blue"><i class="fo fo-edit fo-small"></i> Редагувати</a>
+											<a href="#" class="pull-right link-grey" data-toggle="modal" data-target="#modal_advice-delete" data-advice-id="{{ $advice->id }}"><i class="fo fo-delete fo-small"></i>  Видалити </a> <a href="{{ route('profile.advices.edit', $advice->id) }}" class="pull-right link-blue"> <i class="fo fo-edit fo-small"></i> Редагувати  </a>
 										</p>
 									</div>
 								</div>
@@ -103,15 +103,57 @@
 				</div>
 			</div>
 
-
+	<div id="modal_advice-delete" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content text-center">
+				<div class="modal-header">
+					<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
+					<h2>Ваша порада буде видалена!</h2>
+				</div>
+				<div class="modal-body">
+					<button class="button button-grey" type="button" data-dismiss="modal">Повернутися</button>
+					<button class="button button-red js-advice-delete" type="button">ПІДТВЕРДИТИ</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
 @stop
 
 @push('scripts')
-<script>
-$( function() {
+@push('scripts')
+	<script type="text/javascript">
+    var id = null;
+
+    $('.link-grey').on('click', function() {
+			id = $(this).data('advice-id');
+    });
+
+		$('.js-advice-delete').on('click', function(e) {
+			e.preventDefault();
+
+			if (id) {
+        $.ajax({
+            url: '{{ url('profile/advices') }}/' + id,
+            method: 'post',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                '_method': 'delete'
+            },
+						beforeSend: function() {
+                $('.body-overlay').addClass('active');
+            },
+            success: function (data) {
+							if (data['success']) {
+							    location = window.location;
+							}
+            }
+        });
+    	}
+	});
+
 	$("#sorting").selectmenu({
 		change: function( e, ui ) {
 			var filter = $("#sorting").val();
@@ -121,8 +163,8 @@ $( function() {
 	});
 
 	$(document).tooltip(
-			{position: {my: "left top+10"}}
-		);
-});
+		{position: {my: "left top+10"}}
+	);
+
 </script>
 @endpush

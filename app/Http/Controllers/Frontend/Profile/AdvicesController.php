@@ -86,7 +86,17 @@ class AdvicesController extends Controller
      */
     public function show($id)
     {
-        //
+        $advice = advice::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        if ($advice) {
+            return view('frontend.profile.advices.show', [
+                'advice' => $advice
+            ]);
+        }
+
+        return redirect()->route('profile.articles.index');
     }
 
     /**
@@ -156,7 +166,24 @@ class AdvicesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $advice = Advice::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        if ($advice) {
+
+            $this->deleteImages($advice);
+
+            $advice->delete();
+
+            return response()->json([
+                'success' => true
+            ]);
+        }
+
+        return response()->json([
+            'error' => 'Oops! Something wet wrong.'
+        ]);
     }
 
     public function success()
