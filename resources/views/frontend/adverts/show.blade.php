@@ -61,7 +61,7 @@
 						<li class="clearfix">
 							<div class="left">
 								<div class="avatar">
-									<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+									<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 								</div>
 								<a href="#" class="link-blue name">Вікторія</a>
 							</div>
@@ -77,7 +77,7 @@
 						<li class="clearfix">
 							<div class="left">
 								<div class="avatar">
-									<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+									<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 								</div>
 								<a href="#" class="link-blue name">Вікторія</a>
 							</div>
@@ -96,7 +96,7 @@
 									</div>
 									<div class="right-avatar">
 										<div class="avatar">
-											<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+											<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 										</div>
 									</div>
 								</div>
@@ -114,7 +114,7 @@
 						<li class="clearfix">
 							<div class="left">
 								<div class="avatar">
-									<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+									<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 								</div>
 								<a href="#" class="link-blue name">Марія</a>
 							</div>
@@ -151,7 +151,7 @@
 					<h5 class="text-upper underline-red">Ваш повар</h5><hr class="zerro-top">
 					<div class="left">
 						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 						</div>
 						<a href="#" class="link-blue name">Марк</a>
 						<a href="#" class="button button-grey">Зв’язатися</a>
@@ -180,7 +180,7 @@
 						<hr class="red-border">
 
 						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 							<a href="#" class="link"><i class="fo fo-like fo-small"></i> до улюблених</a>
 						</div>
 						<a href="#" class="link-blue name">Марк</a>

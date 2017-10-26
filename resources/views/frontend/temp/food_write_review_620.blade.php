@@ -16,7 +16,7 @@
 	<h5 class="text-upper black margin-30">Залишити відгук для</h5>
 
 	<div class="avatar v90">
-		<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+		<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 	</div>
 	<a href="#" class="link-blue name f16 block">Вікторія</a>
 

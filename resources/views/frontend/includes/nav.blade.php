@@ -56,7 +56,7 @@
 			<li class="hidden-xm"><a href="#" class="button button-rounded dish-add" data-toggle="modal" data-target="#modal_login"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
 			@if (Auth::check())
 			<li class="hidden-xm">
-				<div class="avatar"><div class="rounded"><img src="/{{ Auth::user()->image }}" alt=""></div></div>
+				<div class="avatar"><div class="rounded"><img src="{{ asset(Auth::user()->image) }}" alt=""></div></div>
 				<a href="{{ route('profile.user.show', Auth::id()) }}" class="link">{{ Auth::user()->name }}</a>
 			</li>
 			<li class="dropdown messages">
@@ -67,7 +67,7 @@
 
 						<li class="top-message email">{{-- менять цвет --}}
 							<a href="#">{{-- Ссылка на сообщение ? --}}
-								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 								<div class="message">
 									<strong><object>Лист від <a href="/profile/#" class="link-blue">Вікторії</a></object></strong>
 									{{-- Вложеные ссылки - только в <object> --}}
@@ -79,7 +79,7 @@
 
 						<li class="top-message phone">
 							<a href="#">{{-- Ссылка на сообщение ? --}}
-								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 								<div class="message">
 									<strong><object>Повідомлення від <a href="/profile/#" class="link-blue">Вікторії</object></strong>
 									<p>В принципе вкусно,если сделать для одного ....</p>
@@ -90,7 +90,7 @@
 
 						<li class="top-message clients">
 							<a href="#">{{-- Ссылка на сообщение ? --}}
-								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 								<div class="message">
 									<strong><object>Вам зробила замовлення <a href="/profile/#" class="link-blue">Марія</a> на страву з меню</object></strong>
 									<p>В принципе вкусно,если сделать для одного ....</p>
@@ -101,7 +101,7 @@
 
 						<li class="top-message order">
 							<a href="#">{{-- Ссылка на сообщение ? --}}
-								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 								<div class="message">
 									<strong><object>Повар <a href="/profile/#" class="link-blue">Оксана</a> відмовила на замовленняя</object></strong>
 									<p>В принципе вкусно,если сделать для одного ....</p>
@@ -112,7 +112,7 @@
 
 						<li class="top-message review">
 							<a href="#">{{-- Ссылка на сообщение ? --}}
-								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 								<div class="message">
 									<strong><object>Повар <a href="/profile/#" class="link-blue">Оксана</a> відповіла на ваш відгук про страву</object></strong>
 									<p>В принципе вкусно,если сделать для одного ....</p>
@@ -123,7 +123,7 @@
 
 						<li class="top-message deleted">
 							<a href="#">{{-- Ссылка на сообщение ? --}}
-								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+								<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 								<div class="message">
 									<strong><object>Ваше оголошення видалено</object></strong>
 									<p>В принципе вкусно,если сделать для одного ....</p>

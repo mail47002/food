@@ -285,17 +285,31 @@ class RecipesController extends Controller
      * @param Request $request
      * @param $recipe
      */
-    protected function storeImage(Request $request, $recipe)
+    protected function storeSteps(Request $request, $recipe)
     {
-        $recipeSteps = RecipeStep::where('id', $request->image)
-            ->where('user_id', Auth::id())
-            ->where('recipe_id', $recipe->id)
-            ->first();
+        $recipeSteps = RecipeImage::where('recipe_id', 0)->pluck('id')->toArray();
 
-        if ($recipeImage) {
-            $recipe->thumbnail = $recipeImage->thumbnail;
-            $recipe->image = $recipeImage->image;
-            $recipe->save();
+        $idsToInsert = array_intersect($recipeSteps, $request->images);
+        $idsToDelete = array_udiff($recipeSteps, $request->images,'strcasecmp');
+
+        foreach ($idsToInsert as $id) {
+            $recipeStep = RecipeStep::find($id);
+
+            if ($recipeStep) {
+                $recipeStep->recipe_id = $recipe->id;
+                $recipeStep->save();
+            }
+        }
+
+        foreach ($idsToDelete as $id) {
+            $recipeImage = RecipeImage::find($id);
+
+            if ($recipeImage) {
+                Storage::delete($recipeImage->thumbnail);
+                Storage::delete($recipeImage->image);
+
+                $recipeImage->delete();
+            }
         }
     }
 

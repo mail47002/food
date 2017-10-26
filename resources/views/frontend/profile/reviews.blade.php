@@ -59,7 +59,7 @@
 								</div>
 								<div class="left">
 									<div class="avatar">
-										<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+										<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 									</div>
 									<a href="#" class="link-blue name">Вікторія</a>
 								</div>
@@ -80,7 +80,7 @@
 											</div>
 											<div class="right-avatar">
 												<div class="avatar">
-													<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+													<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 												</div>
 											</div>
 										</div>
@@ -157,7 +157,7 @@
 										</div>
 										<div class="right-avatar">
 											<div class="avatar">
-												<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+												<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 											</div>
 										</div>
 									</div>
@@ -186,7 +186,7 @@
 
 							</div>
 							<div class="image">
-								<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+								<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 							</div>
 						</li>
 

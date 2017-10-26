@@ -422,7 +422,7 @@
 					<div class="caption">
 						<a href="#" class="discard link-red"><i class="fo fo-close-rounded"></i></a>
 						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 						</div>
 						<p><a href="#" class="link-blue name">Марк</a></p>
 						<p class="phone">+38 096 159 15 15</p>
@@ -437,7 +437,7 @@
 {{-- Клієнти на страву --}}
 					<div class="caption">
 						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 						</div>
 						<p><a href="#" class="link-blue name">Марк</a></p>
 						<p class="phone">+38 096 159 15 15</p>
@@ -455,7 +455,7 @@
 
 					<div class="caption">
 						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 						</div>
 						<p><a href="#" class="link-blue name">Марк</a></p>
 						<p class="phone">+38 096 159 15 15</p>
@@ -513,7 +513,7 @@
 
 					<div class="caption">
 						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 						</div>
 						<p><a href="#" class="link-blue name">Марк</a></p>
 						<p class="phone">+38 096 159 15 15</p>
@@ -526,7 +526,7 @@
 
 					<div class="caption">
 						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 						</div>
 						<p><a href="#" class="link-blue name">Марк</a></p>
 						<p class="phone">+38 096 159 15 15</p>

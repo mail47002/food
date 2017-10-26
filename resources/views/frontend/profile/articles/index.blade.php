@@ -13,25 +13,6 @@
 			</div>
 
 			<div class="v-indent-30"></div>
-{{-- 			<hr>
-			<div class="bg-yellow">
-				<div class="row">
-					<div class="col-md-6">
-						<form action="#" class="search" method="get">
-							<input type="text" name="search" placeholder="Пошук">
-							<button type="submit" class="btn-search"><i class="fo fo-search fo-small"></i></button>
-						</form>
-					</div>
-					<div class="col-md-6">
-						<select name="sorting" id="sorting">
-							<option value="all">Всі статі</option>
-							<option value="1">Рецепти</option>
-							<option value="2">Поради</option>
-						</select>
-					</div>
-				</div>
-			</div> --}}
-
 			<div class="filter-block">
 				<ul class="categories list-inline text-center">
 					<li class="active"><a  data-toggle="tab" href="#recipes" class="link-red text-upper">Рецепти</a></li>

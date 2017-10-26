@@ -53,7 +53,7 @@
 			<div class="wide-thumb profile-messages email">
 				<div class="left">
 					<div class="title">Лист від <a href="/profile/#" class="link-blue">Вікторії</a></div>
-					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 					<div class="message">
 						<p>В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховата, но...</p>
 					</div>
@@ -69,7 +69,7 @@
 				<div class="left with-image">
 
 					<div class="title">Повідомлення від <a href="/profile/#" class="link-blue">Вікторії</a></div>
-					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 					<div class="message">
 						<p>Зателефонуйте, будь ласка, по номеру +3 (096) 125 45 78 Я хочу замовити страву <a href="#" class="link-blue">М'ясне рагу з овочами</a> </p>
 					</div>
@@ -84,7 +84,7 @@
 			<div class="wide-thumb profile-messages clients">
 				<div class="left with-image">
 					<div class="title">Вам зробила замовлення <a href="/profile/#" class="link-blue">Марія</a> на страву з меню</div>
-					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 					<div class="message">
 						<p><a href="#" class="link-blue">М'ясне рагу з овочами</a> </p>
 						<p><i class="fo fo-time red"></i>15 грудня (обід) <span class="price">80 грн.</span></p>
@@ -101,7 +101,7 @@
 			<div class="wide-thumb profile-messages order">
 				<div class="left with-image">
 					<div class="title">Повар <a href="/profile/#" class="link-blue">Оксана</a> відмовила на замовленняя</div>
-					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 					<div class="message">
 						<p><a href="#" class="link-blue">М'ясне рагу з овочами</a> </p>
 						<p><i class="fo fo-time red"></i>15 грудня (обід) <span class="price">80 грн.</span></p>
@@ -117,7 +117,7 @@
 			<div class="wide-thumb profile-messages order-discard">
 				<div class="left with-image">
 					<div class="title">Повар <a href="/profile/#" class="link-blue">Оксана</a> відмовила на замовленняя</div>
-					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 					<div class="message">
 						<p><a href="#" class="link-blue">М'ясне рагу з овочами</a> </p>
 						<p><i class="fo fo-time red"></i>15 грудня (обід) <span class="price">80 грн.</span></p>
@@ -134,7 +134,7 @@
 			<div class="wide-thumb profile-messages review">
 				<div class="left with-image">
 					<div class="title">Повар <a href="/profile/#" class="link-blue">Оксана</a> відповіла на ваш відгук про страву</div>
-					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+					<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 					<div class="message">
 						<p><a href="#" class="link-blue">М'ясне рагу з овочами</a> </p>
 						<p class="rating"><span class="stars">{{rand(0,5)}}</span></p>
@@ -173,14 +173,14 @@
 
 				<a class="wide-thumb profile-letters unread" href="#">
 					<object><a href="#" class="delete"><i class="fo fo-delete fo-small"></i></a></object>
-					<div class="avatar-title"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+					<div class="avatar-title"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 					<div class="col">
 						<div class="title">
 							<object><a href="#" class="link-blue">Іван</a></object>
 							<span class="date">10:15 2 липня 2016</span>
 						</div>
 						<div class="message">
-							<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+							<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 							<p>В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховата, но... впечатление от блюда осталось приятное! для разнообразия... приготовить можно).</p>
 						</div>
 					</div>
@@ -188,14 +188,14 @@
 
 				<a class="wide-thumb profile-letters read" href="#">
 					<object><a href="#" class="delete"><i class="fo fo-delete fo-small"></i></a></object>
-					<div class="avatar-title"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+					<div class="avatar-title"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 					<div class="col">
 						<div class="title">
 							<object><a href="#" class="link-blue">Іван</a></object>
 							<span class="date">10:15 2 липня 2016</span>
 						</div>
 						<div class="message">
-							<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+							<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 							<p>В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховата, но... впечатление от блюда осталось приятное! для разнообразия... приготовить можно).</p>
 						</div>
 					</div>
@@ -203,7 +203,7 @@
 
 				<a class="wide-thumb profile-letters read" href="#">
 					<object><a href="#" class="delete"><i class="fo fo-delete fo-small"></i></a></object>
-					<div class="avatar-title"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+					<div class="avatar-title"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
 					<div class="col">
 						<div class="title">
 							<object><a href="#" class="link-blue">Іван</a></object>

@@ -8,7 +8,7 @@
 			<div class="left-sidebar bg-yellow text-center">
 
 				<div class="avatar">
-					<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+					<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 				</div>
 
 				<div class="phones fo fo-phone fo-indent fo-left red">
@@ -57,7 +57,7 @@
 					<li class="clearfix">
 						<div class="left">
 							<div class="avatar">
-								<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+								<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 							</div>
 							<a href="#" class="link-blue name">Вікторія</a>
 						</div>
@@ -80,7 +80,7 @@
 										</div>
 										<div class="right-avatar">
 											<div class="avatar">
-												<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+												<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 											</div>
 										</div>
 									</div>
@@ -141,7 +141,7 @@
 					<li class="clearfix">
 						<div class="left">
 							<div class="avatar">
-								<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+								<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 							</div>
 							<a href="#" class="link-blue name">Вікторія</a>
 						</div>
@@ -162,7 +162,7 @@
 									</div>
 									<div class="right-avatar">
 										<div class="avatar">
-											<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+											<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 										</div>
 									</div>
 								</div>
