@@ -57,6 +57,8 @@ class RecipesController extends Controller
 
         $this->storeImage($request, $recipe);
 
+        $this->storeSteps($request, $recipe);
+
         DB::commit();
 
         Session::flash('recipe', $recipe);
@@ -110,7 +112,7 @@ class RecipesController extends Controller
      */
     public function edit($id)
     {
-        $recipe = Recipe::with(['categories', 'images'])
+        $recipe = Recipe::with(['categories', 'images', 'steps'])
             ->where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
@@ -155,7 +157,7 @@ class RecipesController extends Controller
 
             $this->storeImage($request, $recipe);
 
-            $this->storeSteps($request, $recipe);
+            // $this->storeSteps($request, $recipe);
 
             DB::commit();
 
@@ -287,33 +289,32 @@ class RecipesController extends Controller
      */
     protected function storeSteps(Request $request, $recipe)
     {
-        $recipeSteps = RecipeImage::where('recipe_id', 0)->pluck('id')->toArray();
+        $recipeSteps = RecipeStep::where('recipe_id', 0)->pluck('id')->toArray();
 
-        $idsToInsert = array_intersect($recipeSteps, $request->images);
-        $idsToDelete = array_udiff($recipeSteps, $request->images,'strcasecmp');
+        $idsToInsert = array_intersect($recipeSteps, $request->step_images);
+        $idsToDelete = array_udiff($recipeSteps, $request->step_images,'strcasecmp');
 
         foreach ($idsToInsert as $id) {
             $recipeStep = RecipeStep::find($id);
 
             if ($recipeStep) {
                 $recipeStep->recipe_id = $recipe->id;
+                $recipeStep->text = $request->step_texts[$id];
                 $recipeStep->save();
             }
         }
 
         foreach ($idsToDelete as $id) {
-            $recipeImage = RecipeImage::find($id);
+            $recipeStep = RecipeStep::find($id);
 
-            if ($recipeImage) {
-                Storage::delete($recipeImage->thumbnail);
-                Storage::delete($recipeImage->image);
+            if ($recipeStep) {
+                Storage::delete($recipeStep->thumbnail);
+                Storage::delete($recipeStep->Step);
 
-                $recipeImage->delete();
+                $recipeStep->delete();
             }
         }
     }
-
-
 
     /**
      * Delete recipe images from storage.

@@ -4,7 +4,7 @@
     <div class="breadcrumbs">
         <div class="container">
             <ul class="list-inline">
-                <li><a href="{{ route('profile.adverts.index') }}" class="link-blue back"><i class="fo fo-arrow-left fo-small"></i> Повернутися</a></li>
+                <li><a href="{{ route('profile.articles.index') }}" class="link-blue back"><i class="fo fo-arrow-left fo-small"></i> Повернутися</a></li>
             </ul>
         </div>
     </div>
@@ -16,7 +16,7 @@
             <p class="message" id="message">Заповніть виділені поля</p>
 
             <div class="form-group">
-                {{ Form::label('name', 'Назва страви*') }}
+                {{ Form::label('name', 'Назва рецепту*') }}
                 {{ Form::text('name', $recipe->name, ['id' => 'input-name', 'class' => 'wide']) }}
             </div>
 
@@ -35,7 +35,7 @@
             <div class="form-group">
                 {{ Form::label('ingredients', 'Інгредієнти*') }}
                 <div class="ingredients js-ingredients">
-                    @foreach ($recipe->ingredients as $i => $ingredient)
+                    @foreach ($recipe->ingredient as $i => $ingredient)
                         <div>
                             {{ Form::text('ingredient[]', $ingredient, ['id' => 'input-ingredient-' . $i]) }}
                             <span class="remove js-delete-ingredient"></span>
@@ -47,7 +47,7 @@
 
 
             <div class="form-group">
-                {{ Form::label('description', 'Про страву*') }}
+                {{ Form::label('description', 'Про рецепт*') }}
                 {{ Form::textarea('description', $recipe->description, ['id' => 'input-description', 'class' => 'wide']) }}
             </div>
 
@@ -57,7 +57,7 @@
                     @foreach ($recipe->images as $image)
                         <div class="wrap js-foto">
                             <div class="uploader">
-                                <img src="{{ asset($image->thumbnail) }}">
+                                <img src="{{ $image->thumbnail }}">
                                 {{ Form::file(null, ['class' => 'input-upload']) }}
                                 {{ Form::hidden('images[]', $image->id) }}
                             </div>
@@ -79,22 +79,23 @@
                 {{ Form::hidden('image', null, ['id' => 'recipe-image']) }}
             </div>
 
-            <div class="form-group">
-            <label for="recipe">Спосіб приготування</label>
-							<div class="recipes">
-								<div>
-									<span class="title">Крок 1</span><span class="remove"></span>
-									<div class="uploader">
-										<img src=""/>
-										<input type="file" name="image" id="image" />
-										<div class="round"><i class="fo fo-camera"></i></div>
-									</div>
-									{{-- Удаление фото?? Нужно?? --}}
-									<textarea id="recipe" name="recipes[]" type="text" required="required" /></textarea>
-								</div>
-								<a href="#" id="cloneRecipe" class="link-red-dark">+ Додати</a>
-							</div>
-						</div>
+            {{ Form::label('recipe', 'Спосіб приготування') }}
+            <div class="recipes">
+                <div class="js-foto js-foto-steps">
+                    <span class="title">Крок 1</span><span class="remove"></span>
+                    <div class="uploader uploader-steps">
+                        <img src="">
+                        <div class="round"><i class="fo fo-camera"></i></div>
+                        {{ Form::file(null, ['class' => 'input-upload input-upload-steps']) }}
+                        {{ Form::hidden('step_images[]', null) }}
+
+                    </div>
+                    {{-- Удаление фото?? Нужно?? --}}
+                    <textarea class="step-texts" name="step_texts[]" type="text" required="required" /></textarea>
+                </div>
+                <a href="#" id="cloneRecipe" class="link-red-dark">+ Додати</a>
+            </div>
+
             <div class="form-group">
                 <label for="video">Посилання на відео</label>
                 <div class="videos js-video">
@@ -117,29 +118,12 @@
 
             {{ Form::submit('Зберегти', ['class' => 'button button-red']) }}
         {{ Form::close() }}
-        <a href="{{ route('profile.adverts.index') }}" class="grey3">Відмінити</a>
+        <a href="{{ route('profile.articles.index') }}" class="grey3">Відмінити</a>
     </div>
 @stop
 
 @push('scripts')
     <script type="text/javascript">
-
-    		var count = 0;
-				var inputRecipe = $('.recipes > div').clone();
-				$("#cloneRecipe").on("click", function(e){
-					e.preventDefault();
-
-					count++;
-					recipeCount = $('.recipes').children().length; // Для номера "Крок"
-					var newBlock = inputRecipe.clone();
-					newBlock.find('#image').attr('id', 'image'+count);
-					newBlock.find('.title').text('Крок '+recipeCount);
-
-					$(newBlock).insertBefore(this);
-
-					document.getElementById('image'+count)
-							.addEventListener('change', handleImage, false);
-				});
         // Ingredient
         $('.js-add-ingredient').on('click', function(e) {
             e.preventDefault();
@@ -254,6 +238,57 @@
             });
 
         });
+    </script>
+    <script type="text/javascript">
+        // Клонируем шаг рецепта
+        var count = 0;
+        var inputRecipe = $('.recipes > div').clone();
+        $("#cloneRecipe").on("click", function(e){
+            e.preventDefault();
+
+            count++;
+            recipeCount = $('.recipes').children().length; // Для номера "Крок"
+            var newBlock = inputRecipe.clone();
+            newBlock.find('#image').attr('id', 'image'+count);
+            newBlock.find('.title').text('Крок '+recipeCount);
+
+            $(newBlock).insertBefore(this);
+
+            document.getElementById('image'+count)
+                    .addEventListener('change', handleImage, false);
+        });
+         // Fotos steps
+        $('body').on('change', '.input-upload-steps', function() {
+            var self = $(this),
+                i = $('.recipes > .js-foto-steps').length,
+        id = self.closest('.uploader-steps').find('input[name="step_images[]"]').val(),
+        url =  id ? '{{ url('profile/recipes/step/image') }}/' + id : '{{ url('profile/recipes/step/store') }}',
+                data = new FormData();
+                console.log(id);
+                console.log(url);
+                data.append('_token', '{{ csrf_token() }}');
+                data.append('image', self[0].files[0]);
+                console.log(self[0].files[0]);
+                $.ajax({
+                    url: url,
+                    method: 'post',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
+          },
+                    success: function(data) {
+                        if (data['success']) {
+                            self.closest('.uploader-steps').find('img').attr('src', data['image']['thumbnail']);
+                            self.closest('.uploader-steps').find('input[name="step_images[]"]').val(data['image']['id']);
+                            self.closest('.uploader-steps').next('.step-texts').attr('name','step_text['+data['image']['id']+']');
+                        }
+                    },
+                    error: function(data) {
+                        var data = data.responseJSON;
+                    }
+        });
+      });
     </script>
     <script type="text/javascript">
         $(document).on('submit', 'form', function(e) {

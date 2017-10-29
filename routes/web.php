@@ -141,6 +141,13 @@ Route::group(['namespace' => 'Frontend'], function() {
         Route::put('recipes/{id}', ['as' => 'profile.recipes.update', 'uses' => 'RecipesController@update']);
         Route::delete('recipes/{id}', ['as' => 'profile.recipes.destroy', 'uses' => 'RecipesController@destroy']);
         Route::get('recipes/success', ['as' => 'profile.recipes.success', 'uses' => 'RecipesController@success']);
+        Route::post('recipes/image/store', 'RecipeImagesController@store');
+        Route::put('recipes/image/{id}', 'RecipeImagesController@update');
+        Route::delete('recipes/image/{id}', 'RecipeImagesController@destroy');
+
+        Route::post('recipes/step/store', 'RecipeStepsController@store');
+        Route::put('recipes/step/{id}', 'RecipeStepsController@update');
+        Route::delete('recipes/step/{id}', 'RecipeStepsController@destroy');
 
 
     });

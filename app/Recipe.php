@@ -9,7 +9,7 @@ class Recipe extends Model
 {
 
 	// mutator ingredients
-  public function setIngredientsAttribute($data)
+  public function setIngredientAttribute($data)
   {
     	$this->attributes['ingredients'] = json_encode($data);
   }
@@ -21,7 +21,7 @@ class Recipe extends Model
 	}
 
 	//accessor ingredients
-	public function getIngredientsAttribute($data)
+	public function getIngredientAttribute($data)
   {
     	return json_decode($data, true);
   }

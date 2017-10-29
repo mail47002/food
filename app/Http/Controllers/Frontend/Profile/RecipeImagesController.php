@@ -9,7 +9,7 @@ use Image;
 use Storage;
 use Auth;
 
-class recipeImagesController extends Controller
+class RecipeImagesController extends Controller
 {
     public function __construct()
     {
