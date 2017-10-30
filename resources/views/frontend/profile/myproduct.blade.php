@@ -63,7 +63,7 @@
 						<li class="clearfix">
 							<div class="left">
 								<div class="avatar">
-									<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+									<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 								</div>
 								<a href="#" class="link-blue name">Вікторія</a>
 							</div>
@@ -84,7 +84,7 @@
 										</div>
 										<div class="right-avatar">
 											<div class="avatar">
-												<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+												<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 											</div>
 										</div>
 									</div>
@@ -131,7 +131,7 @@
 					<h5 class="text-upper underline-red">Ваш повар</h5><hr class="zerro-top">
 					<div class="left">
 						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 						</div>
 						<a href="#" class="link-blue name">Марк</a>
 						{{-- <a href="#" class="button button-grey">Зв’язатися</a> --}}
@@ -160,7 +160,7 @@
 						<hr class="red-border">
 
 						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 						</div>
 						<a href="#" class="link-blue name">Марк</a>
 						<div class="rating"><span class="stars">4</span>10 відгуків</div>

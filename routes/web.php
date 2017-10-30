@@ -127,36 +127,38 @@ Route::group(['namespace' => 'Frontend'], function() {
         ]);
 
         // Advices
-        Route::resource('profile/advices', 'AdvicesController', [
-            'names' => [
-                // 'index'     => 'profile.advices.index',
-                'create'    => 'profile.advices.create',
-                'store'     => 'profile.advices.store',
-                'show'      => 'profile.advices.show',
-                'edit'      => 'profile.advices.edit',
-                'update'    => 'profile.advices.update',
-                'destroy'   => 'profile.advices.destroy'
-            ]
-        ]);
+        Route::get('advices/create', ['as' => 'profile.advices.create', 'uses' => 'AdvicesController@create']);
+        Route::post('advices', ['as' => 'profile.advices.store', 'uses' => 'advicesController@store']);
+        Route::get('advices/{id}', ['as' => 'profile.advices.show', 'uses' => 'AdvicesController@show'])->where('id', '[0-9]+');
+        Route::get('advices/{id}/edit', ['as' => 'profile.advices.edit', 'uses' => 'advicesController@edit'])->where('id', '[0-9]+');
+        Route::put('advices/{id}', ['as' => 'profile.advices.update', 'uses' => 'AdvicesController@update']);
+        Route::delete('advices/{id}', ['as' => 'profile.advices.destroy', 'uses' => 'AdvicesController@destroy']);
+        Route::get('advices/success', ['as' => 'profile.advices.success', 'uses' => 'AdvicesController@success']);
+        Route::post('advices/image/store', 'AdviceImagesController@store');
+        Route::put('advices/image/{id}', 'AdviceImagesController@update');
+        Route::delete('advices/image/{id}', 'AdviceImagesController@destroy');
 
         // Recipes
-        Route::resource('profile/recipes', 'RecipesController', [
-            'names' => [
-                // 'index'     => 'profile.recipes.index',
-                'create'    => 'profile.recipes.create',
-                'store'     => 'profile.recipes.store',
-                'show'      => 'profile.recipes.show',
-                'edit'      => 'profile.recipes.edit',
-                'update'    => 'profile.recipes.update',
-                'destroy'   => 'profile.recipes.destroy'
-            ]
-        ]);
+        Route::get('recipes/create', ['as' => 'profile.recipes.create', 'uses' => 'RecipesController@create']);
+        Route::post('recipes', ['as' => 'profile.recipes.store', 'uses' => 'RecipesController@store']);
+        Route::get('recipes/{id}', ['as' => 'profile.recipes.show', 'uses' => 'RecipesController@show'])->where('id', '[0-9]+');
+        Route::get('recipes/{id}/edit', ['as' => 'profile.recipes.edit', 'uses' => 'RecipesController@edit'])->where('id', '[0-9]+');
+        Route::put('recipes/{id}', ['as' => 'profile.recipes.update', 'uses' => 'RecipesController@update']);
+        Route::delete('recipes/{id}', ['as' => 'profile.recipes.destroy', 'uses' => 'RecipesController@destroy']);
+        Route::get('recipes/success', ['as' => 'profile.recipes.success', 'uses' => 'RecipesController@success']);
+        Route::post('recipes/image/store', 'RecipeImagesController@store');
+        Route::put('recipes/image/{id}', 'RecipeImagesController@update');
+        Route::delete('recipes/image/{id}', 'RecipeImagesController@destroy');
+
+        Route::post('recipes/step/store', 'RecipeStepsController@store');
+        Route::put('recipes/step/{id}', 'RecipeStepsController@update');
+        Route::delete('recipes/step/{id}', 'RecipeStepsController@destroy');
 
 
     });
 
     //Profile articles
-//    Route::get('/profile/articles', ['as' => 'profile.articles', 'uses' => 'ProfileController@articles']);
+//    Route::get('/articles', ['as' => 'profile.articles', 'uses' => 'ProfileController@articles']);
 //    Route::get('/articles/new', ['as' => 'articles.new', 'uses' => 'ArticlesController@new']);
 //    Route::post('/articles/new', ['as' => 'articles.create', 'uses' => 'ArticlesController@create']);
 

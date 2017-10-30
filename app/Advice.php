@@ -10,11 +10,10 @@ class Advice extends Model
 	protected $table = 'advices';
 
 	protected $fillable = [
-        'user_id', 'name', 'description', 'ingredient', 'video'
+        'user_id', 'name', 'description', 'video'
     ];
 
   protected $casts = [
-      'ingredient' => 'array',
       'video'      => 'array'
   ];
 
@@ -24,8 +23,23 @@ class Advice extends Model
   }
 
   public function images()
-    {
-        return $this->hasMany('App\AdviceImage')->orderBy('created_at', 'asc');
-    }
+  {
+      return $this->hasMany('App\AdviceImage')->orderBy('created_at', 'asc');
+  }
+
+  public function user()
+  {
+    return $this->belongsTo('App\User');
+  }
+
+  public function getThumbnailAttribute($value)
+  {
+      return asset($value);
+  }
+
+  public function getImageAttribute($value)
+  {
+      return asset($value);
+  }
 
 }

@@ -3,33 +3,25 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Recipe extends Model
 {
 
-	// mutator ingredients
-  public function setIngredientsAttribute($data)
+  protected $fillable = [
+        'user_id', 'name', 'description', 'ingredient', 'video'
+    ];
+
+    protected $casts = [
+        'ingredient' => 'array',
+        'video'      => 'array'
+    ];
+
+  //accessor created_at
+  public function getCreatedAtAttribute($data)
   {
-    	$this->attributes['ingredients'] = json_encode($data);
+      return Carbon::parse($data)->format('H:i d M Y');
   }
-
-  //mutator videos
-	public function setVideosAttribute($data)
-	{
-			$this->attributes['videos'] = json_encode($data);
-	}
-
-	//accessor ingredients
-	public function getIngredientsAttribute($data)
-  {
-    	return json_decode($data, true);
-  }
-
-  //accessor videos
-	public function getVideosAttribute($data)
-	{
-			return json_decode($data, true);
-	}
 
 	public function categories()
   {
