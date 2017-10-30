@@ -44,7 +44,6 @@
 
 
 {{-- Login popup --}}
-<!-- Modal -->
 <div id="modal_login" class="modal fade login-popup" role="dialog">
 	<div class="modal-dialog">
 
@@ -62,17 +61,15 @@
 
 							<div class="left text-left separator">
 
-								{{ Form::open(['route' => 'login', 'method' => 'POST']) }}
+								{{ Form::open(['route' => 'login', 'method' => 'post']) }}
 									{{ Form::label('email', 'Email', ['for' => 'email']) }}
 									{{ Form::email('email', null, ['id' => 'email', 'placeholder' => 'Email']) }}
-									{!! $errors->first('email', 'erorr email') !!}
 									{{ Form::label('password', 'Пароль', ['for' => 'password']) }}
 									{{ Form::password('password', null, ['id' => 'password', 'placeholder' => 'password']) }}
-									{!! $errors->first('password', 'erorr password') !!}
 									{{Form::submit('Увійти', ['class' => 'button button-red']) }}
 								{{ Form::close() }}
 
-								<p><a href="#" class="link-blue">Забули пароль</a></p>
+								<p><a href="{{ route('password.forgot') }}" class="link-blue">Забули пароль?</a></p>
 
 							</div>
 

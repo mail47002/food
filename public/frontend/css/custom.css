@@ -101,6 +101,13 @@
 }
 
 .has-error input.error,
-.has-error textarea.error{
+.has-error textarea.error,
+.has-error select.error {
     border-color: #f0534d;
+}
+
+.uploader img {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

@@ -32,23 +32,60 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="image">
-							<img src="{{ asset($product->image) }}" class="img-responsive" alt="{{ $product->name }}">
+							<img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $product->image) }}" class="img-responsive" alt="{{ $product->name }}">
 						</div>
 					</div>
 					<div class="col-md-5">
 						<div class="caption">
 							<a href="{{ route('profile.products.show', $product->id) }}" class="title link-black">{{ $product->name }}</a>
 							<p><span class="rating"><span class="stars">{{rand(0,5)}}</span>10 відгуків</span></p>
-							<p><a href="#" class="link-red-dark"><i class="fo fo-time"></i> Страва у меню</a></p>
-							<p><a href="#" class="link-red-dark"><i class="fo fo-dish-ready"></i> Готова страва</a></p>
-							<p><a href="#" class="link-red-dark"><i class="fo fo-deal"></i> Страва під замовлення</a></p>
+
+							@if (count($product->adverts) > 0)
+								@foreach($product->adverts as $advert)
+									@if ($advert->type == 'by_date')
+										<p><a href="#" class="link-red-dark"><i class="fo fo-time"></i> Страва у меню</a></p>
+									@endif
+
+									@if ($advert->type == 'in_stock')
+										<p><a href="#" class="link-red-dark"><i class="fo fo-dish-ready"></i> Готова страва</a></p>
+									@endif
+
+									@if ($advert->type == 'pre_order')
+										<p><a href="#" class="link-red-dark"><i class="fo fo-deal"></i> Страва під замовлення</a></p>
+									@endif
+								@endforeach
+							@endif
 						</div>
 					</div>
 					<div class="col-md-3 left-border">
 						<div class="caption text-center">
-							<a href="#" class="button button-grey"><i class="fo fo-time"></i> Додати до меню</a>
-							<a href="#" class="button button-grey disabled"><i class="fo fo-dish-ready"></i> Готова страва</a>
-							<a href="#" class="button button-grey"><i class="fo fo-deal"></i> Під замовлення</a>
+							@if (count($product->adverts) > 0)
+								@foreach($product->adverts as $advert)
+									@if ($advert->type == 'by_date')
+										<a href="#" class="button button-grey disabled"><i class="fo fo-time"></i> Додати до меню</a>
+									@else
+										<a href="{{ route('profile.adverts.create', ['type' => 'by_date']) }}" class="button button-grey"><i class="fo fo-time"></i> Додати до меню</a>
+									@endif
+
+									@if ($advert->type == 'in_stock')
+										<a href="#" class="button button-grey disabled"><i class="fo fo-dish-ready"></i> Готова страва</a>
+									@else
+										<a href="{{ route('profile.adverts.create', ['type' => 'in_stock']) }}" class="button button-grey"><i class="fo fo-dish-ready"></i> Готова страва</a>
+									@endif
+
+									@if ($advert->type == 'pre_order')
+										<a href="#" class="button button-grey disabled"><i class="fo fo-deal"></i> Під замовлення</a>
+									@else
+										<a href="{{ route('profile.adverts.create', ['type' => 'pre_order']) }}" class="button button-grey"><i class="fo fo-deal"></i> Під замовлення</a>
+									@endif
+								@endforeach
+							@else
+								<a href="{{ route('profile.adverts.create', ['type' => 'by_date']) }}" class="button button-grey"><i class="fo fo-time"></i> Додати до меню</a>
+								<a href="{{ route('profile.adverts.create', ['type' => 'in_stock']) }}" class="button button-grey"><i class="fo fo-dish-ready"></i> Готова страва</a>
+								<a href="{{ route('profile.adverts.create', ['type' => 'pre_order']) }}" class="button button-grey"><i class="fo fo-deal"></i> Під замовлення</a>
+							@endif
+
+
 							<a href="{{ route('profile.products.edit', $product->id) }}" class="button-half link-blue"><i class="fo fo-edit fo-small"></i> Редагувати</a>
 							<a href="#" class="button-half link-grey js-modal-product-delete" data-toggle="modal" data-target="#modal_product-delete" data-product-id="{{ $product->id }}"><i class="fo fo-delete fo-small"></i> Видалити</a>
 						</div>

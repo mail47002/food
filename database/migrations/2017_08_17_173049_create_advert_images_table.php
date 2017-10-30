@@ -13,10 +13,8 @@ class CreateAdvertImagesTable extends Migration {
 	public function up()
 	{
 		Schema::create('advert_images', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('advert_id');
-            $table->string('image')->nullable();
-            $table->string('alt')->nullable();
+            $table->integer('advert_id')->index();
+            $table->string('image');
             $table->timestamps();
         });
 	}

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Frontend\Profile;
 
 use App\ProductImage;
-use App\ProductToCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
@@ -27,7 +26,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::where('user_id', Auth::id())
+        $products = Product::with('adverts')
+            ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->paginate();
 
@@ -43,12 +43,9 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $product = Product::create(['user_id' => Auth::id()]);
-
         $categories = Category::orderBy('name', 'asc')->get();
 
         return view('frontend.profile.products.create', [
-            'product'    => $product,
             'categories' => $categories
         ]);
     }
@@ -61,33 +58,33 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::where('id', $request->product_id)
-            ->where('user_id', Auth::id())
-            ->first();
 
-        if ($product) {
-            $this->validateForm($request);
+        $this->validateForm($request);
 
-            DB::beginTransaction();
+        $request->merge([
+            'user_id' => Auth::id(),
+        ]);
 
-            $product->fill($request->all());
-            $product->image = $this->storeImage($request);
-            $product->status = 1;
-            $product->save();
+        DB::beginTransaction();
 
-            $this->storeCategories($request);
+        $product = Product::create($request->all());
 
-            DB::commit();
+        $product->categories()->sync($request->category);
 
-            Session::flash('product', $product);
-
-            return response()->json([
-                'success' => true
+        foreach ($request->images as $image) {
+            $productImage = new ProductImage([
+                'image' => $image
             ]);
+
+            $product->images()->save($productImage);
         }
 
+        DB::commit();
+
+        Session::flash('product', $product);
+
         return response()->json([
-            'error' => 'Oops! Something wet wrong.'
+            'success' => true
         ]);
     }
 
@@ -170,13 +167,19 @@ class ProductsController extends Controller
 
             DB::beginTransaction();
 
-            $product->categories()->delete();
+            $product->fill($request->all())->save();
 
-            $this->storeCategories($request);
+            $product->categories()->sync($request->category);
 
-            $product->fill($request->all());
-            $product->image = $this->storeImage($request);
-            $product->save();
+            $product->images()->delete();
+
+            foreach ($request->images as $image) {
+                $productImage = new ProductImage([
+                    'image' => $image
+                ]);
+
+                $product->images()->save($productImage);
+            }
 
             DB::commit();
 
@@ -206,7 +209,7 @@ class ProductsController extends Controller
         if ($product) {
             $product->categories()->delete();
 
-            $this->deleteImages($product);
+            $product->images()->delete();
 
             $product->delete();
 
@@ -230,35 +233,19 @@ class ProductsController extends Controller
         $this->validate($request, [
             'name'         => 'required',
             'category'     => 'present',
-            'images'       => 'present',
+            'image'        => 'required',
             'ingredient.*' => 'required',
             'description'  => 'required'
         ]);
     }
 
-    protected function storeCategories(Request $request)
+    protected function storeImage($file)
     {
-        foreach ($request->category as $category) {
-            ProductToCategory::create([
-                'product_id'  => $request->product_id,
-                'category_id' => $category
-            ]);
-        }
-    }
+        $oldFilePath = 'uploads/tmp/' . $file;
+        $newFilePath = 'uploads/' . md5(Auth::id()) . '/' . $file;
 
-    /**
-     * Store product image.
-     *
-     * @param Request $request
-     */
-    protected function storeImage(Request $request)
-    {
-        $productImage = ProductImage::where('id', $request->image)
-            ->where('product_id', $request->product_id)
-            ->first();
+        Storage::move($oldFilePath, $newFilePath);
 
-        if ($productImage) {
-            return $productImage->image;
-        }
+        return $newFilePath;
     }
 }

@@ -8,7 +8,7 @@ use Auth;
 class Product extends Model
 {
     protected $fillable = [
-        'user_id', 'name', 'description', 'ingredient', 'video'
+        'user_id', 'name', 'description', 'ingredient', 'image', 'video'
     ];
 
     protected $casts = [
@@ -16,7 +16,7 @@ class Product extends Model
         'video'      => 'array'
     ];
 
-    public function advert()
+    public function adverts()
     {
     	return $this->hasMany('App\Advert');
     }
@@ -33,7 +33,7 @@ class Product extends Model
 
     public function categories()
     {
-        return $this->hasMany('App\ProductToCategory');
+        return $this->belongsToMany('App\Category', 'product_to_category');
     }
 
 	public function user()

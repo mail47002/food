@@ -18,7 +18,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'about', 'phone', 'email', 'password'
+        'name',
+        'slug',
+        'about',
+        'phone',
+        'email',
+        'password'
     ];
 
     /**
@@ -27,7 +32,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -59,15 +65,5 @@ class User extends Authenticatable
         $this->verified = self::VERIFIED_USER;
 
         $this->save();
-    }
-
-    public function getThumbnailAttribute($value)
-    {
-        return asset($value);
-    }
-
-    public function getImageAttribute($value)
-    {
-        return asset($value);
     }
 }

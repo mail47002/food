@@ -70,6 +70,12 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
 });
 
 
+Route::group(['prefix' => 'image'], function() {
+    Route::post('store', 'Frontend\Profile\ImageUploadController@store');
+    Route::delete('delete', 'Frontend\Profile\ImageUploadController@destroy');
+});
+
+
 // Frontend
 Route::group(['namespace' => 'Frontend'], function() {
     // Profile
@@ -81,38 +87,37 @@ Route::group(['namespace' => 'Frontend'], function() {
         Route::get('{id}/edit', ['as' => 'profile.user.edit', 'uses' => 'UsersController@edit'])->where('id', '[0-9]+');
         Route::put('{id}', ['as' => 'profile.user.update', 'uses' => 'UsersController@update'])->where('id', '[0-9]+');
 
-        Route::get('{id}/edit/password', ['as' => 'profile.password.edit', 'uses' => 'PasswordController@edit'])->where('id', '[0-9]+');
-        Route::put('{id}/edit/password', ['as' => 'profile.password.update', 'uses' => 'PasswordController@update'])->where('id', '[0-9]+');
+        Route::put('{id}/edit/image', ['as' => 'profile.user.image.update', 'uses' => 'UserImageController@update'])->where('id', '[0-9]+');
 
-        Route::get('{id}/edit/url', ['as' => 'profile.slug.edit', 'uses' => 'SlugController@edit'])->where('id', '[0-9]+');
-        Route::put('{id}/edit/url', ['as' => 'profile.slug.update', 'uses' => 'SlugController@update'])->where('id', '[0-9]+');
+        Route::get('{id}/edit/password', ['as' => 'profile.password.edit', 'uses' => 'UserPasswordController@edit'])->where('id', '[0-9]+');
+        Route::put('{id}/edit/password', ['as' => 'profile.password.update', 'uses' => 'UserPasswordController@update'])->where('id', '[0-9]+');
+
+        Route::get('{id}/edit/url', ['as' => 'profile.slug.edit', 'uses' => 'UserSlugController@edit'])->where('id', '[0-9]+');
+        Route::put('{id}/edit/url', ['as' => 'profile.slug.update', 'uses' => 'UserSlugController@update'])->where('id', '[0-9]+');
 
         // Products
-        Route::get('products', ['as' => 'profile.products.index', 'uses' => 'ProductsController@index']);
-        Route::get('products/create', ['as' => 'profile.products.create', 'uses' => 'ProductsController@create']);
-        Route::post('products', ['as' => 'profile.products.store', 'uses' => 'ProductsController@store']);
-        Route::get('products/{id}', ['as' => 'profile.products.show', 'uses' => 'ProductsController@show'])->where('id', '[0-9]+');
-        Route::get('products/{id}/edit', ['as' => 'profile.products.edit', 'uses' => 'ProductsController@edit'])->where('id', '[0-9]+');
-        Route::put('products/{id}', ['as' => 'profile.products.update', 'uses' => 'ProductsController@update']);
-        Route::delete('products/{id}', ['as' => 'profile.products.destroy', 'uses' => 'ProductsController@destroy']);
-        Route::get('products/success', ['as' => 'profile.products.success', 'uses' => 'ProductsController@success']);
-
-        Route::post('products/image/store', 'ProductImagesController@store');
-        Route::put('products/image/{id}', 'ProductImagesController@update');
-        Route::delete('products/image/{id}', 'ProductImagesController@destroy');
+        Route::group(['prefix' => 'products'], function () {
+            Route::get('', ['as' => 'profile.products.index', 'uses' => 'ProductsController@index']);
+            Route::get('create', ['as' => 'profile.products.create', 'uses' => 'ProductsController@create']);
+            Route::post('', ['as' => 'profile.products.store', 'uses' => 'ProductsController@store']);
+            Route::get('{id}', ['as' => 'profile.products.show', 'uses' => 'ProductsController@show'])->where('id', '[0-9]+');
+            Route::get('{id}/edit', ['as' => 'profile.products.edit', 'uses' => 'ProductsController@edit'])->where('id', '[0-9]+');
+            Route::put('{id}', ['as' => 'profile.products.update', 'uses' => 'ProductsController@update']);
+            Route::delete('{id}', ['as' => 'profile.products.destroy', 'uses' => 'ProductsController@destroy']);
+            Route::get('success', ['as' => 'profile.products.success', 'uses' => 'ProductsController@success']);
+        });
 
         // Adverts
-        Route::resource('adverts', 'AdvertsController', [
-            'names' => [
-                'index'     => 'profile.adverts.index',
-                'create'    => 'profile.adverts.create',
-                'store'     => 'profile.adverts.store',
-                'show'      => 'profile.adverts.show',
-                'edit'      => 'profile.adverts.edit',
-                'update'    => 'profile.adverts.update',
-                'destroy'   => 'profile.adverts.destroy'
-            ]
-        ]);
+        Route::group(['prefix' => 'adverts'], function () {
+            Route::get('', ['as' => 'profile.adverts.index', 'uses' => 'AdvertsController@index']);
+            Route::get('create', ['as' => 'profile.adverts.create', 'uses' => 'AdvertsController@create']);
+            Route::post('', ['as' => 'profile.adverts.store', 'uses' => 'AdvertsController@store']);
+            Route::get('{id}', ['as' => 'profile.adverts.show', 'uses' => 'AdvertsController@show'])->where('id', '[0-9]+');
+            Route::get('{id}/edit', ['as' => 'profile.adverts.edit', 'uses' => 'AdvertsController@edit'])->where('id', '[0-9]+');
+            Route::put('{id}', ['as' => 'profile.adverts.update', 'uses' => 'AdvertsController@update']);
+            Route::delete('{id}', ['as' => 'profile.adverts.destroy', 'uses' => 'AdvertsController@destroy']);
+            Route::get('success', ['as' => 'profile.adverts.success', 'uses' => 'AdvertsController@success']);
+        });
 
         // Articles
         Route::resource('articles', 'ArticlesController', [
@@ -186,4 +191,10 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::get('feedback', 'FeedbackController@show');
     Route::post('feedback', ['as' => 'feedback.store', 'uses' => 'FeedbackController@store']);
     Route::get('{slug}', 'PagesController@show');
+});
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get('products/{id}', 'Api\ProductsController@show');
+
+    Route::post('adverts/store', 'Api\AdvertsController@store');
 });

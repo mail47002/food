@@ -2,14 +2,14 @@
     @if (request()->is('profile/' . Auth::id() . '/edit'))
         <div class="avatar">
             <div class="uploader profile">
-                <img src="{{ Auth::user()->image }}" alt="{{ Auth::user()->name }}">
+                <img src="{{ asset(Auth::user()->image) }}" alt="{{ Auth::user()->name }}">
                 <input id="input-avatar" type="file">
                 <div class="round"><i class="fo fo-camera"></i></div>
             </div>
         </div>
     @else
         <div class="avatar">
-            <div class="rounded"><img src="{{ Auth::user()->image }}" alt="{{ Auth::user()->name }}"></div>
+            <div class="rounded"><img src="{{ asset(Auth::user()->image) }}" alt="{{ Auth::user()->name }}"></div>
         </div>
     @endif
 

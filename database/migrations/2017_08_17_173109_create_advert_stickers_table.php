@@ -13,11 +13,11 @@ class CreateAdvertStickersTable extends Migration {
 	public function up()
 	{
 		Schema::create('advert_stickers', function (Blueprint $table) {
-      $table->increments('advert_stickers_id');
-      $table->string('name');
-      $table->string('image');
-      $table->timestamps();
-    });
+            $table->increments('id');
+            $table->string('name');
+            $table->string('slug');
+            $table->timestamps();
+        });
 	}
 
 	/**

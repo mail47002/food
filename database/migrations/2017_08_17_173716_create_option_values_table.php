@@ -16,7 +16,6 @@ class CreateOptionValuesTable extends Migration {
             $table->increments('id');
             $table->integer('option_id');
             $table->string('name');
-            $table->integer('required');
             $table->timestamps();
         });
 	}

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 
-class SlugController extends Controller
+class UserSlugController extends Controller
 {
     /**
      * Display a listing of the resource.

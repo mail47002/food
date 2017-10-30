@@ -6,19 +6,38 @@ use Illuminate\Database\Eloquent\Model;
 
 class Advert extends Model
 {
+    protected $fillable = [
+        'user_id',
+        'product_id',
+        'sticker_id',
+        'name',
+        'description',
+        'price',
+        'special_price',
+        'image',
+        'type',
+        'everyday',
+        'date',
+        'date_from',
+        'date_to',
+        'time'
+    ];
+
+    protected $casts = [
+        'is_everyday' => 'boolean'
+    ];
+
+    protected $dates = [
+        'date',
+        'date_from',
+        'date_to',
+        'created_at',
+        'updated_at'
+    ];
+
 	public function user()
 	{
 		return $this->belongsTo('App\User');
-	}
-
-	public function reviews()
-	{
-		return $this->hasMany('App\Review');
-	}
-
-	public function answer()
-	{
-		return $this->hasOne('App\ReviewAnswer');
 	}
 
 	public function product()
@@ -26,12 +45,8 @@ class Advert extends Model
         return $this->belongsTo('App\Product');
     }
 
-	public function images() {
-	    return $this->hasMany('App\AdvertImage');
-    }
-
-	public function scopeLatest($query)
+	public function images()
     {
-        return $query->orderBy('created_at', 'desc');
+	    return $this->hasMany('App\AdvertImage');
     }
 }

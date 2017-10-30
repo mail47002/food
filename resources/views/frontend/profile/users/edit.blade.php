@@ -75,13 +75,30 @@
 		$('#input-avatar').on('change', function(e) {
 			e.preventDefault();
 
-			var reader = new FileReader();
+            var data = new FormData();
 
-			reader.onload = function(e) {
-				$('.uploader img').attr('src', e.target.result);
-			};
+            data.append('_token', '{{ csrf_token() }}');
+            data.append('_method', 'put');
+            data.append('image', $('#input-avatar')[0].files[0]);
 
-			reader.readAsDataURL(e.target.files[0]);
+			$.ajax({
+				url: '{{ route('profile.user.image.update', auth()->id()) }}',
+				method: 'post',
+				data: data,
+                processData: false,
+                contentType: false,
+				beforeSend: function() {
+                    $('.body-overlay').addClass('active');
+                },
+				success: function(data) {
+				    if (data['success']) {
+				        $('.avatar img').attr('src', data['image']);
+					}
+                },
+				complete: function() {
+                    $('.body-overlay').removeClass('active');
+                }
+			})
 		});
 	</script>
 	<script type="text/javascript">
@@ -117,17 +134,13 @@
 		$(document).on('submit', 'form', function(e) {
 		    e.preventDefault();
 
-		    var form = $(this),
-				data = new FormData(this);
-
-		    data.append('image', $('#input-avatar')[0].files[0]);
+		    var form = $(this);
 
 		    $.ajax({
 				url: form.attr('action'),
 				method: form.attr('method'),
-				data: data,
-                processData: false,
-                contentType: false,
+				data: form.serialize(),
+				dataType: 'json',
 				beforeSend: function() {
                     $('#message').hide();
 

@@ -14,15 +14,21 @@ class CreateAdvertsTable extends Migration {
 	{
 		Schema::create('adverts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->text('description');
-            $table->integer('user_id');
-            $table->integer('product_id');
-            $table->integer('quantity');
-            $table->decimal('price', 5, 2);
-            $table->decimal('custom_price', 5, 2);
-            $table->integer('category_id');
-            $table->integer('sticker_id');
+            $table->integer('user_id')->index();
+            $table->integer('product_id')->index();
+            $table->integer('sticker_id')->nullable()->index();
+            $table->string('name')->index();
+            $table->text('description')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->decimal('price', 5, 2)->nullable();
+            $table->decimal('custom_price', 5, 2)->nullable();
+            $table->string('image');
+            $table->string('type')->index();
+            $table->integer('everyday')->default(0);
+            $table->timestamp('date')->nullable();
+            $table->timestamp('date_from')->nullable();
+            $table->timestamp('date_to')->nullable();
+            $table->string('time')->default('breakfast');
             $table->timestamps();
         });
 	}

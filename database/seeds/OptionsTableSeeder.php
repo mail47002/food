@@ -14,20 +14,28 @@ class OptionsTableSeeder extends Seeder
     {
         DB::table('options')->insert([
             [
-                'type'       => 'type 1',
-                'name'       => 'type 1',
+                'type'       => 'text',
+                'name'       => 'Text',
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
-                'type'       => 'type 2',
-                'name'       => 'type 2',
+               'type'       => 'textarea',
+               'name'       => 'Textarea',
+               'created_at' => Carbon::now()->toDateTimeString()
+            ], [
+                'type'       => 'checkbox',
+                'name'       => 'Checkbox',
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
-                'type'       => 'type 3',
-                'name'       => 'type 3',
+                'type'       => 'radio',
+                'name'       => 'Radio',
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
-                'type'       => 'type 4',
-                'name'       => 'type 5',
+                'type'       => 'select',
+                'name'       => 'Select',
+                'created_at' => Carbon::now()->toDateTimeString()
+            ], [
+                'type'       => 'date',
+                'name'       => 'Date',
                 'created_at' => Carbon::now()->toDateTimeString()
             ]
         ]);

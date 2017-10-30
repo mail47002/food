@@ -14,20 +14,16 @@ class AdvertStickersTableSeeder extends Seeder
     {
         DB::table('advert_stickers')->insert([
             [
-                'name'       => 'share',
-                'image'      => 'products/image1.jpg',
+                'name'       => 'Знижка',
+                'slug'       => 'discount',
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
-                'name'       => 'sale',
-                'image'      => 'products/image2.jpg',
+                'name'       => 'Нова',
+                'slug'       => 'new',
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
-                'name'       => 'share',
-                'image'      => 'products/image3.jpg',
-                'created_at' => Carbon::now()->toDateTimeString()
-            ], [
-                'name'       => 'sale',
-                'image'      => 'products/image4.jpg',
+                'name'       => 'Улюблена',
+                'slug'       => 'heart',
                 'created_at' => Carbon::now()->toDateTimeString()
             ]
         ]);

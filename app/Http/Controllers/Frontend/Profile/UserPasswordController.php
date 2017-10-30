@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Frontend\Profile;
 
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Product;
-use App\Review;
+use App\Rules\OldPassword;
 use Auth;
-use Storage;
-use Image;
+use Hash;
 
-class UsersController extends Controller
+class UserPasswordController extends Controller
 {
     public function __construct()
     {
@@ -52,30 +49,12 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $products = Product::with([
-            'reviews' => function ($query) {
-                $query->with(['user', 'answer']);
-            }, 'adverts'])
-            ->orderBy('created_at')
-            ->where('user_id', $id)
-            ->get();
-
-        $reviews = Review::with([
-            'product' => function ($query) {
-                $query->with(['user', 'adverts']);
-            },
-            'answer'])
-            ->where('user_id', $id)
-            ->get();
-
-        return view('frontend.profile.users.show', [
-            'products' => $products,
-            'reviews'  => $reviews,
-        ]);
+        //
     }
 
     /**
@@ -86,7 +65,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        return view('frontend.profile.users.edit');
+        return view('frontend.profile.password.edit');
     }
 
     /**
@@ -98,16 +77,14 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Auth::user()->id == $id) {
-            $this->validateForm($request);
+        $this->validateForm($request);
 
-            Auth::user()->address->update($request->all());
-            Auth::user()->fill($request->all())->save();
+        Auth::user()->password = Hash::make($request->password);
+        Auth::user()->save();
 
-            return response()->json([
-                'success' => true
-            ]);
-        }
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     /**
@@ -121,20 +98,12 @@ class UsersController extends Controller
         //
     }
 
-    /**
-     * Validate form data.
-     *
-     * @param Request $request
-     */
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'image'   => 'nullable',
-            'name'    => 'required',
-            'phone.*' => 'required',
-            'city'    => 'required',
-            'street'  => 'required',
-            'build'   => 'required'
+            'old_password'     => ['required', new OldPassword()],
+            'password'         => 'required|min:6',
+            'password_confirm' => 'required|same:password'
         ]);
     }
 }

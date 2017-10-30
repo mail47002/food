@@ -15,6 +15,7 @@ class CreateAdvertTypesTable extends Migration {
 		Schema::create('advert_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('slug');
             $table->timestamps();
         });
 	}

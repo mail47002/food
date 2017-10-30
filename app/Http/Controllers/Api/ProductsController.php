@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Frontend\Profile;
+namespace App\Http\Controllers\Api;
 
+use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Rules\OldPassword;
 use Auth;
-use Hash;
+use App\Http\Resources\Product as ProductResource;
 
-class PasswordController extends Controller
+class ProductsController extends Controller
 {
     public function __construct()
     {
@@ -54,7 +54,7 @@ class PasswordController extends Controller
      */
     public function show($id)
     {
-        //
+        return new ProductResource(Product::with('images')->find($id));
     }
 
     /**
@@ -65,7 +65,7 @@ class PasswordController extends Controller
      */
     public function edit($id)
     {
-        return view('frontend.profile.password.edit');
+        //
     }
 
     /**
@@ -77,14 +77,7 @@ class PasswordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateForm($request);
-
-        Auth::user()->password = Hash::make($request->password);
-        Auth::user()->save();
-
-        return response()->json([
-            'success' => true
-        ]);
+        //
     }
 
     /**
@@ -96,14 +89,5 @@ class PasswordController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    protected function validateForm(Request $request)
-    {
-        $this->validate($request, [
-            'old_password'     => ['required', new OldPassword()],
-            'password'         => 'required|min:6',
-            'password_confirm' => 'required|same:password'
-        ]);
     }
 }

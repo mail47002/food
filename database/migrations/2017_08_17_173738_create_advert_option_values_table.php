@@ -16,7 +16,7 @@ class CreateAdvertOptionValuesTable extends Migration {
             $table->increments('id');
             $table->integer('option_value_id');
             $table->string('value');
-            $table->timestamps();
+            $table->integer('required');
         });
 	}
 
