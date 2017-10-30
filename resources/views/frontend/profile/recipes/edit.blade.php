@@ -81,18 +81,20 @@
 
             {{ Form::label('recipe', 'Спосіб приготування') }}
             <div class="recipes">
+                @foreach ($recipe->steps as $step)
                 <div class="js-foto js-foto-steps">
                     <span class="title">Крок 1</span><span class="remove"></span>
                     <div class="uploader uploader-steps">
-                        <img src="">
+                        <img src="{{ $step->thumbnail }}">
                         <div class="round"><i class="fo fo-camera"></i></div>
                         {{ Form::file(null, ['class' => 'input-upload input-upload-steps']) }}
                         {{ Form::hidden('step_images[]', null) }}
 
                     </div>
                     {{-- Удаление фото?? Нужно?? --}}
-                    <textarea class="step-texts" name="step_texts[]" type="text" required="required" /></textarea>
+                    <textarea class="step-texts" name="step_texts[{{ $step->id }}]" type="text" required="required" />{{ $step->text }}</textarea>
                 </div>
+                @endforeach
                 <a href="#" id="cloneRecipe" class="link-red-dark">+ Додати</a>
             </div>
 

@@ -8,29 +8,14 @@ use Carbon\Carbon;
 class Recipe extends Model
 {
 
-	// mutator ingredients
-  public function setIngredientAttribute($data)
-  {
-    	$this->attributes['ingredients'] = json_encode($data);
-  }
+  protected $fillable = [
+        'user_id', 'name', 'description', 'ingredient', 'video'
+    ];
 
-  //mutator videos
-	public function setVideosAttribute($data)
-	{
-			$this->attributes['videos'] = json_encode($data);
-	}
-
-	//accessor ingredients
-	public function getIngredientAttribute($data)
-  {
-    	return json_decode($data, true);
-  }
-
-  //accessor videos
-	public function getVideosAttribute($data)
-	{
-			return json_decode($data, true);
-	}
+    protected $casts = [
+        'ingredient' => 'array',
+        'video'      => 'array'
+    ];
 
   //accessor created_at
   public function getCreatedAtAttribute($data)

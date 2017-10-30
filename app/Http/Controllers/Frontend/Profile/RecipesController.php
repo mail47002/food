@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Recipe;
+use App\RecipeStep;
 use Auth;
 use DB;
 use Session;
@@ -299,9 +300,14 @@ class RecipesController extends Controller
 
             if ($recipeStep) {
                 $recipeStep->recipe_id = $recipe->id;
-                $recipeStep->text = $request->step_texts[$id];
                 $recipeStep->save();
             }
+        }
+
+        foreach ($request->step_text as $key => $value) {
+            $recipeText = RecipeStep::find($key);
+            $recipeText->text = $value;
+            $recipeText->save();
         }
 
         foreach ($idsToDelete as $id) {
