@@ -244,19 +244,20 @@
     <script type="text/javascript">
         // Клонируем шаг рецепта
         var count = 0;
-        var inputRecipe = $('.recipes > div').clone();
+        var inputRecipe = $('.js-foto-steps');
         $("#cloneRecipe").on("click", function(e){
             e.preventDefault();
 
             count++;
             recipeCount = $('.recipes').children().length; // Для номера "Крок"
             var newBlock = inputRecipe.clone();
+            console.log(newBlock);
             newBlock.find('#image').attr('id', 'image'+count);
             newBlock.find('.title').text('Крок '+recipeCount);
 
             $(newBlock).insertBefore(this);
 
-            document.getElementById('image'+count)
+            document.getElementById('step_image'+count)
                     .addEventListener('change', handleImage, false);
         });
          // Fotos steps

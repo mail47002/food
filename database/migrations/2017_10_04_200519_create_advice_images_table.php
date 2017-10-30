@@ -15,9 +15,10 @@ class CreateAdviceImagesTable extends Migration
     {
         Schema::create('advice_images', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('advice_id');
+            $table->integer('user_id')->index();
+            $table->integer('advice_id')->index()->default(0);
+            $table->string('thumbnail');
             $table->string('image');
-            $table->string('alt');
             $table->timestamps();
         });
     }

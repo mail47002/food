@@ -14,12 +14,13 @@ class CreateAdvicesTable extends Migration {
 	{
 		Schema::create('advices', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->integer('user_id');
-            $table->string('slug');
-            $table->text('description');
-            $table->string('image');
-            $table->json('videos');
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->text('description')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('image')->nullable();
+            $table->json('video')->nullable();
             $table->timestamps();
         });
 	}

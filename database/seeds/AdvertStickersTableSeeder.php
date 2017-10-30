@@ -12,21 +12,7 @@ class AdvertStickersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('advert_stickers')->insert([
-            [
-                'name'       => 'Знижка',
-                'slug'       => 'discount',
-                'created_at' => Carbon::now()->toDateTimeString()
-            ], [
-                'name'       => 'Нова',
-                'slug'       => 'new',
-                'created_at' => Carbon::now()->toDateTimeString()
-            ], [
-                'name'       => 'Улюблена',
-                'slug'       => 'heart',
-                'created_at' => Carbon::now()->toDateTimeString()
-            ]
-        ]);
+        factory(App\AdvertSticker::class, 20)->create();
 
     }
 }

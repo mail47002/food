@@ -15,9 +15,10 @@ class CreateRecipeStepsTable extends Migration
     {
         Schema::create('recipe_steps', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('recipe_id')->index();
+            $table->integer('recipe_id')->index()->default(0);
+            $table->string('thumbnail');
             $table->string('image');
-            $table->text('text');
+            $table->text('text')->nullable();
             $table->integer('sort_order')->default(0);
             $table->timestamps();
         });
