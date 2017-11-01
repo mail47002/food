@@ -9,7 +9,11 @@ class Recipe extends Model
 {
 
   protected $fillable = [
-        'user_id', 'name', 'description', 'ingredient', 'video'
+        'user_id',
+        'name',
+        'description',
+        'ingredient',
+        'video'
     ];
 
     protected $casts = [

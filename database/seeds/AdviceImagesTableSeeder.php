@@ -12,30 +12,6 @@ class AdviceImagesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('advice_images')->insert([
-            'advice_id' => '1',
-            'user_id' => '1',
-            'thumbnail'      => 'uploads/advices/14/Ескіз12.png',
-            'image'      => 'uploads/advices/14/Ескіз12.png',
-            'created_at' => Carbon::now()->toDateString()
-        ], [
-            'advice_id' => '1',
-            'user_id' => '1',
-            'thumbnail'      => 'uploads/advices/14/Ескіз12.png',
-            'image'      => 'uploads/advices/14/Ескіз12.png',
-            'created_at' => Carbon::now()->toDateString()
-        ], [
-            'advice_id' => '1',
-            'user_id' => '1',
-            'thumbnail'      => 'uploads/advices/14/Ескіз12.png',
-            'image'      => 'uploads/advices/14/Ескіз12.png',
-            'created_at' => Carbon::now()->toDateString()
-        ], [
-            'advice_id' => '1',
-            'user_id' => '1',
-            'thumbnail'      => 'uploads/advices/14/Ескіз12.png',
-            'image'      => 'uploads/advices/14/Ескіз12.png',
-            'created_at' => Carbon::now()->toDateString()
-        ]);
+        factory(App\AdviceImage::class, 50)->create();
     }
 }
