@@ -95,6 +95,17 @@
                     <textarea class="step-texts" name="step_texts[{{ $step->id }}]" type="text" required="required" />{{ $step->text }}</textarea>
                 </div>
                 @endforeach
+                <div class="js-foto js-foto-steps recipe-first"> {{-- Пустой блок --}}
+                    <span class="title">Крок 1</span><span class="remove"></span>
+                    <div class="uploader uploader-steps">
+                        <img src="">
+                        <div class="round"><i class="fo fo-camera"></i></div>
+                        {{ Form::file(null, ['class' => 'input-upload input-upload-steps', 'id' => 'step_image']) }}
+                        {{ Form::hidden('step_images[]', null) }}
+
+                    </div>
+                    <textarea class="step-texts" name="step_texts[]" type="text" required="required" /></textarea>
+                </div>
                 <a href="#" id="cloneRecipe" class="link-red-dark">+ Додати</a>
             </div>
 
@@ -244,7 +255,7 @@
     <script type="text/javascript">
         // Клонируем шаг рецепта
         var count = 0;
-        var inputRecipe = $('.js-foto-steps');
+        var inputRecipe = $('.recipe-first');
         $("#cloneRecipe").on("click", function(e){
             e.preventDefault();
 
@@ -252,7 +263,7 @@
             recipeCount = $('.recipes').children().length; // Для номера "Крок"
             var newBlock = inputRecipe.clone();
             console.log(newBlock);
-            newBlock.find('#image').attr('id', 'image'+count);
+            newBlock.find('#step_image').attr('id', 'step_image'+count);
             newBlock.find('.title').text('Крок '+recipeCount);
 
             $(newBlock).insertBefore(this);
@@ -260,6 +271,11 @@
             document.getElementById('step_image'+count)
                     .addEventListener('change', handleImage, false);
         });
+        $('body').on('click', '.recipes .remove', function(e){
+            e.preventDefault();
+            $(this).parent().remove();
+        });
+
          // Fotos steps
         $('body').on('change', '.input-upload-steps', function() {
             var self = $(this),
@@ -342,4 +358,15 @@
             });
         });
     </script>
+
+{{-- Это в default шаблон --}}
+<script>
+    function handleImage(e) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            $(e.target).parent().find('img').attr('src',event.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    }
+</script>
 @endpush
