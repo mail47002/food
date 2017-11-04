@@ -87,7 +87,7 @@
                     <div class="uploader uploader-steps">
                         <img src="{{ $step->thumbnail }}">
                         <div class="round"><i class="fo fo-camera"></i></div>
-                        {{ Form::file(null, ['class' => 'input-upload input-upload-steps']) }}
+                        {{ Form::file(null, ['class' => 'input-upload-steps']) }}
                         {{ Form::hidden('step_images[]', null) }}
 
                     </div>
@@ -100,7 +100,7 @@
                     <div class="uploader uploader-steps">
                         <img src="">
                         <div class="round"><i class="fo fo-camera"></i></div>
-                        {{ Form::file(null, ['class' => 'input-upload input-upload-steps', 'id' => 'step_image']) }}
+                        {{ Form::file(null, ['class' => 'input-upload-steps', 'id' => 'step_image']) }}
                         {{ Form::hidden('step_images[]', null) }}
 
                     </div>
@@ -255,7 +255,7 @@
     <script type="text/javascript">
         // Клонируем шаг рецепта
         var count = 0;
-        var inputRecipe = $('.recipe-first');
+        var inputRecipe = $('.recipe-first').clone();
         $("#cloneRecipe").on("click", function(e){
             e.preventDefault();
 
