@@ -6,10 +6,10 @@
 	<div class="breadcrumbs">
 	<div class="container">
 		<ul class="list-inline">
-			<li><a href="#" class="link-blue back text-upper"><i class="fo fo-arrow-left fo-small"></i>  Назад до моїх рецептів</a></li>
+			<li><a href="{{ route('profile.articles.index') }}" class="link-blue back text-upper"><i class="fo fo-arrow-left fo-small"></i>  Назад до моїх статей</a></li>
 
 			<div class="pull-right">
-				<a href="#" class="link-blue"><i class="fo fo-edit fo-inheirt"></i> Редагувати</a>
+				<a href="{{ route('profile.recipes.edit', $recipe->id) }}" class="link-blue"><i class="fo fo-edit fo-inheirt"></i> Редагувати</a>
 			</div>
 		</ul>
 	</div>
@@ -18,10 +18,11 @@
 
 <div class="title-slider with-header bg-yellow">
 	<div class="container">
-		<h1 class="text-center">Шарлотка с яблоками и апельсином</h1>
+		<h1 class="text-center">{{ $recipe->name }}</h1>
 		<div class="owl-carousel">
-			<div class="item"><img src="/uploads/product1.jpg" alt=""></div>
-			<div class="item"><img src="/uploads/product1.jpg" alt=""></div>
+			@foreach ($recipe->images as $image)
+				<div class="item"><img src="{{ $image->image }}" alt="{{ $recipe->name }}"></div>
+			@endforeach
 		</div>
 		<div class="slider-counter"></div>
 	</div>
@@ -38,42 +39,32 @@
 		<div class="row">
 			<div class="food-recipe col-md-9">
 				<div class="description f18">
-					<p>Шарлотка – простейший вариант яблочного пирога, настоящая «палочка-выручалочка» в случае, если к вам неожиданно нагрянули гости, на приготовление шарлотки требуется чуть больше часа. Стандартный рецепт шарлотки - это яйца, сахар, мука и, конечно, яблоки. В зависимости от пропорций продуктов изменится вкус: если добавить больше яиц, тесто будет более воздушным, если положить много яблок, пирог получится тяжелым и «мокроватым», но зато вы сможете насладиться вкусом печеных яблок. Для шарлотки яблоки можно взять любые, но вкуснее всех пирог получается с кислыми осенними яблоками.</p>
+					{{ $recipe->description }}
 				</div>
 
 				<h5 class="ingredient-title text-upper underline-red">Інгредієнти</h5><hr class="zerro-top">
 				<ul class="ingredient-list">
-					<li><i class="fo fo-ingredients red"></i> Масло сливочное - 100 г</li>
-					<li><i class="fo fo-ingredients red"></i> Яйца - 2 шт.</li>
-					<li><i class="fo fo-ingredients red"></i> Разрыхлитель - 1 ч. л.</li>
+					@foreach ($recipe->ingredient as $ingredient)
+						<li><i class="fo fo-ingredients red"></i> {{ $ingredient }}</li>
+					@endforeach
 				</ul>
 
 				<h5 class="text-upper underline-red">Етапи приготування</h5><hr class="zerro-top">
-
+				<?php $i = 0; ?>
 				<ul class="cooking-steps">
-
+					@foreach($recipe->steps as $step)
+					<?php $i++; ?>
 					<li>
-						<img src="/uploads/step1.jpg" alt="step">
-						<h5 class="red">Крок 1</h5>
-						<p>Яйца взбить с сахаром до пышности. Добавить растопленное сливочное масло и кокосовую стружку. </p>
+						<img src="{{ $step->thumbnail }}" alt="step">
+						<h5 class="red">Крок {{ $i }}</h5>
+						<p>{{ $step->text }} </p>
 					</li>
-
-					<li>
-						<img src="/uploads/step1.jpg" alt="step">
-						<h5 class="red">Крок 2</h5>
-						<p>Замесить мягкое тесто просеянной мукой смешанной с разрыхлителем.</p>
-					</li>
-					<li>
-						<img src="/uploads/step1.jpg" alt="step">
-						<h5 class="red">Крок 3</h5>
-						<p>Тесто выложить в форму для выпечки и распределить руками, сделать бортики. Яблоки очистить от кожуры и нарезать кубиком, также нарезать и мякоть апельсина. Выложить начинку на тесто, посыпать сахаром.</p>
-					</li>
-
+					@endforeach
 				</ul>
 
 
 				<div class="reviews">
-					<h5 class="text-upper underline-red">Клментарі</h5><hr class="zerro-top">
+					<h5 class="text-upper underline-red">Коментарі</h5><hr class="zerro-top">
 					<ul class="list-unstyled">
 
 						<li class="clearfix">

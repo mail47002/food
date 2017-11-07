@@ -86,7 +86,7 @@ class AdvicesController extends Controller
      */
     public function show($id)
     {
-        $advice = advice::where('id', $id)
+        $advice = Advice::where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
 

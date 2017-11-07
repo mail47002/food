@@ -81,7 +81,7 @@ class RecipesController extends Controller
             ]);
         }
 
-        return redirect()->route('profile.recipes.index');
+        return redirect()->route('profile.articles.index');
     }
 
     /**
@@ -92,7 +92,8 @@ class RecipesController extends Controller
      */
     public function show($id)
     {
-        $recipe = Recipe::where('id', $id)
+        $recipe = Recipe::with(['categories', 'images', 'steps'])
+            ->where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
 
@@ -157,6 +158,8 @@ class RecipesController extends Controller
             $this->storeImages($request, $recipe);
 
             $this->storeImage($request, $recipe);
+
+            $this->storeSteps($request, $recipe);
 
             // $this->storeSteps($request, $recipe);
 
