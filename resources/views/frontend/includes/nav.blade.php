@@ -13,11 +13,11 @@
 <hr>
 				<li class="active"><a href="/temp/user.index">user_page (4.1)</a></li>
 <hr>
-				<li class="active"><a href="/temp/profile.writemessage">profile.writemessage (5.4.4)</a></li>
-				{{-- <li class="active"><a href="/temp/profile.mydish">food_my_dish (21.1)</a></li> --}}
-				<li class="active"><a href="/temp/profile.myproduct">food_my_product (21.2)</a></li>
-				<li class="active"><a href="/temp/profile.myrecipe">food_my_recipe (21.3)</a></li>
-				<li class="active"><a href="/temp/profile.myadvice">food_my_advice (21.4)</a></li>
+				<li class="active"><a href="/temp/account.writemessage">account.writemessage (5.4.4)</a></li>
+				{{-- <li class="active"><a href="/temp/account.mydish">food_my_dish (21.1)</a></li> --}}
+				<li class="active"><a href="/temp/account.myproduct">food_my_product (21.2)</a></li>
+				<li class="active"><a href="/temp/account.myrecipe">food_my_recipe (21.3)</a></li>
+				<li class="active"><a href="/temp/account.myadvice">food_my_advice (21.4)</a></li>
 <hr>
 				<li class="active"><a href="/adverts">Об'яви (2)</a></li>
 				<li class="active"><a href="/products">Блюда (12)</a></li>
@@ -53,13 +53,13 @@
 			</li>
 		</ul>
 		<ul class="list-inline pull-right">
-			@if (Auth::check())
-				<li class="hidden-xm"><a href="{{ route('profile.products.create') }}" class="button button-rounded dish-add"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
+			@if (auth()->check())
+				<li class="hidden-xm"><a href="{{ route('account.products.create') }}" class="button button-rounded dish-add"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
 				<li class="hidden-xm">
 					<div class="avatar">
-						<div class="rounded"><img src="{{ asset(Auth::user()->image) }}" alt="{{ Auth::user()->name }}"></div>
+						<div class="rounded"><img src="{{ asset(auth()->user()->image) }}" alt="{{ auth()->user()->name }}"></div>
 					</div>
-					<a href="{{ route('profile.user.show', Auth::id()) }}" class="link">{{ Auth::user()->name }}</a>
+					<a href="{{ route('account.user.show') }}" class="link">{{ auth()->user()->name }}</a>
 				</li>
 				<li class="dropdown messages">
 					<a id="messages-menu" class="link" href="#" type="button" data-toggle="dropdown"><i class="fo fo-bell fo-small"><span class="count">3</span></i></a>
@@ -71,7 +71,7 @@
 								<a href="#">{{-- Ссылка на сообщение ? --}}
 									<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
 									<div class="message">
-										<strong><object>Лист від <a href="/profile/#" class="link-blue">Вікторії</a></object></strong>
+										<strong><object>Лист від <a href="/account/#" class="link-blue">Вікторії</a></object></strong>
 										{{-- Вложеные ссылки - только в <object> --}}
 										<p>В принципе вкусно,если сделать для одного ....</p>
 										<p class="date">10:15 2 липня 2016</p>
@@ -83,7 +83,7 @@
 								<a href="#">{{-- Ссылка на сообщение ? --}}
 									<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
 									<div class="message">
-										<strong><object>Повідомлення від <a href="/profile/#" class="link-blue">Вікторії</object></strong>
+										<strong><object>Повідомлення від <a href="/account/#" class="link-blue">Вікторії</object></strong>
 										<p>В принципе вкусно,если сделать для одного ....</p>
 										<p class="date">10:15 2 липня 2016</p>
 									</div>
@@ -94,7 +94,7 @@
 								<a href="#">{{-- Ссылка на сообщение ? --}}
 									<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
 									<div class="message">
-										<strong><object>Вам зробила замовлення <a href="/profile/#" class="link-blue">Марія</a> на страву з меню</object></strong>
+										<strong><object>Вам зробила замовлення <a href="/account/#" class="link-blue">Марія</a> на страву з меню</object></strong>
 										<p>В принципе вкусно,если сделать для одного ....</p>
 										<p class="date">10:15 2 липня 2016</p>
 									</div>
@@ -105,7 +105,7 @@
 								<a href="#">{{-- Ссылка на сообщение ? --}}
 									<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
 									<div class="message">
-										<strong><object>Повар <a href="/profile/#" class="link-blue">Оксана</a> відмовила на замовленняя</object></strong>
+										<strong><object>Повар <a href="/account/#" class="link-blue">Оксана</a> відмовила на замовленняя</object></strong>
 										<p>В принципе вкусно,если сделать для одного ....</p>
 										<p class="date">10:15 2 липня 2016</p>
 									</div>
@@ -116,7 +116,7 @@
 								<a href="#">{{-- Ссылка на сообщение ? --}}
 									<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
 									<div class="message">
-										<strong><object>Повар <a href="/profile/#" class="link-blue">Оксана</a> відповіла на ваш відгук про страву</object></strong>
+										<strong><object>Повар <a href="/account/#" class="link-blue">Оксана</a> відповіла на ваш відгук про страву</object></strong>
 										<p>В принципе вкусно,если сделать для одного ....</p>
 										<p class="date">10:15 2 липня 2016</p>
 									</div>
@@ -135,7 +135,7 @@
 							</li>
 
 						</ul>
-						<div class="bottom"><a href="/profile/messages" class="link-blue">Все</a></div>
+						<div class="bottom"><a href="{{ url('account/messages') }}" class="link-blue">Все</a></div>
 					</div>
 				</li>
 
@@ -149,22 +149,22 @@
 			@endif
 
 {{-- правое меню на мобильном --}}
-			<li class="profile-dropdown hidden-md hidden-lg">
+			<li class="account-dropdown hidden-md hidden-lg">
 
-				<a class="link" href="#" data-toggle="collapse" data-target="#profile-menu" aria-expanded="false"><i class="fo fo-man fo-small"></i></a>
+				<a class="link" href="#" data-toggle="collapse" data-target="#account-menu" aria-expanded="false"><i class="fo fo-man fo-small"></i></a>
 
-				<ul id="profile-menu" class="profile-menu collapse">
+				<ul id="account-menu" class="account-menu collapse">
 					<li class="head-link"><a href="#" class="button button-rounded button-red"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
 
-					@if(Auth::check())
+					@if(auth()->check())
 						<li><a href="#">Про мене</a></li>
 						<li><a href="#">Відгуки</a></li>
 						<li><a href="#">Каталог страв</a></li>
 						<li><a href="#">Оголошення</a></li>
 
 						<li class="dropdown">
-							<a href="#" class="carret" data-toggle="collapse" data-target="#profile-menu-messages" aria-expanded="false">Мої повідомлення</a>
-							<ul id="profile-menu-messages" class="collapse">
+							<a href="#" class="carret" data-toggle="collapse" data-target="#account-menu-messages" aria-expanded="false">Мої повідомлення</a>
+							<ul id="account-menu-messages" class="collapse">
 								<li><a href="#" class="grey3">Повідомлення</a></li>
 								<li><a href="#" class="grey3">Переписка</a></li>
 							</ul>

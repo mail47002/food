@@ -29,12 +29,12 @@ class LoginController extends Controller
         if (Auth::guard('web')->attempt($this->credentials($request), true)) {
             if (Auth::user()->email_token){
                 return response()->json([
-                    'url' => route('profile.user.create')
+                    'url' => route('account.user.create')
                 ]);
             }
 
             return response()->json([
-                'url' => route('profile.user.show', Auth::id())
+                'url' => route('account.user.show', Auth::id())
             ]);
         }
     }
