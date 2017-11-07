@@ -15,7 +15,7 @@ class UserImageController extends Controller
         $this->middleware('auth');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         if ($request->hasFile('image')) {
             $this->validateForm($request);

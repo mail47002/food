@@ -5,11 +5,11 @@
 @section('content')
 	<h5 class="text-upper underline-red">Редагувати профіль</h5>
 	<hr>
-	{{ Form::open(['route' => ['account.user.update', Auth::id()], 'method' => 'put', 'class' => 'contact']) }}
+	{{ Form::open(['route' => ['account.user.update'], 'method' => 'put', 'class' => 'contact']) }}
 		<p class="message" id="message">Заповніть виділені поля</p>
 		<div class="form-group">
 			{{ Form::label('name', 'Ім\'я*') }}
-			{{ Form::text('name', Auth::user()->name, ['id' => 'input-name']) }}
+			{{ Form::text('name', auth()->user()->name, ['id' => 'input-name']) }}
 		</div>
 
 		<div class="v-indent-30"></div>
@@ -18,7 +18,7 @@
 		<div class="form-group">
 			{{ Form::label('phone', 'Телефон*') }}
 			<div class="phone js-phone">
-				@foreach (Auth::user()->phone as $i => $phone)
+				@foreach (auth()->user()->phone as $i => $phone)
 					<div>
 						{{ Form::text('phone[]', $phone, ['id' => 'input-phone-' . $i, 'class' => 'phone-input']) }}
 						<span class="remove js-delete-phone"></span>
@@ -32,22 +32,22 @@
 		<div class="form-group">
 			{{ Form::label('city', 'Населений пункт*') }}
 			<div class="marker">
-				{{ Form::text('city', Auth::user()->address->city, ['id' => 'input-city']) }}
+				{{ Form::text('city', auth()->user()->address->city, ['id' => 'input-city']) }}
 			</div>
 		</div>
 		<div class="form-group">
 			{{ Form::label('street', 'Вулиця*') }}
-			{{ Form::text('street',  Auth::user()->address->street, ['id' => 'input-street']) }}
+			{{ Form::text('street',  auth()->user()->address->street, ['id' => 'input-street']) }}
 		</div>
 		<div class="form-group">
 			{{ Form::label('build', '№ будинку*') }}
-			{{ Form::text('build', Auth::user()->address->build, ['id' => 'input-build']) }}
+			{{ Form::text('build', auth()->user()->address->build, ['id' => 'input-build']) }}
 		</div>
 		<div class="v-indent-30"></div>
 		<hr>
 		<div class="form-group">
 			{{ Form::label('about', 'Про мене') }}
-			{{ Form::textarea('about', Auth::user()->about, ['id' => 'input-about', 'class' => 'account']) }}
+			{{ Form::textarea('about', auth()->user()->about, ['id' => 'input-about', 'class' => 'account']) }}
 		</div>
 		<hr>
 		{{Form::submit('Зберегти', ['class' => 'button button-red account text-upper']) }}
@@ -82,7 +82,7 @@
             data.append('image', $('#input-avatar')[0].files[0]);
 
 			$.ajax({
-				url: '{{ route('account.user.image.update', auth()->id()) }}',
+				url: '{{ url('myaccount/edit/image') }}',
 				method: 'post',
 				data: data,
                 processData: false,

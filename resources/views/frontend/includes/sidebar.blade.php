@@ -1,7 +1,7 @@
 <div class="left-sidebar bg-yellow text-center">
-    @if (request()->is('account/' . auth()->id() . '/edit'))
+    @if (request()->is('myaccount/edit'))
         <div class="avatar">
-            <div class="uploader account">
+            <div class="uploader profile">
                 <img src="{{ asset(auth()->user()->image) }}" alt="{{ auth()->user()->name }}">
                 <input id="input-avatar" type="file">
                 <div class="round"><i class="fo fo-camera"></i></div>
