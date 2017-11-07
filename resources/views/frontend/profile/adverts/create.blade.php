@@ -216,6 +216,76 @@
 
 @push('scripts')
     <script type="text/javascript">
+        var url = new URL(location)
+            productId = url.searchParams.get('pid');
+
+        if (productId) {
+            $('select[name=product]').val(productId);
+
+            if ($('select[name=product]').val() == productId) {
+                getProduct(productId);
+            }
+        }
+
+        $('select[name=product]').on('change', function() {
+            var productId = $(this).val();
+
+            if (productId) {
+                getProduct(productId);
+            }
+        });
+
+        function getProduct(productId) {
+            $.ajax({
+                url: '{{ url('api/products') }}/' + productId,
+                method: 'get',
+                dataType: 'json',
+                beforeSend: function () {
+                    $('.body-overlay').addClass('active');
+                },
+                success: function (responce) {
+                    if (responce) {
+                        var url = '{{ asset('uploads/' . md5(auth()->id())) }}/';
+
+                        $('html, body').scrollTop(0);
+
+                        $('.header-img').attr('src', url + responce['data']['image']);
+                        $('.header-title').text(responce['data']['name']);
+
+                        $('input[name=product_id]').val(responce['data']['id']);
+                        $('input[name=name]').val(responce['data']['name']);
+                        $('input[name=image]').val( responce['data']['image']);
+
+                        var images = '';
+
+                        $.each(responce['data']['images'], function (i, item) {
+                            images += '<div class="wrap js-foto">';
+                            images += '<div class="uploader">';
+                            images += '<img src="' + url + item['image'] + '">';
+                            images += '<input type="hidden" name="images[]" value="' + item['image'] + '">';
+                            images += '</div>';
+                            if (item['image'] == responce['data']['image']) {
+                                images += '<a href="#" class="pull-left grey1 js-main-foto active"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>';
+                            } else {
+                                images += '<a href="#" class="pull-left grey1 js-main-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>';
+                            }
+                            images += '<a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>';
+                            images += '</div>';
+                        });
+
+                        $('.fotos .js-foto').before(images);
+                    }
+                },
+                complete: function () {
+                    $('.step-1').addClass('hidden');
+                    $('.step-2').removeClass('hidden');
+
+                    $('.body-overlay').removeClass('active');
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
         $('a.back').on('click', function (e) {
             e.preventDefault();
 
@@ -223,61 +293,6 @@
             $('.step-2').addClass('hidden');
 
             $('html, body').scrollTop(0);
-        });
-    </script>
-    <script type="text/javascript">
-        $('select[name=product]').on('change', function() {
-            var productId = $(this).val();
-
-            if (productId) {
-                $.ajax({
-                    url: '{{ url('api/products') }}/' + productId,
-                    method: 'get',
-                    dataType: 'json',
-                    beforeSend: function () {
-                        $('.body-overlay').addClass('active');
-                    },
-                    success: function (responce) {
-                        if (responce) {
-                            var url = '{{ asset('uploads/' . md5(auth()->id())) }}/';
-
-                            $('html, body').scrollTop(0);
-
-                            $('.header-img').attr('src', url + responce['data']['image']);
-                            $('.header-title').text(responce['data']['name']);
-
-                            $('input[name=product_id]').val(responce['data']['id']);
-                            $('input[name=name]').val(responce['data']['name']);
-                            $('input[name=image]').val( responce['data']['image']);
-
-                            var images = '';
-
-                            $.each(responce['data']['images'], function (i, item) {
-                                images += '<div class="wrap js-foto">';
-                                images += '<div class="uploader">';
-                                images += '<img src="' + url + item['image'] + '">';
-                                images += '<input type="hidden" name="images[]" value="' + item['image'] + '">';
-                                images += '</div>';
-                                if (item['image'] == responce['data']['image']) {
-                                    images += '<a href="#" class="pull-left grey1 js-main-foto active"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>';
-                                } else {
-                                    images += '<a href="#" class="pull-left grey1 js-main-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>';
-                                }
-                                images += '<a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>';
-                                images += '</div>';
-                            });
-
-                            $('.fotos .js-foto').before(images);
-                        }
-                    },
-                    complete: function () {
-                        $('.step-1').addClass('hidden');
-                        $('.step-2').removeClass('hidden');
-
-                        $('.body-overlay').removeClass('active');
-                    }
-                })
-            }
         });
     </script>
     <script type="text/javascript">

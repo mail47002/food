@@ -208,9 +208,7 @@ class ProductsController extends Controller
 
         if ($product) {
             $product->categories()->delete();
-
             $product->images()->delete();
-
             $product->delete();
 
             return response()->json([

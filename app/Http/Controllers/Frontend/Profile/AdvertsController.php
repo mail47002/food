@@ -190,12 +190,29 @@ class AdvertsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $advert = Advert::where('id', $id)
+            ->where('type', $request->type)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        if ($advert) {
+            $advert->images()->delete();
+            $advert->delete();
+
+            return response()->json([
+                'success' => true
+            ]);
+        }
+
+        return response()->json([
+            'error' => 'Oops! Something wet wrong.'
+        ]);
     }
 
     protected function validateForm(Request $request)

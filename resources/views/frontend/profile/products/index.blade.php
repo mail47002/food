@@ -64,25 +64,25 @@
 									@if ($advert->type == 'by_date')
 										<a href="#" class="button button-grey disabled"><i class="fo fo-time"></i> Додати до меню</a>
 									@else
-										<a href="{{ route('profile.adverts.create', ['type' => 'by_date']) }}" class="button button-grey"><i class="fo fo-time"></i> Додати до меню</a>
+										<a href="{{ route('profile.adverts.create', ['type' => 'by_date', 'pid' => $product->id]) }}" class="button button-grey"><i class="fo fo-time"></i> Додати до меню</a>
 									@endif
 
 									@if ($advert->type == 'in_stock')
 										<a href="#" class="button button-grey disabled"><i class="fo fo-dish-ready"></i> Готова страва</a>
 									@else
-										<a href="{{ route('profile.adverts.create', ['type' => 'in_stock']) }}" class="button button-grey"><i class="fo fo-dish-ready"></i> Готова страва</a>
+										<a href="{{ route('profile.adverts.create', ['type' => 'in_stock', 'pid' => $product->id]) }}" class="button button-grey"><i class="fo fo-dish-ready"></i> Готова страва</a>
 									@endif
 
 									@if ($advert->type == 'pre_order')
 										<a href="#" class="button button-grey disabled"><i class="fo fo-deal"></i> Під замовлення</a>
 									@else
-										<a href="{{ route('profile.adverts.create', ['type' => 'pre_order']) }}" class="button button-grey"><i class="fo fo-deal"></i> Під замовлення</a>
+										<a href="{{ route('profile.adverts.create', ['type' => 'pre_order','pid' => $product->id]) }}" class="button button-grey"><i class="fo fo-deal"></i> Під замовлення</a>
 									@endif
 								@endforeach
 							@else
-								<a href="{{ route('profile.adverts.create', ['type' => 'by_date']) }}" class="button button-grey"><i class="fo fo-time"></i> Додати до меню</a>
-								<a href="{{ route('profile.adverts.create', ['type' => 'in_stock']) }}" class="button button-grey"><i class="fo fo-dish-ready"></i> Готова страва</a>
-								<a href="{{ route('profile.adverts.create', ['type' => 'pre_order']) }}" class="button button-grey"><i class="fo fo-deal"></i> Під замовлення</a>
+								<a href="{{ route('profile.adverts.create', ['type' => 'by_date', 'pid' => $product->id]) }}" class="button button-grey"><i class="fo fo-time"></i> Додати до меню</a>
+								<a href="{{ route('profile.adverts.create', ['type' => 'in_stock', 'pid' => $product->id]) }}" class="button button-grey"><i class="fo fo-dish-ready"></i> Готова страва</a>
+								<a href="{{ route('profile.adverts.create', ['type' => 'pre_order', 'pid' => $product->id]) }}" class="button button-grey"><i class="fo fo-deal"></i> Під замовлення</a>
 							@endif
 
 
