@@ -57,13 +57,14 @@ $factory->define(App\AdvertImage::class, function (Faker\Generator $faker) {
 
 $factory->define(App\AdvertSticker::class, function (Faker\Generator $faker) {
     return [
-        'name'     => $faker->name,
-        'slug'     => str_slug($faker->name)
+        'name' => $faker->name,
+        'slug' => str_slug($faker->name)
     ];
 });
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
+        'role_id'  => $faker->randomElement([0, 1]),
         'name'     => $faker->name,
         'slug'     => str_slug($faker->name),
         'about'    => $faker->text,
@@ -75,19 +76,13 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\UserRole::class, function (Faker\Generator $faker) {
-    return [
-        'role_id' => $faker->randomElement([0, 1]),
-    ];
-});
-
 $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
     return [
         'user_id'     => $faker->randomElement([1, 2, 3]),
         'name'        => $faker->name,
         'description' => $faker->text,
         'ingredient'  => [$faker->name, $faker->name, $faker->name, $faker->name],
-        'thumbnail'       => $faker->imageUrl($width = 960, $height = 700),
+        'thumbnail'   => $faker->imageUrl($width = 960, $height = 700),
         'image'       => $faker->imageUrl($width = 960, $height = 700),
         'video'       => ['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU'],
     ];
@@ -97,9 +92,9 @@ $factory->define(App\Advice::class, function (Faker\Generator $faker) {
     return [
         'user_id'     => $faker->randomElement([1, 2, 3]),
         'name'        => $faker->name,
-        'slug'     => str_slug($faker->name),
+        'slug'        => str_slug($faker->name),
         'description' => $faker->text,
-        'thumbnail'       => $faker->imageUrl($width = 960, $height = 700),
+        'thumbnail'   => $faker->imageUrl($width = 960, $height = 700),
         'image'       => $faker->imageUrl($width = 960, $height = 700),
         'video'       => ['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU'],
     ];
@@ -107,9 +102,9 @@ $factory->define(App\Advice::class, function (Faker\Generator $faker) {
 
 $factory->define(App\AdviceImage::class, function (Faker\Generator $faker) {
     return [
-        'user_id'     => $faker->randomElement([1, 2, 3]),
+        'user_id'   => $faker->randomElement([1, 2, 3]),
         'advice_id' => $faker->randomDigitNotNull,
-        'thumbnail'       => $faker->imageUrl($width = 960, $height = 700),
-        'image'      => $faker->imageUrl($width = 960, $height = 700)
+        'thumbnail' => $faker->imageUrl($width = 960, $height = 700),
+        'image'     => $faker->imageUrl($width = 960, $height = 700)
     ];
 });

@@ -33,7 +33,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductsTableSeeder::class);
         $this->call(ReviewAnswersTableSeeder::class);
         $this->call(ReviewsTableSeeder::class);
-        $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
     }
 }
