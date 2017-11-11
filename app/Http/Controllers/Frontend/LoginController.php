@@ -34,7 +34,7 @@ class LoginController extends Controller
             }
 
             return response()->json([
-                'url' => route('account.user.show', Auth::id())
+                'url' => route('account.user.show')
             ]);
         }
     }

@@ -27,7 +27,7 @@ class AdvertsController extends Controller
      */
     public function index(Request $request)
     {
-        $adverts = Advert::where('type', $request->type ? $request->type : 'by_date')
+        $adverts = Advert::where('type', $request->input('type', 'by_date'))
             ->where('name', 'like', '%' . $request->search . '%')
             ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')

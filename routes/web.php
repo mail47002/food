@@ -11,21 +11,8 @@
 |
 */
 
-// For dev
-Route::get('/', 'Frontend\PagesController@index');
+// Develop
 Route::get('temp/{slug}', 'Frontend\PagesController@temp');
-
-// Api
-Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
-    Route::get('products/{id}', 'ProductsController@show');
-
-    Route::post('adverts/store', 'AdvertsController@store');
-
-    Route::group(['prefix' => 'image'], function() {
-        Route::post('store', 'ImageController@store');
-        Route::delete('delete', 'ImageController@destroy');
-    });
-});
 
 // Backend
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
@@ -81,9 +68,23 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     Route::post('upload', ['as' => 'admin.uploads.store', 'uses' => 'UploadsController@store']);
 });
 
+// Api
+Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
+    Route::get('products/{id}', 'ProductsController@show');
+
+    Route::post('adverts/store', 'AdvertsController@store');
+
+    Route::group(['prefix' => 'image'], function() {
+        Route::post('store', 'ImageController@store');
+        Route::delete('delete', 'ImageController@destroy');
+    });
+});
 
 // Frontend
 Route::group(['namespace' => 'Frontend'], function() {
+    // Adverts
+    Route::get('/', ['as' => 'adverts.index', 'uses' => 'AdvertsController@index']);
+
     // Account
     Route::group(['namespace' => 'Account', 'prefix' => 'myaccount'], function() {
         // User
@@ -168,8 +169,16 @@ Route::group(['namespace' => 'Frontend'], function() {
 
     });
 
-    Route::group(['prefix' => 'profile'], function () {
+    // Profile
+    Route::group(['namespace' => 'Profile', 'prefix' => 'profile'], function () {
+        // User
+        Route::get('{user}', ['as' => 'profile.user.show', 'uses' => 'UserController@show']);
 
+        // Products
+        Route::get('{user}/products', ['as' => 'profile.products.index', 'uses' => 'ProductsController@index']);
+
+        // Adverts
+        Route::get('{user}/adverts', ['as' => 'profile.adverts.index', 'uses' => 'AdvertsController@index']);
     });
 
     //Profile articles

@@ -49,4 +49,9 @@ class Advert extends Model
     {
 	    return $this->hasMany('App\AdvertImage');
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category', 'advert_to_category');
+    }
 }
