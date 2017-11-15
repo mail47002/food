@@ -302,7 +302,13 @@
 			<div class="modal-body">
 				<p><input type="checkbox" id="ukraine" checked="checked"><label for="ukraine">Уся Україна</label></p>
 				<p>Населений пункт</p>
-				<p><input class="address full-width" type="text" placeholder="Вінниця (вінницька обл.)"></p>
+				<p>
+					<select class="address full-width">
+						@foreach($cities as $city)
+							<option value="{{ $city->id }}">{{ $city->name }}</option>
+						@endforeach
+					</select>
+				</p>
 				<div class="row">
 					<div class="col-md-7">
 						<p>Вулиця</p>
@@ -363,7 +369,7 @@
 			var catId = $(this).data('id');
 
 			if (catId) {
-				location = '{{ route('adverts.index') }}/' + '?cid=' + catId;
+				location = '{{ route('adverts.index') }}/' + '?cid[]=' + catId;
 			}
 
 		});
