@@ -148,7 +148,7 @@
 								</div>
 
 								<div class="caption">
-									<a href="#" class="title link-black">{{ $advert->name }}</a>
+									<a href="{{ route('adverts.show', $advert->slug) }}" class="title link-black">{{ $advert->name }}</a>
 									<p>
 										@if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date') || (request()->has('type') && request()->get('type') == 'in_stock'))
 											<span class="price">{{ $advert->price }} грн.</span>

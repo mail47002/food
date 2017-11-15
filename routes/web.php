@@ -84,6 +84,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
 Route::group(['namespace' => 'Frontend'], function() {
     // Adverts
     Route::get('/', ['as' => 'adverts.index', 'uses' => 'AdvertsController@index']);
+    Route::get('/adverts/{slug}', ['as' => 'adverts.show', 'uses' => 'AdvertsController@show']);
 
     // Account
     Route::group(['namespace' => 'Account', 'prefix' => 'myaccount'], function() {

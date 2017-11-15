@@ -70,7 +70,8 @@ class AdvertsController extends Controller
         $this->validateForm($request);
 
         $request->merge([
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
+            'slug'    => ''
         ]);
 
         DB::beginTransaction();

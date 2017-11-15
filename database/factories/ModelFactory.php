@@ -37,6 +37,7 @@ $factory->define(App\Advert::class, function (Faker\Generator $faker) {
         'sticker_id'   => $faker->randomElement([1, 2, 3]),
         'name'         => $faker->name,
         'description'  => $faker->text,
+        'slug'         => str_slug($faker->name . '-' . str_random(8)),
         'quantity'     => $faker->randomDigitNotNull,
         'price'        => $faker->randomDigitNotNull,
         'custom_price' => $faker->randomDigitNotNull,

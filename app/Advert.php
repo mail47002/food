@@ -12,6 +12,7 @@ class Advert extends Model
         'sticker_id',
         'name',
         'description',
+        'slug',
         'price',
         'special_price',
         'image',
@@ -53,5 +54,15 @@ class Advert extends Model
     public function categories()
     {
         return $this->belongsToMany('App\Category', 'advert_to_category');
+    }
+
+    public function scopeFindBySlug($query, $slug)
+    {
+        return $query->where('slug', $slug)->get();
+    }
+
+    public function setSlugAttribute()
+    {
+        $this->attributes['slug'] = str_slug($this->attributes['name'] . '-' . str_random(8));
     }
 }

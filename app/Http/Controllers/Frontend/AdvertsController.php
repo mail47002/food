@@ -28,8 +28,8 @@ class AdvertsController extends Controller
             })
             ->where('type', $request->input('type', 'by_date'))
             ->where('name', 'like', '%' . $request->search . '%')
-            ->where('price', '>=' , $request->input('price', 0))
-            ->where('custom_price', '<=' , $request->input('custom_price', 99999))
+//            ->where('price', '>=' , $request->input('price', 0))
+//            ->where('custom_price', '<=' , $request->input('custom_price', 99999))
             ->orderBy('created_at', 'asc')
             ->paginate(4);
 
@@ -40,9 +40,9 @@ class AdvertsController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $advert = Advert::find($id);
+        $advert = Advert::findBySlug($slug);
 
         if ($advert) {
             return view('frontend.adverts.show', [
