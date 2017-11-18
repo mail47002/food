@@ -19,7 +19,6 @@ class CreateRecipesTable extends Migration
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->json('ingredient')->nullable();
-            $table->string('thumbnail')->nullable();
             $table->string('image')->nullable();
             $table->json('video')->nullable();
             $table->timestamps();

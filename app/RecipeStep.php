@@ -9,16 +9,9 @@ class RecipeStep extends Model
     protected $table = 'recipe_steps';
 
     protected $fillable = [
-        'thumbnail', 'image'
+        'recipe_id',
+        'image',
+        'text',
+        'sort_order',
     ];
-
-    public function getThumbnailAttribute($value)
-    {
-        return asset($value);
-    }
-
-    public function getImageAttribute($value)
-    {
-        return asset($value);
-    }
 }

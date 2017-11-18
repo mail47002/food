@@ -51,19 +51,18 @@
 
 				<div class="form-group">
 					{{ Form::label('fotos', 'Додати фото*') }}
-					<div id="input-images" class="fotos">
+					<div id="input-image" class="fotos">
 						<div class="wrap js-foto">
 							<div class="uploader">
 								<img src="">
 								<div class="round"><i class="fo fo-camera"></i></div>
-								{{ Form::file(null, ['class' => 'input-upload']) }}
-								{{ Form::hidden('images[]', null) }}
+								{{ Form::file(null, ['class' => 'input-upload-foto']) }}
 							</div>
-							<a href="#" class="pull-left hide grey1 js-main-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+							<a href="#" class="pull-left hide grey1 js-cover-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
 							<a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
 						</div>
 					</div>
-					{{ Form::hidden('image', null, ['id' => 'product-image']) }}
+					{{ Form::hidden('image', null, ['id' => 'cover-image']) }}
 				</div>
 
 				{{ Form::label('recipe', 'Спосіб приготування') }}
@@ -73,9 +72,8 @@
 						<div class="uploader uploader-steps">
 							<img src="">
 							<div class="round"><i class="fo fo-camera"></i></div>
-							{{ Form::file(null, ['class' => 'input-upload input-upload-steps']) }}
-							{{ Form::hidden('step_images[]', null) }}
-
+							{{ Form::file(null, ['class' => 'input-upload-steps']) }}
+							{{ Form::hidden('step_image', null, ['id' => 'step_image']) }}
 						</div>
 						{{-- Удаление фото?? Нужно?? --}}
 						<textarea class="step-texts" name="step_texts[]" type="text" required="required" /></textarea>
@@ -111,8 +109,7 @@
 
         $('.js-ingredients').append('<div><input id="input-ingredient-' + i + '" name="ingredient[]" type="text" /><span class="remove js-delete-ingredient"></span></div>');
     });
-
-    $('body').on('click', '.js-delete-ingredient', function(e) {
+    $(document).on('click', '.js-delete-ingredient', function(e) {
         e.preventDefault();
 
         $(this).parent().remove();
@@ -121,24 +118,6 @@
             $(this).attr('id', 'input-ingredient-' + i);
         });
     });
-
-    // Клонируем шаг рецепта
-		var count = 0;
-		var inputRecipe = $('.recipes > div').clone();
-		$("#cloneRecipe").on("click", function(e){
-			e.preventDefault();
-
-			count++;
-			recipeCount = $('.recipes').children().length; // Для номера "Крок"
-			var newBlock = inputRecipe.clone();
-			newBlock.find('#image').attr('id', 'image'+count);
-			newBlock.find('.title').text('Крок '+recipeCount);
-
-			$(newBlock).insertBefore(this);
-
-			document.getElementById('image'+count)
-					.addEventListener('change', handleImage, false);
-		});
 
     // Video
     $('.js-add-video').on('click', function(e) {
@@ -149,7 +128,7 @@
         $('.js-video').append('<div><input id="input-video-' + i + '" name="video[]" type="text" /><span class="remove js-delete-video"></span></div>');
     });
 
-    $('body').on('click', '.js-delete-video', function(e) {
+    $(document).on('click', '.js-delete-video', function(e) {
         e.preventDefault();
 
         $(this).parent().remove();
@@ -160,108 +139,123 @@
     });
 
     // Fotos
-		$('body').on('change', '.input-upload', function() {
+		$(document).on('change', '.input-upload-foto', function() {
 			var self = $(this),
 				i = $('.fotos > .js-foto').length,
-        id = self.closest('.uploader').find('input[name="images[]"]').val(),
-        url =  id ? '{{ url('account/recipes/image') }}/' + id : '{{ url('account/recipes/image/store') }}',
 				data = new FormData();
 
-				data.append('_token', '{{ csrf_token() }}');
-				data.append('image', self[0].files[0]);
+			data.append('_token', '{{ csrf_token() }}');
+			data.append('image', self[0].files[0]);
 
-				$.ajax({
-					url: url,
-					method: 'post',
-					data: data,
-					processData: false,
-					contentType: false,
-					beforeSend: function() {
-            if ((self.closest('.js-foto').index() + 1) == i) {
-                $('.fotos .js-foto:last-child').clone().appendTo('.fotos');
-                $('.fotos .js-foto:last-child').find('img').attr('src', '');
-                $('.fotos .js-foto:last-child').find(':file').val('');
+			$.ajax({
+				url: '{{ url('api/image/store') }}',
+				method: 'post',
+				data: data,
+				processData: false,
+				contentType: false,
+				beforeSend: function() {
+	        if ((self.closest('.js-foto').index() + 1) == i) {
+            $('.fotos .js-foto:last-child').clone().appendTo('.fotos');
+            $('.fotos .js-foto:last-child').find('img').attr('src', '');
+            $('.fotos .js-foto:last-child').find(':file').val('');
 
-                $('.fotos .js-foto:not(:last-child)').find('a').removeClass('hide');
-                $('.fotos .js-foto:not(:last-child)').find('.round').remove();
-            }
-          },
-					success: function(data) {
-						if (data['success']) {
-							self.closest('.uploader').find('img').attr('src', data['image']['thumbnail']);
-							self.closest('.uploader').find('input[name="images[]"]').val(data['image']['id']);
+            $('.fotos .js-foto:not(:last-child)').find('a').removeClass('hide');
+            $('.fotos .js-foto:not(:last-child)').find('.round').remove();
+	        }
+        },
+				success: function(responce) {
+					if (responce) {
+						self.closest('.uploader').find('img').attr('src', responce['url']);
+						self.closest('.uploader').append('<input type="hidden" name="images[]" value="' + responce['image'] + '"/>');
 
-							if (i == 1) {
-								self.closest('.js-foto').find('.js-main-foto').addClass('active');
-								$('#product-image').val(data['image']['id']);
-							}
+						if (i == 1) {
+							self.closest('.js-foto').find('.js-main-foto').addClass('active');
+							$('#cover-image').val(responce['image']);
 						}
-					},
-					error: function(data) {
-						var data = data.responseJSON;
+
+            self.closest('.uploader').find('.input-upload-foto').remove();
 					}
-      	});
-      });
-
-      $('body').on('click', '.js-main-foto', function(e) {
-        e.preventDefault();
-
-        $('.fotos .js-main-foto').removeClass('active');
-
-        $(this).addClass('active');
-
-        $('#product-image').val($(this).closest('.js-foto').find('input[name="images[]"]').val());
-			});
-
-    $('body').on('click', '.js-delete-foto', function(e) {
-      e.preventDefault();
-      var self = $(this),
-			id = $(this).closest('.js-foto').find('input[name="images[]"]').val(),
-			data = {
-				'_token': '{{ csrf_token() }}',
-				'_method': 'delete'
-			};
-
-      $.post('{{ url('account/recipes/image') }}/' + id, data).done(function(data) {
-        if (data['success']) {
-            self.parent().remove();
+				},
+				error: function(data) {
+					var data = data.responseJSON;
 				}
-      });
+  		});
+    });
+
+    $(document).on('click', '.js-delete-foto', function(e) {
+      e.preventDefault();
+
+      var self = $(this),
+				image = self.closest('.js-foto').find('input[name="images[]"]').val();
+
+      if (image) {
+        $.post('{{ url('api/image/delete') }}', {
+          '_token': '{{ csrf_token() }}',
+          '_method': 'delete',
+          'image': image
+        }).done(function (response) {
+          if (response) {
+            self.parent().remove();
+
+            if (image == $('#cover-image').val()) {
+              $('#cover-image').val('');
+						}
+    			}
+        });
+      }
+    });
+
+    $(document).on('click', '.js-cover-foto', function(e) {
+      e.preventDefault();
+      $('.fotos .js-cover-foto').removeClass('active');
+      $(this).addClass('active');
+      $('#cover-image').val($(this).closest('.js-foto').find('input[name="images[]"]').val());
 		});
-	</script>
-	<script type="text/javascript">
+
+		// Клонируем шаг рецепта
+		var count = 0;
+		var inputRecipe = $('.recipes > div').clone();
+		$("#cloneRecipe").on("click", function(e){
+			e.preventDefault();
+			count++;
+			recipeCount = $('.recipes').children().length; // Для номера "Крок"
+			var newBlock = inputRecipe.clone();
+			newBlock.find('#step_image').attr('id', 'step_image'+count);
+			newBlock.find('.title').text('Крок '+recipeCount);
+
+			$(newBlock).insertBefore(this);
+
+			document.getElementById('step_image'+count).addEventListener('change', handleImage, false);
+		});
 		 // Fotos steps
 		$('body').on('change', '.input-upload-steps', function() {
 			var self = $(this),
 				i = $('.recipes > .js-foto-steps').length,
-        id = self.closest('.uploader-steps').find('input[name="step_images[]"]').val(),
-        url =  id ? '{{ url('account/recipes/step/image') }}/' + id : '{{ url('account/recipes/step/store') }}',
+        id = self.closest('.input-upload-steps').find('input[name="step_image"]').val(),
+        url =  '{{ url('api/image/store') }}',
 				data = new FormData();
-				console.log(id);
-				console.log(url);
-				data.append('_token', '{{ csrf_token() }}');
-				data.append('image', self[0].files[0]);
-				console.log(self[0].files[0]);
-				$.ajax({
-					url: url,
-					method: 'post',
-					data: data,
-					processData: false,
-					contentType: false,
-					beforeSend: function() {
-          },
-					success: function(data) {
-						if (data['success']) {
-							self.closest('.uploader-steps').find('img').attr('src', data['image']['thumbnail']);
-							self.closest('.uploader-steps').find('input[name="step_images[]"]').val(data['image']['id']);
-							self.closest('.uploader-steps').next('.step-texts').attr('name','step_text['+data['image']['id']+']');
-						}
-					},
-					error: function(data) {
-						var data = data.responseJSON;
+
+			data.append('_token', '{{ csrf_token() }}');
+			data.append('image', self[0].files[0]);
+
+			$.ajax({
+				url: url,
+				method: 'post',
+				data: data,
+				processData: false,
+				contentType: false,
+				success: function(data) {
+					console.log(data);
+					if (data) {
+						self.closest('.uploader-steps').find('img').attr('src', data['url']);
+						self.closest('.uploader-steps').find('input[name="step_image"]').val(data['image']);
 					}
-      	});
-      });
+				},
+				error: function(data) {
+					var data = data.responseJSON;
+				}
+    	});
+    });
 	</script>
 	<script type="text/javascript">
 		$(document).on('submit', 'form', function(e) {

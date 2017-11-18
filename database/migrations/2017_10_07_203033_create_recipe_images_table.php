@@ -14,10 +14,7 @@ class CreateRecipeImagesTable extends Migration
     public function up()
     {
         Schema::create('recipe_images', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->index();
-            $table->integer('recipe_id')->index()->default(0);
-            $table->string('thumbnail');
+            $table->integer('recipe_id')->index();
             $table->string('image');
             $table->timestamps();
         });

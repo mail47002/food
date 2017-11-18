@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Advice extends Model
 {
@@ -10,16 +11,16 @@ class Advice extends Model
 	protected $table = 'advices';
 
 	protected $fillable = [
-        'user_id', 'name', 'description', 'video'
+        'user_id',
+        'name',
+        'description',
+        'image',
+        'video'
     ];
 
-  protected $casts = [
-      'video'      => 'array'
-  ];
-
- 	public function scopeLatest($query)
+  public function reviews()
   {
-      return $query->orderBy('created_at', 'desc');
+    return $this->hasMany('App\Review');
   }
 
   public function images()
@@ -31,15 +32,4 @@ class Advice extends Model
   {
     return $this->belongsTo('App\User');
   }
-
-  public function getThumbnailAttribute($value)
-  {
-      return asset($value);
-  }
-
-  public function getImageAttribute($value)
-  {
-      return asset($value);
-  }
-
 }

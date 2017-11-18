@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Frontend\Account;
 
 use App\RecipeImage;
-use App\RecipeToCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
@@ -45,24 +44,32 @@ class RecipesController extends Controller
     {
         $this->validateForm($request);
 
+        $request->merge([
+            'user_id' => Auth::id(),
+        ]);
+
         DB::beginTransaction();
 
-        $recipe = new Recipe;
-        $recipe->fill($request->all());
-        $recipe->user_id = Auth::id();
-        $recipe->save();
+        $recipe = Recipe::create($request->all());
 
-        $this->storeCategories($request, $recipe);
+        $recipe->categories()->sync($request->category);
+        $recipe->steps()->sync($request->steps);
 
-        $this->storeImages($request, $recipe);
+        foreach ($collection as $value) {
 
-        $this->storeImage($request, $recipe);
+        }
 
-        $this->storeSteps($request, $recipe);
+        foreach ($request->images as $image) {
+            $RecipeImage = new RecipeImage([
+                'image' => $image
+            ]);
+
+            $Recipe->images()->save($RecipeImage);
+        }
 
         DB::commit();
 
-        Session::flash('recipe', $recipe);
+        Session::flash('Recipe', $recipe);
 
         return response()->json([
             'success' => true
@@ -81,7 +88,7 @@ class RecipesController extends Controller
             ]);
         }
 
-        return redirect()->route('account.articles.index');
+        return redirect()->route('account.article.index');
     }
 
     /**
@@ -215,74 +222,20 @@ class RecipesController extends Controller
         $this->validate($request, [
             'name'         => 'required',
             'category'     => 'present',
-            'images'       => 'present',
+            'image'       => 'present',
             'ingredient.*' => 'required',
             'description'  => 'required'
         ]);
     }
 
-    protected function storeCategories(Request $request, $recipe)
+    protected function storeImage($file)
     {
-        foreach ($request->category as $category) {
-            RecipeToCategory::create([
-                'recipe_id'  => $recipe->id,
-                'category_id' => $category
-            ]);
-        }
-    }
+        $oldFilePath = 'uploads/tmp/' . $file;
+        $newFilePath = 'uploads/' . md5(Auth::id()) . '/' . $file;
 
-    /**
-     * Store recipe images to storage.
-     *
-     * @param Request $request
-     * @param $recipe
-     */
-    protected function storeImages(Request $request, $recipe)
-    {
-        $recipeImages = RecipeImage::where('recipe_id', 0)->pluck('id')->toArray();
+        Storage::move($oldFilePath, $newFilePath);
 
-        $idsToInsert = array_intersect($recipeImages, $request->images);
-        $idsToDelete = array_udiff($recipeImages, $request->images,'strcasecmp');
-
-        foreach ($idsToInsert as $id) {
-            $recipeImage = RecipeImage::find($id);
-
-            if ($recipeImage) {
-                $recipeImage->recipe_id = $recipe->id;
-                $recipeImage->save();
-            }
-        }
-
-        foreach ($idsToDelete as $id) {
-            $recipeImage = RecipeImage::find($id);
-
-            if ($recipeImage) {
-                Storage::delete($recipeImage->thumbnail);
-                Storage::delete($recipeImage->image);
-
-                $recipeImage->delete();
-            }
-        }
-    }
-
-    /**
-     * Store recipe image to storage.
-     *
-     * @param Request $request
-     * @param $recipe
-     */
-    protected function storeImage(Request $request, $recipe)
-    {
-        $recipeImage = RecipeImage::where('id', $request->image)
-            ->where('user_id', Auth::id())
-            ->where('recipe_id', $recipe->id)
-            ->first();
-
-        if ($recipeImage) {
-            $recipe->thumbnail = $recipeImage->thumbnail;
-            $recipe->image = $recipeImage->image;
-            $recipe->save();
-        }
+        return $newFilePath;
     }
 
     /**
@@ -321,27 +274,6 @@ class RecipesController extends Controller
                 Storage::delete($recipeStep->Step);
 
                 $recipeStep->delete();
-            }
-        }
-    }
-
-    /**
-     * Delete recipe images from storage.
-     *
-     * @param $recipe
-     */
-    protected function deleteImages($recipe)
-    {
-        $recipeImages = RecipeImage::where('recipe_id', $recipe->id)
-            ->where('user_id', Auth::id())
-            ->get();
-
-        if ($recipeImages) {
-            foreach ($recipeImages as $recipeImage) {
-                Storage::delete($recipeImage->thumbnail);
-                Storage::delete($recipeImage->image);
-
-                $recipeImage->delete();
             }
         }
     }

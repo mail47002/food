@@ -83,9 +83,15 @@ $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
         'name'        => $faker->name,
         'description' => $faker->text,
         'ingredient'  => [$faker->name, $faker->name, $faker->name, $faker->name],
-        'thumbnail'   => $faker->imageUrl($width = 960, $height = 700),
         'image'       => $faker->imageUrl($width = 960, $height = 700),
         'video'       => ['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU'],
+    ];
+});
+
+$factory->define(App\RecipeImage::class, function (Faker\Generator $faker) {
+    return [
+        'recipe_id' => $faker->randomDigitNotNull,
+        'image'     => $faker->imageUrl($width = 960, $height = 700)
     ];
 });
 
@@ -95,7 +101,6 @@ $factory->define(App\Advice::class, function (Faker\Generator $faker) {
         'name'        => $faker->name,
         'slug'        => str_slug($faker->name),
         'description' => $faker->text,
-        'thumbnail'   => $faker->imageUrl($width = 960, $height = 700),
         'image'       => $faker->imageUrl($width = 960, $height = 700),
         'video'       => ['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU'],
     ];
@@ -103,9 +108,7 @@ $factory->define(App\Advice::class, function (Faker\Generator $faker) {
 
 $factory->define(App\AdviceImage::class, function (Faker\Generator $faker) {
     return [
-        'user_id'   => $faker->randomElement([1, 2, 3]),
         'advice_id' => $faker->randomDigitNotNull,
-        'thumbnail' => $faker->imageUrl($width = 960, $height = 700),
         'image'     => $faker->imageUrl($width = 960, $height = 700)
     ];
 });

@@ -3,7 +3,7 @@
  "host": "ari.ftp.ukraine.com.ua",
  "username": "ari_ari",
  "password": "5ZJ1rjzK82",
- "path": "/ari.in.ua/laravel/",
+ "path": "/ari.in.ua/food/",
  "upload_on_save": true,
  "download_on_open": true,
  "tls": false,

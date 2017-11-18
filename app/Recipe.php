@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use Auth;
 
 class Recipe extends Model
 {
@@ -13,6 +13,7 @@ class Recipe extends Model
         'name',
         'description',
         'ingredient',
+        'image',
         'video'
     ];
 
@@ -21,25 +22,29 @@ class Recipe extends Model
         'video'      => 'array'
     ];
 
-  //accessor created_at
-  public function getCreatedAtAttribute($data)
+  public function reviews()
   {
-      return Carbon::parse($data)->format('H:i d M Y');
+    return $this->hasMany('App\Review');
   }
 
-	public function categories()
+  public function images()
   {
-      return $this->hasMany('App\RecipeToCategory');
+      return $this->hasMany('App\RecipeImage')->orderBy('created_at', 'asc');
   }
 
-	public function images()
+  public function categories()
   {
-      return $this->hasMany('App\RecipeImage');
+      return $this->belongsToMany('App\Category', 'recipe_to_category');
   }
 
   public function steps()
   {
-      return $this->hasMany('App\RecipeStep');
+      return $this->belongsToMany('App\RecipeStep', 'recipe_steps');
+  }
+
+  public function user()
+  {
+    return $this->belongsTo('App\User');
   }
 
 }
