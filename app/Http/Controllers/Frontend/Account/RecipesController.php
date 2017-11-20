@@ -21,7 +21,7 @@ class RecipesController extends Controller
     }
 
     /**
-     * Display create recipe form.
+     * Display create Recipe form.
      *
      * @return \Illuminate\Http\Response
      */
@@ -35,13 +35,14 @@ class RecipesController extends Controller
     }
 
     /**
-     * Store new recipe.
+     * Store new Recipe.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+
         $this->validateForm($request);
 
         $request->merge([
@@ -53,23 +54,33 @@ class RecipesController extends Controller
         $recipe = Recipe::create($request->all());
 
         $recipe->categories()->sync($request->category);
-        $recipe->steps()->sync($request->steps);
-
-        foreach ($collection as $value) {
-
-        }
 
         foreach ($request->images as $image) {
-            $RecipeImage = new RecipeImage([
+            $recipeImage = new RecipeImage([
                 'image' => $image
             ]);
 
-            $Recipe->images()->save($RecipeImage);
+            $recipe->images()->save($recipeImage);
+        }
+
+        foreach ($request->step_text as $value) {
+            $step_text[] = $value;
+        }
+
+        $i = 0;
+        foreach ($request->step_image as $step_image) {
+            $recipeStep = new RecipeStep([
+                'image' => $step_image,
+                'text'  => $step_text[$i],
+                'sort_order' => $i + 1
+            ]);
+            $i++;
+            $recipe->steps()->save($recipeStep);
         }
 
         DB::commit();
 
-        Session::flash('Recipe', $recipe);
+        Session::flash('recipe', $recipe);
 
         return response()->json([
             'success' => true
@@ -88,19 +99,18 @@ class RecipesController extends Controller
             ]);
         }
 
-        return redirect()->route('account.article.index');
+        return redirect()->route('account.articles.index');
     }
 
     /**
-     * Display recipe.
+     * Display Recipe.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $recipe = Recipe::with(['categories', 'images', 'steps'])
-            ->where('id', $id)
+        $recipe = Recipe::where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
 
@@ -114,14 +124,14 @@ class RecipesController extends Controller
     }
 
     /**
-     * Display edit recipe form.
+     * Display edit Recipe form.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $recipe = Recipe::with(['categories', 'images', 'steps'])
+        $recipe = Recipe::with(['categories', 'images'])
             ->where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
@@ -135,11 +145,11 @@ class RecipesController extends Controller
             ]);
         }
 
-        return redirect()->route('account.recipes.edit');
+        return redirect()->route('account.articles.index');
     }
 
     /**
-     * Update recipe.
+     * Update Recipe.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -158,17 +168,17 @@ class RecipesController extends Controller
 
             $recipe->fill($request->all())->save();
 
-            $recipe->categories()->delete();
+            $recipe->categories()->sync($request->category);
 
-            $this->storeCategories($request, $recipe);
+            $recipe->images()->delete();
 
-            $this->storeImages($request, $recipe);
+            foreach ($request->images as $image) {
+                $recipeImage = new RecipeImage([
+                    'image' => $image
+                ]);
 
-            $this->storeImage($request, $recipe);
-
-            $this->storeSteps($request, $recipe);
-
-            // $this->storeSteps($request, $recipe);
+                $recipe->images()->save($recipeImage);
+            }
 
             DB::commit();
 
@@ -183,7 +193,7 @@ class RecipesController extends Controller
     }
 
     /**
-     * Remove recipe.
+     * Remove Recipe.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -197,9 +207,7 @@ class RecipesController extends Controller
 
         if ($recipe) {
             $recipe->categories()->delete();
-
-            $this->deleteImages($recipe);
-
+            $recipe->images()->delete();
             $recipe->delete();
 
             return response()->json([
@@ -222,7 +230,7 @@ class RecipesController extends Controller
         $this->validate($request, [
             'name'         => 'required',
             'category'     => 'present',
-            'image'       => 'present',
+            'image'        => 'required',
             'ingredient.*' => 'required',
             'description'  => 'required'
         ]);
@@ -236,45 +244,5 @@ class RecipesController extends Controller
         Storage::move($oldFilePath, $newFilePath);
 
         return $newFilePath;
-    }
-
-    /**
-     * Store recipe image to storage.
-     *
-     * @param Request $request
-     * @param $recipe
-     */
-    protected function storeSteps(Request $request, $recipe)
-    {
-        $recipeSteps = RecipeStep::where('recipe_id', 0)->pluck('id')->toArray();
-
-        $idsToInsert = array_intersect($recipeSteps, $request->step_images);
-        $idsToDelete = array_udiff($recipeSteps, $request->step_images,'strcasecmp');
-
-        foreach ($idsToInsert as $id) {
-            $recipeStep = RecipeStep::find($id);
-
-            if ($recipeStep) {
-                $recipeStep->recipe_id = $recipe->id;
-                $recipeStep->save();
-            }
-        }
-
-        foreach ($request->step_text as $key => $value) {
-            $recipeText = RecipeStep::find($key);
-            $recipeText->text = $value;
-            $recipeText->save();
-        }
-
-        foreach ($idsToDelete as $id) {
-            $recipeStep = RecipeStep::find($id);
-
-            if ($recipeStep) {
-                Storage::delete($recipeStep->thumbnail);
-                Storage::delete($recipeStep->Step);
-
-                $recipeStep->delete();
-            }
-        }
     }
 }

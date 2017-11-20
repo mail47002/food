@@ -39,7 +39,7 @@ class Recipe extends Model
 
   public function steps()
   {
-      return $this->belongsToMany('App\RecipeStep', 'recipe_steps');
+      return $this->hasMany('App\RecipeStep')->orderBy('created_at', 'asc');
   }
 
   public function user()

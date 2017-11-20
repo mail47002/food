@@ -21,7 +21,7 @@
 		<h1 class="text-center">{{ $advice->name }}</h1>
 		<div class="owl-carousel">
 			@foreach ($advice->images as $image)
-			<div class="item"><img src="{{ $image->image }}" alt="{{ $advice->name }}"></div>
+			<div class="item"><img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $image->image) }}"></div>
 			@endforeach
 		</div>
 		<div class="slider-counter"></div>

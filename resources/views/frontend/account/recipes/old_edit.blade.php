@@ -12,7 +12,7 @@
         <h5 class="title-with-indent red">Редагувати рецепт</h5>
     </div>
     <div class="container-half text-center">
-        {{ Form::open(['route' => ['account.recipes.update', $recipe->id], 'method' => 'put', 'class' => 'edit']) }}
+        {{ Form::open(['route' => ['account.recipes.update', $recipe->id], 'method' => 'put', 'enctype' => 'multipart/form-data', 'class' => 'edit']) }}
             <p class="message" id="message">Заповніть виділені поля</p>
 
             <div class="form-group">
@@ -25,7 +25,7 @@
                 <div id="input-category" class="catgories clearfix">
                     @foreach ($categories as $category)
                         <div class="col-md-4">
-                            {{ Form::checkbox('category[]', $category->id, in_array($category->id, $recipe->categories()->pluck('id')->toArray()) ? true : false, ['id' => 'cat-' . $category->id]) }}
+                            {{ Form::checkbox('category[]', $category->id, in_array($category->id, $recipe->categories->pluck('category_id')->toArray()) ? true : false, ['id' => 'cat-' . $category->id]) }}
                             {{ Form::label('cat-' . $category->id, $category->name) }}
                         </div>
                     @endforeach
@@ -53,14 +53,15 @@
 
             <div class="form-group">
                 {{ Form::label('fotos', 'Додати фото*') }}
-                <div id="input-image" class="fotos">
+                <div id="input-images" class="fotos">
                     @foreach ($recipe->images as $image)
                         <div class="wrap js-foto">
                             <div class="uploader">
-                                <img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $image->image) }}">
-                                {{ Form::hidden('images[]', $image->image) }}
+                                <img "src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $recipe->image) }}" alt="{{ $recipe->name }}">
+                                {{ Form::file(null, ['class' => 'input-upload']) }}
+                                {{ Form::hidden('images[]', $image->id) }}
                             </div>
-                            <a href="#" class="pull-left grey1 js-main-foto {{ $recipe->image == $image->image ?: 'active' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                            <a href="#" class="pull-left grey1 js-main-foto {{ $recipe->thumbnail === $image->thumbnail ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
                             <a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
                         </div>
                     @endforeach
@@ -69,23 +70,22 @@
                             <img src="">
                             <div class="round"><i class="fo fo-camera"></i></div>
                             {{ Form::file(null, ['class' => 'input-upload']) }}
+                            {{ Form::hidden('images[]', null) }}
                         </div>
-                        <a href="#" class="pull-left hide grey1 js-cover-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                        <a href="#" class="pull-left hide grey1 js-main-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
                         <a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
                     </div>
                 </div>
-                {{ Form::hidden('image', $recipe->image, ['id' => 'cover-image']) }}
+                {{ Form::hidden('image', null, ['id' => 'recipe-image']) }}
             </div>
 
             {{ Form::label('recipe', 'Спосіб приготування') }}
             <div class="recipes">
-                <?php $i = 1; ?>
                 @foreach ($recipe->steps as $step)
                 <div class="js-foto js-foto-steps">
-                    <span class="title">Крок {{$i}}</span><span class="remove"></span>
-                    <?php $i++; ?>
+                    <span class="title">Крок 1</span><span class="remove"></span>
                     <div class="uploader uploader-steps">
-                        <img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $image->image) }}">
+                        <img src="{{ $step->thumbnail }}">
                         <div class="round"><i class="fo fo-camera"></i></div>
                         {{ Form::file(null, ['class' => 'input-upload-steps']) }}
                         {{ Form::hidden('step_images[]', null) }}
@@ -95,6 +95,17 @@
                     <textarea class="step-texts" name="step_texts[{{ $step->id }}]" type="text" required="required" />{{ $step->text }}</textarea>
                 </div>
                 @endforeach
+                <div class="js-foto js-foto-steps recipe-first"> {{-- Пустой блок --}}
+                    <span class="title">Крок 1</span><span class="remove"></span>
+                    <div class="uploader uploader-steps">
+                        <img src="">
+                        <div class="round"><i class="fo fo-camera"></i></div>
+                        {{ Form::file(null, ['class' => 'input-upload-steps', 'id' => 'step_image']) }}
+                        {{ Form::hidden('step_images[]', null) }}
+
+                    </div>
+                    <textarea class="step-texts" name="step_texts[]" type="text" required="required" /></textarea>
+                </div>
                 <a href="#" id="cloneRecipe" class="link-red-dark">+ Додати</a>
             </div>
 
@@ -117,8 +128,6 @@
                 </div>
                 <a href="#" class="link-red-dark js-add-video">+ Додати</a>
             </div>
-
-            {{ Form::hidden('recipe_id', $recipe->id) }}
 
             {{ Form::submit('Зберегти', ['class' => 'button button-red']) }}
         {{ Form::close() }}
@@ -167,16 +176,23 @@
         });
 
         // Fotos
-        $(document).on('change', '.input-upload', function() {
+        $('body').on('change', '.input-upload', function() {
             var self = $(this),
                 i = $('.fotos > .js-foto').length,
+                id = self.closest('.uploader').find('input[name="images[]"]').val(),
+                url =  id ? '{{ url('account/recipes/image') }}/' + id : '{{ url('account/recipes/image/store') }}',
                 data = new FormData();
 
             data.append('_token', '{{ csrf_token() }}');
+
+            if (id) {
+                data.append('_method', 'put');
+            }
+
             data.append('image', self[0].files[0]);
 
             $.ajax({
-                url: '{{ url('api/image/store') }}',
+                url: url,
                 method: 'post',
                 data: data,
                 processData: false,
@@ -191,17 +207,15 @@
                         $('.fotos .js-foto:not(:last-child)').find('.round').remove();
                     }
                 },
-                success: function(responce) {
-                    if (responce) {
-                        self.closest('.uploader').find('img').attr('src', responce['url']);
-                        self.closest('.uploader').append('<input type="hidden" name="images[]" value="' + responce['image'] + '"/>');
+                success: function(data) {
+                    if (data['success']) {
+                        self.closest('.uploader').find('img').attr('src', data['image']['thumbnail']);
+                        self.closest('.uploader').find('input[name="images[]"]').val(data['image']['id']);
 
                         if (i == 1) {
                             self.closest('.js-foto').find('.js-main-foto').addClass('active');
-                            $('#cover-image').val(responce['image']);
+                            $('#recipe-image').val(data['image']['id']);
                         }
-
-                        self.closest('.uploader').find('.input-upload').remove();
                     }
                 },
                 error: function(data) {
@@ -210,40 +224,36 @@
             });
         });
 
-        $(document).on('click', '.js-delete-foto', function(e) {
+        $('body').on('click', '.js-main-foto', function(e) {
             e.preventDefault();
 
-            var self = $(this),
-                image = self.closest('.js-foto').find('input[name="images[]"]').val();
-
-            if (image) {
-                $.post('{{ url('api/image/delete') }}', {
-                    '_token': '{{ csrf_token() }}',
-                    '_method': 'delete',
-                    'image': image
-                }).done(function (response) {
-                    if (response) {
-                        self.parent().remove();
-
-                        if (image == $('#cover-image').val()) {
-                            $('#cover-image').val('');
-                        }
-                    }
-                });
-            }
-        });
-
-        $(document).on('click', '.js-cover-foto', function(e) {
-            e.preventDefault();
-
-            $('.fotos .js-cover-foto').removeClass('active');
+            $('.fotos .js-main-foto').removeClass('active');
 
             $(this).addClass('active');
 
-            $('#cover-cover').val($(this).closest('.js-foto').find('input[name="images[]"]').val());
+            $('#recipe-image').val($(this).closest('.js-foto').find('input[name="images[]"]').val());
         });
 
-        //клонування кроку
+        $('body').on('click', '.js-delete-foto', function(e) {
+            e.preventDefault();
+
+            var self = $(this),
+                id = $(this).closest('.js-foto').find('input[name="images[]"]').val(),
+                data = {
+                    '_token': '{{ csrf_token() }}',
+                    '_method': 'delete'
+                };
+
+            $.post('{{ url('account/recipes/image') }}/' + id, data).done(function(data) {
+                if (data['success']) {
+                    self.parent().remove();
+                }
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        // Клонируем шаг рецепта
         var count = 0;
         var inputRecipe = $('.recipe-first').clone();
         $("#cloneRecipe").on("click", function(e){
@@ -253,13 +263,13 @@
             recipeCount = $('.recipes').children().length; // Для номера "Крок"
             var newBlock = inputRecipe.clone();
             console.log(newBlock);
-            // newBlock.find('#step_image').attr('id', 'step_image'+count);
+            newBlock.find('#step_image').attr('id', 'step_image'+count);
             newBlock.find('.title').text('Крок '+recipeCount);
 
             $(newBlock).insertBefore(this);
 
-            // document.getElementById('step_image'+count)
-            //         .addEventListener('change', handleImage, false);
+            document.getElementById('step_image'+count)
+                    .addEventListener('change', handleImage, false);
         });
         $('body').on('click', '.recipes .remove', function(e){
             e.preventDefault();
@@ -348,4 +358,15 @@
             });
         });
     </script>
+
+{{-- Это в default шаблон --}}
+<script>
+    function handleImage(e) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            $(e.target).parent().find('img').attr('src',event.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    }
+</script>
 @endpush

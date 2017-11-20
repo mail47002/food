@@ -9,10 +9,10 @@
         </div>
     </div>
     <div class="bg-yellow">
-        <h5 class="title-with-indent red">Редагувати страву</h5>
+        <h5 class="title-with-indent red">Редагувати пораду</h5>
     </div>
     <div class="container-half text-center">
-        {{ Form::open(['route' => ['account.advices.update', $advice->id], 'method' => 'put', 'enctype' => 'multipart/form-data', 'class' => 'edit']) }}
+        {{ Form::open(['route' => ['account.advices.update', $advice->id], 'method' => 'put', 'class' => 'edit']) }}
             <p class="message" id="message">Заповніть виділені поля</p>
 
             <div class="form-group">
@@ -21,21 +21,20 @@
             </div>
 
             <div class="form-group">
-                {{ Form::label('description', 'Текст поради*') }}
+                {{ Form::label('description', 'Про страву*') }}
                 {{ Form::textarea('description', $advice->description, ['id' => 'input-description', 'class' => 'wide']) }}
             </div>
 
             <div class="form-group">
                 {{ Form::label('fotos', 'Додати фото*') }}
-                <div id="input-images" class="fotos">
+                <div id="input-image" class="fotos">
                     @foreach ($advice->images as $image)
                         <div class="wrap js-foto">
                             <div class="uploader">
-                                <img src="{{ $image->thumbnail }}">
-                                {{ Form::file(null, ['class' => 'input-upload']) }}
-                                {{ Form::hidden('images[]', $image->id) }}
+                                <img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $image->image) }}">
+                                {{ Form::hidden('images[]', $image->image) }}
                             </div>
-                            <a href="#" class="pull-left grey1 js-main-foto {{ $advice->thumbnail === $image->thumbnail ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                            <a href="#" class="pull-left grey1 js-main-foto {{ $advice->image == $image->image ?: 'active' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
                             <a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
                         </div>
                     @endforeach
@@ -44,13 +43,12 @@
                             <img src="">
                             <div class="round"><i class="fo fo-camera"></i></div>
                             {{ Form::file(null, ['class' => 'input-upload']) }}
-                            {{ Form::hidden('images[]', null) }}
                         </div>
-                        <a href="#" class="pull-left hide grey1 js-main-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                        <a href="#" class="pull-left hide grey1 js-cover-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
                         <a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
                     </div>
                 </div>
-                {{ Form::hidden('image', null, ['id' => 'advice-image']) }}
+                {{ Form::hidden('image', $advice->image, ['id' => 'cover-image']) }}
             </div>
 
             <div class="form-group">
@@ -73,14 +71,17 @@
                 <a href="#" class="link-red-dark js-add-video">+ Додати</a>
             </div>
 
+            {{ Form::hidden('advice_id', $advice->id) }}
+
             {{ Form::submit('Зберегти', ['class' => 'button button-red']) }}
         {{ Form::close() }}
-        <a href="{{ route('account.adverts.index') }}" class="grey3">Відмінити</a>
+        <a href="{{ route('account.articles.index') }}" class="grey3">Відмінити</a>
     </div>
 @stop
 
 @push('scripts')
     <script type="text/javascript">
+
         // Video
         $('.js-add-video').on('click', function(e) {
             e.preventDefault();
@@ -101,23 +102,16 @@
         });
 
         // Fotos
-        $('body').on('change', '.input-upload', function() {
+        $(document).on('change', '.input-upload', function() {
             var self = $(this),
                 i = $('.fotos > .js-foto').length,
-                id = self.closest('.uploader').find('input[name="images[]"]').val(),
-                url =  id ? '{{ url('account/advices/image') }}/' + id : '{{ url('account/advices/image/store') }}',
                 data = new FormData();
 
             data.append('_token', '{{ csrf_token() }}');
-
-            if (id) {
-                data.append('_method', 'put');
-            }
-
             data.append('image', self[0].files[0]);
 
             $.ajax({
-                url: url,
+                url: '{{ url('api/image/store') }}',
                 method: 'post',
                 data: data,
                 processData: false,
@@ -132,15 +126,17 @@
                         $('.fotos .js-foto:not(:last-child)').find('.round').remove();
                     }
                 },
-                success: function(data) {
-                    if (data['success']) {
-                        self.closest('.uploader').find('img').attr('src', data['image']['thumbnail']);
-                        self.closest('.uploader').find('input[name="images[]"]').val(data['image']['id']);
+                success: function(responce) {
+                    if (responce) {
+                        self.closest('.uploader').find('img').attr('src', responce['url']);
+                        self.closest('.uploader').append('<input type="hidden" name="images[]" value="' + responce['image'] + '"/>');
 
                         if (i == 1) {
                             self.closest('.js-foto').find('.js-main-foto').addClass('active');
-                            $('#advice-image').val(data['image']['id']);
+                            $('#cover-image').val(responce['image']);
                         }
+
+                        self.closest('.uploader').find('.input-upload').remove();
                     }
                 },
                 error: function(data) {
@@ -149,32 +145,37 @@
             });
         });
 
-        $('body').on('click', '.js-main-foto', function(e) {
-            e.preventDefault();
-
-            $('.fotos .js-main-foto').removeClass('active');
-
-            $(this).addClass('active');
-
-            $('#advice-image').val($(this).closest('.js-foto').find('input[name="images[]"]').val());
-        });
-
-        $('body').on('click', '.js-delete-foto', function(e) {
+        $(document).on('click', '.js-delete-foto', function(e) {
             e.preventDefault();
 
             var self = $(this),
-                id = $(this).closest('.js-foto').find('input[name="images[]"]').val(),
-                data = {
+                image = self.closest('.js-foto').find('input[name="images[]"]').val();
+
+            if (image) {
+                $.post('{{ url('api/image/delete') }}', {
                     '_token': '{{ csrf_token() }}',
-                    '_method': 'delete'
-                };
+                    '_method': 'delete',
+                    'image': image
+                }).done(function (response) {
+                    if (response) {
+                        self.parent().remove();
 
-            $.post('{{ url('account/advices/image') }}/' + id, data).done(function(data) {
-                if (data['success']) {
-                    self.parent().remove();
-                }
-            });
+                        if (image == $('#cover-image').val()) {
+                            $('#cover-image').val('');
+                        }
+                    }
+                });
+            }
+        });
 
+        $(document).on('click', '.js-cover-foto', function(e) {
+            e.preventDefault();
+
+            $('.fotos .js-cover-foto').removeClass('active');
+
+            $(this).addClass('active');
+
+            $('#cover-cover').val($(this).closest('.js-foto').find('input[name="images[]"]').val());
         });
     </script>
     <script type="text/javascript">

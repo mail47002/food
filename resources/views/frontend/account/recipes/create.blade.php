@@ -73,10 +73,10 @@
 							<img src="">
 							<div class="round"><i class="fo fo-camera"></i></div>
 							{{ Form::file(null, ['class' => 'input-upload-steps']) }}
-							{{ Form::hidden('step_image', null, ['id' => 'step_image']) }}
+							{{ Form::hidden('step_image[]', null, ['id' => 'step_image']) }}
 						</div>
 						{{-- Удаление фото?? Нужно?? --}}
-						<textarea class="step-texts" name="step_texts[]" type="text" required="required" /></textarea>
+						<textarea class="step-texts" name="step_text[]" type="text" required="required" /></textarea>
 					</div>
 					<a href="#" id="cloneRecipe" class="link-red-dark">+ Додати</a>
 				</div>
@@ -220,7 +220,7 @@
 			count++;
 			recipeCount = $('.recipes').children().length; // Для номера "Крок"
 			var newBlock = inputRecipe.clone();
-			newBlock.find('#step_image').attr('id', 'step_image'+count);
+			// newBlock.find('#step_image[]').attr('id', 'step_image[]'+count);
 			newBlock.find('.title').text('Крок '+recipeCount);
 
 			$(newBlock).insertBefore(this);
@@ -231,7 +231,7 @@
 		$('body').on('change', '.input-upload-steps', function() {
 			var self = $(this),
 				i = $('.recipes > .js-foto-steps').length,
-        id = self.closest('.input-upload-steps').find('input[name="step_image"]').val(),
+        id = self.closest('.input-upload-steps').find('input[name="step_image[]"]').val(),
         url =  '{{ url('api/image/store') }}',
 				data = new FormData();
 
@@ -248,7 +248,7 @@
 					console.log(data);
 					if (data) {
 						self.closest('.uploader-steps').find('img').attr('src', data['url']);
-						self.closest('.uploader-steps').find('input[name="step_image"]').val(data['image']);
+						self.closest('.uploader-steps').find('input[name="step_image[]"]').val(data['image']);
 					}
 				},
 				error: function(data) {
@@ -266,39 +266,40 @@
 			$.ajax({
 				url: form.attr('action'),
 				method: form.attr('method'),
-        data: form.serialize(),
-				beforeSend: function() {
-          $('#message').hide();
-					form.find(':submit').attr('disabled', true);
-					form.find('.has-error').removeClass('has-error');
-					form.find('.error').removeClass('error');
-					$('.body-overlay').addClass('active');
-				},
+        		data: form.serialize(),
+				// beforeSend: function() {
+    //       			$('#message').hide();
+				// 	form.find(':submit').attr('disabled', true);
+				// 	form.find('.has-error').removeClass('has-error');
+				// 	form.find('.error').removeClass('error');
+				// 	$('.body-overlay').addClass('active');
+				// },
 				success: function(data) {
-          if (data['success']) {
-						location = '{{ route('account.recipes.success') }}';
-          }
+					console.log(data);
+					if (data['success']) {
+								location = '{{ route('account.recipes.success') }}';
+					}
 				},
 				error: function(data) {
 					var data = data.responseJSON;
 
-          form.find(':submit').attr('disabled', false);
+					form.find(':submit').attr('disabled', false);
 
-          $('.body-overlay').removeClass('active');
+					$('.body-overlay').removeClass('active');
 
-          $('#message').show();
+					$('#message').show();
 
 					for (name in data.errors) {
-            if (name.indexOf('.') > 0) {
-                var parts = name.split('.');
+			            if (name.indexOf('.') > 0) {
+			                var parts = name.split('.');
 
-                target = form.find('#input-' + parts[0] + '-' + parts[1]);
-            } else {
-                target = form.find('#input-' + name);
-            }
+			                target = form.find('#input-' + parts[0] + '-' + parts[1]);
+			            } else {
+			                target = form.find('#input-' + name);
+		            	}
 
-            target.addClass('error');
-            target.closest('.form-group').addClass('has-error');
+            			target.addClass('error');
+            			target.closest('.form-group').addClass('has-error');
 					}
 				}
 			});

@@ -36,7 +36,8 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="image">
-									<img src="{{ asset($recipe->image) }}" class="img-responsive" alt="">
+
+									<img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $recipe->image) }}" class="img-responsive" alt="{{ $recipe->name }}">
 								</div>
 							</div>
 							<div class="col-md-8">
@@ -45,10 +46,9 @@
 									<p class="max-height">
 										{{ $recipe->description }}
 									</p>
-
 									<div class="bottom">
 										@foreach($categories as $category)
-											@if(in_array($category->id, $recipe->categories->pluck('category_id')->toArray()))
+											@if(in_array($category->id, $recipe->categories()->pluck('id')->toArray()))
 											<a href="#" class="button-filter">{{ $category->name }}</a>
 											@endif
 										@endforeach
@@ -77,7 +77,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="image">
-									<img src="{{ asset($advice->image) }}" class="img-responsive" alt="">
+									<img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $advice->image) }}" class="img-responsive" alt="{{ $advice->name }}">
 								</div>
 							</div>
 							<div class="col-md-8">

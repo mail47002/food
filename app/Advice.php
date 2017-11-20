@@ -7,16 +7,18 @@ use Auth;
 
 class Advice extends Model
 {
+  protected $fillable = [
+      'user_id',
+      'name',
+      'description',
+      'ingredient',
+      'image',
+      'video'
+  ];
 
-	protected $table = 'advices';
-
-	protected $fillable = [
-        'user_id',
-        'name',
-        'description',
-        'image',
-        'video'
-    ];
+  protected $casts = [
+      'video'      => 'array'
+  ];
 
   public function reviews()
   {

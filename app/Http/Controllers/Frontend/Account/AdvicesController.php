@@ -13,30 +13,13 @@ use Storage;
 
 class AdvicesController extends Controller
 {
-
-     public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $advices = Advice::where('user_id', Auth::id())
-            ->orderBy('created_at', 'desc')
-            ->paginate();
-
-        return view('frontend.account.advices.index', [
-            'advices' => $advices
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
+     * Display create advice form.
      *
      * @return \Illuminate\Http\Response
      */
@@ -48,7 +31,7 @@ class AdvicesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store new advice.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -58,16 +41,21 @@ class AdvicesController extends Controller
 
         $this->validateForm($request);
 
+        $request->merge([
+            'user_id' => Auth::id(),
+        ]);
+
         DB::beginTransaction();
 
-        $advice = new Advice;
-        $advice->fill($request->all());
-        $advice->user_id = Auth::id();
-        $advice->save();
+        $advice = Advice::create($request->all());
 
-        $this->storeImages($request, $advice);
+        foreach ($request->images as $image) {
+            $adviceImage = new AdviceImage([
+                'image' => $image
+            ]);
 
-        $this->storeImage($request, $advice);
+            $advice->images()->save($adviceImage);
+        }
 
         DB::commit();
 
@@ -79,7 +67,22 @@ class AdvicesController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the success resource.
+     *
+     */
+    public function success()
+    {
+        if (Session::has('advice')) {
+            return view('frontend.account.advices.success', [
+                'advice' => Session::get('advice')
+            ]);
+        }
+
+        return redirect()->route('account.articles.index');
+    }
+
+    /**
+     * Display Advice.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -100,30 +103,29 @@ class AdvicesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display edit advice form.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $advice = advice::with(['images'])
+        $advice = Advice::with(['images'])
             ->where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
 
         if ($advice) {
-
             return view('frontend.account.advices.edit', [
                 'advice'    => $advice,
             ]);
         }
 
-        return redirect()->route('account.advices.index');
+        return redirect()->route('account.articles.index');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update advice.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -131,7 +133,7 @@ class AdvicesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $advice = advice::where('id', $id)
+        $advice = Advice::where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
 
@@ -142,9 +144,15 @@ class AdvicesController extends Controller
 
             $advice->fill($request->all())->save();
 
-            $this->storeImages($request, $advice);
+            $advice->images()->delete();
 
-            $this->storeImage($request, $advice);
+            foreach ($request->images as $image) {
+                $adviceImage = new AdviceImage([
+                    'image' => $image
+                ]);
+
+                $advice->images()->save($adviceImage);
+            }
 
             DB::commit();
 
@@ -159,21 +167,19 @@ class AdvicesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove advice.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $advice = Advice::where('id', $id)
+        $advice = advice::where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
 
         if ($advice) {
-
-            $this->deleteImages($advice);
-
+            $advice->images()->delete();
             $advice->delete();
 
             return response()->json([
@@ -186,17 +192,6 @@ class AdvicesController extends Controller
         ]);
     }
 
-    public function success()
-    {
-        if (Session::has('advice')) {
-            return view('frontend.account.advices.success', [
-                'advice' => Session::get('advice')
-            ]);
-        }
-
-        return redirect()->route('account.articles.index');
-    }
-
     /**
      * Validate form.
      *
@@ -206,83 +201,18 @@ class AdvicesController extends Controller
     {
         $this->validate($request, [
             'name'         => 'required',
-            'images'       => 'present',
+            'image'        => 'required',
             'description'  => 'required'
         ]);
     }
 
-    /**
-     * Store advice images to storage.
-     *
-     * @param Request $request
-     * @param $advice
-     */
-    protected function storeImages(Request $request, $advice)
+    protected function storeImage($file)
     {
-        $adviceImages = AdviceImage::where('advice_id', 0)->pluck('id')->toArray();
+        $oldFilePath = 'uploads/tmp/' . $file;
+        $newFilePath = 'uploads/' . md5(Auth::id()) . '/' . $file;
 
-        $idsToInsert = array_intersect($adviceImages, $request->images);
-        $idsToDelete = array_udiff($adviceImages, $request->images,'strcasecmp');
+        Storage::move($oldFilePath, $newFilePath);
 
-        foreach ($idsToInsert as $id) {
-            $adviceImage = AdviceImage::find($id);
-
-            if ($adviceImage) {
-                $adviceImage->advice_id = $advice->id;
-                $adviceImage->save();
-            }
-        }
-
-        foreach ($idsToDelete as $id) {
-            $adviceImage = AdviceImage::find($id);
-
-            if ($adviceImage) {
-                Storage::delete($adviceImage->thumbnail);
-                Storage::delete($adviceImage->image);
-
-                $adviceImage->delete();
-            }
-        }
-    }
-
-    /**
-     * Store advice image to storage.
-     *
-     * @param Request $request
-     * @param $advice
-     */
-    protected function storeImage(Request $request, $advice)
-    {
-        $adviceImage = AdviceImage::where('id', $request->image)
-            ->where('user_id', Auth::id())
-            ->where('advice_id', $advice->id)
-            ->first();
-
-        if ($adviceImage) {
-            $advice->thumbnail = $adviceImage->thumbnail;
-            $advice->image = $adviceImage->image;
-            $advice->save();
-        }
-    }
-
-    /**
-     * Delete advice images from storage.
-     *
-     * @param $advice
-     */
-    protected function deleteImages($advice)
-    {
-        $adviceImages = AdviceImage::where('advice_id', $advice->id)
-            ->where('user_id', Auth::id())
-            ->get();
-
-        if ($adviceImages) {
-            foreach ($adviceImages as $adviceImage) {
-                Storage::delete($adviceImage->thumbnail);
-                Storage::delete($adviceImage->image);
-
-                $adviceImage->delete();
-            }
-        }
+        return $newFilePath;
     }
 }

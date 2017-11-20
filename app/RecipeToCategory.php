@@ -11,7 +11,8 @@ class RecipeToCategory extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'recipe_id', 'category_id'
+        'recipe_id',
+        'category_id'
     ];
 
     public function categories()
