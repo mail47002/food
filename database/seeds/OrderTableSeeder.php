@@ -16,22 +16,18 @@ class OrderTableSeeder extends Seeder
             [
                 'advert_id'  => 1,
                 'user_id'    => 1,
-                'status'     => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
                 'advert_id'  => 2,
                 'user_id'    => 1,
-                'status'     => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
                 'advert_id'  => 3,
                 'user_id'    => 3,
-                'status'     => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ], [
                 'advert_id'  => 4,
                 'user_id'    => 4,
-                'status'     => 1,
                 'created_at' => Carbon::now()->toDateTimeString()
             ]
         ]);

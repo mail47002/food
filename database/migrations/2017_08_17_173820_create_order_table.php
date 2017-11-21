@@ -16,7 +16,6 @@ class CreateOrderTable extends Migration {
             $table->increments('id');
             $table->integer('advert_id');
             $table->integer('user_id');
-            $table->string('status');
             $table->timestamps();
         });
 	}

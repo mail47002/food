@@ -112,3 +112,12 @@ $factory->define(App\AdviceImage::class, function (Faker\Generator $faker) {
         'image'     => $faker->imageUrl($width = 960, $height = 700)
     ];
 });
+
+$factory->define(App\Review::class, function (Faker\Generator $faker) {
+    return [
+        'product_id' => random_int(1, 20),
+        'user_id'    => random_int(1, 5),
+        'text'       => $faker->text(),
+        'rating'     => random_int(1, 5)
+    ];
+});

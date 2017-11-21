@@ -28,7 +28,6 @@
 <div class="bg-white">
 
 
-
 	<div class="container">
 
 		<div class="row">
@@ -39,106 +38,109 @@
 				<h5 class="text-upper underline-red">Від повара про страву </h5><hr class="zerro-top">
 
 				<div class="description">
-					<p>Якщо ви любите запечене блюдо з хрусткою скоринкою, то посипте все сумішшю з панірувальних сухарів і натертого на тертці сиру. Запікайте в духовці при температурі 180-190С. Коли картопля стане м'яким, або помідори з цибулею і кабачками трохи підрум'яняться - овочевий рататуй з баклажанами готовий! Подавайте його до столу з будь-яким улюбленим вами соусом. Підійде сметана, домашній майонез або невеликий шматочок вершкового масла. </p>
-					<p> Як стверджують французи, в будь-якому блюді є два незамінних інгредієнта - це фантазія і любов! Готуйте з задоволенням і радістю!</p>
+					<p>{{ $advert->product->description }}</p>
 
 					<div class="red-round-border">
-						<i>Якщо ви любите запечене блюдо з хрусткою скоринкою, то посипте все сумішшю з панірувальних сухарів і натертого на тертці сиру. Запікайте в духовці при температурі 180-190С. Коли картопля стане м'яким, або помідори з цибулею і кабачками трохи підрум'яняться - овочевий рататуй з баклажанами готовий! Подавайте його до столу з будь-яким улюбленим вами соусом. Підійде сметана, домашній майонез або невеликий шматочок вершкового масла. Як стверджують французи, в будь-якому блюді є два незамінних інгредієнта - це фантазія і любов! Готуйте з задоволенням і радістю!</i>
+						<i>{{ $advert->description }}</i>
 					</div>
 				</div>
 
-
-				<div class="reviews">
+				@if (count($reviews) > 0)
+					<div class="reviews">
 					<h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">
 					<ul class="list-unstyled">
 
-						<li class="clearfix">
-							<div class="left">
-								<div class="avatar">
-									<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-								</div>
-								<a href="#" class="link-blue name">Вікторія</a>
-							</div>
-							<div class="right bg-yellow">
-								<div class="date">2 липня 2016</div>
-								<span class="stars">4</span>
-								<div class="message">
-									В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-								</div>
-							</div>
-						</li>
-
-						<li class="clearfix">
-							<div class="left">
-								<div class="avatar">
-									<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-								</div>
-								<a href="#" class="link-blue name">Вікторія</a>
-							</div>
-
-							<div class="right bg-yellow">
-								<div class="date">2 липня 2016</div>
-								<span class="stars">4</span>
-								<div class="message">
-									В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-								</div>
-
-								<div class="answer clearfix">
-									<div class="title">Ваша відповідь</div>
-									<div class="message">
-										В принципе вкусно,если сделать для одного раза,а так: гарнир
+						@foreach ($reviews as $review)
+							<li class="clearfix">
+								<div class="left">
+									<div class="avatar">
+										<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 									</div>
-									<div class="right-avatar">
-										<div class="avatar">
-											<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-										</div>
-									</div>
+									<a href="#" class="link-blue name">{{ $review->user->name }}</a>
 								</div>
-
-								<div class="message">
-									В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
+								<div class="right bg-yellow">
+									<div class="date">2 липня 2016</div>
+									<span class="stars">4</span>
+									<div class="message">{{ $review->text }}</div>
 								</div>
+							</li>
+						@endforeach
 
-								<hr>
-								<a href="#" class="link-blue pull-right">Приховати</a>
+						{{--<li class="clearfix">--}}
+							{{--<div class="left">--}}
+								{{--<div class="avatar">--}}
+									{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
+								{{--</div>--}}
+								{{--<a href="#" class="link-blue name">Вікторія</a>--}}
+							{{--</div>--}}
 
-							</div>
-						</li>
+							{{--<div class="right bg-yellow">--}}
+								{{--<div class="date">2 липня 2016</div>--}}
+								{{--<span class="stars">4</span>--}}
+								{{--<div class="message">--}}
+									{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
+								{{--</div>--}}
 
-						<li class="clearfix">
-							<div class="left">
-								<div class="avatar">
-									<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-								</div>
-								<a href="#" class="link-blue name">Марія</a>
-							</div>
-							<div class="right bg-yellow">
-								<div class="date">2 липня 2016</div>
-								<span class="stars">4</span>
-								<div class="message">
-									В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-								</div>
+								{{--<div class="answer clearfix">--}}
+									{{--<div class="title">Ваша відповідь</div>--}}
+									{{--<div class="message">--}}
+										{{--В принципе вкусно,если сделать для одного раза,а так: гарнир--}}
+									{{--</div>--}}
+									{{--<div class="right-avatar">--}}
+										{{--<div class="avatar">--}}
+											{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
+										{{--</div>--}}
+									{{--</div>--}}
+								{{--</div>--}}
 
-								<hr>
-								<a href="#" class="link-red pull-left">Відповісти</a>
-								<a href="#" class="link-blue pull-right">Показати все</a>
-							</div>
-						</li>
+								{{--<div class="message">--}}
+									{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
+								{{--</div>--}}
+
+								{{--<hr>--}}
+								{{--<a href="#" class="link-blue pull-right">Приховати</a>--}}
+
+							{{--</div>--}}
+						{{--</li>--}}
+
+						{{--<li class="clearfix">--}}
+							{{--<div class="left">--}}
+								{{--<div class="avatar">--}}
+									{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
+								{{--</div>--}}
+								{{--<a href="#" class="link-blue name">Марія</a>--}}
+							{{--</div>--}}
+							{{--<div class="right bg-yellow">--}}
+								{{--<div class="date">2 липня 2016</div>--}}
+								{{--<span class="stars">4</span>--}}
+								{{--<div class="message">--}}
+									{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
+								{{--</div>--}}
+
+								{{--<hr>--}}
+								{{--<a href="#" class="link-red pull-left">Відповісти</a>--}}
+								{{--<a href="#" class="link-blue pull-right">Показати все</a>--}}
+							{{--</div>--}}
+						{{--</li>--}}
 
 					</ul>
-					<div class="paginate">
-						<ul class="pagination grey">
-							<li><a href="#" rel="prev"><</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li class="active"><span>3</span></li>
-							<li><a href="#">4</a></li>
-							<li class="disabled"><span>...</span></li>
-							<li><a href="#">10</a></li>
-							<li><a href="#" rel="next">></a></li>
-						</ul>
+
+						{{ $reviews->links() }}
+
+					{{--<div class="paginate">--}}
+						{{--<ul class="pagination grey">--}}
+							{{--<li><a href="#" rel="prev"><</a></li>--}}
+							{{--<li><a href="#">1</a></li>--}}
+							{{--<li><a href="#">2</a></li>--}}
+							{{--<li class="active"><span>3</span></li>--}}
+							{{--<li><a href="#">4</a></li>--}}
+							{{--<li class="disabled"><span>...</span></li>--}}
+							{{--<li><a href="#">10</a></li>--}}
+							{{--<li><a href="#" rel="next">></a></li>--}}
+						{{--</ul>--}}
 					</div>
 				</div>
+				@endif
 
 
 				<div class="your-cook clearfix">
@@ -151,8 +153,7 @@
 						<a href="#" class="button button-grey">Зв’язатися</a>
 					</div>
 					<div class="right">
-						<p>Вітаю! Мене звуть Марк. Моя професія тісно пов'язана з комп'ютерами, але при цьому у мене багато різних захоплень. Одне з них - приготування їжі, я дуже люблю готувати різні страви, якими активно пригощаю всіх своїх близьких.</p>
-						<p>Всі рецепти, які ви бачите на сайті, приготовлені, сфотографовані і випробувані мною особисто. Моя професія тісно пов'язана з комп'ютерами, але при цьому у мене багато різних захоплень. Одне з них - приготування їжі, я дуже люблю готувати різні страви, якими активно пригощаю всіх своїх близьких.</p>
+						<p>{{ $advert->user->about }}</p>
 					</div>
 				</div>
 
@@ -249,39 +250,39 @@
 @stop
 
 
-@section('scripts')
+@push('scripts')
+	<script>
+		$('.title-slider .owl-carousel').on('initialized.owl.carousel changed.owl.carousel', function(e) {
+				if (!e.namespace) return;
+				var carousel = e.relatedTarget;
+				$('.slider-counter').text(carousel.relative(carousel.current()) + 1 + '/' + carousel.items().length);
+			}).owlCarousel({
+				items: 1,
+				loop:true,
+				margin:0,
+				nav:true,
+				navText: [ '', '' ],
+				dots: false
+			});
 
-	$('.title-slider .owl-carousel').on('initialized.owl.carousel changed.owl.carousel', function(e) {
-			if (!e.namespace) return;
-			var carousel = e.relatedTarget;
-			$('.slider-counter').text(carousel.relative(carousel.current()) + 1 + '/' + carousel.items().length);
-		}).owlCarousel({
-			items: 1,
+
+
+		$('.recent').owlCarousel({
 			loop:true,
-			margin:0,
+			margin:10,
 			nav:true,
-			navText: [ '', '' ],
-			dots: false
-		});
-
-
-
-	$('.recent').owlCarousel({
-		loop:true,
-		margin:10,
-		nav:true,
-		dots: false,
-		responsive:{
-			0:{
-				items:1
-			},
-			600:{
-				items:2
-			},
-			1000:{
-				items:4
+			dots: false,
+			responsive:{
+				0:{
+					items:1
+				},
+				600:{
+					items:2
+				},
+				1000:{
+					items:4
+				}
 			}
-		}
-	});
-
-@stop
+		});
+	</script>
+@endpush

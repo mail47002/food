@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Category;
 use App\City;
+use App\Review;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Advert;
@@ -42,11 +43,14 @@ class AdvertsController extends Controller
 
     public function show($slug)
     {
-        $advert = Advert::with('images')->findBySlug($slug);
+        $advert = Advert::with(['user', 'images', 'product'])->findBySlug($slug);
 
         if ($advert) {
+            $reviews = Review::where('product_id', $advert->product->id)->paginate(2);
+
             return view('frontend.adverts.show', [
-                'advert' => $advert
+                'advert'  => $advert,
+                'reviews' => $reviews
             ]);
         }
     }

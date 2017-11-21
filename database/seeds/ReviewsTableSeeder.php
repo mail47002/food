@@ -12,32 +12,6 @@ class ReviewsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('reviews')->insert([
-            [
-                'product_id' => 1,
-                'user_id'    => 1,
-                'text'       => 'review 1',
-                'rating'     => 3.2,
-                'created_at' => Carbon::now()->toDateTimeString()
-            ], [
-                'product_id' => 1,
-                'user_id'    => 2,
-                'text'       => 'review 2',
-                'rating'     => 4.2,
-                'created_at' => Carbon::now()->toDateTimeString()
-            ], [
-                'product_id' => 1,
-                'user_id'    => 3,
-                'text'       => 'review 3',
-                'rating'     => 5.0,
-                'created_at' => Carbon::now()->toDateTimeString()
-            ], [
-                'product_id' => 1,
-                'user_id'    => 4,
-                'text'       => 'review 4',
-                'rating'     => 2.5,
-                'created_at' => Carbon::now()->toDateTimeString()
-            ]
-        ]);
+        factory(App\Review::class, 20)->create();
     }
 }
