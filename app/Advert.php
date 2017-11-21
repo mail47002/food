@@ -58,7 +58,7 @@ class Advert extends Model
 
     public function scopeFindBySlug($query, $slug)
     {
-        return $query->where('slug', $slug)->get();
+        return $query->where('slug', $slug)->first();
     }
 
     public function setSlugAttribute()

@@ -15,8 +15,9 @@
 <div class="title-slider bg-yellow">
 	<div class="container">
 		<div class="owl-carousel">
-			<div class="item"><img src="/uploads/product1.jpg" alt=""></div>
-			<div class="item"><img src="/uploads/product1.jpg" alt=""></div>
+			@foreach($advert->images as $image)
+				<div class="item"><img src="{{ $image }}" alt=""></div>
+			@endforeach
 		</div>
 		<div class="slider-counter"></div>
 	</div>
@@ -32,15 +33,8 @@
 
 		<div class="row">
 			<div class="food-info col-md-9">
-				<h1>Рагу з молодої картоплі з лососем і цукіні</h1>
+				<h1>{{ $advert->name }}</h1>
 				<div class="rating"><span class="stars medium">4</span>30 відгуків</div>
-
-				<h5 class="ingredient-title text-upper underline-red">Інгредієнти</h5><hr class="zerro-top">
-				<ul class="list-inline ingredient-list">
-					<li class="ingredients">Картопля</li>
-					<li class="ingredients">картопля</li>
-					<li class="ingredients">картопля</li>
-				</ul>
 
 				<h5 class="text-upper underline-red">Від повара про страву </h5><hr class="zerro-top">
 
@@ -183,7 +177,7 @@
 							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 							<a href="#" class="link"><i class="fo fo-like fo-small"></i> до улюблених</a>
 						</div>
-						<a href="#" class="link-blue name">Марк</a>
+						<a href="#" class="link-blue name">{{ $advert->user->name }}</a>
 						<div class="rating"><span class="stars">4</span>10 відгуків</div>
 
 						<p><a href="#" class="button button-red wide">Замовити</a></p>

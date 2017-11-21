@@ -42,7 +42,7 @@ class AdvertsController extends Controller
 
     public function show($slug)
     {
-        $advert = Advert::findBySlug($slug);
+        $advert = Advert::with('images')->findBySlug($slug);
 
         if ($advert) {
             return view('frontend.adverts.show', [

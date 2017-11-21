@@ -12,7 +12,7 @@ class AdvertStickersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\AdvertSticker::class, 20)->create();
+        factory(App\AdvertSticker::class, 3)->create();
 
     }
 }
