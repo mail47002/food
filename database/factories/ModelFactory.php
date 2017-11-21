@@ -56,6 +56,13 @@ $factory->define(App\AdvertImage::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\AdvertToCategory::class, function (Faker\Generator $faker) {
+    return [
+        'advert_id'   => $faker->randomDigitNotNull,
+        'category_id' => random_int(1, 11)
+    ];
+});
+
 $factory->define(App\AdvertSticker::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,

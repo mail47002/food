@@ -56,11 +56,6 @@ class Advert extends Model
         return $this->belongsToMany('App\Category', 'advert_to_category');
     }
 
-    public function scopeFindBySlug($query, $slug)
-    {
-        return $query->where('slug', $slug)->first();
-    }
-
     public function setSlugAttribute()
     {
         $this->attributes['slug'] = str_slug($this->attributes['name'] . '-' . str_random(8));
