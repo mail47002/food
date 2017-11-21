@@ -61,10 +61,18 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
 // Api
 Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
     Route::get('products/{id}', 'ProductsController@show');
+
     Route::post('adverts/store', 'AdvertsController@store');
+
     Route::group(['prefix' => 'image'], function() {
         Route::post('store', 'ImageController@store');
         Route::delete('delete', 'ImageController@destroy');
+    });
+
+    Route::group(['prefix' => 'wishlist'], function() {
+        Route::get('/', 'WishlistController@index');
+        Route::post('/', 'WishlistController@store');
+        Route::delete('/{id}', 'WishlistController@destroy');
     });
 });
 // Frontend

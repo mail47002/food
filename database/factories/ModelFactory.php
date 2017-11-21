@@ -14,7 +14,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Product::class, function (Faker\Generator $faker) {
     return [
-        'user_id'     => $faker->randomElement([1, 2, 3]),
+        'user_id'     => random_int(1, 3),
         'name'        => $faker->name,
         'description' => $faker->text,
         'ingredient'  => [$faker->name, $faker->name, $faker->name, $faker->name],
@@ -32,7 +32,7 @@ $factory->define(App\ProductImage::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Advert::class, function (Faker\Generator $faker) {
     return [
-        'user_id'      => $faker->randomDigitNotNull,
+        'user_id'      => random_int(1, 3),
         'product_id'   => $faker->randomDigitNotNull,
         'sticker_id'   => $faker->randomElement([1, 2, 3]),
         'name'         => $faker->name,
@@ -72,7 +72,7 @@ $factory->define(App\AdvertSticker::class, function (Faker\Generator $faker) {
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'role_id'  => $faker->randomElement([0, 1]),
+        'role_id'  => random_int(0, 1),
         'name'     => $faker->name,
         'slug'     => str_slug($faker->name),
         'about'    => $faker->text,
@@ -86,7 +86,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
     return [
-        'user_id'     => $faker->randomElement([1, 2, 3]),
+        'user_id'     => random_int(1, 3),
         'name'        => $faker->name,
         'description' => $faker->text,
         'ingredient'  => [$faker->name, $faker->name, $faker->name, $faker->name],
@@ -104,7 +104,7 @@ $factory->define(App\RecipeImage::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Advice::class, function (Faker\Generator $faker) {
     return [
-        'user_id'     => $faker->randomElement([1, 2, 3]),
+        'user_id'     => random_int(1, 3),
         'name'        => $faker->name,
         'slug'        => str_slug($faker->name),
         'description' => $faker->text,
@@ -123,7 +123,7 @@ $factory->define(App\AdviceImage::class, function (Faker\Generator $faker) {
 $factory->define(App\Review::class, function (Faker\Generator $faker) {
     return [
         'product_id' => random_int(1, 20),
-        'user_id'    => random_int(1, 5),
+        'user_id'    => random_int(1, 3),
         'text'       => $faker->text(),
         'rating'     => random_int(1, 5)
     ];

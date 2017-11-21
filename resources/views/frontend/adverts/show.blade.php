@@ -138,7 +138,7 @@
 							{{--<li><a href="#">10</a></li>--}}
 							{{--<li><a href="#" rel="next">></a></li>--}}
 						{{--</ul>--}}
-					</div>
+					{{--</div>--}}
 				</div>
 				@endif
 
@@ -149,7 +149,7 @@
 						<div class="avatar">
 							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 						</div>
-						<a href="#" class="link-blue name">Марк</a>
+						<a href="#" class="link-blue name">{{ $advert->user->name }}</a>
 						<a href="#" class="button button-grey">Зв’язатися</a>
 					</div>
 					<div class="right">
@@ -176,7 +176,7 @@
 
 						<div class="avatar">
 							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-							<a href="#" class="link"><i class="fo fo-like fo-small"></i> до улюблених</a>
+							<a href="javascript:void(0);" onclick="wishlist.add({{ $advert->user->id }})" class="link"><i class="fo fo-like fo-small"></i> до улюблених</a>
 						</div>
 						<a href="#" class="link-blue name">{{ $advert->user->name }}</a>
 						<div class="rating"><span class="stars">4</span>10 відгуків</div>

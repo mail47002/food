@@ -23,19 +23,7 @@
 				<h4 class="modal-title">Улюблені</h4>
 			</div>
 			<div class="modal-body">
-				<div class="content">
-
-@for($i=0;$i<5;$i++)
-					<div class="caption">
-						<a href="#" class="discard link-red"><i class="fo fo-close-rounded"></i></a>
-						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-						</div>
-						<p><a href="#" class="link-blue name">Марк</a></p>
-						<p class="phone">+38 096 159 15 15</p>
-					</div>
-@endfor
-
+				<div class="content js-content">
 				</div>
 			</div>
 		</div>
@@ -90,3 +78,61 @@
 		</div>
 	</div>
 </div>
+
+@push('scripts')
+	<script type="text/javascript">
+		var wishlist = {
+		    add: function (id) {
+                $.post('{{ url('api/wishlist') }}', {
+                    '_token': '{{ csrf_token() }}',
+					'user_id': id
+                }).done(function (response) {
+                    if (response['status'] === 'success') {
+                        wishlist.show();
+                    }
+                });
+            },
+            show: function () {
+                $.get('{{ url('api/wishlist') }}').done(function (response) {
+                    if (response['data']) {
+                        var html = '',
+                            user;
+
+                        for (i in response.data) {
+                            user = response['data'][i]['user'];
+
+                            html += '<div class="caption js-wishlist-item-' + user['id'] + '">';
+                            html += '<a href="javascript:void(0);" onclick="wishlist.remove(' + user['id'] + ');" class="discard link-red js-wishlist-remove"><i class="fo fo-close-rounded"></i></a>';
+                            html += '<div class="avatar">';
+                            html += '<div class="rounded">';
+                            html += '<img src="/uploads/avatar.png" alt="foto">';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '<p><a href="#" class="link-blue name">' + user['name'] + '</a></p>';
+
+                            for (j in user['phone']) {
+                                html += '<p class="phone">' + user['phone'][j] + '</p>';
+                            }
+
+                            html += '</div>';
+                        }
+
+                        $('#modal_likes .js-content').empty().append(html);
+
+                        $('#modal_likes').modal('show');
+                    }
+                });
+            },
+			remove: function (id) {
+                $.post('{{ url('api/wishlist') }}/' + id, {
+                    '_method': 'delete',
+                    '_token': '{{ csrf_token() }}'
+                }).done(function (response) {
+                    if (response['status'] === 'success') {
+                        $('.js-wishlist-item-' + id).remove();
+                    }
+                });
+            }
+		}
+	</script>
+@endpush

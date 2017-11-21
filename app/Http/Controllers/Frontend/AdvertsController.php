@@ -43,7 +43,9 @@ class AdvertsController extends Controller
 
     public function show($slug)
     {
-        $advert = Advert::with(['user', 'images', 'product'])->findBySlug($slug);
+        $advert = Advert::with(['user', 'images', 'product'])
+            ->where('slug', $slug)
+            ->first();
 
         if ($advert) {
             $reviews = Review::where('product_id', $advert->product->id)->paginate(2);
