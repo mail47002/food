@@ -630,6 +630,21 @@ span.stars span {
 		}
 	}
 }
+.btn-grey-red {
+	background-color: @grey1;
+	border-color: @red;
+	color: @red;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	margin: 20px auto;
+	width: 150px;
+	&:hover, &:focus {
+		background-color: @red;
+		border-color: @red;
+		color: @white;
+	}
+}
 /* Adverts замена надписей */
 .hover-replace {
 	&:hover {
@@ -1452,6 +1467,7 @@ a:focus {outline: none;}
 		@media @sm {
 			width: 750px;
 			margin: 100px auto 0; /* отступ сверху */
+			&.w-710 {width: 710px;}
 		}
 	}
 	.modal-content {
@@ -2143,6 +2159,7 @@ select.wide + span.ui-button {
 	text-align: center;
 	max-width: 210px;
 	margin: 20px auto;
+	&.w-480 {max-width: 480px;}
 }
 .grey-block {
 	border-radius: 11px;
@@ -2167,6 +2184,11 @@ select.wide + span.ui-button {
 			&.f14 {font-size: 14px;}
 			&.f20 {font-size: 20px;}
 		}
+	}
+	&.w-480 {
+		max-width: 480px;
+		width: 100%;
+		margin: 20px auto;
 	}
 }
 .empty-block {
