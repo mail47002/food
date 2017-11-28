@@ -23,9 +23,11 @@ class AdvertsController extends Controller
 
         $cities = City::all();
 
+        $cid = $request->cid ? explode(',', $request->cid) : $categories->pluck('id');
+
         $adverts = Advert::with(['product', 'images'])
-            ->whereHas('categories', function ($query) use ($request, $categories) {
-                $query->whereIn('category_id', $request->input('cid', $categories->pluck('id')));
+            ->whereHas('categories', function ($query) use ($request, $cid) {
+                $query->whereIn('category_id', $cid);
             })
             ->where('type', $request->input('type', 'by_date'))
             ->where('name', 'like', '%' . $request->search . '%')
@@ -37,7 +39,10 @@ class AdvertsController extends Controller
         return view('frontend.adverts.index', [
             'adverts'    => $adverts,
             'categories' => $categories,
-            'cities'     => $cities
+            'cities'     => $cities,
+            'filter'     => [
+                'cid' => $request->has('cid') ? explode(',', $request->cid) : [],
+            ]
         ]);
     }
 
