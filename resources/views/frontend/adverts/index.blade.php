@@ -26,7 +26,11 @@
 			<hr>
 			<ul class="buttons list-inline text-center js-filter-category">
 				@foreach ($categories as $category)
-					<li><a href="#" class="button" data-id="{{ $category->id }}">{{ $category->name }}</a></li>
+					@if (in_array($category->id, $filter['cid']))
+						<li><a href="javascript:void(0);" class="button active" data-id="{{ $category->id }}">{{ $category->name }}</a></li>
+					@else
+						<li><a href="javascript:void(0);" class="button" data-id="{{ $category->id }}">{{ $category->name }}</a></li>
+					@endif
 				@endforeach
 			</ul>
 			<hr>
@@ -362,17 +366,35 @@
 		$(document).tooltip(
 				{position: {my: "left top+10"}}
 			);
-
-		$('.js-filter-category').on('click', 'a', function (e) {
-			e.preventDefault();
-
-			var catId = $(this).data('id');
-
-			if (catId) {
-				location = '{{ route('adverts.index') }}/' + '?cid[]=' + catId;
-			}
-
-		});
 	});
+	</script>
+	<script>
+		var filter = {
+		    options: {
+		        cid: [],
+				type: '{{ request()->input('type', 'by_date') }}'
+			},
+			init: function () {
+		        // Category
+                $('.js-filter-category').on('click', 'a', function (e) {
+                    e.preventDefault();
+
+                    $(this).toggleClass('active');
+
+                    $('.js-filter-category li').each(function (i, el) {
+                        if ($(el).children('.button').hasClass('active')) {
+                            filter.options.cid.push($(el).children('.button').data('id'));
+                        }
+                    });
+
+                    filter.filtering();
+                });
+            },
+			filtering: function () {
+                location = '{{ url('') }}/?cid=' + filter.options.cid.join(',') + '&type=' + filter.options.type;
+            }
+		};
+
+		filter.init();
 	</script>
 @endpush

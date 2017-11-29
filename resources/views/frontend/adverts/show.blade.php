@@ -161,7 +161,7 @@
 
 			<div class="col-md-3">
 				<div class="widget">
-					<div class="widget-header">{{ $advert->price }} <small>грн.</small></div>
+					<div class="widget-header">{{ $advert->pricegit  }} <small>грн.</small></div>
 
 					<div class="widget-body">
 						<div class="stickers">

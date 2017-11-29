@@ -207,7 +207,7 @@ class ProductsController extends Controller
             ->first();
 
         if ($product) {
-            $product->categories()->delete();
+            $product->categories()->detach();
             $product->images()->delete();
             $product->delete();
 
