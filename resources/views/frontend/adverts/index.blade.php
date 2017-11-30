@@ -45,7 +45,6 @@
 
 	<div class="tab-content">
 		<div class="tab-pane fade in active">
-
 			@if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'))
 				<div class="filter-block">
 				<div class="filter-inputs container">
@@ -71,14 +70,14 @@
 					</div>
 
 
-					<div class="prices-input text-center">
-						<label for="">Ціновий діапазон</label>
-						<input type="text" placeholder="">
-						<label for="">&#x2014;</label>
-						<input type="text" placeholder="">
+					<div class="prices-input text-center js-filter-price">
+						<label>Ціновий діапазон</label>
+						<input type="text" name="price_from">
+						<label>&#x2014;</label>
+						<input type="text" name="price_to">
 						<label for="">грн.</label>
 
-						<input type="submit" class="button btn-filter" value="OK">
+						<input type="button" class="button btn-filter js-btn-filter" value="OK">
 					</div>
 				</div>
 			</div>
@@ -89,13 +88,13 @@
 						<div class="filter-inputs container">
 							<div class="row">
 								<div class="col-md-9">
-									<div class="prices-input p0">
-										<label for="">Ціновий діапазон</label>
-										<input type="text" placeholder="">
+									<div class="prices-input p0 js-filter-price">
+										<label>Ціновий діапазон</label>
+										<input type="text" name="price_from">
 										<label for="">&#x2014;</label>
-										<input type="text" placeholder="">
-										<label for="">грн.</label>
-										<input type="submit" class="button btn-filter" value="OK">
+										<input type="text" name="price_to">
+										<label>грн.</label>
+										<input type="button" class="button btn-filter js-btn-filter" value="OK">
 									</div>
 								</div>
 								<div class="col-md-3">
@@ -116,13 +115,13 @@
 						<div class="filter-inputs container">
 							<div class="row">
 								<div class="col-md-9">
-									<div class="prices-input p0">
-										<label for="">Ціновий діапазон</label>
-										<input type="text" placeholder="">
-										<label for="">&#x2014;</label>
-										<input type="text" placeholder="">
-										<label for="">грн.</label>
-										<input type="submit" class="button btn-filter" value="OK">
+									<div class="prices-input p0 js-filter-price">
+										<label>Ціновий діапазон</label>
+										<input type="text" name="price_from">
+										<label>&#x2014;</label>
+										<input type="text" name="price_to">
+										<label>грн.</label>
+										<input type="button" class="button btn-filter js-btn-filter" value="OK">
 									</div>
 								</div>
 								<div class="col-md-3">
@@ -371,8 +370,10 @@
 	<script>
 		var filter = {
 		    options: {
-		        cid: [],
-				type: '{{ request()->input('type', 'by_date') }}'
+				type: '{{ request()->input('type', 'by_date') }}',
+                cid: [],
+				price_from: null,
+				price_to: null
 			},
 			init: function () {
 		        // Category
@@ -389,9 +390,35 @@
 
                     filter.filtering();
                 });
+
+                // Price
+				$('.js-btn-filter').on('click', function (e) {
+					e.preventDefault();
+
+					var el = $(this).closest('.js-filter-price');
+
+					filter.options.price_from = el.find('input[name="price_from"]').val();
+                    filter.options.price_to = el.find('input[name="price_to"]').val();
+
+                    filter.filtering();
+                })
             },
 			filtering: function () {
-                location = '{{ url('') }}/?cid=' + filter.options.cid.join(',') + '&type=' + filter.options.type;
+		        var url = '{{ url('') }}/?type=' + filter.options.type;
+
+		        if (filter.options.cid.length > 0) {
+		            url += '&cid=' + filter.options.cid.join(',');
+				}
+
+                if (filter.options.price_from) {
+                    url += '&price_from=' + filter.options.price_from;
+                }
+
+                if (filter.options.price_to) {
+                    url += '&price_to=' + filter.options.price_to;
+                }
+
+                location = url;
             }
 		};
 

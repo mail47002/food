@@ -31,8 +31,7 @@ class AdvertsController extends Controller
             })
             ->where('type', $request->input('type', 'by_date'))
             ->where('name', 'like', '%' . $request->search . '%')
-//            ->where('price', '>=' , $request->input('price', 0))
-//            ->where('custom_price', '<=' , $request->input('custom_price', 99999))
+            ->whereBetween('price', [$request->input('price_from', 0), $request->input('price_to', 99999)])
             ->orderBy('created_at', 'asc')
             ->paginate(4);
 
