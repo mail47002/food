@@ -11,7 +11,7 @@
 
     <div class="bg-yellow text-center">
         <div class="v-indent-30"></div>
-        <img src="{{ asset('uploads/' . md5(auth()->id())) . '/' . $advert->image }}" alt="{{ $advert->name }}" class="inline header-img">
+        <img src="{{ HtmlHelper::getImageUrl('adverts', $advert->image, $advert->user) }}" alt="{{ $advert->name }}" class="inline header-img">
         <h5 class="header-title text-upper black margin-30">{{ $advert->name }}</h5>
         <p class="red f20 margin-zerro">
             @if ($advert->type == 'by_date')
@@ -104,20 +104,15 @@
             </div>
 
             <div class="form-group">
-                <input id="change-foto" type="checkbox">
-                <label for="change-foto">Змінити фото</label>
-            </div>
-
-            <div class="form-group hidden">
                 {{ Form::label('fotos', 'Додати фото*') }}
                 <div id="input-image" class="fotos">
                     @foreach ($advert->images as $image)
                         <div class="wrap js-foto">
                             <div class="uploader">
-                                <img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $image->image) }}">
+                                <img src="{{ HtmlHelper::getThumbnailUrl('adverts', $image->image, $advert->user) }}">
                                 {{ Form::hidden('images[]', $image->image) }}
                             </div>
-                            <a href="#" class="pull-left grey1 js-cover-foto {{ $advert->image !== $image->image ?: 'active' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                            <a href="#" class="pull-left grey1 js-cover-foto {{ $advert->image === $image->image ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
                             <a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
                         </div>
                     @endforeach
@@ -214,7 +209,7 @@
             data.append('image', self[0].files[0]);
 
             $.ajax({
-                url: '{{ url('api/image/store') }}',
+                url: '{{ url('myaccount/adverts/image/store') }}',
                 method: 'post',
                 data: data,
                 processData: false,
@@ -255,7 +250,7 @@
                 image = self.closest('.js-foto').find('input[name="images[]"]').val();
 
             if (image) {
-                $.post('{{ url('api/image/delete') }}', {
+                $.post('{{ url('myaccount/adverts/image/delete') }}', {
                     '_token': '{{ csrf_token() }}',
                     '_method': 'delete',
                     'image': image

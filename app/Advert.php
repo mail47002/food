@@ -7,21 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Advert extends Model
 {
     protected $fillable = [
-        'user_id',
-        'product_id',
-        'sticker_id',
-        'name',
-        'description',
-        'slug',
-        'price',
-        'special_price',
-        'image',
-        'type',
-        'everyday',
-        'date',
-        'date_from',
-        'date_to',
-        'time'
+        'user_id', 'product_id', 'sticker_id', 'name', 'slug', 'description', 'price', 'special_price', 'image', 'type', 'everyday', 'date', 'date_from', 'date_to', 'time'
     ];
 
     protected $casts = [
@@ -29,11 +15,7 @@ class Advert extends Model
     ];
 
     protected $dates = [
-        'date',
-        'date_from',
-        'date_to',
-        'created_at',
-        'updated_at'
+        'date', 'date_from', 'date_to', 'created_at', 'updated_at'
     ];
 
 	public function user()
@@ -53,11 +35,6 @@ class Advert extends Model
 
     public function categories()
     {
-        return $this->belongsToMany('App\Category', 'advert_to_category');
-    }
-
-    public function setSlugAttribute()
-    {
-        $this->attributes['slug'] = str_slug($this->attributes['name'] . '-' . str_random(8));
+        return $this->belongsToMany('App\Category', 'product_to_category', 'product_id', 'product_id');
     }
 }

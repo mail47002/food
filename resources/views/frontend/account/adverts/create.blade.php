@@ -121,7 +121,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="change-foto" type="checkbox">
+                        <input id="change-foto" type="checkbox" name="change_images">
                         <label for="change-foto">Змінити фото</label>
                     </div>
 
@@ -245,7 +245,7 @@
                 },
                 success: function (responce) {
                     if (responce) {
-                        var url = '{{ asset('uploads/' . md5(auth()->id())) }}/';
+                        var url = '{{ asset('uploads/' . md5(auth()->id() . auth()->user()->email) . '/products/thumbnails/') }}/';
 
                         $('html, body').scrollTop(0);
 
@@ -255,25 +255,6 @@
                         $('input[name=product_id]').val(responce['data']['id']);
                         $('input[name=name]').val(responce['data']['name']);
                         $('input[name=image]').val( responce['data']['image']);
-
-                        var images = '';
-
-                        $.each(responce['data']['images'], function (i, item) {
-                            images += '<div class="wrap js-foto">';
-                            images += '<div class="uploader">';
-                            images += '<img src="' + url + item['image'] + '">';
-                            images += '<input type="hidden" name="images[]" value="' + item['image'] + '">';
-                            images += '</div>';
-                            if (item['image'] == responce['data']['image']) {
-                                images += '<a href="#" class="pull-left grey1 js-main-foto active"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>';
-                            } else {
-                                images += '<a href="#" class="pull-left grey1 js-main-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>';
-                            }
-                            images += '<a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>';
-                            images += '</div>';
-                        });
-
-                        $('.fotos .js-foto').before(images);
                     }
                 },
                 complete: function () {
@@ -305,7 +286,7 @@
             data.append('image', self[0].files[0]);
 
             $.ajax({
-                url: '{{ url('api/image/store') }}',
+                url: '{{ url('myaccount/adverts/image/upload') }}',
                 method: 'post',
                 data: data,
                 processData: false,
@@ -346,7 +327,7 @@
                 image = self.closest('.js-foto').find('input[name="images[]"]').val();
 
             if (image) {
-                $.post('{{ url('api/image/delete') }}', {
+                $.post('{{ url('myaccount/adverts/image/delete') }}', {
                     '_token': '{{ csrf_token() }}',
                     '_method': 'delete',
                     'image': image

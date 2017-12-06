@@ -15,7 +15,7 @@
 		<div class="container">
 			<div class="owl-carousel">
 				@foreach ($product->images as $image)
-					<div class="item"><img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $image->image) }}"></div>
+					<div class="item"><img src="{{ HtmlHelper::getImageUrl('products', $image->image, $product->user) }}"></div>
 				@endforeach
 			</div>
 			<div class="slider-counter"></div>

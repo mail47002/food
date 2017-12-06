@@ -57,10 +57,10 @@
                     @foreach ($product->images as $image)
                         <div class="wrap js-foto">
                             <div class="uploader">
-                                <img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $image->image) }}">
+                                <img src="{{ HtmlHelper::getThumbnailUrl('products', $image->image, $product->user) }}">
                                 {{ Form::hidden('images[]', $image->image) }}
                             </div>
-                            <a href="#" class="pull-left grey1 js-main-foto {{ $product->image == $image->image ?: 'active' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                            <a href="#" class="pull-left grey1 js-cover-foto {{ $product->image === $image->image ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
                             <a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
                         </div>
                     @endforeach
@@ -155,7 +155,7 @@
             data.append('image', self[0].files[0]);
 
             $.ajax({
-                url: '{{ url('api/image/store') }}',
+                url: '{{ url('myaccount/products/image/upload') }}',
                 method: 'post',
                 data: data,
                 processData: false,
@@ -196,7 +196,7 @@
                 image = self.closest('.js-foto').find('input[name="images[]"]').val();
 
             if (image) {
-                $.post('{{ url('api/image/delete') }}', {
+                $.post('{{ url('myaccount/products/image/delete') }}', {
                     '_token': '{{ csrf_token() }}',
                     '_method': 'delete',
                     'image': image
@@ -219,7 +219,7 @@
 
             $(this).addClass('active');
 
-            $('#cover-cover').val($(this).closest('.js-foto').find('input[name="images[]"]').val());
+            $('#cover-image').val($(this).closest('.js-foto').find('input[name="images[]"]').val());
         });
     </script>
     <script type="text/javascript">

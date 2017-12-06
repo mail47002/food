@@ -8,12 +8,7 @@ use Auth;
 class Product extends Model
 {
     protected $fillable = [
-        'user_id',
-        'name',
-        'description',
-        'ingredient',
-        'image',
-        'video'
+        'user_id', 'name', 'slug', 'description', 'ingredient', 'image', 'video'
     ];
 
     protected $casts = [

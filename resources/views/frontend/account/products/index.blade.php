@@ -32,7 +32,8 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="image">
-							<img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $product->image) }}" class="img-responsive" alt="{{ $product->name }}">
+							<img class="img-responsive" src="{{ HtmlHelper::getThumbnailUrl('products', $product->image, $product->user) }}" alt="{{ $product->name }}">
+
 						</div>
 					</div>
 					<div class="col-md-5">
@@ -87,7 +88,7 @@
 
 
 							<a href="{{ route('account.products.edit', $product->id) }}" class="button-half link-blue"><i class="fo fo-edit fo-small"></i> Редагувати</a>
-							<a href="#" class="button-half link-grey js-modal-product-delete" data-toggle="modal" data-target="#modal_product-delete" data-product-id="{{ $product->id }}"><i class="fo fo-delete fo-small"></i> Видалити</a>
+							<a href="#" class="button-half link-grey js-modal-product-delete" data-toggle="modal" data-target="#modal-product-delete" data-product-id="{{ $product->id }}"><i class="fo fo-delete fo-small"></i> Видалити</a>
 						</div>
 					</div>
 				</div>
@@ -104,7 +105,7 @@
 		</div>
 	@endif
 
-	<div id="modal_product-delete" class="modal fade" role="dialog">
+	<div id="modal-product-delete" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content text-center">
 				<div class="modal-header">
@@ -134,7 +135,7 @@
 
 			if (id) {
                 $.ajax({
-                    url: '{{ url('account/products') }}/' + id,
+                    url: '{{ url('myaccount/products') }}/' + id,
                     method: 'post',
                     data: {
                         '_token': '{{ csrf_token() }}',
@@ -147,6 +148,9 @@
 						if (data['success']) {
 						    location = window.location;
 						}
+                    },
+                    complete: function() {
+                        $('.body-overlay').removeClass('active');
                     }
                 });
             }

@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration {
             $table->increments('id');
             $table->integer('user_id');
             $table->string('name')->nullable();
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->json('ingredient')->nullable();
             $table->string('image')->nullable();

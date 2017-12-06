@@ -4,7 +4,7 @@
     <h5 class="text-upper underline-red">Оголошення ({{ $adverts->total() }})</h5><hr class="zerro-top">
     <div class="filter-block">
         <ul class="categories list-inline text-center">
-            <li class="{{ (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date')) ? 'active' : '' }}"><a href="{{ route('account.adverts.index', ['type' => 'by_date']) }}" class="link-red text-upper">Меню по датам</a></li>
+            <li class="{{ (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date')) ? 'active' : '' }}"><a href="{{ route('account.adverts.index') }}" class="link-red text-upper">Меню по датам</a></li>
             <li class="{{ (request()->has('type') && request()->get('type') == 'in_stock') ? 'active' : '' }}"><a href="{{ route('account.adverts.index', ['type' => 'in_stock']) }}" class="link-red text-upper">Готові страви</a></li>
             <li class="{{ (request()->has('type') && request()->get('type') == 'pre_order') ? 'active' : '' }}"><a href="{{ route('account.adverts.index', ['type' => 'pre_order']) }}" class="link-red text-upper">Страви під замовлення</a></li>
         </ul>
@@ -58,7 +58,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="image">
-                                    <img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $advert->image) }}" class="img-responsive" alt="{{ $advert->name }}">
+                                    <img src="{{ HtmlHelper::getThumbnailUrl('adverts', $advert->image, $advert->user) }}" class="img-responsive" alt="{{ $advert->name }}">
                                 </div>
                             </div>
                             <div class="col-md-5">

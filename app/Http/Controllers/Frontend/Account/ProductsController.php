@@ -53,16 +53,17 @@ class ProductsController extends Controller
     /**
      * Store new product.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
-
         $this->validateForm($request);
 
         $request->merge([
             'user_id' => Auth::id(),
+            'slug'    => $this->getSlug($request)
         ]);
 
         DB::beginTransaction();
@@ -206,7 +207,7 @@ class ProductsController extends Controller
             ->where('user_id', Auth::id())
             ->first();
 
-        if ($product) {
+        if ($product && count($product->adverts) < 1) {
             $product->categories()->detach();
             $product->images()->delete();
             $product->delete();
@@ -245,5 +246,10 @@ class ProductsController extends Controller
         Storage::move($oldFilePath, $newFilePath);
 
         return $newFilePath;
+    }
+
+    protected function getSlug(Request $request)
+    {
+        return str_slug($request->name . '-' . str_random(8));
     }
 }

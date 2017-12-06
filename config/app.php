@@ -234,6 +234,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
+        'HtmlHelper' => App\Facades\HtmlHelperFacade::class,
 
     ],
 

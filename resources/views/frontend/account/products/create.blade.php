@@ -133,7 +133,7 @@
 			data.append('image', self[0].files[0]);
 
 			$.ajax({
-				url: '{{ url('api/image/store') }}',
+				url: '{{ url('myaccount/products/image/upload') }}',
 				method: 'post',
 				data: data,
 				processData: false,
@@ -174,7 +174,7 @@
 				image = self.closest('.js-foto').find('input[name="images[]"]').val();
 
             if (image) {
-                $.post('{{ url('api/image/delete') }}', {
+                $.post('{{ url('myaccount/products/image/delete') }}', {
                     '_token': '{{ csrf_token() }}',
                     '_method': 'delete',
                     'image': image

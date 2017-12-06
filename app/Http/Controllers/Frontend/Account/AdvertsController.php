@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Account;
 
+use App\AdvertAddress;
 use App\AdvertImage;
 use App\AdvertSticker;
 use App\Product;
@@ -11,6 +12,7 @@ use App\Advert;
 use Auth;
 use DB;
 use Session;
+use Storage;
 
 class AdvertsController extends Controller
 {
@@ -62,8 +64,9 @@ class AdvertsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
@@ -71,19 +74,24 @@ class AdvertsController extends Controller
 
         $request->merge([
             'user_id' => Auth::id(),
-            'slug'    => ''
+            'slug'    => $this->getSlug($request)
         ]);
 
         DB::beginTransaction();
 
         $advert = Advert::create($request->all());
 
-        foreach ($request->images as $image) {
-            $advertImage = new AdvertImage([
-                'image' => $image
-            ]);
+        $request->merge(['advert_id' => $advert->id]);
 
-            $advert->images()->save($advertImage);
+        AdvertAddress::create($request->all());
+
+        if ($request->has('change_images')) {
+            $this->syncImages($request->images, $advert);
+        } else {
+            $product = Product::where('id', $request->product_id)->first();
+
+            $this->copyImages($product->images);
+            $this->syncImages($product->images, $advert);
         }
 
         DB::commit();
@@ -103,7 +111,7 @@ class AdvertsController extends Controller
             ]);
         }
 
-        return redirect()->route('account.adverts.index');
+        return redirect()->route('frontend.account.adverts.index');
     }
 
     /**
@@ -114,7 +122,17 @@ class AdvertsController extends Controller
      */
     public function show($id)
     {
-        //
+        $advert = Advert::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->orderBy('id', 'desc')
+            ->get();
+
+        if ($advert) {
+            return view('frontend.account.adverts.show', [
+                'advert' => $advert
+            ]);
+        }
+        return redirect()->route('frontend.account.adverts.index');
     }
 
     /**
@@ -145,9 +163,10 @@ class AdvertsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return Response
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
@@ -249,5 +268,29 @@ class AdvertsController extends Controller
         }
 
         $this->validate($request, $rules);
+    }
+
+    protected function copyImages($images)
+    {
+        foreach ($images as $image) {
+            Storage::copy('uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/' . $image->image, 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/adverts/' . $image->image);
+            Storage::copy('uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/thumbnails/' . $image->image, 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/thumbnails/' . $image->image);
+        }
+    }
+
+    protected function syncImages($images, $advert)
+    {
+        foreach ($images as $image) {
+            $advertImage = new AdvertImage([
+                'image' => $image
+            ]);
+
+            $advert->images()->save($advertImage);
+        }
+    }
+
+    protected function getSlug(Request $request)
+    {
+        return str_slug($request->name . '-' . str_random(8));
     }
 }
