@@ -5,34 +5,14 @@
 
     <div class="v-indent-20"></div>
 
-    <div class="wide-thumb account-orders">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="image"><img src="/uploads/food1.jpg" class="img-responsive" alt=""></div>
-            </div>
-            <div class="col-md-5">
-                <div class="caption">
-                    <a href="/adverts/1" class="title link-black">М'ясне рагу з овочами</a>
-                    <span class="rating"><span class="stars">{{rand(0,5)}}</span>10 відгуків</span>
+    @if(count($orders) > 0)
+        @each('frontend.account.orders.item', $orders, 'order')
+        {{ $orders->links() }}
+    @else
+        Нет результатат
+    @endif
 
-                    <div class="grey-block grey3 wide">
-                        <p class="text-left"><a href="#" class="link-red"><i class="fo fo-time"></i> Страва у меню</a></p>
-                        <p class="text-left"><span class="price">80 грн.</span></p>
-                        <p class="text-left black">15 грудня (обід)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 left-border">
-                <div class="caption text-center">
-                    <div class="info-block red">
-                        Замовлення очікує на підтвердження!
-                    </div>
-                    <a href="#" class="button button-red v40">Підтвердити замовлення </a>
-                    <a href="#" class="link-red f14"><i class="fo fo-close-bold fo-small"></i> Відмінити </a>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <div class="wide-thumb account-orders">
         <div class="row">
@@ -118,14 +98,7 @@
     </div>
 
 
-    <div class="paginate">
-        <ul class="pagination grey">
-            <li><a href="#" rel="prev"><</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#" rel="next">></a></li>
-        </ul>
-    </div>
+
 @endsection
 
 @push('scripts')

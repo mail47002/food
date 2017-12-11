@@ -12,7 +12,7 @@ class CreateOrderTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('order', function (Blueprint $table) {
+		Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('advert_id');
             $table->integer('user_id');
@@ -27,7 +27,7 @@ class CreateOrderTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('order');
+		Schema::drop('orders');
 	}
 
 }
