@@ -37,9 +37,9 @@
         @if (request()->is('myaccount/edit*'))
             <ul class="menu">
                 <li><a href="{{ route('account.user.show') }}" class="link-back">Моя сторінка</a></li>
-                <li><a class="{{ is_active('myaccount/edit') }}" href="{{ route('account.user.edit') }}">Про мене</a></li>
-                <li><a class="{{ is_active('myaccount/edit/password') }}" href="{{ route('account.password.edit') }}">Пароль</a></li>
-                <li><a class="{{ is_active('myaccount/edit/url') }}" href="{{ route('account.slug.edit') }}">Адреса сторінки</a></li>
+                <li><a class="{{ HtmlHelper::isActive('myaccount/edit') }}" href="{{ route('account.user.edit') }}">Про мене</a></li>
+                <li><a class="{{ HtmlHelper::isActive('myaccount/edit/password') }}" href="{{ route('account.password.edit') }}">Пароль</a></li>
+                <li><a class="{{ HtmlHelper::isActive('myaccount/edit/url') }}" href="{{ route('account.slug.edit') }}">Адреса сторінки</a></li>
             </ul>
         @else
             <div class="phones fo fo-phone fo-indent fo-left red">
@@ -51,20 +51,20 @@
             </div>
             <a href="{{ route('account.user.edit') }}" class="button button-grey">Редагувати профіль</a>
             <ul class="menu">
-                <li><a class="{{ is_active('myaccount') }}" href="{{ route('account.user.show') }}">Про мене</a></li>
-                <li><a class="{{ is_active('myaccount/products*') }}" href="{{ route('account.products.index') }}">Каталог страв</a></li>
-                <li><a class="{{ is_active('myaccount/adverts*') }}" href="{{ route('account.adverts.index') }}">Оголошення </a></li>
+                <li><a class="{{ HtmlHelper::isActive('myaccount') }}" href="{{ route('account.user.show') }}">Про мене</a></li>
+                <li><a class="{{ HtmlHelper::isActive('myaccount/products*') }}" href="{{ route('account.products.index') }}">Каталог страв</a></li>
+                <li><a class="{{ HtmlHelper::isActive('myaccount/adverts*') }}" href="{{ route('account.adverts.index') }}">Оголошення </a></li>
                 <li><a href="#">Мої повідомлення <span class="badge">3</span></a></li>
-                <li><a class="{{ is_active('myaccount/orders*') }}" href="{{ route('account.orders.index') }}">Мої замовлення</a></li>
+                <li><a class="{{ HtmlHelper::isActive('myaccount/orders*') }}" href="{{ route('account.orders.index') }}">Мої замовлення</a></li>
                 <li><a href="#">Мої відгуки</a></li>
-                <li><a class="{{ is_active('myaccount/articles*') }}" href="{{ route('account.articles.index') }}">Мої статті</a></li>
+                <li><a class="{{ HtmlHelper::isActive('myaccount/articles*') }}" href="{{ route('account.articles.index') }}">Мої статті</a></li>
             </ul>
         @endif
     @else
         <ul class="menu">
-            <li><a class="{{ is_active('profile/' . $user->slug) }}" href="{{ route('profile.user.show', $user->slug) }}">Відгуки</a></li>
-            <li><a class="{{ is_active('profile/' . $user->slug . '/products') }}" href="{{ route('profile.products.index', $user->slug) }}">Каталог страв</a></li>
-            <li><a class="{{ is_active('profile/' . $user->slug . '/adverts') }}" href="{{ route('profile.adverts.index', $user->slug) }}">Оголошення </a></li>
+            <li><a class="{{ HtmlHelper::isActive('profile/' . $user->slug) }}" href="{{ route('profile.user.show', $user->slug) }}">Відгуки</a></li>
+            <li><a class="{{ HtmlHelper::isActive('profile/' . $user->slug . '/products') }}" href="{{ route('profile.products.index', $user->slug) }}">Каталог страв</a></li>
+            <li><a class="{{ HtmlHelper::isActive('profile/' . $user->slug . '/adverts') }}" href="{{ route('profile.adverts.index', $user->slug) }}">Оголошення </a></li>
             <li><a href="/temp/user.articles">Статті</a></li>
         </ul>
     @endif
