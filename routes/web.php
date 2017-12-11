@@ -88,6 +88,12 @@ Route::group(['namespace' => 'Frontend'], function() {
     // Adverts
     Route::get('/', ['as' => 'adverts.index', 'uses' => 'AdvertsController@index']);
     Route::get('/adverts/{slug}', ['as' => 'adverts.show', 'uses' => 'AdvertsController@show']);
+    // Advices
+    Route::get('/advices', ['as' => 'advices.index', 'uses' => 'AdvicesController@index']);
+    Route::get('/advices/{slug}', ['as' => 'advices.show', 'uses' => 'AdvicesController@show']);
+    // Recipes
+    Route::get('/recipes', ['as' => 'recipes.index', 'uses' => 'RecipesController@index']);
+    Route::get('/recipes/{slug}', ['as' => 'recipes.show', 'uses' => 'RecipesController@show']);
 
     // Account
     Route::group(['namespace' => 'Account', 'prefix' => 'myaccount'], function() {
@@ -189,6 +195,12 @@ Route::group(['namespace' => 'Frontend'], function() {
 
         // Adverts
         Route::get('{user}/adverts', ['as' => 'profile.adverts.index', 'uses' => 'AdvertsController@index']);
+
+        // Advices
+        Route::get('{user}/advices', ['as' => 'profile.advices.index', 'uses' => 'AdvicesController@index']);
+
+        // Recipes
+        Route::get('{user}/recipes', ['as' => 'profile.recipes.index', 'uses' => 'RecipesController@index']);
     });
 
     // Login & logout

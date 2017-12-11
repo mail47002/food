@@ -47,8 +47,8 @@
 			<li class="btn-articles hidden-xm">
 				<a href="#" class="button button-rounded"><i class="fo fo-book fo-indent"></i>Статті<i class="angle-down"></i></a>
 				<ul class="hover">
-					<li><a href="#"><i class="fo fo-dish fo-indent"></i>Рецепти</a></li>
-					<li><a href="#"><i class="fo fo-articles fo-indent"></i>Поради</a></li>
+					<li><a href="/recipes"><i class="fo fo-dish fo-indent"></i>Рецепти</a></li>
+					<li><a href="/advices"><i class="fo fo-articles fo-indent"></i>Поради</a></li>
 				</ul>
 			</li>
 		</ul>

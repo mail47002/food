@@ -82,6 +82,7 @@ $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
     return [
         'user_id'     => random_int(1, 3),
         'name'        => $faker->name,
+        'slug'        => str_slug($faker->name),
         'description' => $faker->text,
         'ingredient'  => [$faker->name, $faker->name, $faker->name, $faker->name],
         'image'       => $faker->imageUrl($width = 960, $height = 700),
