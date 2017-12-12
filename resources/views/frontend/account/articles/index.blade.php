@@ -32,12 +32,12 @@
 					</form>
 					<div class="v-indent-30"></div>
 					@foreach($recipes as $recipe)
-					<div class="wide-thumb account-article">
+					<div class="wide-thumb profile-article">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="image">
 
-									<img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $recipe->image) }}" class="img-responsive" alt="{{ $recipe->name }}">
+									<img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $recipe->image) }}" class="img-responsive" alt="{{ $recipe->name }}" width="325" height="220">
 								</div>
 							</div>
 							<div class="col-md-8">
@@ -73,11 +73,11 @@
 					</form>
 					<div class="v-indent-30"></div>
 					@foreach($advices as $advice)
-					<div class="wide-thumb account-article">
+					<div class="wide-thumb profile-article">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="image">
-									<img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $advice->image) }}" class="img-responsive" alt="{{ $advice->name }}">
+									<img src="{{ asset('uploads/' . md5(auth()->id()) . '/' . $advice->image) }}" class="img-responsive" alt="{{ $advice->name }}" width="325" height="220">
 								</div>
 							</div>
 							<div class="col-md-8">
