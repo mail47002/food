@@ -41,8 +41,8 @@
                             <span class="remove js-delete-ingredient"></span>
                         </div>
                     @endforeach
+                    <a href="#" class="link-red-dark js-add-ingredient">+ Додати</a>
                 </div>
-                <a href="#" class="link-red-dark js-add-ingredient">+ Додати</a>
             </div>
 
 
@@ -98,6 +98,19 @@
                 <a href="#" id="cloneRecipe" class="link-red-dark">+ Додати</a>
             </div>
 
+            <div id="recipeBlank" class="hidden"> {{-- Скрытый блок для клонирования --}}
+                <div class="js-foto js-foto-steps">
+                    <span class="title">Крок 1</span><span class="remove"></span>
+                    <div class="uploader uploader-steps">
+                        <img src="">
+                        {{ Form::file(null, ['class' => 'input-upload-steps', 'id' => 'step_image']) }}
+                        {{ Form::hidden('step_image[]', null, ['id' => 'step']) }}
+                        <div class="round"><i class="fo fo-camera"></i></div>
+                    </div>
+                    <textarea class="step-texts" name="step_text[]" type="text" required="required" /></textarea>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="video">Посилання на відео</label>
                 <div class="videos js-video">
@@ -114,8 +127,8 @@
                             <span class="remove js-delete-video"></span>
                         </div>
                     @endif
+                    <a href="#" class="link-red-dark js-add-video">+ Додати</a>
                 </div>
-                <a href="#" class="link-red-dark js-add-video">+ Додати</a>
             </div>
 
             {{ Form::hidden('recipe_id', $recipe->id) }}
@@ -128,43 +141,6 @@
 
 @push('scripts')
     <script type="text/javascript">
-        // Ingredient
-        $('.js-add-ingredient').on('click', function(e) {
-            e.preventDefault();
-
-            var i = $('.js-ingredients > div').length;
-
-            $('.js-ingredients').append('<div><input id="input-ingredient-' + i + '" name="ingredient[]" type="text" /><span class="remove js-delete-ingredient"></span></div>');
-        });
-
-        $('body').on('click', '.js-delete-ingredient', function(e) {
-            e.preventDefault();
-
-            $(this).parent().remove();
-
-            $('.js-ingredients > div').each(function(i) {
-                $(this).attr('id', 'input-ingredient-' + i);
-            });
-        });
-
-        // Video
-        $('.js-add-video').on('click', function(e) {
-            e.preventDefault();
-
-            var i = $('.js-video > div').length;
-
-            $('.js-video').append('<div><input id="input-video-' + i + '" name="video[]" type="text" /><span class="remove js-delete-video"></span></div>');
-        });
-
-        $('body').on('click', '.js-delete-video', function(e) {
-            e.preventDefault();
-
-            $(this).parent().remove();
-
-            $('.js-video > div').each(function(i) {
-                $(this).attr('id', 'input-video-' + i);
-            });
-        });
 
         // Fotos
         $(document).on('change', '.input-upload', function() {
@@ -243,24 +219,7 @@
             $('#cover-cover').val($(this).closest('.js-foto').find('input[name="images[]"]').val());
         });
 
-        //клонування кроку
-        var count = 0;
-        var inputRecipe = $('.recipe-first').clone();
-        $("#cloneRecipe").on("click", function(e){
-            e.preventDefault();
 
-            count++;
-            recipeCount = $('.recipes').children().length; // Для номера "Крок"
-            var newBlock = inputRecipe.clone();
-            console.log(newBlock);
-            // newBlock.find('#step_image').attr('id', 'step_image'+count);
-            newBlock.find('.title').text('Крок '+recipeCount);
-
-            $(newBlock).insertBefore(this);
-
-            // document.getElementById('step_image'+count)
-            //         .addEventListener('change', handleImage, false);
-        });
         $('body').on('click', '.recipes .remove', function(e){
             e.preventDefault();
             $(this).parent().remove();

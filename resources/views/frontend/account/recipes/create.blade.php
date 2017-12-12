@@ -40,8 +40,8 @@
 							{{ Form::text('ingredient[]', null, ['id' => 'input-ingredient-0']) }}
 							<span class="remove js-delete-ingredient"></span>
 						</div>
+						<a href="#" class="link-red-dark js-add-ingredient">+ Додати</a>
 					</div>
-					<a href="#" class="link-red-dark js-add-ingredient">+ Додати</a>
 				</div>
 
 				<div class="form-group">
@@ -56,7 +56,7 @@
 							<div class="uploader">
 								<img src="">
 								<div class="round"><i class="fo fo-camera"></i></div>
-								{{ Form::file(null, ['class' => 'input-upload-foto']) }}
+								{{ Form::file(null, ['class' => 'input-upload-foto', 'id' => 'foto']) }}
 							</div>
 							<a href="#" class="pull-left hide grey1 js-cover-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
 							<a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
@@ -71,14 +71,27 @@
 						<span class="title">Крок 1</span><span class="remove"></span>
 						<div class="uploader uploader-steps">
 							<img src="">
+							{{ Form::file(null, ['class' => 'input-upload-steps', 'id' => 'step_image0']) }}
+							{{ Form::hidden('step_image[]', null, ['id' => 'step-0']) }}
 							<div class="round"><i class="fo fo-camera"></i></div>
-							{{ Form::file(null, ['class' => 'input-upload-steps']) }}
-							{{ Form::hidden('step_image[]', null, ['id' => 'step_image']) }}
 						</div>
 						{{-- Удаление фото?? Нужно?? --}}
 						<textarea class="step-texts" name="step_text[]" type="text" required="required" /></textarea>
 					</div>
 					<a href="#" id="cloneRecipe" class="link-red-dark">+ Додати</a>
+				</div>
+
+				<div id="recipeBlank" class="hidden"> {{-- Скрытый блок для клонирования --}}
+					<div class="js-foto js-foto-steps">
+						<span class="title">Крок 1</span><span class="remove"></span>
+						<div class="uploader uploader-steps">
+							<img src="">
+							{{ Form::file(null, ['class' => 'input-upload-steps', 'id' => 'step_image']) }}
+							{{ Form::hidden('step_image[]', null, ['id' => 'step']) }}
+							<div class="round"><i class="fo fo-camera"></i></div>
+						</div>
+						<textarea class="step-texts" name="step_text[]" type="text" required="required" /></textarea>
+					</div>
 				</div>
 
 				<div class="form-group">
@@ -88,8 +101,8 @@
 							{{ Form::text('video[]', null, ['id' => 'input-video-0']) }}
 							<span class="remove js-delete-video"></span>
 						</div>
+						<a href="#" class="link-red-dark js-add-video">+ Додати</a>
 					</div>
-					<a href="#" class="link-red-dark js-add-video">+ Додати</a>
 				</div>
 
 				{{ Form::submit('Створити рецепт', ['class' => 'button button-red']) }}
@@ -101,42 +114,13 @@
 
 @push('scripts')
 	<script type="text/javascript">
-		// Ingredient
-    $('.js-add-ingredient').on('click', function(e) {
-        e.preventDefault();
 
-        var i = $('.js-ingredients > div').length;
+{{-- Загрузка картинок --}}
+	document.getElementById('foto')
+			.addEventListener('change', handleImage, false);
 
-        $('.js-ingredients').append('<div><input id="input-ingredient-' + i + '" name="ingredient[]" type="text" /><span class="remove js-delete-ingredient"></span></div>');
-    });
-    $(document).on('click', '.js-delete-ingredient', function(e) {
-        e.preventDefault();
-
-        $(this).parent().remove();
-
-        $('.js-ingredients > div').each(function(i) {
-            $(this).attr('id', 'input-ingredient-' + i);
-        });
-    });
-
-    // Video
-    $('.js-add-video').on('click', function(e) {
-        e.preventDefault();
-
-        var i = $('.js-video > div').length;
-
-        $('.js-video').append('<div><input id="input-video-' + i + '" name="video[]" type="text" /><span class="remove js-delete-video"></span></div>');
-    });
-
-    $(document).on('click', '.js-delete-video', function(e) {
-        e.preventDefault();
-
-        $(this).parent().remove();
-
-        $('.js-video > div').each(function(i) {
-            $(this).attr('id', 'input-video-' + i);
-        });
-    });
+	document.getElementById('step_image0')
+			.addEventListener('change', handleImage, false);
 
     // Fotos
 		$(document).on('change', '.input-upload-foto', function() {
@@ -212,21 +196,6 @@
       $('#cover-image').val($(this).closest('.js-foto').find('input[name="images[]"]').val());
 		});
 
-		// Клонируем шаг рецепта
-		var count = 0;
-		var inputRecipe = $('.recipes > div').clone();
-		$("#cloneRecipe").on("click", function(e){
-			e.preventDefault();
-			count++;
-			recipeCount = $('.recipes').children().length; // Для номера "Крок"
-			var newBlock = inputRecipe.clone();
-			// newBlock.find('#step_image[]').attr('id', 'step_image[]'+count);
-			newBlock.find('.title').text('Крок '+recipeCount);
-
-			$(newBlock).insertBefore(this);
-
-			document.getElementById('step_image'+count).addEventListener('change', handleImage, false);
-		});
 		 // Fotos steps
 		$('body').on('change', '.input-upload-steps', function() {
 			var self = $(this),
@@ -255,6 +224,11 @@
 					var data = data.responseJSON;
 				}
     	});
+    });
+
+    $('body').on('click', '.remove', function(e){
+    	e.preventDefault();
+    	$(this).parent().remove();
     });
 	</script>
 	<script type="text/javascript">

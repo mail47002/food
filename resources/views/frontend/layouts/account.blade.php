@@ -39,14 +39,9 @@
     <script src="{{ asset('frontend/js/tabs.js') }}" async></script>
     <script src="{{ asset('frontend/vendor/owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/simplebar.js') }}"></script>
+    <script src="{{ asset('frontend/js/custom.js') }}"></script>
     @stack('scripts')
     <script type="text/javascript">
-        $.fn.stars = function() {
-            return $(this).each(function() {
-                $(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * $(this).width()/5));
-            });
-        };
-
         $( document ).ready(function() {
             $('span.stars').stars();
         });

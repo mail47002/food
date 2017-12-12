@@ -49,8 +49,8 @@
 							{{ Form::text('video[]', null, ['id' => 'input-video-0']) }}
 							<span class="remove js-delete-video"></span>
 						</div>
+						<a href="#" class="link-red-dark js-add-video">+ Додати</a>
 					</div>
-					<a href="#" class="link-red-dark js-add-video">+ Додати</a>
 				</div>
 
 				{{ Form::submit('Створити пораду', ['class' => 'button button-red']) }}
@@ -62,25 +62,6 @@
 
 @push('scripts')
 	<script type="text/javascript">
-
-        // Video
-        $('.js-add-video').on('click', function(e) {
-            e.preventDefault();
-
-            var i = $('.js-video > div').length;
-
-            $('.js-video').append('<div><input id="input-video-' + i + '" name="video[]" type="text" /><span class="remove js-delete-video"></span></div>');
-        });
-
-        $(document).on('click', '.js-delete-video', function(e) {
-            e.preventDefault();
-
-            $(this).parent().remove();
-
-            $('.js-video > div').each(function(i) {
-                $(this).attr('id', 'input-video-' + i);
-            });
-        });
 
         // Fotos
 		$(document).on('change', '.input-upload', function() {

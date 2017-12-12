@@ -30,6 +30,7 @@
 	<script src="{{ asset('frontend/js/tabs.js') }}" async></script>
 	<script src="{{ asset('frontend/vendor/owlcarousel/owl.carousel.min.js') }}"></script>
 	<script src="{{ asset('frontend/js/simplebar.js') }}"></script>
+	<script src="{{ asset('frontend/js/custom.js') }}"></script>
 	@stack('scripts')
 </body>
 </html>
