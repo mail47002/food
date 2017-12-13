@@ -273,8 +273,19 @@ class AdvertsController extends Controller
     protected function copyImages($images)
     {
         foreach ($images as $image) {
-            Storage::copy('uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/' . $image->image, 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/adverts/' . $image->image);
-            Storage::copy('uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/thumbnails/' . $image->image, 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/thumbnails/' . $image->image);
+            $productImagePath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/' . $image->image;
+            $productThumbnailPath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/thumbnails/' . $image->image;
+
+            $advertImagePath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/adverts/' . $image->image;
+            $advertThumbnailPath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/adverts/thumbnails/' . $image->image;
+
+            if (!Storage::exists($advertImagePath)) {
+                Storage::copy($productImagePath, $advertImagePath);
+            }
+
+            if (!Storage::exists($advertThumbnailPath)) {
+                Storage::copy($productThumbnailPath, $advertThumbnailPath);
+            }
         }
     }
 

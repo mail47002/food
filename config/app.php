@@ -180,6 +180,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class
 
 
     ],

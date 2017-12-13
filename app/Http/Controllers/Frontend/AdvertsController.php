@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Advert;
 use App\Category;
-use App\City;
+use App\Order;
 use App\Review;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Advert;
+use Auth;
 
 class AdvertsController extends Controller
 {
@@ -20,8 +22,6 @@ class AdvertsController extends Controller
     public function index(Request $request)
     {
         $categories = Category::all();
-
-        $cities = City::all();
 
         $cid = $request->cid ? explode(',', $request->cid) : $categories->pluck('id');
 
@@ -37,8 +37,6 @@ class AdvertsController extends Controller
 
         return view('frontend.adverts.index', [
             'adverts'    => $adverts,
-            'categories' => $categories,
-            'cities'     => $cities,
             'filter'     => [
                 'cid' => $request->has('cid') ? explode(',', $request->cid) : [],
             ]
@@ -59,5 +57,34 @@ class AdvertsController extends Controller
                 'reviews' => $reviews
             ]);
         }
+    }
+
+    /**
+     * TODO: Check auth user id & advert id
+     *
+     */
+    public function order(Request $request)
+    {
+        $this->validateForm($request);
+
+        if (!Order::where('advert_id', $request->advert_id)->where('user_id', Auth::id())->exists()) {
+            Order::create($request->all());
+
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'warning'
+        ]);
+    }
+
+    protected function validateForm(Request $request)
+    {
+        $this->validate($request, [
+            'advert_id' => 'required',
+            'user_id'   => 'required'
+        ]);
     }
 }

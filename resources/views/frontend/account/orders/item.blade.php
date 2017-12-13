@@ -1,7 +1,7 @@
 <div class="wide-thumb account-orders">
     <div class="row">
         <div class="col-md-4">
-            <div class="image"><img src="/uploads/food1.jpg" class="img-responsive" alt=""></div>
+            <div class="image"><img src="{{ HtmlHelper::getAdvertThumbnailUrl($order->advert) }}" class="img-responsive" alt=""></div>
         </div>
         <div class="col-md-5">
             <div class="caption">

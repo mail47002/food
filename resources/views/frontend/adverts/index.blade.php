@@ -141,10 +141,10 @@
 			<div class="container">
 				<div class="row">
 					@foreach ($adverts as $advert)
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 advert">
 							<div class="product-thumb">
 								<div class="image">
-									<img src="{{ asset($advert->image) }}" class="img-responsive" alt="{{ $advert->name }}">
+									<img src="{{ HtmlHelper::getAdvertThumbnailUrl($advert) }}" class="img-responsive" alt="{{ $advert->name }}">
 									<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
 									@php $actions=['discount','new', 'heart']; @endphp <!-- class: discount new heart -->
 									<div class="sticker {{ $actions[array_rand($actions)] }}"></div>
@@ -176,7 +176,7 @@
 									@endif
 								</div>
 
-								<button type="button" class="button button-grey order">Замовити</button>
+								<button type="button" class="button button-grey order" data-toggle="modal" data-target="#modal_order" data-id="{{ $advert->id }}">Замовити</button>
 
 							</div>
 					</div>
@@ -292,11 +292,9 @@
 
 </div>
 
-<!-- Modal -->
+<!-- Modal Address -->
 <div id="modal_change_address" class="modal fade" role="dialog">
 	<div class="modal-dialog">
-
-		<!-- Modal content-->
 		<div class="modal-content text-center">
 			<div class="modal-header">
 				<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
@@ -329,6 +327,57 @@
 
 	</div>
 </div>
+
+
+@auth()
+	<!-- Modal Order -->
+	<div id="modal_order" class="modal fade" role="dialog">
+		<div class="modal-dialog w-710">
+			<div class="modal-content text-center">
+				<div class="modal-header">
+					<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
+					<h4 class="modal-title">Оформити замовлення</h4>
+				</div>
+				<div class="modal-body">
+					<div class="v-indent-20"></div>
+					<div class="step"><span>1</span></div>
+					<div class="f-18 top-10">Для оформлення замовлення, зв'яжіться з поваром страви</div>
+					<div class="caption">
+						<div class="avatar">
+							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
+						</div>
+						<p><a href="#" class="link-blue name">Марк</a></p>
+					</div>
+					<div class="phone red f24">+38 (096) 159-1515</div>
+					<div class="phone red f24">+38 (096) 159-1515</div>
+
+
+					<div class="v-indent-20"></div>
+					<div class="step"><span>2</span></div>
+					<div class="f-18 top-20">Для завершення замовлення обов’язково потрібно підтвердити його</div>
+
+					{{ Form::open(['route' => 'adverts.order', 'method' => 'post']) }}
+
+					<input type="hidden" name="advert_id" value="">
+					<input type="hidden" name="user_id" value="{{ auth()->id() }}">
+
+					<div class="top-20 inline js-buttons">
+						<button class="button button-white text-upper mlr-10" type="button" data-dismiss="modal">Підтвердити пізніше</button>
+						<button class="button button-red text-upper mlr-10" type="submit">Підтвердити зараз</button>
+					</div>
+
+					<div class="info-block red w-480 hidden js-info-block">
+						<p class="text-upper">Замовлення очікує на підтвердження!</p>
+						<div><a href="#" class="link-grey3 f14">Перейти до моїх замовлень та підтвердити <i class="fo fo-arrow-right fo-small"></i></a></div>
+					</div>
+
+					{{ Form::close() }}
+
+				</div>
+			</div>
+		</div>
+	</div>
+@endauth
 
 @stop
 
@@ -423,5 +472,58 @@
 		};
 
 		filter.init();
+	</script>
+	<script>
+		$('.advert .order').on('click', function () {
+		    var advertId  = $(this).data('id');
+
+		    if (advertId) {
+                $('#modal_order input[name=advert_id]').val(advertId);
+            }
+        });
+
+        $('#modal_order').on('hidden.bs.modal', function () {
+            $('#modal_order input[name=advert_id]').val('');
+            $('#modal_order .js-buttons').removeClass('hidden');
+
+            if (!$('#modal_order .js-info-block').hasClass('hidden')) {
+                $('#modal_order .js-info-block').addClass('hidden');
+            }
+		});
+
+        $('#modal_order form').on('submit', function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+
+            $.ajax({
+				url: form.attr('action'),
+				method: form.attr('method'),
+				data: form.serialize(),
+				dataType: 'json',
+				beforeSend: function () {
+				    $('#modal_order').find('.alert').remove();
+
+					form.find(':submit').attr('disabled', true);
+
+                    $('.body-overlay').addClass('active');
+                },
+				success: function (json) {
+					if (json['status'] === 'success') {
+                        form.find('.js-buttons').toggleClass('hidden');
+                        form.find('.js-info-block').toggleClass('hidden');
+					}
+
+                    if (json['status'] === 'warning') {
+                        $('#modal_order .modal-body').before('<div class="alert alert-warning">Ви вже оформили це замовлення!</div>');
+                    }
+                },
+				complete: function () {
+                    form.find(':submit').attr('disabled', false);
+
+                    $('.body-overlay').removeClass('active');
+                }
+			})
+        })
 	</script>
 @endpush

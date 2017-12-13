@@ -32,7 +32,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="image">
-							<img class="img-responsive" src="{{ HtmlHelper::getThumbnailUrl('products', $product->image, $product->user) }}" alt="{{ $product->name }}">
+							<img class="img-responsive" src="{{ HtmlHelper::getProductThumbnailUrl($product) }}" alt="{{ $product->name }}">
 
 						</div>
 					</div>

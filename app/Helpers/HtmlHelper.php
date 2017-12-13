@@ -5,18 +5,94 @@ namespace App\Helpers;
 
 class HtmlHelper extends Helper
 {
+    /**
+     * Return active class.
+     *
+     * @param $url
+     * @param string $class
+     * @return string
+     */
     public function isActive($url, $class = 'active')
     {
         return !request()->is($url) ?: $class;
     }
 
-    public function getImageUrl($url, $image, $user)
+    /**
+     * Return product image url.
+     *
+     * @param $product
+     * @return string
+     */
+    public function getProductImageUrl($product)
     {
-        return asset('uploads/' . md5($user->id . $user->email) . '/' . $url . '/' . $image);
+        return $this->makeImageUrl('products', $product);
     }
 
-    public function getThumbnailUrl($url, $image, $user)
+    /**
+     * Return product thumbnail url.
+     *
+     * @param $product
+     * @return string
+     */
+    public function getProductThumbnailUrl($product)
     {
-        return asset('uploads/' . md5($user->id . $user->email) . '/' . $url . '/thumbnails/' . $image);
+        return $this->makeThumbnailUrl('products', $product);
+    }
+
+    /**
+     * Return advert image url.
+     *
+     * @param $advert
+     * @return string
+     */
+    public function getAdvertImageUrl($advert)
+    {
+        return $this->makeImageUrl('adverts', $advert);
+    }
+
+    /**
+     * Return advert thumbnail url.
+     *
+     * @param $advert
+     * @return string
+     */
+    public function getAdvertThumbnailUrl($advert)
+    {
+        return $this->makeThumbnailUrl('adverts', $advert);
+    }
+
+    /**
+     * Return uploaded user directory hash.
+     *
+     * @param $user
+     * @return string
+     */
+    public function getUserDirHash($user)
+    {
+        return md5($user->id . $user->email);
+    }
+
+    /**
+     * Return uploaded image url.
+     *
+     * @param $dir
+     * @param $entity
+     * @return string
+     */
+    protected function makeImageUrl($dir, $entity)
+    {
+        return asset('uploads/' . $this->getUserDirHash($entity->user) . '/' . $dir . '/' . $entity->image);
+    }
+
+    /**
+     * Return uploaded thumbnail url.
+     *
+     * @param $dir
+     * @param $entity
+     * @return string
+     */
+    protected function makeThumbnailUrl($dir, $entity)
+    {
+        return asset('uploads/' . $this->getUserDirHash($entity->user) . '/' . $dir . '/thumbnails/' . $entity->image);
     }
 }

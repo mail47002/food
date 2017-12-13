@@ -16,7 +16,9 @@ class OrdersController extends Controller
 
     public function index()
     {
-        $orders = Order::with(['advert'])
+        $orders = Order::with(['advert' => function ($query) {
+                $query->with('user');
+            }])
             ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->paginate();
@@ -24,5 +26,27 @@ class OrdersController extends Controller
         return view('frontend.account.orders.index', [
             'orders' => $orders
         ]);
+    }
+
+    public function confirmed($id)
+    {
+        $order = Order::find($id);
+
+        if ($order) {
+            $order->confirmed();
+        }
+
+        return redirect()->back();
+    }
+
+    public function destroy($id)
+    {
+        $order = Order::find($id);
+
+        if ($order) {
+            $order->delete();
+        }
+
+        return redirect()->back();
     }
 }

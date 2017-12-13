@@ -87,13 +87,16 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
 Route::group(['namespace' => 'Frontend'], function() {
     // Adverts
     Route::get('/', ['as' => 'adverts.index', 'uses' => 'AdvertsController@index']);
-    Route::get('/adverts/{slug}', ['as' => 'adverts.show', 'uses' => 'AdvertsController@show']);
+    Route::get('adverts/{slug}', ['as' => 'adverts.show', 'uses' => 'AdvertsController@show']);
+    Route::post('adverts/order', ['as' => 'adverts.order', 'uses' => 'AdvertsController@order']);
+
     // Advices
-    Route::get('/advices', ['as' => 'advices.index', 'uses' => 'AdvicesController@index']);
-    Route::get('/advices/{slug}', ['as' => 'advices.show', 'uses' => 'AdvicesController@show']);
+    Route::get('advices', ['as' => 'advices.index', 'uses' => 'AdvicesController@index']);
+    Route::get('advices/{slug}', ['as' => 'advices.show', 'uses' => 'AdvicesController@show']);
+
     // Recipes
-    Route::get('/recipes', ['as' => 'recipes.index', 'uses' => 'RecipesController@index']);
-    Route::get('/recipes/{slug}', ['as' => 'recipes.show', 'uses' => 'RecipesController@show']);
+    Route::get('recipes', ['as' => 'recipes.index', 'uses' => 'RecipesController@index']);
+    Route::get('recipes/{slug}', ['as' => 'recipes.show', 'uses' => 'RecipesController@show']);
 
     // Account
     Route::group(['namespace' => 'Account', 'prefix' => 'myaccount'], function() {
@@ -217,8 +220,10 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::post('password/forgot', ['as' => 'password.forgot', 'uses' => 'ForgotPasswordController@forgot']);
 
     // Pages
-    Route::get('faqs', 'FaqsController@show');
-    Route::get('feedback', 'FeedbackController@show');
-    Route::post('feedback', ['as' => 'feedback.store', 'uses' => 'FeedbackController@store']);
-    Route::get('{slug}', 'PagesController@show');
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('faqs', 'FaqsController@show');
+        Route::get('feedback', 'FeedbackController@show');
+        Route::post('feedback', ['as' => 'feedback.store', 'uses' => 'FeedbackController@store']);
+        Route::get('{slug}', 'PagesController@show');
+    });
 });
