@@ -41,8 +41,8 @@
                             <span class="remove js-delete-ingredient"></span>
                         </div>
                     @endforeach
+                    <a href="#" class="link-red-dark js-add-ingredient">+ Додати</a>
                 </div>
-                <a href="#" class="link-red-dark js-add-ingredient">+ Додати</a>
             </div>
 
 
@@ -93,8 +93,8 @@
                             <span class="remove js-delete-video"></span>
                         </div>
                     @endif
+                    <a href="#" class="link-red-dark js-add-video">+ Додати</a>
                 </div>
-                <a href="#" class="link-red-dark js-add-video">+ Додати</a>
             </div>
 
             {{ Form::hidden('product_id', $product->id) }}
@@ -107,43 +107,6 @@
 
 @push('scripts')
     <script type="text/javascript">
-        // Ingredient
-        $('.js-add-ingredient').on('click', function(e) {
-            e.preventDefault();
-
-            var i = $('.js-ingredients > div').length;
-
-            $('.js-ingredients').append('<div><input id="input-ingredient-' + i + '" name="ingredient[]" type="text" /><span class="remove js-delete-ingredient"></span></div>');
-        });
-
-        $('body').on('click', '.js-delete-ingredient', function(e) {
-            e.preventDefault();
-
-            $(this).parent().remove();
-
-            $('.js-ingredients > div').each(function(i) {
-                $(this).attr('id', 'input-ingredient-' + i);
-            });
-        });
-
-        // Video
-        $('.js-add-video').on('click', function(e) {
-            e.preventDefault();
-
-            var i = $('.js-video > div').length;
-
-            $('.js-video').append('<div><input id="input-video-' + i + '" name="video[]" type="text" /><span class="remove js-delete-video"></span></div>');
-        });
-
-        $('body').on('click', '.js-delete-video', function(e) {
-            e.preventDefault();
-
-            $(this).parent().remove();
-
-            $('.js-video > div').each(function(i) {
-                $(this).attr('id', 'input-video-' + i);
-            });
-        });
 
         // Fotos
         $(document).on('change', '.input-upload', function() {
