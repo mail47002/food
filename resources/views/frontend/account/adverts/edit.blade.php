@@ -11,7 +11,7 @@
 
     <div class="bg-yellow text-center">
         <div class="v-indent-30"></div>
-        <img src="{{ HtmlHelper::getImageUrl('adverts', $advert->image, $advert->user) }}" alt="{{ $advert->name }}" class="inline header-img">
+        <img src="{{ HtmlHelper::getAdvertImageUrl($advert) }}" alt="{{ $advert->name }}" class="inline header-img">
         <h5 class="header-title text-upper black margin-30">{{ $advert->name }}</h5>
         <p class="red f20 margin-zerro">
             @if ($advert->type == 'by_date')
@@ -109,7 +109,7 @@
                     @foreach ($advert->images as $image)
                         <div class="wrap js-foto">
                             <div class="uploader">
-                                <img src="{{ HtmlHelper::getThumbnailUrl('adverts', $image->image, $advert->user) }}">
+                                <img src="{{ asset('uploads/' . HtmlHelper::getUserDirHash($advert->user) . '/adverts/thumbnails/' . $image->image) }}">
                                 {{ Form::hidden('images[]', $image->image) }}
                             </div>
                             <a href="#" class="pull-left grey1 js-cover-foto {{ $advert->image === $image->image ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>

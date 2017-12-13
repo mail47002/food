@@ -88,10 +88,12 @@ class AdvertsController extends Controller
         if ($request->has('change_images')) {
             $this->syncImages($request->images, $advert);
         } else {
-            $product = Product::where('id', $request->product_id)->first();
+            $product = Product::find($request->product_id);
 
-            $this->copyImages($product->images);
-            $this->syncImages($product->images, $advert);
+            if ($product) {
+                $this->copyImages($product->images);
+                $this->syncImages($product->images, $advert);
+            }
         }
 
         DB::commit();
@@ -293,7 +295,7 @@ class AdvertsController extends Controller
     {
         foreach ($images as $image) {
             $advertImage = new AdvertImage([
-                'image' => $image
+                'image' => $image->image
             ]);
 
             $advert->images()->save($advertImage);
