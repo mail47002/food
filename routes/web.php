@@ -73,7 +73,10 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
     });
 
     // Adverts
-    Route::post('adverts/store', 'AdvertsController@store');
+    Route::group(['prefix' => 'adverts'], function() {
+        Route::post('store', 'AdvertsController@store');
+        Route::get('{id}', 'AdvertsController@show');
+    });
 
     // User wishlist
     Route::group(['prefix' => 'wishlist'], function() {

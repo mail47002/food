@@ -176,7 +176,7 @@
 									@endif
 								</div>
 
-								<button type="button" class="button button-grey order" data-toggle="modal" data-target="#modal_order" data-id="{{ $advert->id }}">Замовити</button>
+								<button type="button" class="button button-grey order js-order" data-id="{{ $advert->id }}">Замовити</button>
 
 							</div>
 					</div>
@@ -342,16 +342,7 @@
 					<div class="v-indent-20"></div>
 					<div class="step"><span>1</span></div>
 					<div class="f-18 top-10">Для оформлення замовлення, зв'яжіться з поваром страви</div>
-					<div class="caption">
-						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-						</div>
-						<p><a href="#" class="link-blue name">Марк</a></p>
-					</div>
-					<div class="phone red f24">+38 (096) 159-1515</div>
-					<div class="phone red f24">+38 (096) 159-1515</div>
-
-
+					<div class="js-user"></div>
 					<div class="v-indent-20"></div>
 					<div class="step"><span>2</span></div>
 					<div class="f-18 top-20">Для завершення замовлення обов’язково потрібно підтвердити його</div>
@@ -474,11 +465,30 @@
 		filter.init();
 	</script>
 	<script>
-		$('.advert .order').on('click', function () {
+		$('.advert .js-order').on('click', function () {
 		    var advertId  = $(this).data('id');
 
-		    if (advertId) {
-                $('#modal_order input[name=advert_id]').val(advertId);
+            if (advertId) {
+                $.get('{{ url('api/adverts') }}/' + advertId).done(function (response) {
+					if (response['status'] === 'success') {
+                    	var html = '';
+
+                    	html += '<div class="caption">';
+						html += '<div class="avatar">';
+						html += '<div class="rounded"><img src="' + response['advert']['user']['image'] + '" alt="foto"></div>';
+						html += '</div>';
+                        html += '<p><a href="#" class="link-blue name">' +  response['advert']['user']['name'] +'</a></p>';
+                        html += '</div>';
+
+                        for (i in response['advert']['user']['phone']) {
+                        	html += '<div class="phone red f24">' + response['advert']['user']['phone'][i] + '</div>';
+						}
+
+						$('#modal_order .js-user').empty().append(html);
+
+                        $('#modal_order').modal('show');
+					}
+                });
             }
         });
 

@@ -75,24 +75,24 @@ class HtmlHelper extends Helper
     /**
      * Return uploaded image url.
      *
-     * @param $dir
+     * @param $path
      * @param $entity
      * @return string
      */
-    protected function makeImageUrl($dir, $entity)
+    protected function makeImageUrl($path, $entity)
     {
-        return asset('uploads/' . $this->getUserDirHash($entity->user) . '/' . $dir . '/' . $entity->image);
+        return asset('uploads/' . $this->getUserDirHash($entity->user) . '/' . $path . '/' . $entity->image);
     }
 
     /**
      * Return uploaded thumbnail url.
      *
-     * @param $dir
+     * @param $path
      * @param $entity
      * @return string
      */
-    protected function makeThumbnailUrl($dir, $entity)
+    protected function makeThumbnailUrl($path, $entity)
     {
-        return asset('uploads/' . $this->getUserDirHash($entity->user) . '/' . $dir . '/thumbnails/' . $entity->image);
+        return asset('uploads/' . $this->getUserDirHash($entity->user) . '/' . $path . '/thumbnails/' . $entity->image);
     }
 }

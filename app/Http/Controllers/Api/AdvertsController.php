@@ -48,7 +48,14 @@ class AdvertsController extends Controller
      */
     public function show($id)
     {
-        //
+        $advert = Advert::with(['user', 'product'])->find($id);
+
+        if ($advert) {
+            return response()->json([
+                'status' => 'success',
+                'advert' => $advert
+            ]);
+        }
     }
 
     /**
