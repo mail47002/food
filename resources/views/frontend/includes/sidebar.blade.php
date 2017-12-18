@@ -54,7 +54,7 @@
                 <li><a class="{{ HtmlHelper::isActive('myaccount') }}" href="{{ route('account.user.show') }}">Про мене</a></li>
                 <li><a class="{{ HtmlHelper::isActive('myaccount/products*') }}" href="{{ route('account.products.index') }}">Каталог страв</a></li>
                 <li><a class="{{ HtmlHelper::isActive('myaccount/adverts*') }}" href="{{ route('account.adverts.index') }}">Оголошення </a></li>
-                <li><a href="#">Мої повідомлення <span class="badge">3</span></a></li>
+                <li><a class="{{ HtmlHelper::isActive('myaccount/notifications*') }}" href="{{ route('account.notifications.index') }}">Мої повідомлення <span class="badge">3</span></a></li>
                 <li><a class="{{ HtmlHelper::isActive('myaccount/orders*') }}" href="{{ route('account.orders.index') }}">Мої замовлення</a></li>
                 <li><a href="#">Мої відгуки</a></li>
                 <li><a class="{{ HtmlHelper::isActive('myaccount/articles*') }}" href="{{ route('account.articles.index') }}">Мої статті</a></li>

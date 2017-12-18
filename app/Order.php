@@ -18,6 +18,11 @@ class Order extends Model
         return $this->belongsTo('App\Advert');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function confirmed()
     {
         $this->confirmed = self::CONFIRMED;

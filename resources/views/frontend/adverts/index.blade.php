@@ -485,6 +485,7 @@
 						}
 
 						$('#modal_order .js-user').empty().append(html);
+                        $('#modal_order input[name=advert_id]').val(advertId);
 
                         $('#modal_order').modal('show');
 					}

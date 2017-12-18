@@ -156,6 +156,11 @@ Route::group(['namespace' => 'Frontend'], function() {
             Route::get('', ['as' => 'account.orders.index', 'uses' => 'OrdersController@index']);
         });
 
+        // Notifications
+        Route::group(['prefix' => 'notifications'], function () {
+            Route::get('', ['as' => 'account.notifications.index', 'uses' => 'NotificationsController@index']);
+        });
+
         // Articles
         Route::resource('articles', 'ArticlesController', [
             'names' => [
