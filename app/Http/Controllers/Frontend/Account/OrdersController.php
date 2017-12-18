@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Frontend\Account;
 
+use App\Notifications\OrderConfirmed;
+use App\Notifications\OrderCanceled;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,12 +30,14 @@ class OrdersController extends Controller
         ]);
     }
 
-    public function confirmed($id)
+    public function confirm($id)
     {
         $order = Order::find($id);
 
         if ($order) {
             $order->confirmed();
+
+            $order->user->notify(new OrderConfirmed($order));
         }
 
         return redirect()->back();
@@ -44,6 +48,8 @@ class OrdersController extends Controller
         $order = Order::find($id);
 
         if ($order) {
+            $order->user->notify(new OrderCanceled($order));
+
             $order->delete();
         }
 

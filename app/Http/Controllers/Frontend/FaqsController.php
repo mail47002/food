@@ -10,8 +10,7 @@ class FaqsController extends Controller
 {
     public function show()
     {
-        $faqs = Faq::where('status', 1)
-            ->orderBy('sort_order', 'asc')
+        $faqs = Faq::orderBy('sort_order', 'asc')
             ->get();
 
         if ($faqs) {

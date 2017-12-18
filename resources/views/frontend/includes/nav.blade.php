@@ -4,11 +4,11 @@
 			<a id="total-menu" class="dropdown-toggle fo fo-menu" href="#" type="button" data-toggle="dropdown"></a>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="total-menu">
 				<li class="hidden-md hidden-lg"><a href="/" class="logo link">Logo</a></li>
-				<li><a href="{{ url('pro-proekt') }}">Про проект</a></li>
-				<li><a href="{{ url('faqs') }}">Допомога</a></li>
-				<li><a href="{{ url('pravila') }}">Правила</a></li>
-				<li><a href="{{ url('umovi-ta-konfidentsiynist') }}">Уммови та конфіденційність</a></li>
-				<li><a href="{{ url('feedback') }}">Зворотній зв'язок</a></li>
+				<li><a href="{{ url('page/pro-proekt') }}">Про проект</a></li>
+				<li><a href="{{ url('page/faqs') }}">Допомога</a></li>
+				<li><a href="{{ url('page/pravila') }}">Правила</a></li>
+				<li><a href="{{ url('page/umovi-ta-konfidentsiynist') }}">Уммови та конфіденційність</a></li>
+				<li><a href="{{ url('page/feedback') }}">Зворотній зв'язок</a></li>
 				<li><a href="#">Карта сайту</a></li>
 <hr>
 				<li class="active"><a href="/temp/user.index">user_page (4.1)</a></li>
@@ -70,7 +70,7 @@
                                 @each('frontend.includes.notification', auth()->user()->notifications, 'notification')
                             </ul>
                             <div class="bottom">
-                                <a href="{{ url('account/messages') }}" class="link-blue">Все</a>
+                                <a href="{{ route('account.notifications.index') }}" class="link-blue">Все</a>
                             </div>
                         </div>
                     @endif

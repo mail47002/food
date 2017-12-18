@@ -2,23 +2,26 @@
 
 namespace App\Notifications;
 
+use App\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class OrderRejected extends Notification
+class OrderCanceled extends Notification
 {
     use Queueable;
+
+    public $order;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Order $order)
     {
-        //
+        $this->order = $order;
     }
 
     /**
@@ -29,7 +32,7 @@ class OrderRejected extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -56,6 +59,15 @@ class OrderRejected extends Notification
     {
         return [
             //
+        ];
+    }
+
+    public function toDatabase($notifiable)
+    {
+        return [
+            'title'      => 'Вам зробили замовлення <a href="' . route('profile.user.show', $this->order->user->id) . '">' . $this->order->user->name . '</a> на страву з меню',
+            'image'      => $this->order->user->image,
+            'created_at' => $this->order->created_at
         ];
     }
 }
