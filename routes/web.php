@@ -78,7 +78,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
         Route::get('{id}', 'AdvertsController@show');
     });
 
-    // User wishlist
+    // User wish list
     Route::group(['prefix' => 'wishlist'], function() {
         Route::get('/', 'WishlistController@index');
         Route::post('/', 'WishlistController@store');
@@ -154,6 +154,13 @@ Route::group(['namespace' => 'Frontend'], function() {
         // Orders
         Route::group(['prefix' => 'orders'], function () {
             Route::get('', ['as' => 'account.orders.index', 'uses' => 'OrdersController@index']);
+            Route::put('{id}', ['as' => 'account.orders.confirm', 'uses' => 'OrdersController@confirm']);
+            Route::delete('{id}', ['as' => 'account.orders.destroy', 'uses' => 'OrdersController@destroy']);
+        });
+
+        // Notifications
+        Route::group(['prefix' => 'notifications'], function () {
+            Route::get('', ['as' => 'account.notifications.index', 'uses' => 'NotificationsController@index']);
         });
 
         // Articles
@@ -223,7 +230,7 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::post('password/forgot', ['as' => 'password.forgot', 'uses' => 'ForgotPasswordController@forgot']);
 
     // Pages
-    Route::group(['prefix' => 'profile'], function () {
+    Route::group(['prefix' => 'page'], function () {
         Route::get('faqs', 'FaqsController@show');
         Route::get('feedback', 'FeedbackController@show');
         Route::post('feedback', ['as' => 'feedback.store', 'uses' => 'FeedbackController@store']);

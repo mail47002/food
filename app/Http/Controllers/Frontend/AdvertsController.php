@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Advert;
 use App\Category;
+use App\Notifications\OrderCreated;
 use App\Order;
 use App\Review;
 use Carbon\Carbon;
@@ -67,8 +68,12 @@ class AdvertsController extends Controller
     {
         $this->validateForm($request);
 
-        if (!Order::where('advert_id', $request->advert_id)->where('user_id', Auth::id())->exists()) {
-            Order::create($request->all());
+        $advert = Advert::with('user')->find($request->advert_id);
+
+        if ($advert && !Order::where('advert_id', $request->advert_id)->where('user_id', Auth::id())->exists()) {
+            $order = Order::create($request->all());
+
+            $advert->user->notify(new OrderCreated($order));
 
             return response()->json([
                 'status' => 'success'

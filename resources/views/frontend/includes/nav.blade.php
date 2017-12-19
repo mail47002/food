@@ -4,11 +4,11 @@
 			<a id="total-menu" class="dropdown-toggle fo fo-menu" href="#" type="button" data-toggle="dropdown"></a>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="total-menu">
 				<li class="hidden-md hidden-lg"><a href="/" class="logo link">Logo</a></li>
-				<li><a href="{{ url('pro-proekt') }}">Про проект</a></li>
-				<li><a href="{{ url('faqs') }}">Допомога</a></li>
-				<li><a href="{{ url('pravila') }}">Правила</a></li>
-				<li><a href="{{ url('umovi-ta-konfidentsiynist') }}">Уммови та конфіденційність</a></li>
-				<li><a href="{{ url('feedback') }}">Зворотній зв'язок</a></li>
+				<li><a href="{{ url('page/pro-proekt') }}">Про проект</a></li>
+				<li><a href="{{ url('page/faqs') }}">Допомога</a></li>
+				<li><a href="{{ url('page/pravila') }}">Правила</a></li>
+				<li><a href="{{ url('page/umovi-ta-konfidentsiynist') }}">Уммови та конфіденційність</a></li>
+				<li><a href="{{ url('page/feedback') }}">Зворотній зв'язок</a></li>
 				<li><a href="#">Карта сайту</a></li>
 <hr>
 				<li class="active"><a href="/temp/user.index">user_page (4.1)</a></li>
@@ -62,81 +62,18 @@
 					<a href="{{ route('account.user.show') }}" class="link">{{ auth()->user()->name }}</a>
 				</li>
 				<li class="dropdown messages">
-					<a id="messages-menu" class="link" href="#" type="button" data-toggle="dropdown"><i class="fo fo-bell fo-small"><span class="count">3</span></i></a>
+					<a id="messages-menu" class="link" href="#" type="button" data-toggle="dropdown"><i class="fo fo-bell fo-small"><span class="count">{{ auth()->user()->notifications->count() > 0 ? auth()->user()->notifications->count() : '' }}</span></i></a>
 
-					<div class="dropdown-menu" role="menu" aria-labelledby="messages-menu">
-						<ul data-simplebar class="overflow">{{-- data-simplebar - прокрутка --}}
-
-							<li class="top-message email">{{-- менять цвет --}}
-								<a href="#">{{-- Ссылка на сообщение ? --}}
-									<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
-									<div class="message">
-										<strong><object>Лист від <a href="/account/#" class="link-blue">Вікторії</a></object></strong>
-										{{-- Вложеные ссылки - только в <object> --}}
-										<p>В принципе вкусно,если сделать для одного ....</p>
-										<p class="date">10:15 2 липня 2016</p>
-									</div>
-								</a>
-							</li>
-
-							<li class="top-message phone">
-								<a href="#">{{-- Ссылка на сообщение ? --}}
-									<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
-									<div class="message">
-										<strong><object>Повідомлення від <a href="/account/#" class="link-blue">Вікторії</object></strong>
-										<p>В принципе вкусно,если сделать для одного ....</p>
-										<p class="date">10:15 2 липня 2016</p>
-									</div>
-								</a>
-							</li>
-
-							<li class="top-message clients">
-								<a href="#">{{-- Ссылка на сообщение ? --}}
-									<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
-									<div class="message">
-										<strong><object>Вам зробила замовлення <a href="/account/#" class="link-blue">Марія</a> на страву з меню</object></strong>
-										<p>В принципе вкусно,если сделать для одного ....</p>
-										<p class="date">10:15 2 липня 2016</p>
-									</div>
-								</a>
-							</li>
-
-							<li class="top-message order">
-								<a href="#">{{-- Ссылка на сообщение ? --}}
-									<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
-									<div class="message">
-										<strong><object>Повар <a href="/account/#" class="link-blue">Оксана</a> відмовила на замовленняя</object></strong>
-										<p>В принципе вкусно,если сделать для одного ....</p>
-										<p class="date">10:15 2 липня 2016</p>
-									</div>
-								</a>
-							</li>
-
-							<li class="top-message review">
-								<a href="#">{{-- Ссылка на сообщение ? --}}
-									<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
-									<div class="message">
-										<strong><object>Повар <a href="/account/#" class="link-blue">Оксана</a> відповіла на ваш відгук про страву</object></strong>
-										<p>В принципе вкусно,если сделать для одного ....</p>
-										<p class="date">10:15 2 липня 2016</p>
-									</div>
-								</a>
-							</li>
-
-							<li class="top-message deleted">
-								<a href="#">{{-- Ссылка на сообщение ? --}}
-									<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
-									<div class="message">
-										<strong><object>Ваше оголошення видалено</object></strong>
-										<p>В принципе вкусно,если сделать для одного ....</p>
-										<p class="date">10:15 2 липня 2016</p>
-									</div>
-								</a>
-							</li>
-
-						</ul>
-						<div class="bottom"><a href="{{ url('account/messages') }}" class="link-blue">Все</a></div>
-					</div>
+                    @if(auth()->user()->notifications)
+                        <div class="dropdown-menu" role="menu" aria-labelledby="messages-menu">
+                            <ul data-simplebar class="overflow">{{-- data-simplebar - прокрутка --}}
+                                @each('frontend.includes.notification', auth()->user()->notifications, 'notification')
+                            </ul>
+                            <div class="bottom">
+                                <a href="{{ route('account.notifications.index') }}" class="link-blue">Все</a>
+                            </div>
+                        </div>
+                    @endif
 				</li>
 
 				<li><a href="javascript:void(0);" onclick="wishlist.show()" class="link js-wishlist"><i class="fo fo-like fo-small"></i></a></li>
