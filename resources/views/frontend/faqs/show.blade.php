@@ -19,11 +19,11 @@
             </div>
             <div class="col-md-4 hidden-xs">
                 <ul class="menu-pages">
-                    <li><a href="#">Про проект</a></li>
-                    <li><a href="#" class="active">Допомога</a></li>
-                    <li><a href="#">Правила </a></li>
-                    <li><a href="#">Умови та конфіденційність</a></li>
-                    <li><a href="#">Зворотний зв'язок</a></li>
+                    <li><a href="/page/pro-proekt">Про проект</a></li>
+                    <li><a href="/page/faqs" class="active">Допомога</a></li>
+                    <li><a href="/page/pravila">Правила </a></li>
+                    <li><a href="/page/umovi-ta-konfidentsiynist">Умови та конфіденційність</a></li>
+                    <li><a href="/page/feedback">Зворотний зв'язок</a></li>
                     <li><a href="#">Карта сайту</a></li>
                 </ul>
             </div>
