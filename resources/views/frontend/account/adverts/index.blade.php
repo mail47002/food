@@ -75,7 +75,7 @@
                                         @if ($advert->is_everyday)
                                             <p><i class="fo fo-dish-ready red"></i>{{ $advert->date_from->format('d F') }} - {{ $advert->date_from->format('d F') }}</p>
                                         @else
-                                            <p><i class="fo fo-time red"></i>{{ $advert->date->format('d F') }} (обід)</p>
+                                            <p><i class="fo fo-time red"></i>{{ $advert->date }} (обід)</p>
                                         @endif
                                     @endif
 
