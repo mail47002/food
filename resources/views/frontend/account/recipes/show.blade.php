@@ -6,7 +6,7 @@
 	<div class="breadcrumbs">
 	<div class="container">
 		<ul class="list-inline">
-			<li><a href="{{ route('account.articles.index') }}" class="link-blue back text-upper"><i class="fo fo-arrow-left fo-small"></i>  Назад до моїх статей</a></li>
+			<li><a href="{{ route('account.recipes.index') }}" class="link-blue back text-upper"><i class="fo fo-arrow-left fo-small"></i>  Назад до моїх статей</a></li>
 
 			<div class="pull-right">
 				<a href="{{ route('account.recipes.edit', $recipe->id) }}" class="link-blue"><i class="fo fo-edit fo-inheirt"></i> Редагувати</a>

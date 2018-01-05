@@ -4,7 +4,7 @@
     <div class="breadcrumbs">
         <div class="container">
             <ul class="list-inline">
-                <li><a href="{{ route('account.articles.index') }}" class="link-blue back"><i class="fo fo-arrow-left fo-small"></i> Повернутися</a></li>
+                <li><a href="{{ route('account.recipes.index') }}" class="link-blue back"><i class="fo fo-arrow-left fo-small"></i> Повернутися</a></li>
             </ul>
         </div>
     </div>
@@ -135,7 +135,7 @@
 
             {{ Form::submit('Зберегти', ['class' => 'button button-red']) }}
         {{ Form::close() }}
-        <a href="{{ route('account.articles.index') }}" class="grey3">Відмінити</a>
+        <a href="{{ route('account.recipes.index') }}" class="grey3">Відмінити</a>
     </div>
 @stop
 

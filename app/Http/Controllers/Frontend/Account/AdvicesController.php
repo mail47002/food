@@ -19,6 +19,25 @@ class AdvicesController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+        $advices = Advice::where('name', 'like', '%' . $request->search . '%')
+            ->where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(2);
+
+
+        return view('frontend.account.advices.index', [
+            'advices' => $advices,
+        ]);
+    }
+
+    /**
      * Display create advice form.
      *
      * @return \Illuminate\Http\Response

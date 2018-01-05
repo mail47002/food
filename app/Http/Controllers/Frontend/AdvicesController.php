@@ -11,15 +11,19 @@ class AdvicesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $advices = Advice::orderBy('created_at', 'desc')
-            ->paginate();
-        // dd($advices);
-        return view('frontend.advices.index', [
-            'advices' => $advices
+        $advices = Advice::where('name', 'like', '%' . $request->search . '%')
+            ->where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(2);
+
+
+        return view('frontend.account.advices.index', [
+            'advices' => $advices,
         ]);
     }
 

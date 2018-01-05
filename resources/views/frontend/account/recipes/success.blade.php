@@ -8,6 +8,6 @@
         <div class="v-indent-20"></div>
     </div>
     <div class="container text-center">
-        <p><a href="{{ route('account.articles.index') }}" class="link-grey3 f16">Перейти у мій каталог статей <i class="fo fo-arrow-right fo-small"></i></a></p>
+        <p><a href="{{ route('account.recipes.index') }}" class="link-grey3 f16">Перейти у мій каталог статей <i class="fo fo-arrow-right fo-small"></i></a></p>
     </div>
 @endsection

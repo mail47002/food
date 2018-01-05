@@ -21,6 +21,27 @@ class RecipesController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+        $recipes = Recipe::where('name', 'like', '%' . $request->search . '%')
+            ->where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(2);
+
+        $categories = Category::orderBy('name', 'asc')->get();
+
+        return view('frontend.account.recipes.index', [
+            'recipes' => $recipes,
+            'categories' => $categories
+        ]);
+    }
+
+    /**
      * Display create Recipe form.
      *
      * @return \Illuminate\Http\Response

@@ -57,7 +57,7 @@
                 <li><a class="{{ HtmlHelper::isActive('myaccount/notifications*') }}" href="{{ route('account.notifications.index') }}">Мої повідомлення <span class="badge">3</span></a></li>
                 <li><a class="{{ HtmlHelper::isActive('myaccount/orders*') }}" href="{{ route('account.orders.index') }}">Мої замовлення</a></li>
                 <li><a href="#">Мої відгуки</a></li>
-                <li><a class="{{ HtmlHelper::isActive('myaccount/articles*') }}" href="{{ route('account.articles.index') }}">Мої статті</a></li>
+                <li><a class="{{ HtmlHelper::isActive('myaccount/articles*') }}" href="{{ route('account.recipes.index') }}">Мої статті</a></li>
             </ul>
         @endif
     @else
