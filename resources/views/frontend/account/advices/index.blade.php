@@ -72,6 +72,19 @@
 		</div>
 	</div>
 
+
+	<div class="empty-block">
+		<i class="fo fo-dish fo-4x"></i>
+		<p class="text">У вас немає рецептів</p>
+		<a href="#" class="button button-red button-big">Додати рецепт</a>
+	</div>
+
+	<div class="empty-block">
+		<i class="fo fo-articles fo-4x"></i>
+		<p class="text">У вас немає порад</p>
+		<a href="#" class="button button-red button-big">Додати пораду</a>
+	</div>
+
 	<div id="modal_advice-delete" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content text-center">
