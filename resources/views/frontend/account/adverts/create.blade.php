@@ -41,7 +41,19 @@
             <div class="v-indent-30"></div>
             <img src="" alt="" class="inline header-img">
             <h5 class="header-title text-upper black margin-30">Рагу з молодої картоплі з лососем і цукіні</h5>
-            <p class="red f20 margin-zerro"><i class="fo fo-time fo-2x"></i> Страва на дату</p>
+            <p class="red f20 margin-zerro">
+                @if(Helper::isAdvertByDate())
+                    <i class="fo fo-time fo-2x"></i> Страва на дату
+                @endif
+
+                @if(Helper::isAdvertInStock())
+                    <i class="fo fo-dish-ready fo-2x"></i> Готова страва
+                @endif
+
+                @if(Helper::isAdvertPreOrder())
+                    <i class="fo fo-deal fo-2x"></i>  Під замовлення
+                @endif
+            </p>
             <div class="v-indent-30"></div>
         </div>
 
@@ -50,14 +62,14 @@
             {{ Form::open(['route' => 'account.adverts.store', 'method' => 'post', 'class' => 'edit']) }}
                 <p class="message" id="message">Заповніть виділені поля</p>
 
-                @if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date') || request()->get('type') == 'in_stock')
+                @if(Helper::isAdvertByDate() || Helper::isAdvertInStock())
                     <div class="form-group">
                         <label for="price">Ціна*</label>
                         <input name="price" id="input-price" type="text" class="price inline"/>
                     </div>
                 @endif
 
-                @if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'pre_order'))
+                @if(Helper::isAdvertPreOrder())
                     <div class="form-group">
                         <label for="price">Ціна*</label>
                         <div class="row">
@@ -71,7 +83,7 @@
                     </div>
                 @endif
 
-                @if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'))
+                @if(Helper::isAdvertByDate())
                     <div class="form-group everyday">
                         <input id="input-everyday" type="checkbox" name="everyday" value="1">
                         <label for="input-everyday" class="inline">Кожного дня</label>
@@ -98,7 +110,7 @@
                     </div>
                 @endif
 
-                @if (request()->has('type') && request()->get('type') == 'in_stock')
+                @if(Helper::isAdvertInStock())
                     <div class="form-group">
                         <label for="date">Термін придатності*</label>
                         <div class="two-in-line">
@@ -110,7 +122,7 @@
                     </div>
                 @endif
 
-                @if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date') || request()->get('type') == 'in_stock')
+                @if(Helper::isAdvertByDate() || Helper::isAdvertInStock())
                     <div class="form-group">
                         <label>Кількість порцій*</label>
                         <select name="quantity" id="input-quantity">
@@ -119,28 +131,28 @@
                             <option value="2">2</option>
                         </select>
                     </div>
-
-                    <div class="form-group">
-                        <input id="change-foto" type="checkbox" name="change_images">
-                        <label for="change-foto">Змінити фото</label>
-                    </div>
-
-                    <div class="form-group hidden">
-                        {{ Form::label('fotos', 'Додати фото*') }}
-                        <div id="input-image" class="fotos">
-                            <div class="wrap js-foto">
-                                <div class="uploader">
-                                    <img src="">
-                                    <div class="round"><i class="fo fo-camera"></i></div>
-                                    {{ Form::file(null, ['class' => 'input-upload']) }}
-                                </div>
-                                <a href="#" class="pull-left hide grey1 js-cover-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
-                                <a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
-                            </div>
-                        </div>
-                        {{ Form::hidden('image', null, ['id' => 'cover-image']) }}
-                    </div>
                 @endif
+
+                <div class="form-group">
+                    <input id="change-foto" type="checkbox" name="change_images">
+                    <label for="change-foto">Змінити фото</label>
+                </div>
+
+                <div class="form-group hidden">
+                    {{ Form::label('fotos', 'Додати фото*') }}
+                    <div id="input-image" class="fotos">
+                        <div class="wrap js-foto">
+                            <div class="uploader">
+                                <img src="">
+                                <div class="round"><i class="fo fo-camera"></i></div>
+                                {{ Form::file(null, ['class' => 'input-upload']) }}
+                            </div>
+                            <a href="#" class="pull-left hide grey1 js-cover-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                            <a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
+                        </div>
+                    </div>
+                    {{ Form::hidden('image', null, ['id' => 'cover-image']) }}
+                </div>
 
                 <div class="form-group">
                     <label>Додаткова інформація*</label>
@@ -182,8 +194,11 @@
                 <div class="grey-block bg-yellow black wide">
                     <p class="red zerro-bottom"><i class="fo fo-phone"></i></p>
                     <p class="zerro-top">Ваш телефон</p>
-                    <p class="f20 margin-zerro">+38 096 159 15 15</p>
-                    <p class="f20 margin-zerro">+38 093 159 15 15</p>
+
+                    @foreach(auth()->user()->phone as $phone)
+                        <p class="f20 margin-zerro">{{ $phone }}</p>
+                    @endforeach
+
                     <p class="grey2 f14">Номер телефону можна змінити на сторінці редагування профіля </p>
                 </div>
 
@@ -191,21 +206,22 @@
                     <input type="hidden" name="name">
                     <input type="hidden" name="product_id">
 
-                    @if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'))
+                    @if(Helper::isAdvertByDate())
                         <input type="hidden" name="type" value="by_date">
                     @endif
 
-                    @if (request()->has('type') && (request()->has('type') && request()->get('type') == 'in_stock'))
+                    @if(Helper::isAdvertInStock())
                         <input type="hidden" name="type" value="in_stock">
                     @endif
 
-                    @if (request()->has('type') && (request()->has('type') && request()->get('type') == 'pre_order'))
+                    @if(Helper::isAdvertPreOrder())
                         <input type="hidden" name="type" value="pre_order">
                     @endif
                 </div>
 
                 <input type="submit" class="button button-red zerro-bottom" value="Створити оголошення">
                 <p><a href="{{ route('account.adverts.index') }}" class="link-grey">Відмінити</a></p>
+
             {{ Form::close() }}
 
         </div>

@@ -19,7 +19,7 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
         'slug'        => str_slug($faker->name . '-' . str_random(8)),
         'description' => $faker->text,
         'ingredient'  => [$faker->name, $faker->name, $faker->name, $faker->name],
-        'image'       => $faker->imageUrl($width = 960, $height = 700),
+        'image'       => 'qV65kCEFW02zHz7QBJ.jpg',
         'video'       => ['https://www.youtube.com/watch?v=ymGTJRw5lyU', 'https://www.youtube.com/watch?v=ymGTJRw5lyU'],
     ];
 });
@@ -28,6 +28,15 @@ $factory->define(App\ProductImage::class, function (Faker\Generator $faker) {
     return [
         'product_id' => $faker->randomDigitNotNull,
         'image'      => $faker->imageUrl($width = 960, $height = 700)
+    ];
+});
+
+$factory->define(App\ProductToCategory::class, function (Faker\Generator $faker) {
+    static $i = 0;
+    $i++;
+    return [
+        'product_id'  => $i,
+        'category_id' => random_int(1, 11)
     ];
 });
 

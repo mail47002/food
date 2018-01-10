@@ -6,6 +6,7 @@
         <p><i class="fo fo-ok fo-large red"></i></p>
         <h5 class="text-upper black margin-30">Оголошення додано до</h5>
         <div class="v-indent-20"></div>
+        <p class="red f20 margin-zerro"><i class="fo fo-time fo-2x"></i> Страва на дату</p>
     </div>
     <div class="container text-center">
         <div class="v-indent-20"></div>

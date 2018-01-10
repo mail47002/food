@@ -4,15 +4,9 @@ namespace App\Http\Controllers\Frontend\Account;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
 
-class NotificationsController extends Controller
+class MessagesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth']);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -20,15 +14,7 @@ class NotificationsController extends Controller
      */
     public function index()
     {
-        $notifications = Auth::user()->notifications()->paginate();
-
-        foreach($notifications as $notification) {
-            $notification->markAsRead();
-        }
-
-        return view('frontend.account.notifications.index', [
-            'notifications' => $notifications
-        ]);
+        //
     }
 
     /**

@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'uk',
 
     /*
     |--------------------------------------------------------------------------
@@ -180,7 +180,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
-        App\Providers\ComposerServiceProvider::class
+        App\Providers\ComposerServiceProvider::class,
+        Jenssegers\Date\DateServiceProvider::class,
 
 
     ],
@@ -235,7 +236,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
-        'HtmlHelper' => App\Facades\HtmlHelperFacade::class,
+        'Helper' => App\Facades\HelperFacade::class,
+        'Date' => Jenssegers\Date\Date::class,
 
     ],
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Account;
 
 use App\ProductImage;
+use App\Review;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
@@ -112,13 +113,26 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Product::where('id', $id)
+        $product = Product::with('user')
+            ->where('id', $id)
             ->where('user_id', Auth::id())
             ->first();
 
         if ($product) {
+            $reviews = Review::where('product_id', $product->id)
+                ->orderBy('created_at')
+                ->paginate();
+
+            $relatedProducts = Product::where('id', '!=', $id)
+                ->where('user_id', Auth::id())
+                ->inRandomOrder()
+                ->take(10)
+                ->get();
+
             return view('frontend.account.products.show', [
-                'product' => $product
+                'product'         => $product,
+                'relatedProducts' => $relatedProducts,
+                'reviews'         => $reviews
             ]);
         }
 
@@ -153,9 +167,10 @@ class ProductsController extends Controller
     /**
      * Update product.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
@@ -223,7 +238,7 @@ class ProductsController extends Controller
     }
 
     /**
-     * Validate form.
+     * Validate form request.
      *
      * @param Request $request
      */
@@ -238,16 +253,12 @@ class ProductsController extends Controller
         ]);
     }
 
-    protected function storeImage($file)
-    {
-        $oldFilePath = 'uploads/tmp/' . $file;
-        $newFilePath = 'uploads/' . md5(Auth::id()) . '/' . $file;
-
-        Storage::move($oldFilePath, $newFilePath);
-
-        return $newFilePath;
-    }
-
+    /**
+     * Return product slug.
+     *
+     * @param Request $request
+     * @return string
+     */
     protected function getSlug(Request $request)
     {
         return str_slug($request->name . '-' . str_random(8));

@@ -62,7 +62,13 @@
 					<a href="{{ route('account.user.show') }}" class="link">{{ auth()->user()->name }}</a>
 				</li>
 				<li class="dropdown messages">
-					<a id="messages-menu" class="link" href="#" type="button" data-toggle="dropdown"><i class="fo fo-bell fo-small"><span class="count">{{ auth()->user()->notifications->count() > 0 ? auth()->user()->notifications->count() : '' }}</span></i></a>
+					<a id="messages-menu" class="link" href="#" type="button" data-toggle="dropdown">
+						<i class="fo fo-bell fo-small">
+							@if(auth()->user()->unreadNotifications->count() > 0)
+								<span class="count">{{ auth()->user()->unreadNotifications->count() }}</span>
+							@endif
+						</i>
+					</a>
 
                     @if(auth()->user()->notifications)
                         <div class="dropdown-menu" role="menu" aria-labelledby="messages-menu">

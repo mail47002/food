@@ -163,6 +163,13 @@ Route::group(['namespace' => 'Frontend'], function() {
             Route::get('', ['as' => 'account.notifications.index', 'uses' => 'NotificationsController@index']);
         });
 
+        // Messages
+        Route::group(['prefix' => 'messages'], function () {
+            Route::get('', ['as' => 'account.messages.index', 'uses' => 'MessagesController@index']);
+            Route::post('', ['as' => 'account.messages.store', 'uses' => 'MessagesController@store']);
+            Route::get('{id}', ['as' => 'account.messages.show', 'uses' => 'MessagesController@show']);
+        });
+
         // Articles
         Route::resource('articles', 'ArticlesController', [
             'names' => [

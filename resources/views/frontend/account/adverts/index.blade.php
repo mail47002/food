@@ -1,33 +1,38 @@
 @extends('frontend.layouts.account')
 
 @section('content')
-    <h5 class="text-upper underline-red">Оголошення ({{ $adverts->total() }})</h5><hr class="zerro-top">
+    <h5 class="text-upper underline-red">Оголошення ({{ $adverts->total() }})</h5>
+    <hr class="zerro-top">
     <div class="filter-block">
         <ul class="categories list-inline text-center">
-            <li class="{{ (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date')) ? 'active' : '' }}"><a href="{{ route('account.adverts.index') }}" class="link-red text-upper">Меню по датам</a></li>
-            <li class="{{ (request()->has('type') && request()->get('type') == 'in_stock') ? 'active' : '' }}"><a href="{{ route('account.adverts.index', ['type' => 'in_stock']) }}" class="link-red text-upper">Готові страви</a></li>
-            <li class="{{ (request()->has('type') && request()->get('type') == 'pre_order') ? 'active' : '' }}"><a href="{{ route('account.adverts.index', ['type' => 'pre_order']) }}" class="link-red text-upper">Страви під замовлення</a></li>
+            <li class="{{ Helper::isAdvertByDate() ? 'active' : '' }}">
+                <a href="{{ route('account.adverts.index') }}" class="link-red text-upper">Меню по датам</a>
+            </li>
+            <li class="{{ Helper::isAdvertInStock() ? 'active' : '' }}">
+                <a href="{{ route('account.adverts.index', ['type' => 'in_stock']) }}" class="link-red text-upper">Готові страви</a>
+            </li>
+            <li class="{{ Helper::isAdvertPreOrder() ? 'active' : '' }}">
+                <a href="{{ route('account.adverts.index', ['type' => 'pre_order']) }}" class="link-red text-upper">Страви під замовлення</a>
+            </li>
         </ul>
         <hr class="red-border">
     </div>
 
     <div class="tab-content">
         <div id="menu" class="tab-pane fade in active">
-
-            @if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'))
+            @if(Helper::isAdvertByDate())
                 <a href="{{ route('account.adverts.create', ['type' => 'by_date']) }}" class="button button-red button-big">Додати страву до меню</a>
             @endif
 
-            @if (request()->has('type') && request()->get('type') == 'in_stock')
+                @if(Helper::isAdvertInStock())
                 <a href="{{ route('account.adverts.create', ['type' => 'in_stock']) }}" class="button button-red button-big">Додати готову страву</a>
             @endif
 
-            @if (request()->has('type') && request()->get('type') == 'pre_order')
+                @if(Helper::isAdvertPreOrder())
                 <a href="{{ route('account.adverts.create', ['type' => 'pre_order']) }}" class="button button-red button-big">Додати страву під замовлення</a>
             @endif
 
             <div class="v-indent-30"></div>
-
             <hr>
             <div class="bg-yellow">
                 <div class="row">
@@ -52,53 +57,7 @@
 
             {{-- 5.3.1 --}}
             @if (count($adverts) > 0)
-                @foreach ($adverts as $advert)
-                    <div class="wide-thumb account-adverts">
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="image">
-                                    <img src="{{ HtmlHelper::getAdvertThumbnailUrl($advert) }}" class="img-responsive" alt="{{ $advert->name }}">
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="caption">
-                                    <a href="{{ route('account.adverts.show', $advert->id) }}" class="title link-black">{{ $advert->name }}</a>
-
-                                    <span class="rating">
-                                <span class="stars">{{rand(0,5)}}</span>10 відгуків
-                            </span>
-
-                                    <p><span class="price">{{ $advert->price }} грн.</span></p>
-
-                                    @if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'))
-                                        @if ($advert->is_everyday)
-                                            <p><i class="fo fo-dish-ready red"></i>{{ $advert->date_from->format('d F') }} - {{ $advert->date_from->format('d F') }}</p>
-                                        @else
-                                            <p><i class="fo fo-time red"></i>{{ $advert->date->format('d F') }} (обід)</p>
-                                        @endif
-                                    @endif
-
-                                    <p><a href="{{ route('account.adverts.edit', $advert->id) }}" class="link-blue"><i class="fo fo-edit fo-inheirt"></i> Редагувати</a></p>
-                                    <p><a href="#" class="link-grey js-modal-advert-delete" data-toggle="modal" data-target="#modal_advert-delete"><i class="fo fo-delete fo-inheirt"></i> Відмінити</a></p>
-
-                                </div>
-                            </div>
-                            <div class="col-md-3 left-border">
-                                <div class="caption text-center">
-                                    <div class="grey-block red">
-                                        <i class="fo fo-dish-search"></i>
-                                        <span class="red">2</span><span class="black">/5</span>
-                                        <p class="text">Залишилося порцій</p>
-                                    </div>
-
-                                    <a href="#" class="button button-green" data-toggle="modal" data-target="#modal_clients"><i class="fo fo-ok"></i> Клієнти на страву </a>
-                                    <a href="#" class="button button-orange"><i class="fo fo-peoples"></i> Нові замовленя</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                @each('frontend.account.adverts.item', $adverts, 'advert')
 
                 {{ $adverts->appends(request()->all())->links() }}
             @else
@@ -107,15 +66,15 @@
                     <i class="fo fo-dish-search fo-2x"></i>
                     <p class="text">У вас немає страв</p>
 
-                    @if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'))
+                    @if(Helper::isAdvertByDate())
                         <a href="{{ route('account.adverts.create', ['type' => 'by_date']) }}" class="button button-red button-big">Додати страву до меню</a>
                     @endif
 
-                    @if (request()->has('type') && request()->get('type') == 'in_stock')
+                    @if(Helper::isAdvertInStock())
                         <a href="{{ route('account.adverts.create', ['type' => 'in_stock']) }}" class="button button-red button-big">Додати готову страву</a>
                     @endif
 
-                    @if (request()->has('type') && request()->get('type') == 'pre_order')
+                    @if(Helper::isAdvertPreOrder())
                         <a href="{{ route('account.adverts.create', ['type' => 'pre_order']) }}" class="button button-red button-big">Додати страву під замовлення</a>
                     @endif
                 </div>

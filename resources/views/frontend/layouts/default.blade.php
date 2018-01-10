@@ -32,5 +32,10 @@
 	<script src="{{ asset('frontend/js/simplebar.js') }}"></script>
 	<script src="{{ asset('frontend/js/custom.js') }}"></script>
 	@stack('scripts')
+	<script type="text/javascript">
+        $( document ).ready(function() {
+            $('span.stars').stars();
+        });
+	</script>
 </body>
 </html>

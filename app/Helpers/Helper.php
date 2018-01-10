@@ -1,10 +1,133 @@
 <?php
-namespace App\Helpers;
 
+namespace App\Helpers;
 
 class Helper
 {
-    protected function attributes($attributes = [])
+    /**
+     * Return active class.
+     *
+     * @param $url
+     * @param string $class
+     * @return string
+     */
+    public function isActive($url, $class = 'active')
+    {
+        return !request()->is($url) ?: $class;
+    }
+
+    /**
+     * Return product image url.
+     *
+     * @param $product
+     * @return string
+     */
+    public function getProductImageUrl($product)
+    {
+        return asset($this->getImageUrl('products', $product->image, $product->user));
+    }
+
+    /**
+     * Return product thumbnail url.
+     *
+     * @param $product
+     * @return string
+     */
+    public function getProductThumbnailUrl($product)
+    {
+        return asset($this->getThumbnailUrl('products', $product->image, $product->user));
+    }
+
+    /**
+     * Return advert image url.
+     *
+     * @param $advert
+     * @return string
+     */
+    public function getAdvertImageUrl($advert)
+    {
+        return asset($this->getImageUrl('adverts', $advert->image, $advert->user));
+    }
+
+    /**
+     * Return advert thumbnail url.
+     *
+     * @param $advert
+     * @return string
+     */
+    public function getAdvertThumbnailUrl($advert)
+    {
+        return asset($this->getThumbnailUrl('adverts', $advert->image, $advert->user));
+    }
+
+    /**
+     * Return uploaded image url.
+     *
+     * @param $path
+     * @param $image
+     * @param $user
+     * @return string
+     */
+    public function getImageUrl($path, $image, $user)
+    {
+        return 'uploads/' . $this->getUserDirHash($user) . '/' . $path . '/' . $image;
+    }
+
+    /**
+     * Return uploaded thumbnail url.
+     *
+     * @param $path
+     * @param $image
+     * @param $user
+     * @return string
+     */
+    public function getThumbnailUrl($path, $image, $user)
+    {
+        return 'uploads/' . $this->getUserDirHash($user) . '/' . $path . '/thumbnails/' . $image;
+    }
+
+    /**
+     * Return uploaded user directory hash.
+     *
+     * @param $user
+     * @return string
+     */
+    public function getUserDirHash($user)
+    {
+        return md5($user->id . $user->email);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdvertByDate()
+    {
+        return (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdvertInStock()
+    {
+        return (request()->has('type') && request()->get('type') == 'in_stock');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdvertPreOrder()
+    {
+        return (request()->has('type') && request()->get('type') == 'pre_order');
+    }
+
+    /**
+     * Return html string.
+     *
+     * @param array $attributes
+     * @return string
+     */
+    private function attributes($attributes = [])
     {
         $html = [];
 
@@ -19,7 +142,14 @@ class Helper
         return count($html) > 0 ? ' ' . implode(' ', $html) : '';
     }
 
-    protected function attributeElement($key, $value)
+    /**
+     * Return attributes.
+     *
+     * @param $key
+     * @param $value
+     * @return string
+     */
+    private function attributeElement($key, $value)
     {
         if (is_numeric($key)) {
             return $value;

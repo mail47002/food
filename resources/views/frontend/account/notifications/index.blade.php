@@ -17,7 +17,7 @@
         <div id="notice" class="tab-pane fade in active">
 
             @if($notifications)
-                @each('frontend.account.notifications.notification', $notifications, 'notification')
+                @each('frontend.account.notifications.item', $notifications, 'notification')
             @endif
 
             {{--<div class="wide-thumb profile-messages email">--}}

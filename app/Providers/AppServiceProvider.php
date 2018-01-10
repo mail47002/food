@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('htmlhelper', 'App\Helpers\HtmlHelper');
+        $this->app->bind('helper', 'App\Helpers\Helper');
     }
 
 }

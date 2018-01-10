@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Advert;
 use Auth;
 use DB;
+use Helper;
 use Session;
 use Storage;
 
@@ -237,6 +238,11 @@ class AdvertsController extends Controller
         ]);
     }
 
+    /**
+     * Validate form request.
+     *
+     * @param Request $request
+     */
     protected function validateForm(Request $request)
     {
         $rules = [
@@ -272,14 +278,19 @@ class AdvertsController extends Controller
         $this->validate($request, $rules);
     }
 
+    /**
+     * Copy advert images from storage.
+     *
+     * @param $images
+     */
     protected function copyImages($images)
     {
         foreach ($images as $image) {
-            $productImagePath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/' . $image->image;
-            $productThumbnailPath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/thumbnails/' . $image->image;
+            $productImagePath = Helper::getImageUrl('products', $image->image, Auth::user());
+            $productThumbnailPath = Helper::getThumbnailUrl('products', $image->image, Auth::user());
 
-            $advertImagePath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/adverts/' . $image->image;
-            $advertThumbnailPath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/adverts/thumbnails/' . $image->image;
+            $advertImagePath = Helper::getImageUrl('adverts', $image->image, Auth::user());
+            $advertThumbnailPath = Helper::getThumbnailUrl('adverts', $image->image, Auth::user());
 
             if (!Storage::exists($advertImagePath)) {
                 Storage::copy($productImagePath, $advertImagePath);
@@ -291,17 +302,29 @@ class AdvertsController extends Controller
         }
     }
 
+    /**
+     * Sync advert images.
+     *
+     * @param $images
+     * @param $advert
+     */
     protected function syncImages($images, $advert)
     {
         foreach ($images as $image) {
             $advertImage = new AdvertImage([
-                'image' => $image->image
+                'image' => $image
             ]);
 
             $advert->images()->save($advertImage);
         }
     }
 
+    /**
+     * Return advert slug.
+     *
+     * @param Request $request
+     * @return string
+     */
     protected function getSlug(Request $request)
     {
         return str_slug($request->name . '-' . str_random(8));

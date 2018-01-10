@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Advert extends Model
 {
     protected $fillable = [
-        'user_id', 'product_id', 'sticker_id', 'name', 'slug', 'description', 'price', 'special_price', 'quantity', 'image', 'type', 'everyday', 'date', 'date_from', 'date_to', 'time'
+        'user_id', 'product_id', 'sticker_id', 'name', 'slug', 'description', 'price', 'special_price', 'quantity',
+        'image', 'type', 'everyday', 'date', 'date_from', 'date_to', 'time'
     ];
 
     protected $casts = [
-        'is_everyday' => 'boolean'
+        'everyday' => 'boolean'
     ];
 
     protected $dates = [

@@ -6,11 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "greggilbert/recaptcha": "dev-master",
         "intervention/image": "^2.4",
+        "jenssegers/date": "^3.2",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "^5.4",
-        "greggilbert/recaptcha": "dev-master"
+        "laravelcollective/html": "^5.4"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
