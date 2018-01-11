@@ -161,11 +161,11 @@
 
                 <label for="">Додати значок</label>
                 <div class="stickers">
-                    <input id="empty" type="radio" name="sticker_id" value="0" checked><label for="empty" class="inline">без значка</label>
-                    @foreach($stickers as $sticker)
-                        <input id="{{ $sticker->slug }}" type="radio" name="sticker_id" value="{{ $sticker->id }}">
-                        <label for="{{ $sticker->slug }}" class="inline">
-                            <i class="{{ $sticker->slug }}"></i>
+                    <input id="empty" type="radio" name="sticker" value="" checked><label for="empty" class="inline">без значка</label>
+                    @foreach(['discount','new', 'heart'] as $sticker)
+                        <input id="{{ $sticker }}" type="radio" name="sticker" value="{{ $sticker }}">
+                        <label for="{{ $sticker }}" class="inline">
+                            <i class="{{ $sticker }}"></i>
                         </label>
                     @endforeach
                 </div>
@@ -261,7 +261,7 @@
                 },
                 success: function (responce) {
                     if (responce) {
-                        var url = '{{ asset('uploads/' . md5(auth()->id() . auth()->user()->email) . '/products/thumbnails/') }}/';
+                        var url = '{{ asset('uploads/' . Helper::getUserDirHash(auth()->user()) . '/products/thumbnails') }}/';
 
                         $('html, body').scrollTop(0);
 

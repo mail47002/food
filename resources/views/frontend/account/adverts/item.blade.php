@@ -10,7 +10,7 @@
                 <a href="{{ route('account.adverts.show', $advert->id) }}" class="title link-black">{{ $advert->name }}</a>
 
                 <span class="rating">
-                    <span class="stars">{{ $advert->product->rating }}</span>{{ count($advert->reviews) }} відгуків
+                    <span class="stars">{{ $advert->product->rating }}</span>{{ count($advert->product->reviews) }} відгуків
                 </span>
 
                 <p><span class="price">{{ $advert->price }} грн.</span></p>
@@ -28,8 +28,16 @@
                     @endif
                 @endif
 
-                <p><a href="{{ route('account.adverts.edit', $advert->id) }}" class="link-blue"><i class="fo fo-edit fo-inheirt"></i> Редагувати</a></p>
-                <p><a href="#" class="link-grey js-modal-advert-delete" data-toggle="modal" data-target="#modal_advert-delete"><i class="fo fo-delete fo-inheirt"></i> Відмінити</a></p>
+                <p>
+                    <a href="{{ route('account.adverts.edit', $advert->id) }}" class="link-blue">
+                        <i class="fo fo-edit fo-inheirt"></i> Редагувати
+                    </a>
+                </p>
+                <p>
+                    <a href="#" class="link-grey js-modal-advert-delete" data-toggle="modal" data-target="#modal_advert-delete">
+                        <i class="fo fo-delete fo-inheirt"></i> Відмінити
+                    </a>
+                </p>
             </div>
         </div>
         <div class="col-md-3 left-border">

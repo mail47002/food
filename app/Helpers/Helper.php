@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Advert;
+
 class Helper
 {
     /**
@@ -98,26 +100,41 @@ class Helper
     }
 
     /**
+     * @param null $type
      * @return bool
      */
-    public function isAdvertByDate()
+    public function isAdvertByDate($type = null)
     {
+        if ($type) {
+            return $type === Advert::BY_DATE;
+        }
+
         return (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'));
     }
 
     /**
+     * @param null $type
      * @return bool
      */
-    public function isAdvertInStock()
+    public function isAdvertInStock($type = null)
     {
+        if ($type) {
+            return $type === Advert::IN_STOCK;
+        }
+
         return (request()->has('type') && request()->get('type') == 'in_stock');
     }
 
     /**
+     * @param null $type
      * @return bool
      */
-    public function isAdvertPreOrder()
+    public function isAdvertPreOrder($type = null)
     {
+        if ($type) {
+            return $type === Advert::PRE_ORDER;
+        }
+
         return (request()->has('type') && request()->get('type') == 'pre_order');
     }
 

@@ -22,9 +22,11 @@
                         Замовлення очікує на підтвердження!
                     </div>
 
-                    {{ Form::open(['route' => ['account.orders.confirm', $order->id], 'method' => 'put']) }}
-                        <button class="button button-red v40">Підтвердити замовлення</button>
-                    {{ Form::close() }}
+                    @if(auth()->id() !== $order->user_id)
+                        {{ Form::open(['route' => ['account.orders.confirm', $order->id], 'method' => 'put']) }}
+                            <button class="button button-red v40">Підтвердити замовлення</button>
+                        {{ Form::close() }}
+                    @endif
 
                     {{ Form::open(['route' => ['account.orders.destroy', $order->id], 'method' => 'delete']) }}
                         <button class="link-red f14"><i class="fo fo-close-bold fo-small"></i> Відмінити</button>

@@ -91,7 +91,9 @@ Route::group(['namespace' => 'Frontend'], function() {
     // Adverts
     Route::get('/', ['as' => 'adverts.index', 'uses' => 'AdvertsController@index']);
     Route::get('adverts/{slug}', ['as' => 'adverts.show', 'uses' => 'AdvertsController@show']);
-    Route::post('adverts/order', ['as' => 'adverts.order', 'uses' => 'AdvertsController@order']);
+
+    // Order
+    Route::post('adverts/order', ['as' => 'adverts.order', 'uses' => 'OrdersController@store']);
 
     // Advices
     Route::get('advices', ['as' => 'advices.index', 'uses' => 'AdvicesController@index']);

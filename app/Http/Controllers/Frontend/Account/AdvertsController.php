@@ -53,11 +53,8 @@ class AdvertsController extends Controller
             ->get();
 
         if ($products) {
-            $stickers = AdvertSticker::orderBy('id', 'asc')->get();
-
             return view('frontend.account.adverts.create', [
-                'products' => $products,
-                'stickers' => $stickers
+                'products' => $products
             ]);
         }
     }
@@ -152,11 +149,8 @@ class AdvertsController extends Controller
             ->first();
 
         if ($advert) {
-            $stickers = AdvertSticker::orderBy('id', 'asc')->get();
-
             return view('frontend.account.adverts.edit', [
-                'advert'   => $advert,
-                'stickers' => $stickers
+                'advert'   => $advert
             ]);
         }
 
@@ -253,7 +247,7 @@ class AdvertsController extends Controller
             'build'       => 'required'
         ];
 
-        if (!$request->has('type') || ($request->has('type') && $request->type == 'by_date')) {
+        if (Helper::isAdvertByDate()) {
             $rules['price']     = 'required|numeric|regex:/^[0-9]+[.]?[0-9]*$/';
             $rules['date']      = 'required_unless:everyday,1';
             $rules['date_from'] = 'required_if:everyday,1';
@@ -262,7 +256,7 @@ class AdvertsController extends Controller
             $rules['image']     = 'required';
         }
 
-        if ($request->has('type') && $request->type == 'in_stock') {
+        if (Helper::isAdvertInStock()) {
             $rules['price']     = 'required|numeric|regex:/^[0-9]+[.]?[0-9]*$/';
             $rules['date_from'] = 'required';
             $rules['date_to']   = 'required';
@@ -270,7 +264,7 @@ class AdvertsController extends Controller
             $rules['image']     = 'required';
         }
 
-        if ($request->has('type') && $request->type == 'pre_order') {
+        if (Helper::isAdvertPreOrder()) {
             $rules['price']        = 'required|numeric|regex:/^[0-9]+[.]?[0-9]*$/';
             $rules['custom_price'] = 'required|numeric|regex:/^[0-9]+[.]?[0-9]*$/';
         }
@@ -310,13 +304,28 @@ class AdvertsController extends Controller
      */
     protected function syncImages($images, $advert)
     {
-        foreach ($images as $image) {
-            $advertImage = new AdvertImage([
-                'image' => $image
-            ]);
+        $advertImages = [];
 
-            $advert->images()->save($advertImage);
+        foreach ($images as $image) {
+            $advertImages[] = new AdvertImage([
+                'image' => $this->getImage($image)
+            ]);
         }
+
+        $advert->images()->saveMany($advertImages);
+    }
+
+    /**
+     * @param $image
+     * @return mixed
+     */
+    protected function getImage($image)
+    {
+        if (is_object($image)) {
+            $image = $image->image;
+        }
+
+        return $image;
     }
 
     /**

@@ -6,7 +6,11 @@
 <div class="breadcrumbs">
 	<div class="container">
 		<ul class="list-inline">
-			<li><a href="#" class="link-blue back"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>  До меню страв</a></li>
+			<li>
+				<a href="#" class="link-blue back">
+					<i class="fa fa-long-arrow-left" aria-hidden="true"></i>  До меню страв
+				</a>
+			</li>
 		</ul>
 	</div>
 </div>
@@ -161,22 +165,27 @@
 
 			<div class="col-md-3">
 				<div class="widget">
-					<div class="widget-header">{{ $advert->pricegit  }} <small>грн.</small></div>
+					<div class="widget-header">{{ $advert->price }} <small>грн.</small></div>
 
 					<div class="widget-body">
-						<div class="stickers">
-							<i class="discount"></i>
-							<i class="new"></i>
-							<i class="heart"></i>
-						</div>
+						@if($advert->sticker)
+							<div class="stickers">
+								<i class="{{ $advert->sticker }}"></i>
+							</div>
+						@endif
+
 						<p><i class="time medium"></i> 10 – 15 грудня</p>
 						<p class="distance"><i class="fo fo-big fo-marker red"></i>5 км</p>
-						<p class="small">вул. Соборна 20, Вінниця</p>
+						<p class="small">{{ $advert->user->address->full_address }}</p>
 						<hr class="red-border">
 
 						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-							<a href="javascript:void(0);" onclick="wishlist.add({{ $advert->user->id }})" class="link"><i class="fo fo-like fo-small"></i> до улюблених</a>
+							<div class="rounded">
+								<img src="/uploads/avatar.png" alt="foto">
+							</div>
+							<a href="javascript:void(0);" onclick="wishlist.add({{ $advert->user_id }})" class="link">
+								<i class="fo fo-like fo-small"></i> до улюблених
+							</a>
 						</div>
 						<a href="#" class="link-blue name">{{ $advert->user->name }}</a>
 						<div class="rating"><span class="stars">4</span>10 відгуків</div>

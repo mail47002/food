@@ -4,13 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Advert;
 use App\Category;
-use App\Notifications\OrderCreated;
-use App\Order;
 use App\Review;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
 
 class AdvertsController extends Controller
 {
@@ -58,38 +54,5 @@ class AdvertsController extends Controller
                 'reviews' => $reviews
             ]);
         }
-    }
-
-    /**
-     * TODO: Check auth user id & advert id
-     *
-     */
-    public function order(Request $request)
-    {
-        $this->validateForm($request);
-
-        $advert = Advert::with('user')->find($request->advert_id);
-
-        if ($advert && !Order::where('advert_id', $request->advert_id)->where('user_id', Auth::id())->exists()) {
-            $order = Order::create($request->all());
-
-            $advert->user->notify(new OrderCreated($order));
-
-            return response()->json([
-                'status' => 'success'
-            ]);
-        }
-
-        return response()->json([
-            'status' => 'warning'
-        ]);
-    }
-
-    protected function validateForm(Request $request)
-    {
-        $this->validate($request, [
-            'advert_id' => 'required',
-            'user_id'   => 'required'
-        ]);
     }
 }

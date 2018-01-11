@@ -27,9 +27,14 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::with('adverts')
-            ->where('user_id', Auth::id())
-            ->orderBy('created_at', 'desc')
+        $products = Product::leftJoin('adverts', 'products.id', '=', 'adverts.product_id')
+            ->select('products.*')
+            ->selectRaw('COUNT(IF (adverts.type = "by_date", 1, NULL)) by_date')
+            ->selectRaw('COUNT(IF (adverts.type = "in_stock", 1, NULL)) in_stock')
+            ->selectRaw('COUNT(IF (adverts.type = "pre_order", 1, NULL)) pre_order')
+            ->where('products.user_id', Auth::id())
+            ->orderBy('products.created_at', 'desc')
+            ->groupBy('products.id')
             ->paginate();
 
         return view('frontend.account.products.index', [

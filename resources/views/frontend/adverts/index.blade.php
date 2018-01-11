@@ -137,58 +137,21 @@
 					</div>
 			@endif
 
-
-			<div class="container">
-				<div class="row">
-					@foreach ($adverts as $advert)
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 advert">
-							<div class="product-thumb">
-								<div class="image">
-									<img src="{{ Helper::getAdvertThumbnailUrl($advert) }}" class="img-responsive" alt="{{ $advert->name }}">
-									<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
-									@php $actions=['discount','new', 'heart']; @endphp <!-- class: discount new heart -->
-									<div class="sticker {{ $actions[array_rand($actions)] }}"></div>
-								</div>
-
-								<div class="caption">
-									<a href="{{ route('adverts.show', $advert->slug) }}" class="title link-black">{{ $advert->name }}</a>
-									<p>
-										@if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date') || (request()->has('type') && request()->get('type') == 'in_stock'))
-											<span class="price">{{ $advert->price }} грн.</span>
-										@endif
-
-										@if (request()->has('type') && request()->get('type') == 'pre_order')
-											<span class="price"><i class="fo fo-deal red"></i> {{ $advert->price }} - {{ $advert->custom_price }} грн.</span>
-										@endif
-									</p>
-									<p>
-										<span class="rating">
-											<span class="stars">{{rand(0,5)}}</span> відгуків
-										</span>
-									</p>
-
-									@if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'))
-										<p><i class="fo fo-time red"></i>15 грудня (обід)</p>
-									@endif
-
-									@if (request()->has('type') && request()->get('type') == 'in_stock')
-										<p><i class="fo fo-dish-ready red" title="Термін придатності"></i> 10 - 15 грудня</p>
-									@endif
-								</div>
-
-								<button type="button" class="button button-grey order js-order" data-id="{{ $advert->id }}">Замовити</button>
-
-							</div>
+			@if(count($adverts) > 0)
+				<div class="container">
+					<div class="row">
+						@each('frontend.adverts.item', $adverts, 'advert')
 					</div>
-					@endforeach
 				</div>
-			</div>
 
 
-			<div class="bottom-block text-right">
-				{{ $adverts->appends(request()->all())->links() }}
-				<a href="#wrapper" class="btn-top"></a> <!-- Важно!! - не переносить!!! -->
-			</div>
+				<div class="bottom-block text-right">
+					{{ $adverts->appends(request()->all())->links() }}
+					<a href="#wrapper" class="btn-top"></a> <!-- Важно!! - не переносить!!! -->
+				</div>
+			@else
+				No data!
+			@endif
 
 
 		</div>
@@ -348,20 +311,18 @@
 					<div class="f-18 top-20">Для завершення замовлення обов’язково потрібно підтвердити його</div>
 
 					{{ Form::open(['route' => 'adverts.order', 'method' => 'post']) }}
+						<input type="hidden" name="advert_id" value="">
+						<input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
-					<input type="hidden" name="advert_id" value="">
-					<input type="hidden" name="user_id" value="{{ auth()->id() }}">
+						<div class="top-20 inline js-buttons">
+							<button class="button button-white text-upper mlr-10" type="button" data-dismiss="modal">Підтвердити пізніше</button>
+							<button class="button button-red text-upper mlr-10" type="submit">Підтвердити зараз</button>
+						</div>
 
-					<div class="top-20 inline js-buttons">
-						<button class="button button-white text-upper mlr-10" type="button" data-dismiss="modal">Підтвердити пізніше</button>
-						<button class="button button-red text-upper mlr-10" type="submit">Підтвердити зараз</button>
-					</div>
-
-					<div class="info-block red w-480 hidden js-info-block">
-						<p class="text-upper">Замовлення очікує на підтвердження!</p>
-						<div><a href="#" class="link-grey3 f14">Перейти до моїх замовлень та підтвердити <i class="fo fo-arrow-right fo-small"></i></a></div>
-					</div>
-
+						<div class="info-block red w-480 hidden js-info-block">
+							<p class="text-upper">Замовлення очікує на підтвердження!</p>
+							<div><a href="#" class="link-grey3 f14">Перейти до моїх замовлень та підтвердити <i class="fo fo-arrow-right fo-small"></i></a></div>
+						</div>
 					{{ Form::close() }}
 
 				</div>

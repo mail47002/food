@@ -16,7 +16,7 @@ class CreateAdvertsTable extends Migration {
             $table->increments('id');
             $table->integer('user_id')->index();
             $table->integer('product_id')->index();
-            $table->integer('sticker_id')->nullable()->index();
+            $table->string('sticker')->nullable();
             $table->string('name')->index();
             $table->text('description')->nullable();
             $table->string('slug');
