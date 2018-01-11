@@ -36,51 +36,56 @@
 			<hr>
 		</div>
 		<ul class="categories list-inline text-center">
-			<li class="{{ (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date')) ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'by_date']) }}" class="link-red text-upper">Меню по датам</a></li>
-			<li class="{{ (request()->has('type') && request()->get('type') == 'in_stock') ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'in_stock']) }}" class="link-red text-upper">Готові страви</a></li>
-			<li class="{{ (request()->has('type') && request()->get('type') == 'pre_order') ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'pre_order']) }}" class="link-red text-upper">Страви під замовлення</a></li>
+			<li class="{{ Helper::isAdvertByDate() ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'by_date']) }}" class="link-red text-upper">Меню по датам</a></li>
+			<li class="{{ Helper::isAdvertInStock() ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'in_stock']) }}" class="link-red text-upper">Готові страви</a></li>
+			<li class="{{ Helper::isAdvertPreOrder() ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'pre_order']) }}" class="link-red text-upper">Страви під замовлення</a></li>
 		</ul>
 		<hr class="red-border">
 	</div>
 
 	<div class="tab-content">
 		<div class="tab-pane fade in active">
-			@if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'))
+			@if(Helper::isAdvertByDate())
 				<div class="filter-block">
-				<div class="filter-inputs container">
-					<div class="row">
-						<div class="col-md-3">
-							<input type="text" name="date" class="datepicker full-width" placeholder="Дата">
+					<div class="filter-inputs container">
+						<div class="row">
+							<div class="col-md-3">
+								<input type="text" name="date" class="datepicker full-width" value="{{ request()->get('date') }}" placeholder="Дата">
+							</div>
+
+							{{-- TO DO: Добвить авктивность чекбоксов в зависимости от фильтра --}}
+
+							<div class="checkboxes col-md-6">
+								<input type="checkbox" id="breakfast" name="time" value="breakfast">
+								<label for="breakfast">Сніданок (до 12:00)</label>
+
+								<input type="checkbox" id="dinner" name="time" value="dinner">
+								<label for="dinner">Обід (12:00 - 16:00)</label>
+
+								<input type="checkbox" id="supper" name="time" value="supper">
+								<label for="supper">Вечеря (після 16:00)</label>
+							</div>
+							<div class="col-md-3">
+								<label for="sorting" class="grey3">Сортутвати по:</label>
+								<select name="sorting" class="sorting" id="sorting">
+									<option value="">найближчі</option>
+									<option value="">найближчі</option>
+									<option value="">найближчі</option>
+								</select>
+							</div>
 						</div>
-						<div class="checkboxes col-md-6">
-							<input type="checkbox" id="breakfast"><label for="breakfast">Сніданок (до 12:00)</label>
 
-							<input type="checkbox" id="dinner" checked="checked"><label for="dinner">Обід (12:00 - 16:00)</label>
+						<div class="prices-input text-center js-filter-price">
+							<label>Ціновий діапазон</label>
+							<input type="text" name="price_from" value="{{ request()->get('price_from') }}">
+							<label>&#x2014;</label>
+							<input type="text" name="price_to" value="{{ request()->get('price_to') }}">
+							<label for="">грн.</label>
 
-							<input type="checkbox" id="supper" checked="checked"><label for="supper">Вечеря (після 16:00)</label>
+							<input type="button" class="button btn-filter js-btn-filter" value="OK">
 						</div>
-						<div class="col-md-3">
-							<label for="sorting" class="grey3">Сортутвати по:</label>
-							<select name="sorting" class="sorting" id="sorting">
-								<option value="">найближчі</option>
-								<option value="">найближчі</option>
-								<option value="">найближчі</option>
-							</select>
-						</div>
-					</div>
-
-
-					<div class="prices-input text-center js-filter-price">
-						<label>Ціновий діапазон</label>
-						<input type="text" name="price_from">
-						<label>&#x2014;</label>
-						<input type="text" name="price_to">
-						<label for="">грн.</label>
-
-						<input type="button" class="button btn-filter js-btn-filter" value="OK">
 					</div>
 				</div>
-			</div>
 			@endif
 
 			@if (request()->has('type') && request()->get('type') == 'in_stock')
@@ -371,13 +376,15 @@
 	<script>
 		var filter = {
 		    options: {
-				type: '{{ request()->input('type', 'by_date') }}',
+				type: '{{ request()->get('type', 'by_date') }}',
                 cid: [],
-				price_from: null,
-				price_to: null
+				price_from: '',
+				price_to: '',
+				date: '',
+				time: []
 			},
 			init: function () {
-		        // Category
+		        // Categories filter
                 $('.js-filter-category').on('click', 'a', function (e) {
                     e.preventDefault();
 
@@ -392,32 +399,35 @@
                     filter.filtering();
                 });
 
-                // Price
+                // Other filters
 				$('.js-btn-filter').on('click', function (e) {
 					e.preventDefault();
 
-					var el = $(this).closest('.js-filter-price');
+					var el = $(this).closest('.filter-block');
+
+					if (filter.options.type == 'by_date') {
+					    filter.options.date = el.find('input[name="date"]').val();
+
+                        filter.options.time = [];
+
+					    el.find('input[name="time"]:checked').each(function (i, item) {
+							filter.options.time.push($(item).val());
+                        });
+					}
 
 					filter.options.price_from = el.find('input[name="price_from"]').val();
                     filter.options.price_to = el.find('input[name="price_to"]').val();
 
-                    filter.filtering();
+					filter.filtering();
                 })
             },
 			filtering: function () {
-		        var url = '{{ url('') }}/?type=' + filter.options.type;
+		        var url = '{{ url('') }}/';
 
-		        if (filter.options.cid.length > 0) {
-		            url += '&cid=' + filter.options.cid.join(',');
+		        for (i in filter.options) {
+		            url += (i == 'type') ? '?' : '&';
+		            url += i + '=' + filter.options[i];
 				}
-
-                if (filter.options.price_from) {
-                    url += '&price_from=' + filter.options.price_from;
-                }
-
-                if (filter.options.price_to) {
-                    url += '&price_to=' + filter.options.price_to;
-                }
 
                 location = url;
             }

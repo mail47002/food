@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Frontend;
 use App\Advert;
 use App\Category;
 use App\Review;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Helper;
 
 class AdvertsController extends Controller
 {
@@ -20,21 +22,27 @@ class AdvertsController extends Controller
     {
         $categories = Category::all();
 
-        $cid = $request->cid ? explode(',', $request->cid) : $categories->pluck('id');
+        $cId = $request->cid ? explode(',', $request->cid) : $categories->pluck('id');
+        $priceFrom = $request->price_from ?? 0;
+        $priceTo = $request->price_to ?? 99999.99;
+        $date = $request->date ? Carbon::parse($request->date)->toDateTimeString() : Carbon::now();
+        $time = $request->time ? explode(',', $request->time) : Helper::getAdvertTimes();
 
         $adverts = Advert::with(['product', 'images'])
-            ->whereHas('categories', function ($query) use ($request, $cid) {
-                $query->whereIn('category_id', $cid);
+            ->whereHas('categories', function ($query) use ($request, $cId) {
+                $query->whereIn('category_id', $cId);
             })
-            ->where('type', $request->input('type', 'by_date'))
             ->where('name', 'like', '%' . $request->search . '%')
-            ->whereBetween('price', [$request->input('price_from', 0), $request->input('price_to', 99999)])
+            ->whereBetween('price', [$priceFrom, $priceTo])
+            ->where('type', $request->input('type', 'by_date'))
+            ->where('date', '>=', $date)
+            ->whereIn('time', $time)
             ->orderBy('created_at', 'asc')
-            ->paginate(4);
+            ->paginate();
 
         return view('frontend.adverts.index', [
-            'adverts'    => $adverts,
-            'filter'     => [
+            'adverts' => $adverts,
+            'filter'  => [
                 'cid' => $request->has('cid') ? explode(',', $request->cid) : [],
             ]
         ]);

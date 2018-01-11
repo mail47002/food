@@ -6,6 +6,16 @@ use App\Advert;
 
 class Helper
 {
+    private $advertTimes = [
+        'breakfast' => 'сніданок',
+        'dinner'    => 'обід',
+        'supper'    => 'вечеря'
+    ];
+
+    private $advertStickers = [
+        'discount','new', 'heart'
+    ];
+
     /**
      * Return active class.
      *
@@ -136,6 +146,38 @@ class Helper
         }
 
         return (request()->has('type') && request()->get('type') == 'pre_order');
+    }
+
+    /**
+     * Return advert times.
+     *
+     * @return array
+     */
+    public function getAdvertTimes()
+    {
+        return array_keys($this->advertTimes);
+    }
+
+    /**
+     * Return humanized advert time.
+     *
+     * @param $time
+     * @param null $default
+     * @return mixed|null
+     */
+    public function getHumanAdvertTime($time, $default = null)
+    {
+        return isset($this->advertTimes[$time]) ? $this->advertTimes[$time] : $default;
+    }
+
+    /**
+     * Return advert stickers.
+     *
+     * @return array
+     */
+    public function getAdvertStickers()
+    {
+        return $this->advertStickers;
     }
 
     /**

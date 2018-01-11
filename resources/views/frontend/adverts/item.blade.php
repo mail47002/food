@@ -24,11 +24,11 @@
             </p>
 
             @if (Helper::isAdvertByDate())
-                <p><i class="fo fo-time red"></i>15 грудня (обід)</p>
+                <p><i class="fo fo-time red"></i>{{ Date::parse($advert->date)->format('d F') }} ({{ Helper::getHumanAdvertTime($advert->time) }})</p>
             @endif
 
             @if (Helper::isAdvertInStock())
-                <p><i class="fo fo-dish-ready red" title="Термін придатності"></i> 10 - 15 грудня</p>
+                <p><i class="fo fo-dish-ready red" title="Термін придатності"></i> {{ Date::parse($advert->date)->format('d F') }} - {{ Date::parse($advert->date)->format('d F') }}</p>
             @endif
         </div>
 

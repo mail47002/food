@@ -17,34 +17,21 @@
 
                 @if(Helper::isAdvertByDate())
                     @if($advert->everyday)
-                        <p>
-                            <i class="fo fo-dish-ready red"></i>
-                            {{ Date::parse($advert->date_from)->format('d F') }} - {{ Date::parse($advert->date_to)->format('d F') }}
-                        </p>
+                        <p><i class="fo fo-dish-ready red"></i>{{ Date::parse($advert->date_from)->format('d F') }} - {{ Date::parse($advert->date_to)->format('d F') }}</p>
                     @else
-                        <p>
-                            <i class="fo fo-time red"></i>{{ Date::parse($advert->date)->format('d F') }} (обід)
-                        </p>
+                        <p><i class="fo fo-time red"></i>{{ Date::parse($advert->date)->format('d F') }} ({{ Helper::getHumanAdvertTime($advert->time) }})</p>
                     @endif
                 @endif
 
-                <p>
-                    <a href="{{ route('account.adverts.edit', $advert->id) }}" class="link-blue">
-                        <i class="fo fo-edit fo-inheirt"></i> Редагувати
-                    </a>
-                </p>
-                <p>
-                    <a href="#" class="link-grey js-modal-advert-delete" data-toggle="modal" data-target="#modal_advert-delete">
-                        <i class="fo fo-delete fo-inheirt"></i> Відмінити
-                    </a>
-                </p>
+                <p><a href="{{ route('account.adverts.edit', $advert->id) }}" class="link-blue"><i class="fo fo-edit fo-inheirt"></i> Редагувати</a></p>
+                <p><a href="#" class="link-grey js-modal-advert-delete" data-toggle="modal" data-target="#modal_advert-delete"><i class="fo fo-delete fo-inheirt"></i> Відмінити</a></p>
             </div>
         </div>
         <div class="col-md-3 left-border">
             <div class="caption text-center">
                 <div class="grey-block red">
                     <i class="fo fo-dish-search"></i>
-                    <span class="red">2</span><span class="black">/{{ $advert->quantity }}</span>
+                    <span class="red">XX</span><span class="black">/{{ $advert->quantity }}</span>
                     <p class="text">Залишилося порцій</p>
                 </div>
 

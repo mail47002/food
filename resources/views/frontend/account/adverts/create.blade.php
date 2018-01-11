@@ -104,9 +104,14 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="breakfast" type="radio" name="time" value="breakfast" checked><label for="breakfast" class="inline">Сніданок (до 12:00)</label>
-                        <input id="dinner" type="radio" name="time" value="dinner"><label for="dinner" class="inline">Обід (12:00 - 16:00)</label>
-                        <input id="launch" type="radio" name="time" value="launch"><label for="launch" class="inline">Вечеря (після 16:00)</label>
+                        <input id="breakfast" type="radio" name="time" value="breakfast" checked>
+                        <label for="breakfast" class="inline">Сніданок (до 12:00)</label>
+
+                        <input id="dinner" type="radio" name="time" value="dinner">
+                        <label for="dinner" class="inline">Обід (12:00 - 16:00)</label>
+
+                        <input id="supper" type="radio" name="time" value="supper">
+                        <label for="supper" class="inline">Вечеря (після 16:00)</label>
                     </div>
                 @endif
 
@@ -159,10 +164,10 @@
                     <textarea name="description" id="input-description" class="wide"></textarea>
                 </div>
 
-                <label for="">Додати значок</label>
+                <label>Додати значок</label>
                 <div class="stickers">
                     <input id="empty" type="radio" name="sticker" value="" checked><label for="empty" class="inline">без значка</label>
-                    @foreach(['discount','new', 'heart'] as $sticker)
+                    @foreach(Helper::getAdvertStickers() as $sticker)
                         <input id="{{ $sticker }}" type="radio" name="sticker" value="{{ $sticker }}">
                         <label for="{{ $sticker }}" class="inline">
                             <i class="{{ $sticker }}"></i>

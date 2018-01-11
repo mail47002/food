@@ -75,9 +75,14 @@
             </div>
 
             <div class="form-group">
-                <input id="breakfast" type="radio" name="time" value="breakfast" {{ $advert->time == 'breakfast' ? 'checked' : null }}><label for="breakfast" class="inline">Сніданок (до 12:00)</label>
-                <input id="dinner" type="radio" name="time" value="dinner" {{ $advert->time == 'dinner' ? 'checked' : null }}><label for="dinner" class="inline">Обід (12:00 - 16:00)</label>
-                <input id="launch" type="radio" name="time" value="launch" {{ $advert->time == 'launch' ? 'checked' : null }}><label for="launch" class="inline">Вечеря (після 16:00)</label>
+                <input id="breakfast" type="radio" name="time" value="breakfast" {{ $advert->time == 'breakfast' ? 'checked' : null }}>
+                <label for="breakfast" class="inline">Сніданок (до 12:00)</label>
+
+                <input id="dinner" type="radio" name="time" value="dinner" {{ $advert->time == 'dinner' ? 'checked' : null }}>
+                <label for="dinner" class="inline">Обід (12:00 - 16:00)</label>
+
+                <input id="supper" type="radio" name="time" value="supper" {{ $advert->time == 'launch' ? 'checked' : null }}>
+                <label for="supper" class="inline">Вечеря (після 16:00)</label>
             </div>
         @endif
 
