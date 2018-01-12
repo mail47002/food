@@ -42,8 +42,15 @@
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     @stack('scripts')
     <script type="text/javascript">
-        $( document ).ready(function() {
+        $(document).ready(function() {
             $('span.stars').stars();
+        });
+    </script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
         });
     </script>
 </body>

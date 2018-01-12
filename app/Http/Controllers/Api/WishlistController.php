@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\Wishlist as WishlistResource;
+use App\Http\Resources\WishlistResource;
 use App\UserWishlist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,11 +17,9 @@ class WishlistController extends Controller
 
     public function index()
     {
-        return new WishlistResource(
-            UserWishlist::with('user')
-                ->where('account_id', Auth::id())
-                ->get()
-        );
+        return new WishlistResource(UserWishlist::with('user')
+            ->where('account_id', Auth::id())
+            ->get());
     }
 
     public function store(Request $request)

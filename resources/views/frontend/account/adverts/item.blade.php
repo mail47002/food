@@ -38,7 +38,7 @@
                 <a href="#" class="button button-green" data-toggle="modal" data-target="#modal_clients">
                     <i class="fo fo-ok"></i> Клієнти на страву
                 </a>
-                <a href="#" class="button button-orange" data-toggle="modal" data-target="#modal_order">
+                <a href="#" class="button button-orange js-orders" data-id="{{ $advert->id }}">
                     <i class="fo fo-peoples"></i> Нові замовленя
                 </a>
             </div>

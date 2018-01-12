@@ -335,48 +335,26 @@
     </div>
 
     <p>модальные окна</p>
-    <p><a href="#" class="link-blue" data-toggle="modal" data-target="#modal_order">Замовлення ... 5.3.4</a></p>
     <p><a href="#" class="link-blue" data-toggle="modal" data-target="#modal_cancel">Відмінити оголошення ...5.3.5.2</a></p>
     <p><a href="#" class="link-blue" data-toggle="modal" data-target="#modal_clients">Клієнти на страву ...5.3.5.2</a></p>
 
 
-
-    {{-- 5.3.4 --}}
-    <!-- Modal -->
+    {{-- Modal New Orders --}}
     <div id="modal_order" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
-            <!-- Modal content-->
             <div class="modal-content text-center">
                 <div class="modal-header">
                     <a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
-                    <h4 class="modal-title">Нові замовлення (30)</h4>
+                    <h4 class="modal-title">Нові замовлення (<span class="js-orders-total"></span>)</h4>
                 </div>
                 <div class="modal-body">
 
-                    <div class="alert" {{-- style="display: none;" --}} >
-                        <p>Ваш запит на відмову клієнтам відправлено.</p>
-                        <p>Після підтвердження , клієнт буде видаленій зі списку!</p>
-                    </div>
+                    {{--<div class="alert" --}}{{-- style="display: none;" --}}{{-- >--}}
+                        {{--<p>Ваш запит на відмову клієнтам відправлено.</p>--}}
+                        {{--<p>Після підтвердження , клієнт буде видаленій зі списку!</p>--}}
+                    {{--</div>--}}
 
                     <div class="content">
-                        {{-- Нові замовлення --}}
-                        @for($i=0;$i<4;$i++)
-                            <div class="caption">
-                                <a href="#" class="discard link-red"><i class="fo fo-close-rounded"></i></a>
-                                <div class="avatar">
-                                    <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-                                </div>
-                                <p><a href="#" class="link-blue name">Марк</a></p>
-                                <p class="phone">+38 096 159 15 15</p>
-                                <div class="rating">
-                                    <span class="stars">4</span>
-                                    <p>10 відгуків</p>
-                                </div>
-                                <a href="#" class="button button-red wide">Підтвердити</a>
-                            </div>
-                        @endfor
-
                         {{-- Клієнти на страву --}}
                         <div class="caption">
                             <div class="avatar">
@@ -488,7 +466,7 @@
 
 @push('scripts')
     <script>
-        $( function() {
+        $(function () {
             $("#sorting").selectmenu({
                 change: function( e, ui ) {
                     var filter = $("#sorting").val();
@@ -500,6 +478,54 @@
             $(document).tooltip(
                 {position: {my: "left top+10"}}
             );
+        });
+    </script>
+    <script>
+        var orders = {
+            init: function () {
+                $('.js-orders').on('click', function (e) {
+                    e.preventDefault();
+
+                    var advertId = $(this).data('id');
+
+                    if (advertId) {
+                        orders.new(advertId);
+                    }
+                })
+            },
+            new: function (advertId) {
+                $.post('{{ url('api/adverts') }}/' + advertId + '/orders').done(function (responce) {
+                    for (i in responce.data) {
+                        var html = '';
+
+                        html += '<div class="caption">';
+                        html += '<a href="#" class="discard link-red"><i class="fo fo-close-rounded"></i></a>';
+                        html += '<div class="avatar">';
+                        html += '<div class="rounded"><img src="'+ responce.data[i]['user']['image'] +'" alt="foto"></div>';
+                        html += '</div>';
+                        html += '<p><a href="#" class="link-blue name">' + responce.data[i]['user']['name'] + '</a></p>';
+
+                        for (j in responce.data[i]['user']['phone']) {
+                            html += '<p class="phone">' + responce.data[i]['user']['phone'][j] + '</p>';
+                        }
+
+                        html += '<div class="rating"><span class="stars">4</span><p>10 відгуків</p></div>';
+                        html += '<a href="#" class="button button-red wide">Підтвердити</a>';
+                        html += '</div>';
+                    }
+
+                    $('#modal_order .js-orders-total').html(responce.data.length);
+                    $('#modal_order .content').html(html);
+
+                    $('#modal_order').modal('show');
+                });
+            }
+        };
+
+        orders.init();
+
+        $('#modal_order').on('show.bs.modal', function () {
+
         });
     </script>
 @endpush

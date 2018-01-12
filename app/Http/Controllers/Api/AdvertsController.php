@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Advert;
+use App\Http\Resources\AdvertResource;
+use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Advert as AdvertResource;
 
 class AdvertsController extends Controller
 {
@@ -90,5 +91,19 @@ class AdvertsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Return advert orders.
+     *
+     * @param $id
+     * @return AdvertResource
+     */
+    public function orders($id)
+    {
+        return new AdvertResource(Order::with('user')
+            ->where('advert_id', $id)
+            ->where('confirmed', '!=', Order::CONFIRMED)
+            ->get());
     }
 }
