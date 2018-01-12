@@ -26,11 +26,7 @@
 			<hr>
 			<ul class="buttons list-inline text-center js-filter-category">
 				@foreach ($categories as $category)
-					@if (in_array($category->id, $filter['cid']))
-						<li><a href="javascript:void(0);" class="button active" data-id="{{ $category->id }}">{{ $category->name }}</a></li>
-					@else
-						<li><a href="javascript:void(0);" class="button" data-id="{{ $category->id }}">{{ $category->name }}</a></li>
-					@endif
+                    <li><a href="javascript:void(0);" class="button {{ in_array($category->id, $filter['cid']) ? 'active' : '' }}" data-id="{{ $category->id }}">{{ $category->name }}</a></li>
 				@endforeach
 			</ul>
 			<hr>
@@ -52,94 +48,56 @@
 							<div class="col-md-3">
 								<input type="text" name="date" class="datepicker full-width" value="{{ request()->get('date') }}" placeholder="Дата">
 							</div>
-
-							{{-- TO DO: Добвить авктивность чекбоксов в зависимости от фильтра --}}
-
 							<div class="checkboxes col-md-6">
-								<input type="checkbox" id="breakfast" name="time" value="breakfast">
+								<input type="checkbox" id="breakfast" name="time" value="breakfast" {{ in_array('breakfast', $filter['time']) ? 'checked' : '' }}>
 								<label for="breakfast">Сніданок (до 12:00)</label>
 
-								<input type="checkbox" id="dinner" name="time" value="dinner">
+								<input type="checkbox" id="dinner" name="time" value="dinner" {{ in_array('dinner', $filter['time']) ? 'checked' : '' }}>
 								<label for="dinner">Обід (12:00 - 16:00)</label>
 
-								<input type="checkbox" id="supper" name="time" value="supper">
+								<input type="checkbox" id="supper" name="time" value="supper" {{ in_array('supper', $filter['time']) ? 'checked' : '' }}>
 								<label for="supper">Вечеря (після 16:00)</label>
 							</div>
 							<div class="col-md-3">
-								<label for="sorting" class="grey3">Сортутвати по:</label>
-								<select name="sorting" class="sorting" id="sorting">
-									<option value="">найближчі</option>
-									<option value="">найближчі</option>
-									<option value="">найближчі</option>
-								</select>
+                                @include('frontend.includes.sort_order')
 							</div>
 						</div>
 
-						<div class="prices-input text-center js-filter-price">
-							<label>Ціновий діапазон</label>
-							<input type="text" name="price_from" value="{{ request()->get('price_from') }}">
-							<label>&#x2014;</label>
-							<input type="text" name="price_to" value="{{ request()->get('price_to') }}">
-							<label for="">грн.</label>
-
-							<input type="button" class="button btn-filter js-btn-filter" value="OK">
-						</div>
+						<div class="row">
+                            @include('frontend.includes.price_range')
+                        </div>
 					</div>
 				</div>
 			@endif
 
-			@if (request()->has('type') && request()->get('type') == 'in_stock')
+			@if(Helper::isAdvertInStock())
 				<div class="filter-block">
-						<div class="filter-inputs container">
-							<div class="row">
-								<div class="col-md-9">
-									<div class="prices-input p0 js-filter-price">
-										<label>Ціновий діапазон</label>
-										<input type="text" name="price_from">
-										<label for="">&#x2014;</label>
-										<input type="text" name="price_to">
-										<label>грн.</label>
-										<input type="button" class="button btn-filter js-btn-filter" value="OK">
-									</div>
-								</div>
-								<div class="col-md-3">
-									<label for="sorting-ready" class="grey3">Сортутвати по:</label>
-									<select name="sorting-ready" class="sorting" id="sorting-ready">
-										<option value="">найближчі</option>
-										<option value="">найближчі</option>
-										<option value="">найближчі</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
+                    <div class="filter-inputs container">
+                        <div class="row">
+                            <div class="col-md-9">
+                                @include('frontend.includes.price_range')
+                            </div>
+                            <div class="col-md-3">
+                                @include('frontend.includes.sort_order')
+                            </div>
+                        </div>
+                    </div>
+                </div>
 			@endif
 
-			@if (request()->has('type') && request()->get('type') == 'pre_order')
+			@if(Helper::isAdvertPreOrder())
 				<div class="filter-block">
-						<div class="filter-inputs container">
-							<div class="row">
-								<div class="col-md-9">
-									<div class="prices-input p0 js-filter-price">
-										<label>Ціновий діапазон</label>
-										<input type="text" name="price_from">
-										<label>&#x2014;</label>
-										<input type="text" name="price_to">
-										<label>грн.</label>
-										<input type="button" class="button btn-filter js-btn-filter" value="OK">
-									</div>
-								</div>
-								<div class="col-md-3">
-									<label for="sorting-order" class="grey3">Сортутвати по:</label>
-									<select name="sorting-order" class="sorting" id="sorting-order">
-										<option value="">найближчі</option>
-										<option value="">найближчі</option>
-										<option value="">найближчі</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
+                    <div class="filter-inputs container">
+                        <div class="row">
+                            <div class="col-md-9">
+                                @include('frontend.includes.price_range')
+                            </div>
+                            <div class="col-md-3">
+                                @include('frontend.includes.sort_order')
+                            </div>
+                        </div>
+                    </div>
+                </div>
 			@endif
 
 			@if(count($adverts) > 0)
@@ -158,106 +116,8 @@
 				No data!
 			@endif
 
-
-		</div>
-	{{-- 2.2 --}}
-		<div id="byready" class="tab-pane fade">
-
-
-
-			<div class="container">
-				<div class="row">
-					@foreach ($adverts as $advert)
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="product-thumb">
-								<div class="image">
-									<img src="{{ asset($advert->product->image) }}" class="img-responsive" alt="{{ $advert->name }}">
-									<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
-									@php $actions=['discount','new', 'heart']; @endphp <!-- class: discount new heart -->
-									<div class="sticker {{ $actions[array_rand($actions)] }}"></div>
-								</div>
-
-								<div class="caption">
-									<a href="#" class="title link-black">{{ $advert->name }}</a>
-									<p>
-										<span class="price">{{ $advert->price }} грн.</span>
-										<span class="rating">
-											<span class="stars">{{rand(0,5)}}</span> відгуків
-										</span>
-									</p>
-									<p><i class="fo fo-dish-ready red" title="Термін придатності"></i> 10 - 15 грудня</p>
-								</div>
-
-								<button type="button" class="button button-grey order">Замовити</button>
-
-							</div>
-					</div>
-					@endforeach
-				</div>
-			</div>
-
-			<div class="bottom-block text-right">
-				<ul class="pagination">
-					<li class="disabled"><span><</span></li>
-					<li class="active"><span>1</span></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li class="disabled"><span>...</span></li>
-					<li><a href="#">10</a></li>
-					<li><a href="#" rel="next">></a></li>
-					<p class="count">37 – 47 из 160 объявлений</p>
-				</ul><a href="#wrapper" class="btn-top"></a> <!-- Важно!! - не переносить!!! -->
-			</div>
-		</div>
-	{{-- 2.3 --}}
-		<div id="byorder" class="tab-pane fade">
-
-
-
-			<div class="container">
-				<div class="row">
-					@foreach ($adverts as $advert)
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="product-thumb">
-								<div class="image">
-									<img src="{{ asset($advert->product->image) }}" class="img-responsive" alt="{{ $advert->name }}">
-									<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
-									@php $actions=['discount','new', 'heart']; @endphp <!-- class: discount new heart -->
-									<div class="sticker {{ $actions[array_rand($actions)] }}"></div>
-								</div>
-
-								<div class="caption">
-									<a href="#" class="title link-black">{{ $advert->name }}</a>
-									<p><span class="price"><i class="fo fo-deal red"></i> 800 - 2500 грн.</span></p>
-									<p><span class="rating"><span class="stars">{{ rand(0,5) }}</span> 10 відгуків</span></p>
-								</div>
-
-								<button type="button" class="button button-grey order">Замовити</button>
-
-							</div>
-					</div>
-					@endforeach
-				</div>
-			</div>
-
-
-			<div class="bottom-block text-right">
-				<ul class="pagination">
-					<li class="disabled"><span><</span></li>
-					<li class="active"><span>1</span></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li class="disabled"><span>...</span></li>
-					<li><a href="#">10</a></li>
-					<li><a href="#" rel="next">></a></li>
-					<p class="count">37 – 47 из 160 объявлений</p>
-				</ul><a href="#wrapper" class="btn-top"></a> <!-- Важно!! - не переносить!!! -->
-			</div>
 		</div>
 	</div>
-
 </div>
 
 <!-- Modal Address -->

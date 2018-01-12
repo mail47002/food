@@ -107,34 +107,34 @@
                     <option value="2">2</option>
                 </select>
             </div>
+        @endif
 
-            <div class="form-group">
-                {{ Form::label('fotos', 'Додати фото*') }}
-                <div id="input-image" class="fotos">
-                    @foreach ($advert->images as $image)
-                        <div class="wrap js-foto">
-                            <div class="uploader">
-                                <img src="{{ asset('uploads/' . Helper::getUserDirHash(auth()->user()) . '/adverts/thumbnails/' . $image->image) }}">
-                                {{ Form::hidden('images[]', $image->image) }}
-                            </div>
-                            <a href="#" class="pull-left grey1 js-cover-foto {{ $advert->image === $image->image ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
-                            <a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
-                        </div>
-                    @endforeach
-
+        <div class="form-group">
+            {{ Form::label('fotos', 'Додати фото*') }}
+            <div id="input-image" class="fotos">
+                @foreach ($advert->images as $image)
                     <div class="wrap js-foto">
                         <div class="uploader">
-                            <img src="">
-                            <div class="round"><i class="fo fo-camera"></i></div>
-                            {{ Form::file(null, ['class' => 'input-upload']) }}
+                            <img src="{{ asset('uploads/' . Helper::getUserDirHash(auth()->user()) . '/adverts/thumbnails/' . $image->image) }}">
+                            {{ Form::hidden('images[]', $image->image) }}
                         </div>
-                        <a href="#" class="pull-left hide grey1 js-cover-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
-                        <a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
+                        <a href="#" class="pull-left grey1 js-cover-foto {{ $advert->image === $image->image ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                        <a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
                     </div>
+                @endforeach
+
+                <div class="wrap js-foto">
+                    <div class="uploader">
+                        <img src="">
+                        <div class="round"><i class="fo fo-camera"></i></div>
+                        {{ Form::file(null, ['class' => 'input-upload']) }}
+                    </div>
+                    <a href="#" class="pull-left hide grey1 js-cover-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                    <a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
                 </div>
-                {{ Form::hidden('image', $advert->image, ['id' => 'cover-image']) }}
             </div>
-        @endif
+            {{ Form::hidden('image', $advert->image, ['id' => 'cover-image']) }}
+        </div>
 
         <div class="form-group">
             <label>Додаткова інформація*</label>

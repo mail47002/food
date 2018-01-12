@@ -11,7 +11,7 @@ class Advert extends Model
     const PRE_ORDER = 'pre_order';
 
     protected $fillable = [
-        'user_id', 'product_id', 'sticker', 'name', 'slug', 'description', 'price', 'special_price', 'quantity',
+        'user_id', 'product_id', 'sticker', 'name', 'slug', 'description', 'price', 'custom_price', 'quantity',
         'image', 'type', 'everyday', 'date', 'date_from', 'date_to', 'time'
     ];
 

@@ -29,7 +29,7 @@ class CreateAdvertsTable extends Migration {
             $table->timestamp('date')->nullable();
             $table->timestamp('date_from')->nullable();
             $table->timestamp('date_to')->nullable();
-            $table->string('time')->default('breakfast');
+            $table->string('time')->nullable();
             $table->timestamps();
         });
 	}

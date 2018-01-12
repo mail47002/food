@@ -20,9 +20,8 @@ class AdvertsController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::all();
-
-        $cId = $request->cid ? explode(',', $request->cid) : $categories->pluck('id');
+        $cId = $request->cid ? explode(',', $request->cid) : Category::all()->pluck('id');
+        $type = $request->input('type', 'by_date');
         $priceFrom = $request->price_from ?? 0;
         $priceTo = $request->price_to ?? 99999.99;
         $date = $request->date ? Carbon::parse($request->date)->toDateTimeString() : Carbon::now();
@@ -34,16 +33,19 @@ class AdvertsController extends Controller
             })
             ->where('name', 'like', '%' . $request->search . '%')
             ->whereBetween('price', [$priceFrom, $priceTo])
-            ->where('type', $request->input('type', 'by_date'))
-            ->where('date', '>=', $date)
-            ->whereIn('time', $time)
-            ->orderBy('created_at', 'asc')
-            ->paginate();
+            ->where('type', $type);
+
+        if ($type == Advert::BY_DATE) {
+            $adverts = $adverts->where('date', '>=', $date)->whereIn('time', $time);
+        }
+
+        $adverts = $adverts->orderBy('created_at', 'asc')->paginate();
 
         return view('frontend.adverts.index', [
             'adverts' => $adverts,
             'filter'  => [
-                'cid' => $request->has('cid') ? explode(',', $request->cid) : [],
+                'cid'  => $request->has('cid') ? explode(',', $request->cid) : [],
+                'time' => $request->has('time') ? explode(',', $request->time) : []
             ]
         ]);
     }
