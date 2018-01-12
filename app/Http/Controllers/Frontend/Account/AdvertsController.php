@@ -34,10 +34,13 @@ class AdvertsController extends Controller
             ->where('name', 'like', '%' . $request->search . '%')
             ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
-            ->paginate(2);
+            ->paginate();
+
+        $advertsTotal = Advert::where('user_id', Auth::id())->count();
 
         return view('frontend.account.adverts.index', [
-            'adverts' => $adverts
+            'adverts'      => $adverts,
+            'advertsTotal' => $advertsTotal
         ]);
     }
 

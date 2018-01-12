@@ -17,21 +17,22 @@ class OrdersController extends Controller
     }
 
     /**
-     * TODO: Check auth user id & advert id
+     * Store a newly created resource in storage.
      *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        $this->validateForm($request);
-
         $advert = Advert::with('user')
             ->where('user_id', '!=', Auth::id())
             ->find($request->advert_id);
 
-        if ($advert && !Order::where('advert_id', $request->advert_id)->where('user_id', Auth::id())->exists()) {
+        if ($advert && $this->isValid($request, $advert)) {
             $order = Order::create($request->all());
 
             $advert->user->notify(new OrderCreated($order));
+            Auth::user()->notify(new OrderCreated($order));
 
             return response()->json([
                 'status' => 'success'
@@ -43,11 +44,19 @@ class OrdersController extends Controller
         ]);
     }
 
-    protected function validateForm(Request $request)
+    /**
+     * Validate request.
+     *
+     * @param Request $request
+     * @param $advert
+     * @return bool
+     */
+    protected function isValid(Request $request, $advert)
     {
-        $this->validate($request, [
-            'advert_id' => 'required',
-            'user_id'   => 'required'
-        ]);
+        if (!Order::where('advert_id', $request->advert_id)->where('user_id', Auth::id())->exists() && $advert->user !== Auth::id()) {
+            return true;
+        }
+
+        return false;
     }
 }

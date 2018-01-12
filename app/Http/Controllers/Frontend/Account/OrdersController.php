@@ -38,6 +38,7 @@ class OrdersController extends Controller
             $order->confirmed();
 
             $order->user->notify(new OrderConfirmed($order));
+            Auth::user()->notify(new OrderConfirmed($order));
         }
 
         return redirect()->back();
@@ -47,8 +48,9 @@ class OrdersController extends Controller
     {
         $order = Order::find($id);
 
-        if ($order) {
+        if ($order && $order->confirmed !== Order::CONFIRMED) {
             $order->user->notify(new OrderCanceled($order));
+            Auth::user()->notify(new OrderCanceled($order));
 
             $order->delete();
         }

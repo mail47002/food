@@ -1,7 +1,7 @@
 @extends('frontend.layouts.account')
 
 @section('content')
-    <h5 class="text-upper underline-red">Оголошення ({{ $adverts->total() }})</h5>
+    <h5 class="text-upper underline-red">Оголошення ({{ $advertsTotal }})</h5>
     <hr class="zerro-top">
     <div class="filter-block">
         <ul class="categories list-inline text-center">
