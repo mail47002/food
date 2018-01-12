@@ -13,15 +13,15 @@ use Helper;
 class AdvertsController extends Controller
 {
     /**
-     * Show the application dashboard.
+     * Display a listing of the resource.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
         $cId = $request->cid ? explode(',', $request->cid) : Category::all()->pluck('id');
-        $type = $request->input('type', 'by_date');
+        $type = $request->input('type', Advert::BY_DATE);
         $priceFrom = $request->price_from ?? 0;
         $priceTo = $request->price_to ?? 99999.99;
         $date = $request->date ? Carbon::parse($request->date)->toDateTimeString() : Carbon::now();
@@ -50,6 +50,12 @@ class AdvertsController extends Controller
         ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($slug)
     {
         $advert = Advert::with(['user', 'images', 'product'])
@@ -57,7 +63,7 @@ class AdvertsController extends Controller
             ->first();
 
         if ($advert) {
-            $reviews = Review::where('product_id', $advert->product->id)->paginate(2);
+            $reviews = Review::where('product_id', $advert->product->id)->paginate();
 
             return view('frontend.adverts.show', [
                 'advert'  => $advert,
