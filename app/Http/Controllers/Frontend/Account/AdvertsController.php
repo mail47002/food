@@ -30,10 +30,14 @@ class AdvertsController extends Controller
      */
     public function index(Request $request)
     {
-        $adverts = Advert::where('type', $request->input('type', 'by_date'))
-            ->where('name', 'like', '%' . $request->search . '%')
-            ->where('user_id', Auth::id())
-            ->orderBy('created_at', 'desc')
+        $adverts = Advert::leftJoin('orders', 'adverts.id', '=', 'orders.advert_id')
+            ->select('adverts.*')
+            ->selectRaw('COUNT(orders.confirmed = 1) AS confirmed')
+            ->where('adverts.type', $request->input('type', 'by_date'))
+            ->where('adverts.name', 'like', '%' . $request->search . '%')
+            ->where('adverts.user_id', Auth::id())
+            ->groupBy('adverts.id')
+            ->orderBy('adverts.created_at', 'desc')
             ->paginate();
 
         $advertsTotal = Advert::where('user_id', Auth::id())->count();

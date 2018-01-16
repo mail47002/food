@@ -354,40 +354,7 @@
                         {{--<p>Після підтвердження , клієнт буде видаленій зі списку!</p>--}}
                     {{--</div>--}}
 
-                    <div class="content">
-                        {{-- Клієнти на страву --}}
-                        <div class="caption">
-                            <div class="avatar">
-                                <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-                            </div>
-                            <p><a href="#" class="link-blue name">Марк</a></p>
-                            <p class="phone">+38 096 159 15 15</p>
-                            <div class="rating">
-                                <span class="stars">4</span>
-                                <p>10 відгуків</p>
-                            </div>
-                            <a href="#button" class="button button-green wide">
-                                <i class="fo fo-ok"></i>
-                                Клієнт
-                                <object><a href="#reject" class="reject" title="Відмовити клієнту"><i class="fo fo-close-bold"></i></a></object>
-                            </a>
-                            <a href="#" class="button button-grey wide"><i class="fo fo-message"></i> Відгук</a>
-                        </div>
-
-                        <div class="caption">
-                            <div class="avatar">
-                                <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-                            </div>
-                            <p><a href="#" class="link-blue name">Марк</a></p>
-                            <p class="phone">+38 096 159 15 15</p>
-                            <div class="rating">
-                                <span class="stars">4</span>
-                                <p>10 відгуків</p>
-                            </div>
-                            <a href="#button" class="button button-white wide hover-replace" text="Відмінити запит">Запит на відмову </a>
-                            <a href="#" class="button button-grey wide"><i class="fo fo-message"></i> Відгук</a>
-                        </div>
-
+                    <div class="content js-content">
                     </div>
                 </div>
             </div>
@@ -483,7 +450,7 @@
     <script>
         var orders = {
             init: function () {
-                $('.js-orders').on('click', function (e) {
+                $(document).on('click', '.js-new', function (e) {
                     e.preventDefault();
 
                     var advertId = $(this).data('id');
@@ -491,7 +458,27 @@
                     if (advertId) {
                         orders.new(advertId);
                     }
-                })
+                });
+
+                $(document).on('click', '.js-confirmed', function (e) {
+                    e.preventDefault();
+
+                    var advertId = $(this).data('id');
+
+                    if (advertId) {
+                        orders.confirmed(advertId);
+                    }
+                });
+
+                $(document).on('click', '.js-order-confirm', function (e) {
+                    e.preventDefault();
+
+                    var orderId = $(this).data('id');
+
+                    if (orderId) {
+                        orders.confirm(orderId);
+                    }
+                });
             },
             new: function (advertId) {
                 $.post('{{ url('api/adverts') }}/' + advertId + '/orders').done(function (responce) {
@@ -510,22 +497,47 @@
                         }
 
                         html += '<div class="rating"><span class="stars">4</span><p>10 відгуків</p></div>';
-                        html += '<a href="#" class="button button-red wide">Підтвердити</a>';
+                        html += '<a href="#" class="button button-red wide js-order-confirm" data-id="' +  responce.data[i]['id'] + '">Підтвердити</a>';
                         html += '</div>';
                     }
 
                     $('#modal_order .js-orders-total').html(responce.data.length);
-                    $('#modal_order .content').html(html);
+                    $('#modal_order .js-content').html(html);
 
                     $('#modal_order').modal('show');
+                });
+            },
+            confirm: function (orderId) {
+                $.post('{{ url('myaccount/orders') }}/' + orderId, {
+                    '_method' : 'put'
+                }).done(function (response) {
+
+                });
+            },
+            confirmed: function (advertId) {
+                $.post('{{ url('api/adverts') }}/' + advertId + '/confirmed').done(function (response) {
+                    for (i in responce.data) {
+                        var html = '';
+
+                        html += '<div class="caption">';
+                        html += '<a href="#" class="discard link-red"><i class="fo fo-close-rounded"></i></a>';
+                        html += '<div class="avatar">';
+                        html += '<div class="rounded"><img src="'+ responce.data[i]['user']['image'] +'" alt="foto"></div>';
+                        html += '</div>';
+                        html += '<p><a href="#" class="link-blue name">' + responce.data[i]['user']['name'] + '</a></p>';
+
+                        for (j in responce.data[i]['user']['phone']) {
+                            html += '<p class="phone">' + responce.data[i]['user']['phone'][j] + '</p>';
+                        }
+
+                        html += '<div class="rating"><span class="stars">4</span><p>10 відгуків</p></div>';
+                        html += '<a href="#" class="button button-red wide js-order-confirm" data-id="' +  responce.data[i]['id'] + '">Підтвердити</a>';
+                        html += '</div>';
+                    }
                 });
             }
         };
 
         orders.init();
-
-        $('#modal_order').on('show.bs.modal', function () {
-
-        });
     </script>
 @endpush

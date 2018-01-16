@@ -31,14 +31,14 @@
             <div class="caption text-center">
                 <div class="grey-block red">
                     <i class="fo fo-dish-search"></i>
-                    <span class="red">XX</span><span class="black">/{{ $advert->quantity }}</span>
+                    <span class="red">{{ $advert->confirmed }}</span><span class="black">/{{ $advert->quantity }}</span>
                     <p class="text">Залишилося порцій</p>
                 </div>
 
-                <a href="#" class="button button-green" data-toggle="modal" data-target="#modal_clients">
+                <a href="#" class="button button-green js-confirmed" data-id="{{ $advert->id }}">
                     <i class="fo fo-ok"></i> Клієнти на страву
                 </a>
-                <a href="#" class="button button-orange js-orders" data-id="{{ $advert->id }}">
+                <a href="#" class="button button-orange js-new" data-id="{{ $advert->id }}">
                     <i class="fo fo-peoples"></i> Нові замовленя
                 </a>
             </div>

@@ -106,4 +106,18 @@ class AdvertsController extends Controller
             ->where('confirmed', '!=', Order::CONFIRMED)
             ->get());
     }
+
+    /**
+     * Return advert clients.
+     *
+     * @param $id
+     * @return AdvertResource
+     */
+    public function confirmed($id)
+    {
+        return new AdvertResource(Order::with('user')
+            ->where('advert_id', $id)
+            ->where('confirmed', '=', Order::CONFIRMED)
+            ->get());
+    }
 }

@@ -76,21 +76,22 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
     Route::group(['prefix' => 'adverts'], function() {
         Route::post('store', 'AdvertsController@store');
         Route::get('{id}', 'AdvertsController@show');
+        Route::post('{id}/confirmed', 'AdvertsController@confirmed');
         Route::post('{id}/orders', 'AdvertsController@orders');
     });
 
     // User wish list
     Route::group(['prefix' => 'wishlist'], function() {
-        Route::get('/', 'WishlistController@index');
-        Route::post('/', 'WishlistController@store');
-        Route::delete('/{id}', 'WishlistController@destroy');
+        Route::get('', 'WishlistController@index');
+        Route::post('', 'WishlistController@store');
+        Route::delete('{id}', 'WishlistController@destroy');
     });
 });
 
 // Frontend
 Route::group(['namespace' => 'Frontend'], function() {
     // Adverts
-    Route::get('/', ['as' => 'adverts.index', 'uses' => 'AdvertsController@index']);
+    Route::get('', ['as' => 'adverts.index', 'uses' => 'AdvertsController@index']);
     Route::get('adverts/{slug}', ['as' => 'adverts.show', 'uses' => 'AdvertsController@show']);
 
     // Order
