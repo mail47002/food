@@ -64,20 +64,8 @@
 		</div>
 	</div>
 
-
 	<div class="bottom-block text-right">
-		<ul class="pagination">
-			<li class="disabled"><span><</span></li>
-			<li class="active"><span>1</span></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li class="disabled"><span>...</span></li>
-			<li><a href="#">10</a></li>
-			<li><a href="#" rel="next">></a></li>
-			<p class="count">37 – 47 из 160 объявлений</p>
-		</ul><a href="#wrapper" class="btn-top"></a> <!-- Важно!! - не переносить!!! -->
-
+		{{ $recipes->links('frontend.pagination.index') }}
 	</div>
 
 </div>
