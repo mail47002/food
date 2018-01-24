@@ -13,7 +13,7 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer(['frontend.adverts.index'],'App\Http\ViewComposers\CategoriesViewComposer');
+        view()->composer(['frontend.adverts.index', 'frontend.profile.adverts.index'],'App\Http\ViewComposers\CategoriesViewComposer');
         view()->composer(['frontend.adverts.index'],'App\Http\ViewComposers\CitiesViewComposer');
     }
 

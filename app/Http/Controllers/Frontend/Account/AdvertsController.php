@@ -32,7 +32,7 @@ class AdvertsController extends Controller
     {
         $adverts = Advert::leftJoin('orders', 'adverts.id', '=', 'orders.advert_id')
             ->select('adverts.*')
-            ->selectRaw('COUNT(orders.confirmed = 1) AS confirmed')
+            ->selectRaw('COUNT(IF(orders.confirmed = 1, 1, null)) AS confirmed')
             ->where('adverts.type', $request->input('type', 'by_date'))
             ->where('adverts.name', 'like', '%' . $request->search . '%')
             ->where('adverts.user_id', Auth::id())

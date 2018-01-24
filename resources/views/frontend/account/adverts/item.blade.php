@@ -35,10 +35,10 @@
                     <p class="text">Залишилося порцій</p>
                 </div>
 
-                <a href="#" class="button button-green js-confirmed" data-id="{{ $advert->id }}">
+                <a href="javascipt:void(0);" class="button button-green" onclick="order.confirmed({{ $advert->id }})">
                     <i class="fo fo-ok"></i> Клієнти на страву
                 </a>
-                <a href="#" class="button button-orange js-new" data-id="{{ $advert->id }}">
+                <a href="javascipt:void(0);" class="button button-orange" onclick="order.stored({{ $advert->id }})">
                     <i class="fo fo-peoples"></i> Нові замовленя
                 </a>
             </div>

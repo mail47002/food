@@ -6,6 +6,12 @@ use App\Advert;
 
 class Helper
 {
+    private $advertTypes = [
+        'by_date'   => 'Страва у меню',
+        'in_stock'  => 'Готова страва',
+        'pre_order' => 'Страва під замовлення'
+    ];
+
     private $advertTimes = [
         'breakfast' => 'сніданок',
         'dinner'    => 'обід',
@@ -156,6 +162,18 @@ class Helper
     public function getAdvertTimes()
     {
         return array_keys($this->advertTimes);
+    }
+
+    /**
+     * Return humanized advert type.
+     *
+     * @param $type
+     * @param null $default
+     * @return null
+     */
+    public function getHumanAdvertType($type, $default = null)
+    {
+        return isset($this->advertTypes[$type]) ? $this->advertTypes[$type] : $default;
     }
 
     /**

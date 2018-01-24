@@ -2,25 +2,33 @@
 
 namespace App\Notifications;
 
+use App\Advert;
 use App\Order;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class OrderCreated extends Notification
+class OrderStored extends Notification
 {
     use Queueable;
 
+    public $user;
+    public $advert;
     public $order;
 
     /**
-     * Create a new notification instance.
+     * OrderStored constructor.
      *
+     * @param User $user
+     * @param Advert $advert
      * @param Order $order
      */
-    public function __construct(Order $order)
+    public function __construct(User $user, Advert $advert, Order $order)
     {
+        $this->user = $user;
+        $this->advert = $advert;
         $this->order = $order;
     }
 
@@ -65,9 +73,9 @@ class OrderCreated extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'title'      => 'Вам зробили замовлення <a href="' . route('profile.user.show', $this->order->user->id) . '">' . $this->order->user->name . '</a> на страву з меню',
-            'image'      => $this->order->user->image,
-            'created_at' => $this->order->created_at
+            'user'   => $this->user,
+            'advert' => $this->advert,
+            'order'  => $this->order
         ];
     }
 }

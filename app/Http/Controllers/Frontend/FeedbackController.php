@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Mail\FeedbackStore;
+use App\Mail\Feedback;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,15 +17,15 @@ class FeedbackController extends Controller
     {
         $this->validateForm($request);
 
-        Mail::to()->send(new FeedbackStore());
+        Mail::to()->send(new Feedback());
     }
 
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'name'  => 'required',
+            'name'  => 'required|string|max:255',
             'email' => 'required|email',
-            'phone' => 'required'
+            'phone' => 'required|string|regex:/\+38\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}/'
         ]);
     }
 }

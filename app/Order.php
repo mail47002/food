@@ -5,12 +5,19 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property bool $confirmed
+ */
 class Order extends Model
 {
     const CONFIRMED = 1;
 
     protected $fillable = [
-        'advert_id', 'user_id'
+        'advert_id', 'user_id', 'total', 'confirmed', 'confirmed_at'
+    ];
+
+    protected $casts = [
+        'confirmed' => 'boolean'
     ];
 
     public function advert()

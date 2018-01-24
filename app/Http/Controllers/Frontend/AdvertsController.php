@@ -24,7 +24,7 @@ class AdvertsController extends Controller
         $type = $request->input('type', Advert::BY_DATE);
         $priceFrom = $request->price_from ?? 0;
         $priceTo = $request->price_to ?? 99999.99;
-        $date = $request->date ? Carbon::parse($request->date)->toDateTimeString() : Carbon::now();
+        $date = $request->date ? Carbon::parse($request->date)->toDateTimeString() : null;
         $time = $request->time ? explode(',', $request->time) : Helper::getAdvertTimes();
 
         $adverts = Advert::with(['product', 'images'])
@@ -36,7 +36,11 @@ class AdvertsController extends Controller
             ->where('type', $type);
 
         if ($type == Advert::BY_DATE) {
-            $adverts = $adverts->where('date', '>=', $date)->whereIn('time', $time);
+            if ($date) {
+                $adverts = $adverts->where('date', '>=', $date);
+            }
+
+            $adverts = $adverts->whereIn('time', $time);
         }
 
         $adverts = $adverts->orderBy('created_at', 'asc')->paginate();

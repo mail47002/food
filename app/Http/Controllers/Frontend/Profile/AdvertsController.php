@@ -16,19 +16,16 @@ class AdvertsController extends Controller
 
         if ($user) {
             $advert = Advert::with(['user' => function ($query) use ($user) {
-                    $query->where('slug', $user);
+                    $query->where('slug', $user->slug);
                 }])
                 ->where('type', $request->input('type', 'by_date'))
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orderBy('created_at', 'desc')
-                ->paginate(2);
-
-            $categories = Category::all();
+                ->paginate();
 
             return view('frontend.profile.adverts.index', [
-                'user'       => $user,
-                'adverts'    => $advert,
-                'categories' => $categories
+                'user'    => $user,
+                'adverts' => $advert
             ]);
         }
     }

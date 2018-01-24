@@ -33,24 +33,25 @@
 
     <script src="{{ asset('frontend/js/jquery-2.2.4.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/dropdown.js') }}" async></script>
-    <script src="{{ asset('frontend/js/modal.js') }}" async></script>
-    <script src="{{ asset('frontend/js/collapse.js') }}" async></script>
-    <script src="{{ asset('frontend/js/tabs.js') }}" async></script>
+    <script src="{{ asset('frontend/js/dropdown.js') }}"></script>
+    <script src="{{ asset('frontend/js/modal.js') }}"></script>
+    <script src="{{ asset('frontend/js/collapse.js') }}"></script>
+    <script src="{{ asset('frontend/js/tabs.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.maskedinput.js') }}"></script>
     <script src="{{ asset('frontend/vendor/owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/simplebar.js') }}"></script>
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     @stack('scripts')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('span.stars').stars();
-        });
-    </script>
-    <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             }
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('input[type="tel"]').mask('+38 (999) 999 99 99');
         });
     </script>
 </body>

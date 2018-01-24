@@ -20,7 +20,7 @@
 			<div class="phone js-phone">
 				@foreach (auth()->user()->phone as $i => $phone)
 					<div>
-						{{ Form::text('phone[]', $phone, ['id' => 'input-phone-' . $i, 'class' => 'phone-input']) }}
+						{{ Form::tel('phone[]', $phone, ['id' => 'input-phone-' . $i, 'class' => 'phone-input']) }}
 						<span class="remove js-delete-phone"></span>
 					</div>
 				@endforeach
@@ -70,7 +70,6 @@
 
 
 @push('scripts')
-	<script src="{{ asset('frontend/js/jquery.maskedinput.js') }}" type="text/javascript"></script>
 	<script type="text/javascript">
 		$('#input-avatar').on('change', function(e) {
 			e.preventDefault();
@@ -103,19 +102,15 @@
 	</script>
 	<script type="text/javascript">
 		function initMaskInput() {
-			$('.phone-input').mask('+38 (999) 999 99 99');
-		}
-
-		$(document).ready(function() {
-			initMaskInput();
-		});
+			$('input[type="tel"]').mask('+38 (999) 999 99 99');
+        }
 
 		$('.js-add-phone').on('click', function(e) {
 			e.preventDefault();
 
 			var i = $('.js-phone > div').length;
 
-			$('.js-phone').append('<div><input id="input-phone-' + i + '" class="phone-input" name="phone[]" type="text"><span class="remove js-delete-phone"></span></div>');
+			$('.js-phone').append('<div><input id="input-phone-' + i + '" class="phone-input" name="phone[]" type="tel"><span class="remove js-delete-phone"></span></div>');
 
 			initMaskInput();
 		});

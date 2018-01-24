@@ -2,26 +2,33 @@
 
 namespace App\Notifications;
 
-use App\Order;
+use App\Advert;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class OrderCanceled extends Notification
+class CallbackStored extends Notification
 {
     use Queueable;
 
-    public $order;
+    public $user;
+    public $advert;
+    public $phone;
 
     /**
-     * Create a new notification instance.
+     * CallbackStored constructor.
      *
-     * @return void
+     * @param User $user
+     * @param Advert $advert
+     * @param $phone
      */
-    public function __construct(Order $order)
+    public function __construct(User $user, Advert $advert, $phone)
     {
-        $this->order = $order;
+        $this->user = $user;
+        $this->advert = $advert;
+        $this->phone = $phone;
     }
 
     /**
@@ -65,7 +72,9 @@ class OrderCanceled extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'order' => $this->order
+            'user'   => $this->user,
+            'advert' => $this->advert,
+            'phone'  => $this->phone
         ];
     }
 }

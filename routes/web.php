@@ -80,6 +80,14 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
         Route::post('{id}/orders', 'AdvertsController@orders');
     });
 
+    // Orders
+    Route::group(['prefix' => 'orders'], function() {
+        Route::post('stored', 'OrdersController@stored');
+        Route::post('{id}/confirm', 'OrdersController@confirm');
+        Route::post('confirmed', 'OrdersController@confirmed');
+        Route::post('{id}/cancel', 'OrdersController@cancel');
+    });
+
     // User wish list
     Route::group(['prefix' => 'wishlist'], function() {
         Route::get('', 'WishlistController@index');
@@ -94,8 +102,11 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::get('', ['as' => 'adverts.index', 'uses' => 'AdvertsController@index']);
     Route::get('adverts/{slug}', ['as' => 'adverts.show', 'uses' => 'AdvertsController@show']);
 
+    // User callback
+    Route::post('callback', ['as' => 'callback.store', 'uses' => 'CallbackController@store']);
+
     // Order
-    Route::post('adverts/order', ['as' => 'adverts.order', 'uses' => 'OrdersController@store']);
+    Route::post('adverts/order', ['as' => 'orders.store', 'uses' => 'OrdersController@store']);
 
     // Advices
     Route::get('advices', ['as' => 'advices.index', 'uses' => 'AdvicesController@index']);

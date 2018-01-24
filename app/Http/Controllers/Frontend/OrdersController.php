@@ -6,7 +6,7 @@ use App\Advert;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Notifications\OrderCreated;
+use App\Notifications\OrderStored;
 use Auth;
 
 class OrdersController extends Controller
@@ -29,10 +29,15 @@ class OrdersController extends Controller
             ->find($request->advert_id);
 
         if ($advert && $this->isValid($request, $advert)) {
+            $request->merge([
+                'confirmed' => 0,
+                'confirmed_at' => null
+            ]);
+
             $order = Order::create($request->all());
 
-            $advert->user->notify(new OrderCreated($order));
-            Auth::user()->notify(new OrderCreated($order));
+            $advert->user->notify(new OrderStored(Auth::user(), $advert, $order));
+            Auth::user()->notify(new OrderStored(Auth::user(), $advert, $order));
 
             return response()->json([
                 'status' => 'success'

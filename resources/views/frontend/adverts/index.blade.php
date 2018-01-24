@@ -171,17 +171,32 @@
 					<div class="step"><span>1</span></div>
 					<div class="f-18 top-10">Для оформлення замовлення, зв'яжіться з поваром страви</div>
 					<div class="js-user"></div>
+					<div id="switchable">
+						<div class="grey3 top-20">або</div>
+						<div class="f18">залиште свій номер телефону,<br> і повар зв’яжиться з вам найближчи</div>
+						<div class="top-20"></div>
+						{{ Form::open(['route' => 'callback.store', 'method' => 'post', 'id' => 'form-callback']) }}
+							<input type="hidden" name="advert_id" value="">
+							<input type="hidden" name="user_id" value="">
+							<div class="form-group">
+								<input type="tel" class="phone-input w-440 text-center" name="phone">
+							</div>
+							<button type="submit" class="button btn-grey-red">Відправити</button>
+						{{ Form::close() }}
+					</div>
+
 					<div class="v-indent-20"></div>
 					<div class="step"><span>2</span></div>
 					<div class="f-18 top-20">Для завершення замовлення обов’язково потрібно підтвердити його</div>
 
-					{{ Form::open(['route' => 'adverts.order', 'method' => 'post']) }}
+
+					{{ Form::open(['route' => 'orders.store', 'method' => 'post']) }}
 						<input type="hidden" name="advert_id" value="">
 						<input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
 						<div class="top-20 inline js-buttons">
 							<button class="button button-white text-upper mlr-10" type="button" data-dismiss="modal">Підтвердити пізніше</button>
-							<button class="button button-red text-upper mlr-10" type="submit">Підтвердити зараз</button>
+							<button class="button button-red text-upper mlr-10 js-order-add" type="submit">Підтвердити зараз</button>
 						</div>
 
 						<div class="info-block red w-480 hidden js-info-block">
@@ -199,39 +214,39 @@
 @stop
 
 @push('scripts')
-<script>
-	$( function() {
-		$("#slider").slider({
-			orientation: "horizontal",
-			range: "min",
-			value:5,
-			min: 0,
-			max: 50,
-			step: 1,
-			slide: function(event, ui) {
-				if (ui.value < 5) return false; // restrict 0 - 5 km
-				$("#distance").val(ui.value + " км");
-			}
+	<script>
+		$( function() {
+			$("#slider").slider({
+				orientation: "horizontal",
+				range: "min",
+				value:5,
+				min: 0,
+				max: 50,
+				step: 1,
+				slide: function(event, ui) {
+					if (ui.value < 5) return false; // restrict 0 - 5 km
+					$("#distance").val(ui.value + " км");
+				}
+			});
+
+			$("#distance").val($("#slider").slider("value") + " км");
+
+			$(".sorting").selectmenu({
+				change: function( e, ui ) {
+					var filter = $("#sorting").val();
+					{{-- Отсюда можна отсылать фильтр выпадайки --}}
+					console.log(filter);
+				}
+			});
+
+			$(".datepicker").datepicker({
+				dateFormat: "dd.mm.yy"
+			});
+
+			$(document).tooltip(
+					{position: {my: "left top+10"}}
+				);
 		});
-
-		$("#distance").val($("#slider").slider("value") + " км");
-
-		$(".sorting").selectmenu({
-			change: function( e, ui ) {
-				var filter = $("#sorting").val();
-				{{-- Отсюда можна отсылать фильтр выпадайки --}}
-				console.log(filter);
-			}
-		});
-
-		$(".datepicker").datepicker({
-			dateFormat: "dd.mm.yy"
-		});
-
-		$(document).tooltip(
-				{position: {my: "left top+10"}}
-			);
-	});
 	</script>
 	<script>
 		var filter = {
@@ -296,7 +311,9 @@
 		filter.init();
 	</script>
 	<script>
-		$('.advert .js-order').on('click', function () {
+		$('.js-order-add').on('click', function (e) {
+            e.preventDefault();
+
 		    var advertId  = $(this).data('id');
 
             if (advertId) {
@@ -316,7 +333,8 @@
 						}
 
 						$('#modal_order .js-user').empty().append(html);
-                        $('#modal_order input[name=advert_id]').val(advertId);
+                        $('#modal_order input[name="advert_id"]').val(advertId);
+                        $('#modal_order input[name="user_id"]').val(response['advert']['user']['id']);
 
                         $('#modal_order').modal('show');
 					}
@@ -327,13 +345,59 @@
         $('#modal_order').on('hidden.bs.modal', function () {
             $('#modal_order input[name=advert_id]').val('');
             $('#modal_order .js-buttons').removeClass('hidden');
+            $('#sw').removeClass('hidden');
+            $('#ok_send').remove();
 
             if (!$('#modal_order .js-info-block').hasClass('hidden')) {
                 $('#modal_order .js-info-block').addClass('hidden');
             }
 		});
 
-        $('#modal_order form').on('submit', function (e) {
+        $('#form-callback').on('submit', function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+
+            $.ajax({
+                url: form.attr('action'),
+                method: form.attr('method'),
+                data: form.serialize(),
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#modal_order').find('.alert').remove();
+
+                    form.find(':submit').attr('disabled', true);
+
+                    $('.body-overlay').addClass('active');
+                },
+                success: function (json) {
+                    if (json['status'] === 'success') {
+						var html = '';
+
+						html += '<div id="ok_send" class="grey-block bg-yellow black w-480">';
+                        html += '<p class="text-center red"><i class="fo fo-ok fo-2x"></i></p>';
+                        html += '<p class="f16">' + json['message'] + '</p>';
+                        html += '</div>';
+
+                        $('#switchable').addClass('hidden').after(html);
+                    }
+                },
+				error: function (data) {
+                    var json = data.responseJSON;
+
+                    for (i in json.errors) {
+                        form.find('input[name=' + i + ']').addClass('error').closest('.form-group').addClass('has-error');
+					}
+                },
+                complete: function () {
+                    form.find(':submit').attr('disabled', false);
+
+                    $('.body-overlay').removeClass('active');
+                }
+            });
+        });
+
+        $('#form-order').on('submit', function (e) {
             e.preventDefault();
 
             var form = $(this);

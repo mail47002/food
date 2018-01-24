@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class FeedbackStore extends Mailable
+class Feedback extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,6 +28,6 @@ class FeedbackStore extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.feedback.store');
+        return $this->view('emails.feedback');
     }
 }

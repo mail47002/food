@@ -394,36 +394,36 @@
                 <div class="modal-header">
                     <a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
                     <a href="#" type="button" class="back link-blue"><i class="fo fo-arrow-left fo-small"></i> Назад</a>
-                    <h4 class="modal-title">Клієнти на страву (10)</h4>
+                    <h4 class="modal-title">Клієнти на страву (<span class="js-clients-total"></span>)</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="content">
+                    <div class="content js-content">
 
-                        <div class="caption">
-                            <div class="avatar">
-                                <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-                            </div>
-                            <p><a href="#" class="link-blue name">Марк</a></p>
-                            <p class="phone">+38 096 159 15 15</p>
-                            <a href="#button" class="button button-green wide">
-                                <i class="fo fo-ok"></i>
-                                Клієнт
-                                <object><a href="#reject" class="reject" title="Відмовити клієнту"><i class="fo fo-close-bold"></i></a></object>
-                            </a>
-                        </div>
+                        {{--<div class="caption">--}}
+                            {{--<div class="avatar">--}}
+                                {{--<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>--}}
+                            {{--</div>--}}
+                            {{--<p><a href="#" class="link-blue name">Марк</a></p>--}}
+                            {{--<p class="phone">+38 096 159 15 15</p>--}}
+                            {{--<a href="#button" class="button button-green wide">--}}
+                                {{--<i class="fo fo-ok"></i>--}}
+                                {{--Клієнт--}}
+                                {{--<object><a href="#reject" class="reject" title="Відмовити клієнту"><i class="fo fo-close-bold"></i></a></object>--}}
+                            {{--</a>--}}
+                        {{--</div>--}}
 
-                        <div class="caption">
-                            <div class="avatar">
-                                <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
-                            </div>
-                            <p><a href="#" class="link-blue name">Марк</a></p>
-                            <p class="phone">+38 096 159 15 15</p>
-                            <a href="#button" class="button button-white wide hover-replace" text="Відмінити запит">Запит на відмову </a>
-                        </div>
+                        {{--<div class="caption">--}}
+                            {{--<div class="avatar">--}}
+                                {{--<div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>--}}
+                            {{--</div>--}}
+                            {{--<p><a href="#" class="link-blue name">Марк</a></p>--}}
+                            {{--<p class="phone">+38 096 159 15 15</p>--}}
+                            {{--<a href="#button" class="button button-white wide hover-replace" text="Відмінити запит">Запит на відмову </a>--}}
+                        {{--</div>--}}
 
-                        <a href="#" class="button button-red button-big-modal">Відмовити Усім Клієнтам</a>
 
                     </div>
+                    <a href="#" class="button button-red button-big-modal">Відмовити Усім Клієнтам</a>
                 </div>
             </div>
         </div>
@@ -447,58 +447,31 @@
             );
         });
     </script>
-    <script>
-        var orders = {
-            init: function () {
-                $(document).on('click', '.js-new', function (e) {
-                    e.preventDefault();
+    <script type="text/javascript">
+        var order = {
+            stored: function (advertId) {
+                $.post('{{ url('api/orders/stored') }}', {
+                    'advert_id': advertId
+                }).done(function (responce) {
+                    var html = '';
 
-                    var advertId = $(this).data('id');
+                    if (responce.data.length > 0) {
+                        for (i in responce.data) {
+                            html += '<div id="order-' + responce.data[i]['id'] + '" class="caption">';
+                            html += '<a href="#" class="discard link-red"><i class="fo fo-close-rounded"></i></a>';
+                            html += '<div class="avatar">';
+                            html += '<div class="rounded"><img src="'+ responce.data[i]['user']['image'] +'" alt="foto"></div>';
+                            html += '</div>';
+                            html += '<p><a href="#" class="link-blue name">' + responce.data[i]['user']['name'] + '</a></p>';
 
-                    if (advertId) {
-                        orders.new(advertId);
-                    }
-                });
+                            for (j in responce.data[i]['user']['phone']) {
+                                html += '<p class="phone">' + responce.data[i]['user']['phone'][j] + '</p>';
+                            }
 
-                $(document).on('click', '.js-confirmed', function (e) {
-                    e.preventDefault();
-
-                    var advertId = $(this).data('id');
-
-                    if (advertId) {
-                        orders.confirmed(advertId);
-                    }
-                });
-
-                $(document).on('click', '.js-order-confirm', function (e) {
-                    e.preventDefault();
-
-                    var orderId = $(this).data('id');
-
-                    if (orderId) {
-                        orders.confirm(orderId);
-                    }
-                });
-            },
-            new: function (advertId) {
-                $.post('{{ url('api/adverts') }}/' + advertId + '/orders').done(function (responce) {
-                    for (i in responce.data) {
-                        var html = '';
-
-                        html += '<div class="caption">';
-                        html += '<a href="#" class="discard link-red"><i class="fo fo-close-rounded"></i></a>';
-                        html += '<div class="avatar">';
-                        html += '<div class="rounded"><img src="'+ responce.data[i]['user']['image'] +'" alt="foto"></div>';
-                        html += '</div>';
-                        html += '<p><a href="#" class="link-blue name">' + responce.data[i]['user']['name'] + '</a></p>';
-
-                        for (j in responce.data[i]['user']['phone']) {
-                            html += '<p class="phone">' + responce.data[i]['user']['phone'][j] + '</p>';
+                            html += '<div class="rating"><span class="stars">4</span><p>10 відгуків</p></div>';
+                            html += '<a href="javascript:void(0);" class="button button-red wide" onclick="order.confirm(' +  responce.data[i]['id'] + ')">Підтвердити</a>';
+                            html += '</div>';
                         }
-
-                        html += '<div class="rating"><span class="stars">4</span><p>10 відгуків</p></div>';
-                        html += '<a href="#" class="button button-red wide js-order-confirm" data-id="' +  responce.data[i]['id'] + '">Підтвердити</a>';
-                        html += '</div>';
                     }
 
                     $('#modal_order .js-orders-total').html(responce.data.length);
@@ -508,36 +481,52 @@
                 });
             },
             confirm: function (orderId) {
-                $.post('{{ url('myaccount/orders') }}/' + orderId, {
-                    '_method' : 'put'
-                }).done(function (response) {
-
+                $.post('{{ url('api/orders/') }}/' + orderId + '/confirm').done(function (responce) {
+                    if (responce.data.length > 0) {
+                        $('#order-' + response.data['id']).remove();
+                    }
                 });
             },
             confirmed: function (advertId) {
-                $.post('{{ url('api/adverts') }}/' + advertId + '/confirmed').done(function (response) {
-                    for (i in responce.data) {
-                        var html = '';
+                $.post('{{ url('api/orders/confirmed') }}', {
+                    'advert_id': advertId
+                }).done(function (responce) {
+                    var html = '';
 
-                        html += '<div class="caption">';
-                        html += '<a href="#" class="discard link-red"><i class="fo fo-close-rounded"></i></a>';
-                        html += '<div class="avatar">';
-                        html += '<div class="rounded"><img src="'+ responce.data[i]['user']['image'] +'" alt="foto"></div>';
-                        html += '</div>';
-                        html += '<p><a href="#" class="link-blue name">' + responce.data[i]['user']['name'] + '</a></p>';
+                    if (responce.data.length > 0) {
+                        for (i in responce.data) {
+                            html += '<div class="caption">';
+                            html += '<div class="avatar">';
+                            html += '<div class="rounded"><img src="' + responce.data[i]['user']['image'] + '" alt="foto"></div>';
+                            html += '</div>';
+                            html += '<p><a href="#" class="link-blue name">' + responce.data[i]['user']['name'] + '</a></p>';
 
-                        for (j in responce.data[i]['user']['phone']) {
-                            html += '<p class="phone">' + responce.data[i]['user']['phone'][j] + '</p>';
+                            for (j in responce.data[i]['user']['phone']) {
+                                html += '<p class="phone">' + responce.data[i]['user']['phone'][j] + '</p>';
+                            }
+
+                            html += '<a href="#button" class="button button-green wide">';
+                            html += '<i class="fo fo-ok"></i> Клієнт';
+                            html += '<object><a href="javascript:void(0);" class="reject" title="Відмовити клієнту" onclick="order.cancel(' + responce.data[i]['id'] + ')"><i class="fo fo-close-bold"></i></a></object>';
+                            html += '</a>';
+                            html += '</div>';
+
                         }
-
-                        html += '<div class="rating"><span class="stars">4</span><p>10 відгуків</p></div>';
-                        html += '<a href="#" class="button button-red wide js-order-confirm" data-id="' +  responce.data[i]['id'] + '">Підтвердити</a>';
-                        html += '</div>';
                     }
-                });
-            }
-        };
 
-        orders.init();
+                    $('#modal_clients .js-clients-total').html(responce.data.length);
+                    $('#modal_clients .js-content').html(html);
+
+                    $('#modal_clients').modal('show');
+                });
+            },
+            cancel: function (orderId) {
+                $.post('{{ url('api/orders') }}/' + orderId + '/cancel').done(function (responce) {
+                    if (responce.data.length > 0) {
+
+                    }
+                })
+            }
+        }
     </script>
 @endpush

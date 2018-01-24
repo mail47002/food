@@ -52,10 +52,7 @@ class AdvertsController extends Controller
         $advert = Advert::with(['user', 'product'])->find($id);
 
         if ($advert) {
-            return response()->json([
-                'status' => 'success',
-                'advert' => $advert
-            ]);
+            return new AdvertResource($advert);
         }
     }
 
@@ -91,33 +88,5 @@ class AdvertsController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Return advert orders.
-     *
-     * @param $id
-     * @return AdvertResource
-     */
-    public function orders($id)
-    {
-        return new AdvertResource(Order::with('user')
-            ->where('advert_id', $id)
-            ->where('confirmed', '!=', Order::CONFIRMED)
-            ->get());
-    }
-
-    /**
-     * Return advert clients.
-     *
-     * @param $id
-     * @return AdvertResource
-     */
-    public function confirmed($id)
-    {
-        return new AdvertResource(Order::with('user')
-            ->where('advert_id', $id)
-            ->where('confirmed', '=', Order::CONFIRMED)
-            ->get());
     }
 }

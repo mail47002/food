@@ -2,26 +2,23 @@
 
 namespace App\Notifications;
 
-use App\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class OrderCanceled extends Notification
+class AdvertDeleted extends Notification
 {
     use Queueable;
-
-    public $order;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Order $order)
+    public function __construct()
     {
-        $this->order = $order;
+        //
     }
 
     /**
@@ -32,7 +29,7 @@ class OrderCanceled extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail'];
     }
 
     /**
@@ -59,13 +56,6 @@ class OrderCanceled extends Notification
     {
         return [
             //
-        ];
-    }
-
-    public function toDatabase($notifiable)
-    {
-        return [
-            'order' => $this->order
         ];
     }
 }
