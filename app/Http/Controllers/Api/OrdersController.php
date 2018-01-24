@@ -51,7 +51,7 @@ class OrdersController extends Controller
         if ($order) {
             $order->confirmed();
 
-            $order->user->notification(new OrderConfirmed($order));
+            $order->user->notify(new OrderConfirmed($order));
 
             return new OrderResource($order);
         }

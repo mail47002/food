@@ -455,7 +455,7 @@
                 }).done(function (responce) {
                     var html = '';
 
-                    if (responce.data.length > 0) {
+                    if (responce.data) {
                         for (i in responce.data) {
                             html += '<div id="order-' + responce.data[i]['id'] + '" class="caption">';
                             html += '<a href="#" class="discard link-red"><i class="fo fo-close-rounded"></i></a>';
@@ -482,8 +482,13 @@
             },
             confirm: function (orderId) {
                 $.post('{{ url('api/orders/') }}/' + orderId + '/confirm').done(function (responce) {
-                    if (responce.data.length > 0) {
-                        $('#order-' + response.data['id']).remove();
+                    if (responce.data) {
+                        var total = parseInt($('#modal_order .js-orders-total').text());
+
+                        total--;
+
+                        $('#order-' + responce.data['id']).remove();
+                        $('#modal_order .js-orders-total').html(total);
                     }
                 });
             },
@@ -493,7 +498,7 @@
                 }).done(function (responce) {
                     var html = '';
 
-                    if (responce.data.length > 0) {
+                    if (responce.data) {
                         for (i in responce.data) {
                             html += '<div class="caption">';
                             html += '<div class="avatar">';
@@ -522,7 +527,7 @@
             },
             cancel: function (orderId) {
                 $.post('{{ url('api/orders') }}/' + orderId + '/cancel').done(function (responce) {
-                    if (responce.data.length > 0) {
+                    if (responce.data) {
 
                     }
                 })

@@ -40,6 +40,6 @@
             @endif
         </div>
 
-        <button type="button" class="button button-grey order js-order" data-id="{{ $advert->id }}" {{ auth()->id() === $advert->user_id ? 'disabled' : '' }}>Замовити</button>
+        <button type="button" class="button button-grey order" onclick="order.show({{ $advert->id }})" {{ (int) auth()->id() === (int) $advert->user_id ? 'disabled' : '' }}>Замовити</button>
     </div>
 </div>

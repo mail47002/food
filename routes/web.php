@@ -76,8 +76,6 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
     Route::group(['prefix' => 'adverts'], function() {
         Route::post('store', 'AdvertsController@store');
         Route::get('{id}', 'AdvertsController@show');
-        Route::post('{id}/confirmed', 'AdvertsController@confirmed');
-        Route::post('{id}/orders', 'AdvertsController@orders');
     });
 
     // Orders
