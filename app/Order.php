@@ -5,19 +5,14 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @property bool $confirmed
- */
 class Order extends Model
 {
-    const CONFIRMED = 1;
+    const CREATED = 'created';
+    const CONFIRMED = 'confirmed';
+    const CANCELED = 'canceled';
 
     protected $fillable = [
-        'advert_id', 'user_id', 'total', 'confirmed', 'confirmed_at'
-    ];
-
-    protected $casts = [
-        'confirmed' => 'boolean'
+        'advert_id', 'user_id', 'total', 'status'
     ];
 
     public function advert()
@@ -30,10 +25,20 @@ class Order extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function scopeWhereStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
     public function confirmed()
     {
-        $this->confirmed = self::CONFIRMED;
-        $this->confirmed_at = Carbon::now();
+        $this->status = self::CONFIRMED;
+        $this->save();
+    }
+
+    public function canceled()
+    {
+        $this->status = self::CANCELED;
         $this->save();
     }
 }

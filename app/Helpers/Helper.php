@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Advert;
+use App\Order;
 
 class Helper
 {
@@ -196,6 +197,24 @@ class Helper
     public function getAdvertStickers()
     {
         return $this->advertStickers;
+    }
+
+    /**
+     * @param $status
+     * @return bool
+     */
+    public function isOrderCreated($status)
+    {
+        return $status === Order::CREATED;
+    }
+
+    /**
+     * @param $status
+     * @return bool
+     */
+    public function isOrderConfirmed($status)
+    {
+        return $status === Order::CONFIRMED;
     }
 
     /**

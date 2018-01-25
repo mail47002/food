@@ -28,10 +28,12 @@
         <div class="right left-border">
             <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>
 
-            @if(auth()->id() === $notification->data['advert']['user_id'] && $notification->data['order']['confirmed'] === 0)
-                <a href="{{ route('account.orders.confirm', $notification->data['order']['id']) }}" class="button button-orange">
-                    <i class="fo fo-ok"></i> Підтвердити
-                </a>
+            @if(auth()->id() === $notification->data['advert']['user_id'] && Helper::isOrderCreated($notification->order->status))
+                {{ Form::open(['route' => ['account.orders.confirm', $notification->data['order']['id']], 'method' => 'put']) }}
+                    <button class="button button-orange" type="submit">
+                        <i class="fo fo-ok"></i> Підтвердити
+                    </button>
+                {{ Form::close() }}
             @endif
         </div>
     </div>
@@ -39,7 +41,9 @@
 
 {{-- Order confirmed --}}
 @if($notification->type === 'App\Notifications\OrderConfirmed')
-
+    <div class="wide-thumb profile-messages">
+        OrderConfirmed
+    </div>
 @endif
 
 {{-- Order canceled --}}

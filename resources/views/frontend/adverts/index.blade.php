@@ -314,24 +314,27 @@
 		// Order
 		var order = {
 		    show: function (advertId) {
-                $.get('{{ url('api/adverts') }}/' + advertId).done(function (responce) {
+                $.get('{{ url('api/adverts') }}/' + advertId).done(function (response) {
                     var html = '';
 
-                    if (responce.data) {
+                    if (response.data) {
                         html += '<div class="caption">';
                         html += '<div class="avatar">';
-                        html += '<div class="rounded"><img src="' + responce.data['user']['image'] + '" alt="foto"></div>';
+                        html += '<div class="rounded"><img src="' + response.data['user']['image'] + '" alt="foto"></div>';
                         html += '</div>';
-                        html += '<p><a href="#" class="link-blue name">' +  responce.data['user']['name'] +'</a></p>';
+                        html += '<p><a href="#" class="link-blue name">' +  response.data['user']['name'] +'</a></p>';
                         html += '</div>';
 
-                        for (i in responce.data['user']['phone']) {
-                            html += '<div class="phone red f24">' + responce.data['user']['phone'][i] + '</div>';
+                        for (i in response.data['user']['phone']) {
+                            html += '<div class="phone red f24">' + response.data['user']['phone'][i] + '</div>';
                         }
 
                         $('#modal_order .js-user').html(html);
                         $('#modal_order input[name="advert_id"]').val(advertId);
-                        $('#modal_order input[name="user_id"]').val(responce.data['user']['id']);
+
+                        $('#modal_order .alert').remove();
+                        $('#modal_order .has-error').removeClass('has-error');
+                        $('#modal_order .error').removeClass('error');
 
                         $('#modal_order').modal('show');
 					}
@@ -352,15 +355,14 @@
 
                         $('.body-overlay').addClass('active');
                     },
-                    success: function (json) {
-                        if (json['status'] === 'success') {
+                    success: function (response) {
+                        if (response.data) {
                             form.find('.js-buttons').toggleClass('hidden');
                             form.find('.js-info-block').toggleClass('hidden');
                         }
-
-                        if (json['status'] === 'warning') {
-                            $('#modal_order .modal-body').before('<div class="alert alert-warning">Ви вже оформили це замовлення!</div>');
-                        }
+                    },
+					error: function () {
+                        $('#modal_order .modal-body').before('<div class="alert alert-warning">Ви вже оформили це замовлення!</div>');
                     },
                     complete: function () {
                         form.find(':submit').attr('disabled', false);
@@ -388,23 +390,25 @@
 
                         $('.body-overlay').addClass('active');
                     },
-                    success: function (json) {
-                        if (json['status'] === 'success') {
+                    success: function (response) {
+                        if (response.data) {
                             var html = '';
 
                             html += '<div id="ok_send" class="grey-block bg-yellow black w-480">';
                             html += '<p class="text-center red"><i class="fo fo-ok fo-2x"></i></p>';
-                            html += '<p class="f16">' + json['message'] + '</p>';
+                            html += '<p class="f16">' + response.data['message'] + '</p>';
                             html += '</div>';
 
                             $('#switchable').addClass('hidden').after(html);
                         }
                     },
-                    error: function (data) {
-                        var json = data.responseJSON;
+                    error: function (response) {
+                        var data = response.responseJSON;
 
-                        for (i in json.errors) {
-                            form.find('input[name=' + i + ']').addClass('error').closest('.form-group').addClass('has-error');
+                        if (data) {
+                            for (i in data.errors) {
+                                form.find('input[name=' + i + ']').addClass('error').closest('.form-group').addClass('has-error');
+                            }
                         }
                     },
                     complete: function () {

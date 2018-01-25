@@ -101,11 +101,7 @@
         @if(Helper::isAdvertByDate($advert->type) || Helper::isAdvertInStock($advert->type))
             <div class="form-group">
                 <label>Кількість порцій*</label>
-                <select name="quantity" id="input-quantity">
-                    <option value="">Виберіть кількість</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                </select>
+                {{ Form::select('quantity', [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10], $advert->quantity, ['id' => 'input-quantity']) }}
             </div>
         @endif
 

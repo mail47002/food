@@ -80,6 +80,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
 
     // Orders
     Route::group(['prefix' => 'orders'], function() {
+        Route::post('store', 'OrdersController@store')->name('orders.store');
         Route::post('stored', 'OrdersController@stored');
         Route::post('{id}/confirm', 'OrdersController@confirm');
         Route::post('confirmed', 'OrdersController@confirmed');
@@ -102,9 +103,6 @@ Route::group(['namespace' => 'Frontend'], function() {
 
     // User callback
     Route::post('callback', ['as' => 'callback.store', 'uses' => 'CallbackController@store']);
-
-    // Order
-    Route::post('adverts/order', ['as' => 'orders.store', 'uses' => 'OrdersController@store']);
 
     // Advices
     Route::get('advices', ['as' => 'advices.index', 'uses' => 'AdvicesController@index']);

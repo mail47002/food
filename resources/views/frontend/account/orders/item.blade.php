@@ -37,7 +37,7 @@
         </div>
         <div class="col-md-3 left-border">
             <div class="caption text-center">
-                @if((int)$order->confirmed === 0)
+                @if(!Helper::isOrderConfirmed($order->type))
                     <div class="info-block red">
                         Замовлення очікує на підтвердження!
                     </div>
@@ -49,11 +49,11 @@
                     @endif
 
                     {{ Form::open(['route' => ['account.orders.destroy', $order->id], 'method' => 'delete']) }}
-                    <button class="link-red f14"><i class="fo fo-close-bold fo-small"></i> Відмінити</button>
+                        <button class="link-red f14" type="submit"><i class="fo fo-close-bold fo-small"></i> Відмінити</button>
                     {{ Form::close() }}
                 @endif
 
-                @if((int)$order->confirmed === 1)
+                @if(Helper::isOrderConfirmed($order->type))
                     <div class="info-block green-light">
                         <i class="fo fo-ok fo-big"></i>
                         <p class="text">Ви клієнт на страву</p>

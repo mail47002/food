@@ -14,21 +14,15 @@ class OrderStored extends Notification
 {
     use Queueable;
 
-    public $user;
-    public $advert;
     public $order;
 
     /**
      * OrderStored constructor.
      *
-     * @param User $user
-     * @param Advert $advert
      * @param Order $order
      */
-    public function __construct(User $user, Advert $advert, Order $order)
+    public function __construct(Order $order)
     {
-        $this->user = $user;
-        $this->advert = $advert;
         $this->order = $order;
     }
 
@@ -73,8 +67,8 @@ class OrderStored extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'user'   => $this->user,
-            'advert' => $this->advert,
+            'user'   => $this->order->user,
+            'advert' => $this->order->advert,
             'order'  => $this->order
         ];
     }

@@ -21,8 +21,8 @@ class CreateAdvertsTable extends Migration {
             $table->text('description')->nullable();
             $table->string('slug');
             $table->integer('quantity')->nullable();
-            $table->decimal('price', 5, 2)->nullable();
-            $table->decimal('custom_price', 5, 2)->nullable();
+            $table->decimal('price', 5, 2)->default(0);
+            $table->decimal('custom_price', 5, 2)->default(0);
             $table->string('image');
             $table->string('type')->index();
             $table->integer('everyday')->default(0);

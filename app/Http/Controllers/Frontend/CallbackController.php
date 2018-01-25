@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Advert;
-use App\Mail\Callback;
 use App\Notifications\CallbackStored;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use Mail;
-
 class CallbackController extends Controller
 {
     /**
@@ -30,16 +26,15 @@ class CallbackController extends Controller
     {
         $this->validateForm($request);
 
-        $user = User::find($request->user_id);
         $advert = Advert::find($request->advert_id);
 
-        if ($user && $advert) {
-            $user->notify(new CallbackStored($user, $advert, $request->phone));
-//            Mail::to(Auth::user()->email)->send(new Callback($user, $advert, $request->phone));
+        if ($advert) {
+            $advert->user->notify(new CallbackStored(Auth::user(), $advert, $request->phone));
 
             return response()->json([
-                'status'  => 'success',
-                'message' => 'Ваш телефон відправлено'
+                'data'  => [
+                    'message' => 'Ваш телефон відправлено'
+                ]
             ]);
         }
     }
