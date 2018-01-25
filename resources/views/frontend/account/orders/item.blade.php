@@ -28,7 +28,13 @@
                     </p>
 
                     <p class="text-left">
-                        <span class="price">{{ $order->advert->price }} грн.</span>
+                        @if(Helper::isAdvertByDate($order->advert->type) || Helper::isAdvertPreOrder($order->advert->type))
+                            <span class="price">{{ $order->price }} грн.</span>
+                        @endif
+
+                            @if(Helper::isAdvertPreOrder($order->advert->type))
+                                <span class="price">{{ $order->price }} - {{ $order->custom_price }} грн.</span>
+                            @endif
                     </p>
 
                     <p class="text-left black">15 грудня (обід)</p>

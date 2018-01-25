@@ -334,10 +334,6 @@
         </div>
     </div>
 
-    <p>модальные окна</p>
-    <p><a href="#" class="link-blue" data-toggle="modal" data-target="#modal_cancel">Відмінити оголошення ...5.3.5.2</a></p>
-    <p><a href="#" class="link-blue" data-toggle="modal" data-target="#modal_clients">Клієнти на страву ...5.3.5.2</a></p>
-
 
     {{-- Modal New Orders --}}
     <div id="modal_order" class="modal fade" role="dialog">

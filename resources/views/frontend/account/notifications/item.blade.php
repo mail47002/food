@@ -1,5 +1,5 @@
 {{-- Order stored --}}
-@if($notification->type === 'App\Notifications\OrderStored')
+@if($notification->type === 'App\Notifications\OrderStored' && $notification->order)
     <div class="wide-thumb profile-messages clients">
         <div class="left with-image">
             <div class="title">Вам зробила замовлення <a href="{{ route('profile.user.show', $notification->data['user']['slug']) }}" class="link-blue">{{ $notification->data['user']['name'] }}</a> на страву з меню</div>
@@ -47,7 +47,7 @@
 @endif
 
 {{-- Order canceled --}}
-@if($notification->type === 'App\Notifications\OrderCanceled')
+@if($notification->type === 'App\Notifications\OrderCanceled' && $notification->order)
     <div class="wide-thumb profile-messages order-discard">
         <div class="left with-image">
             <div class="title">Повар <a href="/profile/#" class="link-blue">Оксана</a> відмовила на замовленняя</div>
@@ -62,8 +62,13 @@
             </div>
         </div>
         <div class="right left-border">
-            <p class="date">10:15 2 липня 2016</p>
-            <a href="#" class="button button-red"><i class="fo fo-close-bold fo-small"></i> Підтвердити</a>
+            <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>
+
+            @if($notification->order && Helper::isOrderCanceled($notification->order->status))
+                {{ Form::open(['route' => ['account.orders.destroy', $notification->data['order']['id']], 'method' => 'delete']) }}
+                    <button class="button button-red" type="submit"><i class="fo fo-close-bold fo-small"></i> Підтвердити</button>
+                {{ Form::close() }}
+            @endif
         </div>
     </div>
 @endif

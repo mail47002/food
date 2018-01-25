@@ -120,6 +120,8 @@ class OrdersController extends Controller
         $order = Order::find($id);
 
         if ($order) {
+            $order->canceled();
+
             $order->user->notify(new OrderCanceled($order));
 
             return new OrderResource($order);

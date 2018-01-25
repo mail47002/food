@@ -66,7 +66,7 @@ class OrdersController extends Controller
     {
         $order = Order::find($id);
 
-        if ($order && $order->status === Order::CREATED) {
+        if ($order && $order->status === Order::CANCELED) {
             $order->advert->user->notify(new OrderCanceled($order));
 
             $order->delete();

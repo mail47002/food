@@ -218,6 +218,15 @@ class Helper
     }
 
     /**
+     * @param $status
+     * @return bool
+     */
+    public function isOrderCanceled($status)
+    {
+        return $status === Order::CANCELED;
+    }
+
+    /**
      * Return html string.
      *
      * @param array $attributes
