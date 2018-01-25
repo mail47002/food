@@ -81,6 +81,7 @@ body {
 
 @green:      rgb(57, 181, 74);
 @greenLight: rgb(60, 184, 120);
+@greenDark:  rgb(67, 160, 71);
 
 @orange:     rgb(255, 130, 0);
 @orangeDark: rgb(255, 98, 0);
@@ -2390,6 +2391,8 @@ select.wide + span.ui-button {
 	&.review:before {background-color: @greenLight;}
 	&.deleted:after {content: '\002b';}
 	&.deleted:before {background-color: @grey2;}
+	&.success:after {content: '\0049';}
+	&.success:before {background-color: @greenDark;}
 }
 /* Відповісти */
 .your-message {
