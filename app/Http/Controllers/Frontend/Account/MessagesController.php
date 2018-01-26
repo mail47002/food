@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers\Frontend\Account;
 
-use App\Message;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class MessagesController extends Controller
 {
+    /**
+     * MessagesController constructor.
+     *
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,10 +24,10 @@ class MessagesController extends Controller
      */
     public function index()
     {
-        $messages = Message::paginate();
+        $threads = Auth::user()->threads()->paginate();
 
         return view('frontend.account.messages.index', [
-            'messages' => $messages
+            'threads' => $threads
         ]);
     }
 

@@ -16,8 +16,8 @@
     <div class="tab-content">
         <div id="messages" class="tab-pane fade in active">
 
-            @if(count($messages) > 0)
-                @each('frontend.account.messages.item', $messages, 'message')
+            @if(count($threads) > 0)
+                @each('frontend.account.messages.item', $threads, 'thread')
             @endif
 
         </div>
