@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Account;
 
+use App\Message;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,11 @@ class MessagesController extends Controller
      */
     public function index()
     {
-        //
+        $messages = Message::paginate();
+
+        return view('frontend.account.messages.index', [
+            'messages' => $messages
+        ]);
     }
 
     /**
