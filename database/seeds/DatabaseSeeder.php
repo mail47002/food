@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AddressesTableSeeder::class);
 //        $this->call(AdvertAdressesTableSeeder::class);
 //        $this->call(AdvertImagesTableSeeder::class);
-        $this->call(AdvertStickersTableSeeder::class);
+//        $this->call(AdvertStickersTableSeeder::class);
 //        $this->call(AdvertsTableSeeder::class);
         $this->call(RecipesTableSeeder::class);
         $this->call(RecipeToCategoryTableSeeder::class);
@@ -24,8 +24,8 @@ class DatabaseSeeder extends Seeder
 //        $this->call(OrderTableSeeder::class);
         $this->call(PagesTableSeeder::class);
 //        $this->call(ProductImagesTableSeeder::class);
-//        $this->call(ProductToCategoryTableSeeder::class);
-//        $this->call(ProductsTableSeeder::class);
+        $this->call(ProductToCategoryTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
         $this->call(ReviewAnswersTableSeeder::class);
         $this->call(ReviewsTableSeeder::class);
         $this->call(UsersTableSeeder::class);

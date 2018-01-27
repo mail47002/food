@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Frontend\Account;
 use App\AdvertAddress;
 use App\AdvertImage;
 use App\AdvertSticker;
+use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Advert;
 use Auth;
 use DB;
+use Helper;
 use Session;
 use Storage;
 
@@ -29,14 +31,21 @@ class AdvertsController extends Controller
      */
     public function index(Request $request)
     {
-        $adverts = Advert::where('type', $request->input('type', 'by_date'))
-            ->where('name', 'like', '%' . $request->search . '%')
-            ->where('user_id', Auth::id())
-            ->orderBy('created_at', 'desc')
-            ->paginate(2);
+        $adverts = Advert::leftJoin('orders', 'adverts.id', '=', 'orders.advert_id')
+            ->select('adverts.*')
+            ->selectRaw("COUNT(IF(orders.status = '{Order::CONFIRMED}', 1, 0)) AS confirmed")
+            ->where('adverts.type', $request->input('type', 'by_date'))
+            ->where('adverts.name', 'like', '%' . $request->search . '%')
+            ->where('adverts.user_id', Auth::id())
+            ->groupBy('adverts.id')
+            ->orderBy('adverts.created_at', 'desc')
+            ->paginate();
+
+        $advertsTotal = Advert::where('user_id', Auth::id())->count();
 
         return view('frontend.account.adverts.index', [
-            'adverts' => $adverts
+            'adverts'      => $adverts,
+            'advertsTotal' => $advertsTotal
         ]);
     }
 
@@ -52,11 +61,8 @@ class AdvertsController extends Controller
             ->get();
 
         if ($products) {
-            $stickers = AdvertSticker::orderBy('id', 'asc')->get();
-
             return view('frontend.account.adverts.create', [
-                'products' => $products,
-                'stickers' => $stickers
+                'products' => $products
             ]);
         }
     }
@@ -151,11 +157,8 @@ class AdvertsController extends Controller
             ->first();
 
         if ($advert) {
-            $stickers = AdvertSticker::orderBy('id', 'asc')->get();
-
             return view('frontend.account.adverts.edit', [
-                'advert'   => $advert,
-                'stickers' => $stickers
+                'advert'   => $advert
             ]);
         }
 
@@ -237,6 +240,11 @@ class AdvertsController extends Controller
         ]);
     }
 
+    /**
+     * Validate form request.
+     *
+     * @param Request $request
+     */
     protected function validateForm(Request $request)
     {
         $rules = [
@@ -247,7 +255,7 @@ class AdvertsController extends Controller
             'build'       => 'required'
         ];
 
-        if (!$request->has('type') || ($request->has('type') && $request->type == 'by_date')) {
+        if (Helper::isAdvertByDate()) {
             $rules['price']     = 'required|numeric|regex:/^[0-9]+[.]?[0-9]*$/';
             $rules['date']      = 'required_unless:everyday,1';
             $rules['date_from'] = 'required_if:everyday,1';
@@ -256,7 +264,7 @@ class AdvertsController extends Controller
             $rules['image']     = 'required';
         }
 
-        if ($request->has('type') && $request->type == 'in_stock') {
+        if (Helper::isAdvertInStock()) {
             $rules['price']     = 'required|numeric|regex:/^[0-9]+[.]?[0-9]*$/';
             $rules['date_from'] = 'required';
             $rules['date_to']   = 'required';
@@ -264,7 +272,7 @@ class AdvertsController extends Controller
             $rules['image']     = 'required';
         }
 
-        if ($request->has('type') && $request->type == 'pre_order') {
+        if (Helper::isAdvertPreOrder()) {
             $rules['price']        = 'required|numeric|regex:/^[0-9]+[.]?[0-9]*$/';
             $rules['custom_price'] = 'required|numeric|regex:/^[0-9]+[.]?[0-9]*$/';
         }
@@ -272,14 +280,19 @@ class AdvertsController extends Controller
         $this->validate($request, $rules);
     }
 
+    /**
+     * Copy advert images from storage.
+     *
+     * @param $images
+     */
     protected function copyImages($images)
     {
         foreach ($images as $image) {
-            $productImagePath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/' . $image->image;
-            $productThumbnailPath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/thumbnails/' . $image->image;
+            $productImagePath = Helper::getImageUrl('products', $image->image, Auth::user());
+            $productThumbnailPath = Helper::getThumbnailUrl('products', $image->image, Auth::user());
 
-            $advertImagePath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/adverts/' . $image->image;
-            $advertThumbnailPath = 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/adverts/thumbnails/' . $image->image;
+            $advertImagePath = Helper::getImageUrl('adverts', $image->image, Auth::user());
+            $advertThumbnailPath = Helper::getThumbnailUrl('adverts', $image->image, Auth::user());
 
             if (!Storage::exists($advertImagePath)) {
                 Storage::copy($productImagePath, $advertImagePath);
@@ -291,17 +304,44 @@ class AdvertsController extends Controller
         }
     }
 
+    /**
+     * Sync advert images.
+     *
+     * @param $images
+     * @param $advert
+     */
     protected function syncImages($images, $advert)
     {
-        foreach ($images as $image) {
-            $advertImage = new AdvertImage([
-                'image' => $image->image
-            ]);
+        $advertImages = [];
 
-            $advert->images()->save($advertImage);
+        foreach ($images as $image) {
+            $advertImages[] = new AdvertImage([
+                'image' => $this->getImage($image)
+            ]);
         }
+
+        $advert->images()->saveMany($advertImages);
     }
 
+    /**
+     * @param $image
+     * @return mixed
+     */
+    protected function getImage($image)
+    {
+        if (is_object($image)) {
+            $image = $image->image;
+        }
+
+        return $image;
+    }
+
+    /**
+     * Return advert slug.
+     *
+     * @param Request $request
+     * @return string
+     */
     protected function getSlug(Request $request)
     {
         return str_slug($request->name . '-' . str_random(8));

@@ -17,9 +17,9 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('advert_id');
             $table->integer('user_id');
-            $table->decimal('total', 5, 2)->nullable();
-            $table->integer('confirmed')->default(0);
-            $table->timestamp('confirmed_at')->nullable();
+            $table->decimal('price', 5, 2)->default(0);
+            $table->decimal('custom_price', 5, 2)->default(0);
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

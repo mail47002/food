@@ -78,20 +78,31 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
         Route::get('{id}', 'AdvertsController@show');
     });
 
+    // Orders
+    Route::group(['prefix' => 'orders'], function() {
+        Route::post('store', 'OrdersController@store')->name('orders.store');
+        Route::post('stored', 'OrdersController@stored');
+        Route::post('{id}/confirm', 'OrdersController@confirm');
+        Route::post('confirmed', 'OrdersController@confirmed');
+        Route::post('{id}/cancel', 'OrdersController@cancel');
+    });
+
     // User wish list
     Route::group(['prefix' => 'wishlist'], function() {
-        Route::get('/', 'WishlistController@index');
-        Route::post('/', 'WishlistController@store');
-        Route::delete('/{id}', 'WishlistController@destroy');
+        Route::get('', 'WishlistController@index');
+        Route::post('', 'WishlistController@store');
+        Route::delete('{id}', 'WishlistController@destroy');
     });
 });
 
 // Frontend
 Route::group(['namespace' => 'Frontend'], function() {
     // Adverts
-    Route::get('/', ['as' => 'adverts.index', 'uses' => 'AdvertsController@index']);
+    Route::get('', ['as' => 'adverts.index', 'uses' => 'AdvertsController@index']);
     Route::get('adverts/{slug}', ['as' => 'adverts.show', 'uses' => 'AdvertsController@show']);
-    Route::post('adverts/order', ['as' => 'adverts.order', 'uses' => 'AdvertsController@order']);
+
+    // User callback
+    Route::post('callback', ['as' => 'callback.store', 'uses' => 'CallbackController@store']);
 
     // Advices
     Route::get('advices', ['as' => 'advices.index', 'uses' => 'AdvicesController@index']);
@@ -162,6 +173,20 @@ Route::group(['namespace' => 'Frontend'], function() {
         Route::group(['prefix' => 'notifications'], function () {
             Route::get('', ['as' => 'account.notifications.index', 'uses' => 'NotificationsController@index']);
         });
+
+        // Messages
+        Route::group(['prefix' => 'messages'], function () {
+            Route::get('', ['as' => 'account.messages.index', 'uses' => 'MessagesController@index']);
+            Route::post('', ['as' => 'account.messages.store', 'uses' => 'MessagesController@store']);
+            Route::get('{id}', ['as' => 'account.messages.show', 'uses' => 'MessagesController@show']);
+        });
+
+        // Articles
+        Route::resource('articles', 'ArticlesController', [
+            'names' => [
+                'index'     => 'account.articles.index',
+            ]
+        ]);
 
         // Advices
         Route::group(['prefix' => 'advices'], function () {

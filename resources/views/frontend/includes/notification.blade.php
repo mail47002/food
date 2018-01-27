@@ -1,12 +1,28 @@
-@if($notification->type === 'App\Notifications\OrderCreated')
+@if($notification->type === 'App\Notifications\OrderStored')
     <li class="top-message clients">
-        <a href="#">{{-- Ссылка на сообщение ? --}}
+        <a href="#"> {{-- Ссылка на сообщение ? --}}
             <div class="avatar">
-                <div class="rounded"><img src="{{ asset($notification->data['image']) }}" alt="foto"></div>
+                <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
             </div>
             <div class="message">
-                <storng><object>{!! $notification->data['title'] !!}</object></storng>
-                <p class="date">{{ $notification->created_at }}</p>
+                <strong><object>Вам зробила замовлення <a href="/account/#" class="link-blue">{{ $notification->data['user']['name'] }}</a> на страву з меню</object></strong>
+                <p>В принципе вкусно,если сделать для одного ....</p>
+                <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>
+            </div>
+        </a>
+    </li>
+@endif
+
+@if($notification->type === 'App\Notifications\CallbackStored')
+    <li class="top-message phone">
+        <a href="#"> {{-- Ссылка на сообщение ? --}}
+            <div class="avatar">
+                <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+            </div>
+            <div class="message">
+                <strong><object>Повідомлення від <a href="/account/#" class="link-blue">{{ $notification->data['user']['name'] }}</object></strong>
+                <p>В принципе вкусно,если сделать для одного ....</p>
+                <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>
             </div>
         </a>
     </li>
@@ -24,27 +40,9 @@
     {{--</a>--}}
 {{--</li>--}}
 
-{{--<li class="top-message phone">--}}
-    {{--<a href="#">--}}{{-- Ссылка на сообщение ? --}}
-        {{--<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>--}}
-        {{--<div class="message">--}}
-            {{--<strong><object>Повідомлення від <a href="/account/#" class="link-blue">Вікторії</object></strong>--}}
-            {{--<p>В принципе вкусно,если сделать для одного ....</p>--}}
-            {{--<p class="date">10:15 2 липня 2016</p>--}}
-        {{--</div>--}}
-    {{--</a>--}}
-{{--</li>--}}
 
-{{--<li class="top-message clients">--}}
-    {{--<a href="#">--}}{{-- Ссылка на сообщение ? --}}
-        {{--<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>--}}
-        {{--<div class="message">--}}
-            {{--<strong><object>Вам зробила замовлення <a href="/account/#" class="link-blue">Марія</a> на страву з меню</object></strong>--}}
-            {{--<p>В принципе вкусно,если сделать для одного ....</p>--}}
-            {{--<p class="date">10:15 2 липня 2016</p>--}}
-        {{--</div>--}}
-    {{--</a>--}}
-{{--</li>--}}
+
+
 
 {{--<li class="top-message order">--}}
     {{--<a href="#">--}}{{-- Ссылка на сообщение ? --}}

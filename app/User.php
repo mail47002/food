@@ -5,10 +5,13 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Gerardojbaez\Messenger\Contracts\MessageableInterface;
+use Gerardojbaez\Messenger\Traits\Messageable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use Messageable;
 
     const VERIFIED_USER = 1;
 

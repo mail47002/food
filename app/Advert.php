@@ -6,12 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Advert extends Model
 {
+    const BY_DATE = 'by_date';
+    const IN_STOCK = 'in_stock';
+    const PRE_ORDER = 'pre_order';
+
     protected $fillable = [
-        'user_id', 'product_id', 'sticker_id', 'name', 'slug', 'description', 'price', 'special_price', 'quantity', 'image', 'type', 'everyday', 'date', 'date_from', 'date_to', 'time'
+        'user_id', 'product_id', 'sticker', 'name', 'slug', 'description', 'price', 'custom_price', 'quantity',
+        'image', 'type', 'everyday', 'date', 'date_from', 'date_to', 'time'
     ];
 
     protected $casts = [
-        'is_everyday' => 'boolean'
+        'everyday' => 'boolean'
     ];
 
     protected $dates = [
@@ -36,5 +41,10 @@ class Advert extends Model
     public function categories()
     {
         return $this->belongsToMany('App\Category', 'product_to_category', 'product_id', 'product_id');
+    }
+
+    public function address()
+    {
+        return $this->hasOne('App\AdvertAddress');
     }
 }

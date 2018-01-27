@@ -56,25 +56,25 @@ class UsersController extends Controller
      */
     public function show()
     {
-        $products = Product::with([
-            'reviews' => function ($query) {
-                $query->with(['user', 'answer']);
-            }, 'adverts'])
+        $reviewsTo = Review::with('answer')
+            ->whereHas('product', function ($query) {
+                $query->where('user_id', Auth::id());
+            })
             ->orderBy('created_at')
-            ->where('user_id', Auth::id())
-            ->get();
+            ->paginate();
 
-        $reviews = Review::with([
+        $reviewsFrom = Review::with([
             'product' => function ($query) {
                 $query->with(['user', 'adverts']);
             },
             'answer'])
             ->where('user_id', Auth::id())
-            ->get();
+            ->orderBy('created_at')
+            ->paginate();
 
         return view('frontend.account.users.show', [
-            'products' => $products,
-            'reviews'  => $reviews,
+            'reviewsTo'   => $reviewsTo,
+            'reviewsFrom' => $reviewsFrom
         ]);
     }
 

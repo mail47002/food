@@ -15,7 +15,7 @@
 		<div class="container">
 			<div class="owl-carousel">
 				@foreach ($product->images as $image)
-					<div class="item"><img src="{{ asset('uploads/' . HtmlHelper::getUserDirHash($product->user) . '/products/' . $image->image) }}"></div>
+					<div class="item"><img src="{{ asset('uploads/' . Helper::getUserDirHash($product->user) . '/products/' . $image->image) }}"></div>
 				@endforeach
 			</div>
 			<div class="slider-counter"></div>
@@ -27,7 +27,7 @@
 			<div class="row">
 				<div class="food-info col-md-9">
 					<h1>{{ $product->name }}</h1>
-					<div class="rating"><span class="stars medium">4</span>30 відгуків</div>
+					<div class="rating"><span class="stars medium">4</span>{{ $reviews->total() }} відгуків</div>
 
 					<h5 class="ingredient-title text-upper underline-red">Інгредієнти</h5><hr class="zerro-top">
 
@@ -49,95 +49,34 @@
 
 
 					<div class="reviews">
-						<h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">
-						<ul class="list-unstyled">
+						<h5 class="text-upper underline-red">Відгуки ({{ $reviews->total() }})</h5><hr class="zerro-top">
 
-							<li class="clearfix">
-								<div class="left">
-									<div class="avatar">
-										<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-									</div>
-									<a href="#" class="link-blue name">Вікторія</a>
-								</div>
-								<div class="right bg-yellow">
-									<div class="date">2 липня 2016</div>
-									<span class="stars">4</span>
-									<div class="message">
-										В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-									</div>
-								</div>
-							</li>
+						@if(count($reviews) > 0)
+							<ul class="list-unstyled">
 
-							<li class="clearfix">
-								<div class="left">
-									<div class="avatar">
-										<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-									</div>
-									<a href="#" class="link-blue name">Вікторія</a>
-								</div>
-
-								<div class="right bg-yellow">
-									<div class="date">2 липня 2016</div>
-									<span class="stars">4</span>
-									<div class="message">
-										В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-									</div>
-
-									<div class="answer clearfix">
-										<div class="title">Ваша відповідь</div>
-										<div class="message">
-											В принципе вкусно,если сделать для одного раза,а так: гарнир
-										</div>
-										<div class="right-avatar">
+								@foreach($reviews as $review)
+									<li class="clearfix">
+										<div class="left">
 											<div class="avatar">
 												<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 											</div>
+											<a href="#" class="link-blue name">{{ $review->user->name }}</a>
 										</div>
-									</div>
+										<div class="right bg-yellow">
+											<div class="date">{{ $review->created_at }}</div>
+											<span class="stars">{{ $review->rating }}</span>
+											<div class="message">{{ $review->text }}</div>
+										</div>
+									</li>
+								@endforeach
 
-									<div class="message">
-										В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-									</div>
-
-									<hr>
-									<a href="#" class="link-blue pull-right">Приховати</a>
-
-								</div>
-							</li>
-
-							<li class="clearfix">
-								<div class="left">
-									<div class="avatar">
-										<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-									</div>
-									<a href="#" class="link-blue name">Марія</a>
-								</div>
-								<div class="right bg-yellow">
-									<div class="date">2 липня 2016</div>
-									<span class="stars">4</span>
-									<div class="message">
-										В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-									</div>
-
-									<hr>
-									<a href="#" class="link-red pull-left">Відповісти</a>
-									<a href="#" class="link-blue pull-right">Показати все</a>
-								</div>
-							</li>
-
-						</ul>
-						<div class="paginate">
-							<ul class="pagination grey">
-								<li><a href="#" rel="prev"><</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li class="active"><span>3</span></li>
-								<li><a href="#">4</a></li>
-								<li class="disabled"><span>...</span></li>
-								<li><a href="#">10</a></li>
-								<li><a href="#" rel="next">></a></li>
 							</ul>
-						</div>
+							<div class="paginate">
+								{{ $reviews->links() }}
+							</div>
+						@else
+							No data!
+						@endif
 					</div>
 
 
@@ -147,12 +86,11 @@
 							<div class="avatar">
 								<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 							</div>
-							<a href="#" class="link-blue name">Марк</a>
+							<a href="#" class="link-blue name">{{ $product->user->name }}</a>
 							<a href="#" class="button button-grey">Зв’язатися</a>
 						</div>
 						<div class="right">
-							<p>Вітаю! Мене звуть Марк. Моя професія тісно пов'язана з комп'ютерами, але при цьому у мене багато різних захоплень. Одне з них - приготування їжі, я дуже люблю готувати різні страви, якими активно пригощаю всіх своїх близьких.</p>
-							<p>Всі рецепти, які ви бачите на сайті, приготовлені, сфотографовані і випробувані мною особисто. Моя професія тісно пов'язана з комп'ютерами, але при цьому у мене багато різних захоплень. Одне з них - приготування їжі, я дуже люблю готувати різні страви, якими активно пригощаю всіх своїх близьких.</p>
+							{{ $product->user->about }}
 						</div>
 					</div>
 
@@ -203,40 +141,40 @@
 			</div>
 
 
-
-			<hr>
-			<h5 class="text-upper">Інші страви</h5>
-			<div class="owl-carousel recent">
-				@for ($i=0; $i < 10; $i++)
-					<div class="item">
-						<div class="product-thumb">
-
-							<div class="image">
-								<img src="/uploads/food1.jpg" class="img-responsive" alt="">
-								<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
-							@php $actions=['discount','new', 'heart'] @endphp <!-- class: discount new heart -->
-								<div class="sticker {{ $actions[array_rand($actions)] }}"></div>
-							</div>
-
-							<div class="caption">
-								<a href="/products/1" class="title link-black">М'ясне рагу з овочами</a>
-								<p class="pull-left">
-									<span class="rating">
-										<span class="stars">{{ rand(0,5) }}</span>
-										<span class="block">10 відгуків</span>
-									</span>
-								</p>
-								<div class="pull-right categories-dishes">
-									<a href=""><i class="time"></i></a>
-									<a href=""><i class="deal"></i></a>
-									<a href=""><i class="dish-ready"></i></a>
+			@if(count($relatedProducts) > 0)
+				<hr>
+				<h5 class="text-upper">Інші страви</h5>
+				<div class="owl-carousel recent">
+					@foreach($relatedProducts as $relatedProduct)
+						<div class="item">
+							<div class="product-thumb">
+								<div class="image">
+									<img src="/uploads/food1.jpg" class="img-responsive" alt="">
+									<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
+								<!-- class: discount new heart -->
+									<div class="sticker"></div>
 								</div>
-							</div>
 
+								<div class="caption">
+									<a href="/products/1" class="title link-black">{{ $relatedProduct->name }}</a>
+									<p class="pull-left">
+										<span class="rating">
+											<span class="stars">{{ rand(0,5) }}</span>
+											<span class="block">10 відгуків</span>
+										</span>
+									</p>
+									<div class="pull-right categories-dishes">
+										<a href=""><i class="time"></i></a>
+										<a href=""><i class="deal"></i></a>
+										<a href=""><i class="dish-ready"></i></a>
+									</div>
+								</div>
+
+							</div>
 						</div>
-					</div>
-				@endfor
-			</div>
+					@endforeach
+				</div>
+			@endif
 
 		</div> <!-- container -->
 

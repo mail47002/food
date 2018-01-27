@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration {
             $table->json('ingredient')->nullable();
             $table->string('image')->nullable();
             $table->json('video')->nullable();
+            $table->decimal('rating', 3, 2)->default(0);
             $table->timestamps();
         });
 	}

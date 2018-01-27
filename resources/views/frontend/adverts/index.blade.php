@@ -26,270 +26,98 @@
 			<hr>
 			<ul class="buttons list-inline text-center js-filter-category">
 				@foreach ($categories as $category)
-					@if (in_array($category->id, $filter['cid']))
-						<li><a href="javascript:void(0);" class="button active" data-id="{{ $category->id }}">{{ $category->name }}</a></li>
-					@else
-						<li><a href="javascript:void(0);" class="button" data-id="{{ $category->id }}">{{ $category->name }}</a></li>
-					@endif
+                    <li><a href="javascript:void(0);" class="button {{ in_array($category->id, $filter['cid']) ? 'active' : '' }}" data-id="{{ $category->id }}">{{ $category->name }}</a></li>
 				@endforeach
 			</ul>
 			<hr>
 		</div>
 		<ul class="categories list-inline text-center">
-			<li class="{{ (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date')) ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'by_date']) }}" class="link-red text-upper">Меню по датам</a></li>
-			<li class="{{ (request()->has('type') && request()->get('type') == 'in_stock') ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'in_stock']) }}" class="link-red text-upper">Готові страви</a></li>
-			<li class="{{ (request()->has('type') && request()->get('type') == 'pre_order') ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'pre_order']) }}" class="link-red text-upper">Страви під замовлення</a></li>
+			<li class="{{ Helper::isAdvertByDate() ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'by_date']) }}" class="link-red text-upper">Меню по датам</a></li>
+			<li class="{{ Helper::isAdvertInStock() ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'in_stock']) }}" class="link-red text-upper">Готові страви</a></li>
+			<li class="{{ Helper::isAdvertPreOrder() ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'pre_order']) }}" class="link-red text-upper">Страви під замовлення</a></li>
 		</ul>
 		<hr class="red-border">
 	</div>
 
 	<div class="tab-content">
 		<div class="tab-pane fade in active">
-			@if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'))
+			@if(Helper::isAdvertByDate())
 				<div class="filter-block">
-				<div class="filter-inputs container">
+					<div class="filter-inputs container">
+						<div class="row">
+							<div class="col-md-3">
+								<input type="text" name="date" class="datepicker full-width" value="{{ request()->get('date') }}" placeholder="Дата">
+							</div>
+							<div class="checkboxes col-md-6">
+								<input type="checkbox" id="breakfast" name="time" value="breakfast" {{ in_array('breakfast', $filter['time']) ? 'checked' : '' }}>
+								<label for="breakfast">Сніданок (до 12:00)</label>
+
+								<input type="checkbox" id="dinner" name="time" value="dinner" {{ in_array('dinner', $filter['time']) ? 'checked' : '' }}>
+								<label for="dinner">Обід (12:00 - 16:00)</label>
+
+								<input type="checkbox" id="supper" name="time" value="supper" {{ in_array('supper', $filter['time']) ? 'checked' : '' }}>
+								<label for="supper">Вечеря (після 16:00)</label>
+							</div>
+							<div class="col-md-3">
+                                @include('frontend.includes.sort_order')
+							</div>
+						</div>
+
+						<div class="row">
+                            @include('frontend.includes.price_range')
+                        </div>
+					</div>
+				</div>
+			@endif
+
+			@if(Helper::isAdvertInStock())
+				<div class="filter-block">
+                    <div class="filter-inputs container">
+                        <div class="row">
+                            <div class="col-md-9">
+                                @include('frontend.includes.price_range')
+                            </div>
+                            <div class="col-md-3">
+                                @include('frontend.includes.sort_order')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			@endif
+
+			@if(Helper::isAdvertPreOrder())
+				<div class="filter-block">
+                    <div class="filter-inputs container">
+                        <div class="row">
+                            <div class="col-md-9">
+                                @include('frontend.includes.price_range')
+                            </div>
+                            <div class="col-md-3">
+                                @include('frontend.includes.sort_order')
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			@endif
+
+			@if(count($adverts) > 0)
+				<div class="container">
 					<div class="row">
-						<div class="col-md-3">
-							<input type="text" name="date" class="datepicker full-width" placeholder="Дата">
-						</div>
-						<div class="checkboxes col-md-6">
-							<input type="checkbox" id="breakfast"><label for="breakfast">Сніданок (до 12:00)</label>
-
-							<input type="checkbox" id="dinner" checked="checked"><label for="dinner">Обід (12:00 - 16:00)</label>
-
-							<input type="checkbox" id="supper" checked="checked"><label for="supper">Вечеря (після 16:00)</label>
-						</div>
-						<div class="col-md-3">
-							<label for="sorting" class="grey3">Сортутвати по:</label>
-							<select name="sorting" class="sorting" id="sorting">
-								<option value="">найближчі</option>
-								<option value="">найближчі</option>
-								<option value="">найближчі</option>
-							</select>
-						</div>
-					</div>
-
-
-					<div class="prices-input text-center js-filter-price">
-						<label>Ціновий діапазон</label>
-						<input type="text" name="price_from">
-						<label>&#x2014;</label>
-						<input type="text" name="price_to">
-						<label for="">грн.</label>
-
-						<input type="button" class="button btn-filter js-btn-filter" value="OK">
+						@each('frontend.adverts.item', $adverts, 'advert')
 					</div>
 				</div>
-			</div>
+
+
+				<div class="bottom-block text-right">
+					{{ $adverts->appends(request()->all())->links() }}
+					<a href="#wrapper" class="btn-top"></a> <!-- Важно!! - не переносить!!! -->
+				</div>
+			@else
+				No data!
 			@endif
 
-			@if (request()->has('type') && request()->get('type') == 'in_stock')
-				<div class="filter-block">
-						<div class="filter-inputs container">
-							<div class="row">
-								<div class="col-md-9">
-									<div class="prices-input p0 js-filter-price">
-										<label>Ціновий діапазон</label>
-										<input type="text" name="price_from">
-										<label for="">&#x2014;</label>
-										<input type="text" name="price_to">
-										<label>грн.</label>
-										<input type="button" class="button btn-filter js-btn-filter" value="OK">
-									</div>
-								</div>
-								<div class="col-md-3">
-									<label for="sorting-ready" class="grey3">Сортутвати по:</label>
-									<select name="sorting-ready" class="sorting" id="sorting-ready">
-										<option value="">найближчі</option>
-										<option value="">найближчі</option>
-										<option value="">найближчі</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-			@endif
-
-			@if (request()->has('type') && request()->get('type') == 'pre_order')
-				<div class="filter-block">
-						<div class="filter-inputs container">
-							<div class="row">
-								<div class="col-md-9">
-									<div class="prices-input p0 js-filter-price">
-										<label>Ціновий діапазон</label>
-										<input type="text" name="price_from">
-										<label>&#x2014;</label>
-										<input type="text" name="price_to">
-										<label>грн.</label>
-										<input type="button" class="button btn-filter js-btn-filter" value="OK">
-									</div>
-								</div>
-								<div class="col-md-3">
-									<label for="sorting-order" class="grey3">Сортутвати по:</label>
-									<select name="sorting-order" class="sorting" id="sorting-order">
-										<option value="">найближчі</option>
-										<option value="">найближчі</option>
-										<option value="">найближчі</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-			@endif
-
-
-			<div class="container">
-				<div class="row">
-					@foreach ($adverts as $advert)
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 advert">
-							<div class="product-thumb">
-								<div class="image">
-									<img src="{{ HtmlHelper::getAdvertThumbnailUrl($advert) }}" class="img-responsive" alt="{{ $advert->name }}">
-									<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
-									@php $actions=['discount','new', 'heart']; @endphp <!-- class: discount new heart -->
-									<div class="sticker {{ $actions[array_rand($actions)] }}"></div>
-								</div>
-
-								<div class="caption">
-									<a href="{{ route('adverts.show', $advert->slug) }}" class="title link-black">{{ $advert->name }}</a>
-									<p>
-										@if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date') || (request()->has('type') && request()->get('type') == 'in_stock'))
-											<span class="price">{{ $advert->price }} грн.</span>
-										@endif
-
-										@if (request()->has('type') && request()->get('type') == 'pre_order')
-											<span class="price"><i class="fo fo-deal red"></i> {{ $advert->price }} - {{ $advert->custom_price }} грн.</span>
-										@endif
-									</p>
-									<p>
-										<span class="rating">
-											<span class="stars">{{rand(0,5)}}</span> відгуків
-										</span>
-									</p>
-
-									@if (!request()->has('type') || (request()->has('type') && request()->get('type') == 'by_date'))
-										<p><i class="fo fo-time red"></i>15 грудня (обід)</p>
-									@endif
-
-									@if (request()->has('type') && request()->get('type') == 'in_stock')
-										<p><i class="fo fo-dish-ready red" title="Термін придатності"></i> 10 - 15 грудня</p>
-									@endif
-								</div>
-
-								<button type="button" class="button button-grey order js-order" data-id="{{ $advert->id }}">Замовити</button>
-
-							</div>
-					</div>
-					@endforeach
-				</div>
-			</div>
-
-
-			<div class="bottom-block text-right">
-				{{ $adverts->appends(request()->all())->links() }}
-				<a href="#wrapper" class="btn-top"></a> <!-- Важно!! - не переносить!!! -->
-			</div>
-
-
-		</div>
-	{{-- 2.2 --}}
-		<div id="byready" class="tab-pane fade">
-
-
-
-			<div class="container">
-				<div class="row">
-					@foreach ($adverts as $advert)
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="product-thumb">
-								<div class="image">
-									<img src="{{ asset($advert->product->image) }}" class="img-responsive" alt="{{ $advert->name }}">
-									<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
-									@php $actions=['discount','new', 'heart']; @endphp <!-- class: discount new heart -->
-									<div class="sticker {{ $actions[array_rand($actions)] }}"></div>
-								</div>
-
-								<div class="caption">
-									<a href="#" class="title link-black">{{ $advert->name }}</a>
-									<p>
-										<span class="price">{{ $advert->price }} грн.</span>
-										<span class="rating">
-											<span class="stars">{{rand(0,5)}}</span> відгуків
-										</span>
-									</p>
-									<p><i class="fo fo-dish-ready red" title="Термін придатності"></i> 10 - 15 грудня</p>
-								</div>
-
-								<button type="button" class="button button-grey order">Замовити</button>
-
-							</div>
-					</div>
-					@endforeach
-				</div>
-			</div>
-
-			<div class="bottom-block text-right">
-				<ul class="pagination">
-					<li class="disabled"><span><</span></li>
-					<li class="active"><span>1</span></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li class="disabled"><span>...</span></li>
-					<li><a href="#">10</a></li>
-					<li><a href="#" rel="next">></a></li>
-					<p class="count">37 – 47 из 160 объявлений</p>
-				</ul><a href="#wrapper" class="btn-top"></a> <!-- Важно!! - не переносить!!! -->
-			</div>
-		</div>
-	{{-- 2.3 --}}
-		<div id="byorder" class="tab-pane fade">
-
-
-
-			<div class="container">
-				<div class="row">
-					@foreach ($adverts as $advert)
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="product-thumb">
-								<div class="image">
-									<img src="{{ asset($advert->product->image) }}" class="img-responsive" alt="{{ $advert->name }}">
-									<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
-									@php $actions=['discount','new', 'heart']; @endphp <!-- class: discount new heart -->
-									<div class="sticker {{ $actions[array_rand($actions)] }}"></div>
-								</div>
-
-								<div class="caption">
-									<a href="#" class="title link-black">{{ $advert->name }}</a>
-									<p><span class="price"><i class="fo fo-deal red"></i> 800 - 2500 грн.</span></p>
-									<p><span class="rating"><span class="stars">{{ rand(0,5) }}</span> 10 відгуків</span></p>
-								</div>
-
-								<button type="button" class="button button-grey order">Замовити</button>
-
-							</div>
-					</div>
-					@endforeach
-				</div>
-			</div>
-
-
-			<div class="bottom-block text-right">
-				<ul class="pagination">
-					<li class="disabled"><span><</span></li>
-					<li class="active"><span>1</span></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li class="disabled"><span>...</span></li>
-					<li><a href="#">10</a></li>
-					<li><a href="#" rel="next">></a></li>
-					<p class="count">37 – 47 из 160 объявлений</p>
-				</ul><a href="#wrapper" class="btn-top"></a> <!-- Важно!! - не переносить!!! -->
-			</div>
 		</div>
 	</div>
-
 </div>
 
 <!-- Modal Address -->
@@ -343,25 +171,38 @@
 					<div class="step"><span>1</span></div>
 					<div class="f-18 top-10">Для оформлення замовлення, зв'яжіться з поваром страви</div>
 					<div class="js-user"></div>
+					<div id="switchable">
+						<div class="grey3 top-20">або</div>
+						<div class="f18">залиште свій номер телефону,<br> і повар зв’яжиться з вам найближчи</div>
+						<div class="top-20"></div>
+						{{ Form::open(['route' => 'callback.store', 'method' => 'post', 'id' => 'form-callback']) }}
+							<input type="hidden" name="advert_id" value="">
+							<input type="hidden" name="user_id" value="">
+							<div class="form-group">
+								<input type="tel" class="phone-input w-440 text-center" name="phone">
+							</div>
+							<a class="button btn-grey-red" href="javascript:void(0);" onclick="callback.store()">Відправити</a>
+						{{ Form::close() }}
+					</div>
+
 					<div class="v-indent-20"></div>
 					<div class="step"><span>2</span></div>
 					<div class="f-18 top-20">Для завершення замовлення обов’язково потрібно підтвердити його</div>
 
-					{{ Form::open(['route' => 'adverts.order', 'method' => 'post']) }}
 
-					<input type="hidden" name="advert_id" value="">
-					<input type="hidden" name="user_id" value="{{ auth()->id() }}">
+					{{ Form::open(['route' => 'orders.store', 'method' => 'post', 'id' => 'form-order']) }}
+						<input type="hidden" name="advert_id" value="">
+						<input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
-					<div class="top-20 inline js-buttons">
-						<button class="button button-white text-upper mlr-10" type="button" data-dismiss="modal">Підтвердити пізніше</button>
-						<button class="button button-red text-upper mlr-10" type="submit">Підтвердити зараз</button>
-					</div>
+						<div class="top-20 inline js-buttons">
+							<button class="button button-white text-upper mlr-10" type="button" data-dismiss="modal">Підтвердити пізніше</button>
+							<a class="button button-red text-upper mlr-10" href="#" onclick="order.store()">Підтвердити зараз</a>
+						</div>
 
-					<div class="info-block red w-480 hidden js-info-block">
-						<p class="text-upper">Замовлення очікує на підтвердження!</p>
-						<div><a href="#" class="link-grey3 f14">Перейти до моїх замовлень та підтвердити <i class="fo fo-arrow-right fo-small"></i></a></div>
-					</div>
-
+						<div class="info-block red w-480 hidden js-info-block">
+							<p class="text-upper">Замовлення очікує на підтвердження!</p>
+							<div><a href="{{ route('account.orders.index') }}" class="link-grey3 f14">Перейти до моїх замовлень <i class="fo fo-arrow-right fo-small"></i></a></div>
+						</div>
 					{{ Form::close() }}
 
 				</div>
@@ -373,50 +214,52 @@
 @stop
 
 @push('scripts')
-<script>
-	$( function() {
-		$("#slider").slider({
-			orientation: "horizontal",
-			range: "min",
-			value:5,
-			min: 0,
-			max: 50,
-			step: 1,
-			slide: function(event, ui) {
-				if (ui.value < 5) return false; // restrict 0 - 5 km
-				$("#distance").val(ui.value + " км");
-			}
+	<script>
+		$( function() {
+			$("#slider").slider({
+				orientation: "horizontal",
+				range: "min",
+				value:5,
+				min: 0,
+				max: 50,
+				step: 1,
+				slide: function(event, ui) {
+					if (ui.value < 5) return false; // restrict 0 - 5 km
+					$("#distance").val(ui.value + " км");
+				}
+			});
+
+			$("#distance").val($("#slider").slider("value") + " км");
+
+			$(".sorting").selectmenu({
+				change: function( e, ui ) {
+					var filter = $("#sorting").val();
+					{{-- Отсюда можна отсылать фильтр выпадайки --}}
+					console.log(filter);
+				}
+			});
+
+			$(".datepicker").datepicker({
+				dateFormat: "dd.mm.yy"
+			});
+
+			$(document).tooltip(
+					{position: {my: "left top+10"}}
+				);
 		});
-
-		$("#distance").val($("#slider").slider("value") + " км");
-
-		$(".sorting").selectmenu({
-			change: function( e, ui ) {
-				var filter = $("#sorting").val();
-				{{-- Отсюда можна отсылать фильтр выпадайки --}}
-				console.log(filter);
-			}
-		});
-
-		$(".datepicker").datepicker({
-			dateFormat: "dd.mm.yy"
-		});
-
-		$(document).tooltip(
-				{position: {my: "left top+10"}}
-			);
-	});
 	</script>
 	<script>
 		var filter = {
 		    options: {
-				type: '{{ request()->input('type', 'by_date') }}',
+				type: '{{ request()->get('type', 'by_date') }}',
                 cid: [],
-				price_from: null,
-				price_to: null
+				price_from: '',
+				price_to: '',
+				date: '',
+				time: []
 			},
 			init: function () {
-		        // Category
+		        // Categories filter
                 $('.js-filter-category').on('click', 'a', function (e) {
                     e.preventDefault();
 
@@ -431,32 +274,35 @@
                     filter.filtering();
                 });
 
-                // Price
+                // Other filters
 				$('.js-btn-filter').on('click', function (e) {
 					e.preventDefault();
 
-					var el = $(this).closest('.js-filter-price');
+					var el = $(this).closest('.filter-block');
+
+					if (filter.options.type == 'by_date') {
+					    filter.options.date = el.find('input[name="date"]').val();
+
+                        filter.options.time = [];
+
+					    el.find('input[name="time"]:checked').each(function (i, item) {
+							filter.options.time.push($(item).val());
+                        });
+					}
 
 					filter.options.price_from = el.find('input[name="price_from"]').val();
                     filter.options.price_to = el.find('input[name="price_to"]').val();
 
-                    filter.filtering();
+					filter.filtering();
                 })
             },
 			filtering: function () {
-		        var url = '{{ url('') }}/?type=' + filter.options.type;
+		        var url = '{{ url('') }}/';
 
-		        if (filter.options.cid.length > 0) {
-		            url += '&cid=' + filter.options.cid.join(',');
+		        for (i in filter.options) {
+		            url += (i == 'type') ? '?' : '&';
+		            url += i + '=' + filter.options[i];
 				}
-
-                if (filter.options.price_from) {
-                    url += '&price_from=' + filter.options.price_from;
-                }
-
-                if (filter.options.price_to) {
-                    url += '&price_to=' + filter.options.price_to;
-                }
 
                 location = url;
             }
@@ -465,76 +311,125 @@
 		filter.init();
 	</script>
 	<script>
-		$('.advert .js-order').on('click', function () {
-		    var advertId  = $(this).data('id');
-
-            if (advertId) {
+		// Order
+		var order = {
+		    show: function (advertId) {
                 $.get('{{ url('api/adverts') }}/' + advertId).done(function (response) {
-					if (response['status'] === 'success') {
-                    	var html = '';
+                    var html = '';
 
-                    	html += '<div class="caption">';
-						html += '<div class="avatar">';
-						html += '<div class="rounded"><img src="' + response['advert']['user']['image'] + '" alt="foto"></div>';
-						html += '</div>';
-                        html += '<p><a href="#" class="link-blue name">' +  response['advert']['user']['name'] +'</a></p>';
+                    if (response.data) {
+                        html += '<div class="caption">';
+                        html += '<div class="avatar">';
+                        html += '<div class="rounded"><img src="' + response.data['user']['image'] + '" alt="foto"></div>';
+                        html += '</div>';
+                        html += '<p><a href="#" class="link-blue name">' +  response.data['user']['name'] +'</a></p>';
                         html += '</div>';
 
-                        for (i in response['advert']['user']['phone']) {
-                        	html += '<div class="phone red f24">' + response['advert']['user']['phone'][i] + '</div>';
-						}
+                        for (i in response.data['user']['phone']) {
+                            html += '<div class="phone red f24">' + response.data['user']['phone'][i] + '</div>';
+                        }
 
-						$('#modal_order .js-user').empty().append(html);
-                        $('#modal_order input[name=advert_id]').val(advertId);
+                        $('#modal_order .js-user').html(html);
+                        $('#modal_order input[name="advert_id"]').val(advertId);
+
+                        $('#modal_order .alert').remove();
+                        $('#modal_order .has-error').removeClass('has-error');
+                        $('#modal_order .error').removeClass('error');
 
                         $('#modal_order').modal('show');
 					}
+				});
+            },
+			store: function () {
+                var form = $('#form-order');
+
+                $.ajax({
+                    url: form.attr('action'),
+                    method: form.attr('method'),
+                    data: form.serialize(),
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $('#modal_order').find('.alert').remove();
+
+                        form.find(':submit').attr('disabled', true);
+
+                        $('.body-overlay').addClass('active');
+                    },
+                    success: function (response) {
+                        if (response.data) {
+                            form.find('.js-buttons').toggleClass('hidden');
+                            form.find('.js-info-block').toggleClass('hidden');
+                        }
+                    },
+					error: function () {
+                        $('#modal_order .modal-body').before('<div class="alert alert-warning">Ви вже оформили це замовлення!</div>');
+                    },
+                    complete: function () {
+                        form.find(':submit').attr('disabled', false);
+
+                        $('.body-overlay').removeClass('active');
+                    }
+                })
+            }
+		};
+
+		// Callback
+		var callback = {
+			store: function () {
+                var form = $('#form-callback');
+
+                $.ajax({
+                    url: form.attr('action'),
+                    method: form.attr('method'),
+                    data: form.serialize(),
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $('#modal_order').find('.alert').remove();
+
+                        form.find(':submit').attr('disabled', true);
+
+                        $('.body-overlay').addClass('active');
+                    },
+                    success: function (response) {
+                        if (response.data) {
+                            var html = '';
+
+                            html += '<div id="ok_send" class="grey-block bg-yellow black w-480">';
+                            html += '<p class="text-center red"><i class="fo fo-ok fo-2x"></i></p>';
+                            html += '<p class="f16">' + response.data['message'] + '</p>';
+                            html += '</div>';
+
+                            $('#switchable').addClass('hidden').after(html);
+                        }
+                    },
+                    error: function (response) {
+                        var data = response.responseJSON;
+
+                        if (data) {
+                            for (i in data.errors) {
+                                form.find('input[name=' + i + ']').addClass('error').closest('.form-group').addClass('has-error');
+                            }
+                        }
+                    },
+                    complete: function () {
+                        form.find(':submit').attr('disabled', false);
+
+                        $('.body-overlay').removeClass('active');
+                    }
                 });
             }
-        });
+        };
+
 
         $('#modal_order').on('hidden.bs.modal', function () {
             $('#modal_order input[name=advert_id]').val('');
             $('#modal_order .js-buttons').removeClass('hidden');
+            $('#sw').removeClass('hidden');
+            $('#ok_send').remove();
 
             if (!$('#modal_order .js-info-block').hasClass('hidden')) {
                 $('#modal_order .js-info-block').addClass('hidden');
             }
 		});
-
-        $('#modal_order form').on('submit', function (e) {
-            e.preventDefault();
-
-            var form = $(this);
-
-            $.ajax({
-				url: form.attr('action'),
-				method: form.attr('method'),
-				data: form.serialize(),
-				dataType: 'json',
-				beforeSend: function () {
-				    $('#modal_order').find('.alert').remove();
-
-					form.find(':submit').attr('disabled', true);
-
-                    $('.body-overlay').addClass('active');
-                },
-				success: function (json) {
-					if (json['status'] === 'success') {
-                        form.find('.js-buttons').toggleClass('hidden');
-                        form.find('.js-info-block').toggleClass('hidden');
-					}
-
-                    if (json['status'] === 'warning') {
-                        $('#modal_order .modal-body').before('<div class="alert alert-warning">Ви вже оформили це замовлення!</div>');
-                    }
-                },
-				complete: function () {
-                    form.find(':submit').attr('disabled', false);
-
-                    $('.body-overlay').removeClass('active');
-                }
-			})
-        })
 	</script>
 @endpush

@@ -19,4 +19,9 @@ class Address extends Model
     {
         $this->belongsTo('App\User');
     }
+
+    public function getFullAddressAttribute()
+    {
+        return "вул. {$this->street} {$this->build}, {$this->city}";
+    }
 }

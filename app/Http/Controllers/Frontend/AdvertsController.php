@@ -4,46 +4,62 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Advert;
 use App\Category;
-use App\Notifications\OrderCreated;
-use App\Order;
 use App\Review;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
+use Helper;
 
 class AdvertsController extends Controller
 {
     /**
-     * Show the application dashboard.
+     * Display a listing of the resource.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
-        $categories = Category::all();
-
-        $cid = $request->cid ? explode(',', $request->cid) : $categories->pluck('id');
+        $cId = $request->cid ? explode(',', $request->cid) : Category::all()->pluck('id');
+        $type = $request->input('type', Advert::BY_DATE);
+        $priceFrom = $request->price_from ?? 0;
+        $priceTo = $request->price_to ?? 99999.99;
+        $date = $request->date ? Carbon::parse($request->date)->toDateTimeString() : null;
+        $time = $request->time ? explode(',', $request->time) : Helper::getAdvertTimes();
 
         $adverts = Advert::with(['product', 'images'])
-            ->whereHas('categories', function ($query) use ($request, $cid) {
-                $query->whereIn('category_id', $cid);
+            ->whereHas('categories', function ($query) use ($request, $cId) {
+                $query->whereIn('category_id', $cId);
             })
-            ->where('type', $request->input('type', 'by_date'))
             ->where('name', 'like', '%' . $request->search . '%')
-            ->whereBetween('price', [$request->input('price_from', 0), $request->input('price_to', 99999)])
-            ->orderBy('created_at', 'asc')
-            ->paginate(4);
+            ->whereBetween('price', [$priceFrom, $priceTo])
+            ->where('type', $type);
+
+        if ($type == Advert::BY_DATE) {
+            if ($date) {
+                $adverts = $adverts->where('date', '>=', $date);
+            }
+
+            $adverts = $adverts->whereIn('time', $time);
+        }
+
+        $adverts = $adverts->orderBy('created_at', 'asc')->paginate();
 
         return view('frontend.adverts.index', [
-            'adverts'    => $adverts,
-            'filter'     => [
-                'cid' => $request->has('cid') ? explode(',', $request->cid) : [],
+            'adverts' => $adverts,
+            'filter'  => [
+                'cid'  => $request->has('cid') ? explode(',', $request->cid) : [],
+                'time' => $request->has('time') ? explode(',', $request->time) : []
             ]
         ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($slug)
     {
         $advert = Advert::with(['user', 'images', 'product'])
@@ -51,45 +67,12 @@ class AdvertsController extends Controller
             ->first();
 
         if ($advert) {
-            $reviews = Review::where('product_id', $advert->product->id)->paginate(2);
+            $reviews = Review::where('product_id', $advert->product->id)->paginate();
 
             return view('frontend.adverts.show', [
                 'advert'  => $advert,
                 'reviews' => $reviews
             ]);
         }
-    }
-
-    /**
-     * TODO: Check auth user id & advert id
-     *
-     */
-    public function order(Request $request)
-    {
-        $this->validateForm($request);
-
-        $advert = Advert::with('user')->find($request->advert_id);
-
-        if ($advert && !Order::where('advert_id', $request->advert_id)->where('user_id', Auth::id())->exists()) {
-            $order = Order::create($request->all());
-
-            $advert->user->notify(new OrderCreated($order));
-
-            return response()->json([
-                'status' => 'success'
-            ]);
-        }
-
-        return response()->json([
-            'status' => 'warning'
-        ]);
-    }
-
-    protected function validateForm(Request $request)
-    {
-        $this->validate($request, [
-            'advert_id' => 'required',
-            'user_id'   => 'required'
-        ]);
     }
 }

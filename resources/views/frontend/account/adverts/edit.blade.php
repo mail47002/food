@@ -11,18 +11,18 @@
 
     <div class="bg-yellow text-center">
         <div class="v-indent-30"></div>
-        <img src="{{ HtmlHelper::getAdvertImageUrl($advert) }}" alt="{{ $advert->name }}" class="inline header-img">
+        <img src="{{ Helper::getAdvertImageUrl($advert) }}" alt="{{ $advert->name }}" class="inline header-img">
         <h5 class="header-title text-upper black margin-30">{{ $advert->name }}</h5>
         <p class="red f20 margin-zerro">
-            @if ($advert->type == 'by_date')
+            @if(Helper::isAdvertByDate($advert->type))
                 <i class="fo fo-time fo-2x"></i> Страва на дату
             @endif
 
-            @if ($advert->type == 'in_stock')
+            @if(Helper::isAdvertInStock($advert->type))
                 <i class="fo fo-dish-ready fo-2x"></i> Готова страва
             @endif
 
-            @if ($advert->type == 'pre_order')
+            @if(Helper::isAdvertPreOrder($advert->type))
                 <i class="fo fo-deal fo-2x"></i> Під замовлення
             @endif
         </p>
@@ -33,14 +33,14 @@
         {{ Form::open(['route' => ['account.adverts.update', $advert->id], 'method' => 'put', 'class' => 'edit']) }}
         <p class="message" id="message">Заповніть виділені поля</p>
 
-        @if ($advert->type == 'by_date' || $advert->type == 'in_stock')
+        @if(Helper::isAdvertByDate($advert->type) || Helper::isAdvertInStock($advert->type))
             <div class="form-group">
                 <label for="price">Ціна*</label>
                 <input name="price" id="input-price" type="text" class="price inline" value="{{ $advert->price }}">
             </div>
         @endif
 
-        @if ($advert->type == 'pre_order'))
+        @if(Helper::isAdvertPreOrder($advert->type))
             <div class="form-group">
                 <label for="price">Ціна*</label>
                 <div class="row">
@@ -54,7 +54,7 @@
             </div>
         @endif
 
-        @if ($advert->type == 'by_date')
+        @if(Helper::isAdvertByDate($advert->type))
             <div class="form-group everyday">
                 <input id="input-everyday" type="checkbox" name="everyday" value="1">
                 <label for="input-everyday" class="inline">Кожного дня</label>
@@ -75,13 +75,18 @@
             </div>
 
             <div class="form-group">
-                <input id="breakfast" type="radio" name="time" value="breakfast" {{ $advert->time == 'breakfast' ? 'checked' : null }}><label for="breakfast" class="inline">Сніданок (до 12:00)</label>
-                <input id="dinner" type="radio" name="time" value="dinner" {{ $advert->time == 'dinner' ? 'checked' : null }}><label for="dinner" class="inline">Обід (12:00 - 16:00)</label>
-                <input id="launch" type="radio" name="time" value="launch" {{ $advert->time == 'launch' ? 'checked' : null }}><label for="launch" class="inline">Вечеря (після 16:00)</label>
+                <input id="breakfast" type="radio" name="time" value="breakfast" {{ $advert->time == 'breakfast' ? 'checked' : null }}>
+                <label for="breakfast" class="inline">Сніданок (до 12:00)</label>
+
+                <input id="dinner" type="radio" name="time" value="dinner" {{ $advert->time == 'dinner' ? 'checked' : null }}>
+                <label for="dinner" class="inline">Обід (12:00 - 16:00)</label>
+
+                <input id="supper" type="radio" name="time" value="supper" {{ $advert->time == 'launch' ? 'checked' : null }}>
+                <label for="supper" class="inline">Вечеря (після 16:00)</label>
             </div>
         @endif
 
-        @if ($advert->type == 'in_stock')
+        @if(Helper::isAdvertInStock($advert->type))
             <div class="form-group">
                 <label for="date">Термін придатності*</label>
                 <div class="two-in-line">
@@ -93,42 +98,39 @@
             </div>
         @endif
 
-        @if ($advert->type == 'by_date' || $advert->type == 'in_stock')
+        @if(Helper::isAdvertByDate($advert->type) || Helper::isAdvertInStock($advert->type))
             <div class="form-group">
                 <label>Кількість порцій*</label>
-                <select name="quantity" id="input-quantity">
-                    <option value="">Виберіть кількість</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                {{ Form::label('fotos', 'Додати фото*') }}
-                <div id="input-image" class="fotos">
-                    @foreach ($advert->images as $image)
-                        <div class="wrap js-foto">
-                            <div class="uploader">
-                                <img src="{{ asset('uploads/' . HtmlHelper::getUserDirHash($advert->user) . '/adverts/thumbnails/' . $image->image) }}">
-                                {{ Form::hidden('images[]', $image->image) }}
-                            </div>
-                            <a href="#" class="pull-left grey1 js-cover-foto {{ $advert->image === $image->image ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
-                            <a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
-                        </div>
-                    @endforeach
-                    <div class="wrap js-foto">
-                        <div class="uploader">
-                            <img src="">
-                            <div class="round"><i class="fo fo-camera"></i></div>
-                            {{ Form::file(null, ['class' => 'input-upload']) }}
-                        </div>
-                        <a href="#" class="pull-left hide grey1 js-cover-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
-                        <a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
-                    </div>
-                </div>
-                {{ Form::hidden('image', $advert->image, ['id' => 'cover-image']) }}
+                {{ Form::select('quantity', [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10], $advert->quantity, ['id' => 'input-quantity']) }}
             </div>
         @endif
+
+        <div class="form-group">
+            {{ Form::label('fotos', 'Додати фото*') }}
+            <div id="input-image" class="fotos">
+                @foreach ($advert->images as $image)
+                    <div class="wrap js-foto">
+                        <div class="uploader">
+                            <img src="{{ asset('uploads/' . Helper::getUserDirHash(auth()->user()) . '/adverts/thumbnails/' . $image->image) }}">
+                            {{ Form::hidden('images[]', $image->image) }}
+                        </div>
+                        <a href="#" class="pull-left grey1 js-cover-foto {{ $advert->image === $image->image ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                        <a href="#" class="pull-right link-red-dark remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
+                    </div>
+                @endforeach
+
+                <div class="wrap js-foto">
+                    <div class="uploader">
+                        <img src="">
+                        <div class="round"><i class="fo fo-camera"></i></div>
+                        {{ Form::file(null, ['class' => 'input-upload']) }}
+                    </div>
+                    <a href="#" class="pull-left hide grey1 js-cover-foto"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
+                    <a href="#" class="pull-right link-red-dark hide remove js-delete-foto"><i class="fo fo-close-rounded"></i></a>
+                </div>
+            </div>
+            {{ Form::hidden('image', $advert->image, ['id' => 'cover-image']) }}
+        </div>
 
         <div class="form-group">
             <label>Додаткова інформація*</label>
@@ -137,11 +139,11 @@
 
         <label for="">Додати значок</label>
         <div class="stickers">
-            <input id="empty" type="radio" name="sticker_id" value="0" {{ $advert->sticker_id > 0 ?: 'checked' }}><label for="empty" class="inline">без значка</label>
-            @foreach($stickers as $sticker)
-                <input id="{{ $sticker->slug }}" type="radio" name="sticker_id" value="{{ $sticker->id }}" {{ $advert->sticker_id !== $sticker->id ?: 'checked' }}>
-                <label for="{{ $sticker->slug }}" class="inline">
-                    <i class="{{ $sticker->slug }}"></i>
+            <input id="empty" type="radio" name="sticker" value="" {{ $advert->sticker === null ? 'checked' : null }}><label for="empty" class="inline">без значка</label>
+            @foreach(['discount','new', 'heart'] as $sticker)
+                <input id="{{ $sticker }}" type="radio" name="sticker" value="{{ $sticker }}" {{ $advert->sticker === $sticker ? 'checked' : null }}>
+                <label for="{{ $sticker }}" class="inline">
+                    <i class="{{ $sticker }}"></i>
                 </label>
             @endforeach
         </div>
@@ -149,7 +151,7 @@
         <div class="form-group">
             <label>Населений пункт*</label>
             <div class="marker inline wide">
-                <input id="input-city" name="city" type="text" class="wide" value="{{ auth()->user()->address->city }}">
+                <input id="input-city" name="city" type="text" class="wide" value="{{ $advert->address->city }}">
             </div>
         </div>
 
@@ -157,11 +159,11 @@
             <div class="address">
                 <div class="left inline">
                     <label>Вулиця*</label>
-                    <input id="input-street" name="street" type="text" value="{{ auth()->user()->address->street }}">
+                    <input id="input-street" name="street" type="text" value="{{ $advert->address->street }}">
                 </div>
                 <div class="right inline">
                     <label>№ будинку*</label>
-                    <input id="input-build" name="build" type="text" value="{{ auth()->user()->address->build }}">
+                    <input id="input-build" name="build" type="text" value="{{ $advert->address->build }}">
                 </div>
             </div>
         </div>
@@ -169,8 +171,11 @@
         <div class="grey-block bg-yellow black wide">
             <p class="red zerro-bottom"><i class="fo fo-phone"></i></p>
             <p class="zerro-top">Ваш телефон</p>
-            <p class="f20 margin-zerro">+38 096 159 15 15</p>
-            <p class="f20 margin-zerro">+38 093 159 15 15</p>
+
+            @foreach(auth()->user()->phone as $phone)
+                <p class="f20 margin-zerro">{{ $phone }}</p>
+            @endforeach
+
             <p class="grey2 f14">Номер телефону можна змінити на сторінці редагування профіля </p>
         </div>
 

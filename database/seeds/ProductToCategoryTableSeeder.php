@@ -11,20 +11,6 @@ class ProductToCategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('product_to_category')->insert([
-            [
-                'product_id'  => 1,
-                'category_id' => 1
-            ], [
-                'product_id'  => 2,
-                'category_id' => 1
-            ], [
-                'product_id'  => 3,
-                'category_id' => 2
-            ], [
-                'product_id'  => 4,
-                'category_id' => 2
-            ]
-        ]);
+        factory(App\ProductToCategory::class, 20)->create();
     }
 }

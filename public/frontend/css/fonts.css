@@ -1,0 +1,315 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FontFood';
+  src: url('../fonts/foodicons.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+input,
+textarea,
+select,
+button {
+  font-family: Roboto;
+}
+.fo {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+.fo:before {
+  font-family: FontFood;
+  font-size: inherit;
+  font-style: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 24px;
+}
+.fo-indent {
+  padding-right: 8px;
+}
+.fo-left:before {
+  position: absolute;
+  left: 16px;
+}
+.fo.fo-inheirt:before {
+  font-size: inherit;
+}
+.fo.fo-small:before {
+  font-size: 18px;
+}
+.fo.fo-big:before {
+  font-size: 30px;
+}
+.fo.fo-large:before {
+  font-size: 86px;
+}
+/* makes the font 33% larger relative to the icon container */
+.fo-lg {
+  font-size: 1.33333333em;
+  line-height: 0.75em;
+  vertical-align: -15%;
+}
+.fo-2x:before {
+  font-size: 2em;
+}
+.fo-3x:before {
+  font-size: 3em;
+}
+.fo-4x:before {
+  font-size: 4em;
+}
+.fo-5x:before {
+  font-size: 5em;
+}
+.fo-fw {
+  width: 1.28571429em;
+  text-align: center;
+}
+.fo-ul {
+  padding-left: 0;
+  margin-left: 2.14285714em;
+  list-style-type: none;
+}
+.fo-ul > li {
+  position: relative;
+}
+.fo-li {
+  position: absolute;
+  left: -2.14285714em;
+  width: 2.14285714em;
+  top: 0.14285714em;
+  text-align: center;
+}
+.fo-li.fo-lg {
+  left: -1.85714286em;
+}
+.fo-border {
+  padding: .2em .25em .15em;
+  border: solid 0.08em #eeeeee;
+  border-radius: .1em;
+}
+.fo-pull-left {
+  float: left;
+}
+.fo-pull-right {
+  float: right;
+}
+.fo.fo-pull-left {
+  margin-right: .3em;
+}
+.fo.fo-pull-right {
+  margin-left: .3em;
+}
+.fo-bell:before {
+  content: "\0021";
+}
+.fo-exit:before {
+  content: "\0022";
+}
+.fo-phone:before {
+  content: "\0023";
+}
+.fo-message:before {
+  content: "\0024";
+}
+.fo-people:before {
+  content: "\0025";
+}
+.fo-dish:before {
+  content: "\0026";
+}
+.fo-articles:before {
+  content: "\0027";
+}
+.fo-close-rounded:before {
+  content: "\0028";
+}
+.fo-sand-fill:before {
+  content: "\0029";
+}
+.fo-peoples:before {
+  content: "\002a";
+}
+.fo-close-bold:before {
+  content: "\002b";
+}
+.fo-serving:before {
+  content: "\002c";
+}
+.fo-sand:before {
+  content: "\002d";
+}
+.fo-clip:before {
+  content: "\002e";
+}
+.fo-plane:before {
+  content: "\002f";
+}
+.fo-mail:before {
+  content: "\0030";
+}
+.fo-mail-o:before {
+  content: "\0031";
+}
+.fo-man:before {
+  content: "\0032";
+}
+.fo-cook:before {
+  content: "\0033";
+}
+.fo-camera:before {
+  content: "\0034";
+}
+.fo-check-rounded:before {
+  content: "\0035";
+}
+.fo-minus-rounded:before {
+  content: "\0036";
+}
+.fo-check:before {
+  content: "\0037";
+}
+.fo-article:before {
+  content: "\0038";
+}
+.fo-arrow-down:before {
+  content: "\0039";
+}
+.fo-arrow-up:before {
+  content: "\003a";
+}
+.fo-bag:before {
+  content: "\003b";
+}
+.fo-ingredients:before {
+  content: "\003c";
+}
+.fo-cook-o:before {
+  content: "\003d";
+}
+.fo-menu-book:before {
+  content: "\003e";
+}
+.fo-rupor:before {
+  content: "\003f";
+}
+.fo-dish-search:before {
+  content: "\0042";
+}
+.fo-menu:before {
+  content: "\0043";
+}
+.fo-book:before {
+  content: "\0044";
+}
+.fo-hat:before {
+  content: "\0045";
+}
+.fo-marker:before {
+  content: "\0046";
+}
+.fo-search:before {
+  content: "\0047";
+}
+.fo-arrow-down-bold:before {
+  content: "\0048";
+}
+.fo-ok:before {
+  content: "\0049";
+}
+.fo-time:before {
+  content: "\004b";
+}
+.fo-a-left-bold:before {
+  content: "\004c";
+}
+.fo-right-bold:before {
+  content: "\004d";
+}
+.fo-star:before {
+  content: "\004f";
+}
+.fo-star-left:before {
+  content: "\0050";
+}
+.fo-star-right:before {
+  content: "\0051";
+}
+.fo-slide:before {
+  content: "\0052";
+}
+.fo-arrow-up-bold:before {
+  content: "\0053";
+}
+.fo-dish-ready:before {
+  content: "\0054";
+}
+.fo-deal:before {
+  content: "\0055";
+}
+.fo-delete:before {
+  content: "\0056";
+}
+.fo-a-left:before {
+  content: "\0057";
+}
+.fo-right:before {
+  content: "\0058";
+}
+.fo-ingredients:before {
+  content: "\0059";
+}
+.fo-like:before {
+  content: "\005a";
+}
+.fo-back:before {
+  content: "\005c";
+}
+.fo-edit:before {
+  content: "\005d";
+}
+.fo-arrow-left:before {
+  content: "\005e";
+}
+.fo-arrow-right:before {
+  content: "\005f";
+}
+.fo-facebook:before {
+  content: "\0061";
+}
+.fo-twitter:before {
+  content: "\0062";
+}
+.fo-google:before {
+  content: "\0063";
+}
+.fo-instagram:before {
+  content: "\0064";
+}
+.fo-pinterest:before {
+  content: "\0065";
+}

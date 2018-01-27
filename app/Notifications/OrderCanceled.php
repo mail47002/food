@@ -65,9 +65,7 @@ class OrderCanceled extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'title'      => 'Вам зробили замовлення <a href="' . route('profile.user.show', $this->order->user->id) . '">' . $this->order->user->name . '</a> на страву з меню',
-            'image'      => $this->order->user->image,
-            'created_at' => $this->order->created_at
+            'order' => $this->order
         ];
     }
 }

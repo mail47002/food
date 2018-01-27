@@ -11,16 +11,23 @@ use Auth;
 
 class OrdersController extends Controller
 {
+    /**
+     * OrdersController constructor.
+     *
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        $orders = Order::with(['advert' => function ($query) {
-                $query->with('user');
-            }])
+        $orders = Order::with(['advert', 'user'])
             ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->paginate();
@@ -30,6 +37,12 @@ class OrdersController extends Controller
         ]);
     }
 
+    /**
+     * Order confirm.
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function confirm($id)
     {
         $order = Order::find($id);
@@ -43,12 +56,18 @@ class OrdersController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
         $order = Order::find($id);
 
-        if ($order) {
-            $order->user->notify(new OrderCanceled($order));
+        if ($order && $order->status === Order::CANCELED) {
+            $order->advert->user->notify(new OrderCanceled($order));
 
             $order->delete();
         }

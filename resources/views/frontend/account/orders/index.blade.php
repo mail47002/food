@@ -5,7 +5,7 @@
 
     <div class="v-indent-20"></div>
 
-    @if($orders->count() > 0)
+    @if(count($orders) > 0)
         @each('frontend.account.orders.item', $orders, 'order')
         {{ $orders->links() }}
     @else
