@@ -54,7 +54,7 @@
                 <li><a class="{{ Helper::isActive('myaccount') }}" href="{{ route('account.user.show') }}">Про мене</a></li>
                 <li><a class="{{ Helper::isActive('myaccount/products*') }}" href="{{ route('account.products.index') }}">Каталог страв</a></li>
                 <li><a class="{{ Helper::isActive('myaccount/adverts*') }}" href="{{ route('account.adverts.index') }}">Оголошення </a></li>
-                <li><a class="{{ Helper::isActive('myaccount/notifications*') }}" href="{{ route('account.notifications.index') }}">Мої повідомлення
+                <li><a class="{{ Helper::isActive(['myaccount/notifications*', 'myaccount/messages*']) }}" href="{{ route('account.notifications.index') }}">Мої повідомлення
                         @if(auth()->user()->unreadNotifications->count() > 0)
                             <span class="badge">{{ auth()->user()->unreadNotifications->count() }}</span>
                         @endif

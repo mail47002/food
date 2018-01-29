@@ -26,13 +26,22 @@ class Helper
     /**
      * Return active class.
      *
-     * @param $url
+     * @param        $url
      * @param string $class
+     * @param string $default
      * @return string
      */
-    public function isActive($url, $class = 'active')
+    public function isActive($url, $class = 'active', $default = '')
     {
-        return !request()->is($url) ?: $class;
+        if (is_array($url)) {
+            foreach ($url as $item) {
+                if (request()->is($item)) {
+                    return $class;
+                }
+            }
+        }
+
+        return request()->is($url) ? $class : $default;
     }
 
     /**
