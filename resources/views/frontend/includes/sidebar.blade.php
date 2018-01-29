@@ -1,6 +1,6 @@
 <div class="left-sidebar bg-yellow text-center">
-    @if (auth()->check() && !request()->is('profile*'))
-        @if (request()->is('myaccount/edit'))
+    @if(auth()->check() && !request()->is('profile*'))
+        @if(request()->is('myaccount/edit'))
             <div class="avatar">
                 <div class="uploader profile">
                     <img src="{{ asset(auth()->user()->image) }}" alt="{{ auth()->user()->name }}">
@@ -20,7 +20,7 @@
 
         <div class="phones fo fo-phone fo-indent fo-left red">
             <div class="inline black">
-                @foreach ($user->phone as $phone)
+                @foreach($user->phone as $phone)
                     <p>{{ $phone }}</p>
                 @endforeach
             </div>
@@ -33,8 +33,8 @@
         <a href="#" class="button button-grey left-icon"><i class="fo fo-edit fo-small"></i> Зв'язатися</a>
     @endif
 
-    @if (auth()->check() && !request()->is('profile*'))
-        @if (request()->is('myaccount/edit*'))
+    @if(auth()->check() && !request()->is('profile*'))
+        @if(request()->is('myaccount/edit*'))
             <ul class="menu">
                 <li><a href="{{ route('account.user.show') }}" class="link-back">Моя сторінка</a></li>
                 <li><a class="{{ Helper::isActive('myaccount/edit') }}" href="{{ route('account.user.edit') }}">Про мене</a></li>
@@ -44,7 +44,7 @@
         @else
             <div class="phones fo fo-phone fo-indent fo-left red">
                 <div class="inline black">
-                    @foreach (auth()->user()->phone as $phone)
+                    @foreach(auth()->user()->phone as $phone)
                         <p>{{ $phone }}</p>
                     @endforeach
                 </div>
@@ -55,9 +55,9 @@
                 <li><a class="{{ Helper::isActive('myaccount/products*') }}" href="{{ route('account.products.index') }}">Каталог страв</a></li>
                 <li><a class="{{ Helper::isActive('myaccount/adverts*') }}" href="{{ route('account.adverts.index') }}">Оголошення </a></li>
                 <li><a class="{{ Helper::isActive(['myaccount/notifications*', 'myaccount/messages*']) }}" href="{{ route('account.notifications.index') }}">Мої повідомлення
-                        @if(auth()->user()->unreadNotifications->count() > 0)
-                            <span class="badge">{{ auth()->user()->unreadNotifications->count() }}</span>
-                        @endif
+                    @if(($unreadNotifications = auth()->user()->unreadNotifications->count()) > 0)
+                        <span class="badge">{{ $unreadNotifications }}</span>
+                    @endif
                     </a></li>
                 <li><a class="{{ Helper::isActive('myaccount/orders*') }}" href="{{ route('account.orders.index') }}">Мої замовлення</a></li>
                 <li><a href="#">Мої відгуки</a></li>

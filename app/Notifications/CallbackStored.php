@@ -72,9 +72,9 @@ class CallbackStored extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'user'   => $this->user,
-            'advert' => $this->advert,
-            'phone'  => $this->phone
+            'user_id'   => $this->user->id,
+            'advert_id' => $this->advert->id,
+            'phone'     => $this->phone
         ];
     }
 }

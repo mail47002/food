@@ -17,7 +17,7 @@ class OrderConfirmed extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param Order $order
      */
     public function __construct(Order $order)
     {

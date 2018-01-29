@@ -5,7 +5,20 @@
                 <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
             </div>
             <div class="message">
-                <strong><object>Вам зробила замовлення <a href="/account/#" class="link-blue">{{ $notification->data['user']['name'] }}</a> на страву з меню</object></strong>
+                <strong><object>Вам зробила замовлення <a href="/account/#" class="link-blue">{{ $notification->order->user->name }}</a> на страву з меню</object></strong>
+                <p>В принципе вкусно,если сделать для одного ....</p>
+                <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>
+            </div>
+        </a>
+    </li>
+@endif
+
+@if($notification->type === 'App\Notifications\OrderCanceled')
+    <li class="top-message order">
+        <a href="#"> {{-- Ссылка на сообщение ? --}}
+            <div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
+            <div class="message">
+                <strong><object>Повар <a href="/account/#" class="link-blue">{{ $notifiction->order->advert->user->name }}</a> відмовила на замовленняя</object></strong>
                 <p>В принципе вкусно,если сделать для одного ....</p>
                 <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>
             </div>
@@ -20,7 +33,7 @@
                 <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
             </div>
             <div class="message">
-                <strong><object>Повідомлення від <a href="/account/#" class="link-blue">{{ $notification->data['user']['name'] }}</object></strong>
+                <strong><object>Повідомлення від <a href="/account/#" class="link-blue">{{ $notification->user->name }}</object></strong>
                 <p>В принципе вкусно,если сделать для одного ....</p>
                 <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>
             </div>
@@ -40,20 +53,6 @@
     {{--</a>--}}
 {{--</li>--}}
 
-
-
-
-
-{{--<li class="top-message order">--}}
-    {{--<a href="#">--}}{{-- Ссылка на сообщение ? --}}
-        {{--<div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>--}}
-        {{--<div class="message">--}}
-            {{--<strong><object>Повар <a href="/account/#" class="link-blue">Оксана</a> відмовила на замовленняя</object></strong>--}}
-            {{--<p>В принципе вкусно,если сделать для одного ....</p>--}}
-            {{--<p class="date">10:15 2 липня 2016</p>--}}
-        {{--</div>--}}
-    {{--</a>--}}
-{{--</li>--}}
 
 {{--<li class="top-message review">--}}
     {{--<a href="#">--}}{{-- Ссылка на сообщение ? --}}

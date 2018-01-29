@@ -17,7 +17,7 @@ class OrderCanceled extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param Order $order
      */
     public function __construct(Order $order)
     {
@@ -65,7 +65,7 @@ class OrderCanceled extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'order' => $this->order
+            'order' => $this->order,
         ];
     }
 }

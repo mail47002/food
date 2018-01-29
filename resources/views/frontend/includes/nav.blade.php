@@ -64,16 +64,16 @@
 				<li class="dropdown messages">
 					<a id="messages-menu" class="link" href="#" type="button" data-toggle="dropdown">
 						<i class="fo fo-bell fo-small">
-							@if(auth()->user()->unreadNotifications->count() > 0)
-								<span class="count">{{ auth()->user()->unreadNotifications->count() }}</span>
+							@if(($unreadNotifications = auth()->user()->unreadNotifications()->count()) > 0)
+								<span class="count">{{ $unreadNotifications }}</span>
 							@endif
 						</i>
 					</a>
 
-                    @if(auth()->user()->notifications)
+                    @if(count($headerNotifications) > 0)
                         <div class="dropdown-menu" role="menu" aria-labelledby="messages-menu">
                             <ul data-simplebar class="overflow">{{-- data-simplebar - прокрутка --}}
-                                @each('frontend.includes.notification', auth()->user()->notifications, 'notification')
+                                @each('frontend.includes.notification', $headerNotifications, 'notification')
                             </ul>
                             <div class="bottom">
                                 <a href="{{ route('account.notifications.index') }}" class="link-blue">Все</a>

@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers\Frontend\Account;
 
+use App\Advert;
 use App\Order;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Helper;
 
 class NotificationsController extends Controller
 {
+    /**
+     * NotificationsController constructor.
+     *
+     */
     public function __construct()
     {
         $this->middleware(['auth']);
@@ -26,8 +33,20 @@ class NotificationsController extends Controller
         foreach($notifications as $notification) {
             $notification->markAsRead();
 
-            if (isset($notification->data['order'])) {
-                $notification->order = Order::find($notification->data['order']['id']);
+            if (Helper::isNotificationOrderCreated($notification->type) || Helper::isNotificationOrderConfirmed($notification->type) || Helper::isNotificationOrderCanceled($notification->type)) {
+                $notification->order = Order::with(['advert' => function ($query) {
+                        $query->with('user');
+                    }, 'user'])
+                    ->find($notification->data['order']['id']);
+            }
+
+            if ($notification->type === 'App\Notifications\CallbackStored') {
+                $notification->advert = Advert::with('user')->find($notification->data['advert_id']);
+                $notification->user = User::find($notification->data['user_id']);
+            }
+
+            if ($notification->type === 'App\Notifications\AdvertDeleted') {
+
             }
         }
 

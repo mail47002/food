@@ -165,6 +165,33 @@ class Helper
     }
 
     /**
+     * @param $type
+     * @return bool
+     */
+    public function isNotificationOrderCreated($type)
+    {
+        return $type === 'App\Notifications\OrderStored';
+    }
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function isNotificationOrderConfirmed($type)
+    {
+        return $type === 'App\Notifications\OrderConfirmed';
+    }
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function isNotificationOrderCanceled($type)
+    {
+        return $type === 'App\Notifications\OrderCanceled';
+    }
+
+    /**
      * Return advert times.
      *
      * @return array

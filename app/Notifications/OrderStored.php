@@ -67,9 +67,7 @@ class OrderStored extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'user'   => $this->order->user,
-            'advert' => $this->order->advert,
-            'order'  => $this->order
+            'order' => $this->order,
         ];
     }
 }
