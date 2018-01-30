@@ -17,7 +17,7 @@ class Order extends Model
 
     public function advert()
     {
-        return $this->belongsTo('App\Advert');
+        return $this->belongsTo('App\Advert')->with('user');
     }
 
     public function user()

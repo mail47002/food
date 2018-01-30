@@ -39,15 +39,6 @@ class NotificationsController extends Controller
                     }, 'user'])
                     ->find($notification->data['order']['id']);
             }
-
-            if ($notification->type === 'App\Notifications\CallbackStored') {
-                $notification->advert = Advert::with('user')->find($notification->data['advert_id']);
-                $notification->user = User::find($notification->data['user_id']);
-            }
-
-            if ($notification->type === 'App\Notifications\AdvertDeleted') {
-
-            }
         }
 
         return view('frontend.account.notifications.index', [

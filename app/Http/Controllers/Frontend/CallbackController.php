@@ -26,7 +26,7 @@ class CallbackController extends Controller
     {
         $this->validateForm($request);
 
-        $advert = Advert::find($request->advert_id);
+        $advert = Advert::with('user')->find($request->advert_id);
 
         if ($advert) {
             $advert->user->notify(new CallbackStored(Auth::user(), $advert, $request->phone));

@@ -70,10 +70,10 @@
 						</i>
 					</a>
 
-                    @if(count($headerNotifications) > 0)
+                    @if($unreadNotifications = auth()->user()->unreadNotifications()->take(5)->get())
                         <div class="dropdown-menu" role="menu" aria-labelledby="messages-menu">
                             <ul data-simplebar class="overflow">{{-- data-simplebar - прокрутка --}}
-                                @each('frontend.includes.notification', $headerNotifications, 'notification')
+                                @each('frontend.includes.notification', $unreadNotifications, 'notification')
                             </ul>
                             <div class="bottom">
                                 <a href="{{ route('account.notifications.index') }}" class="link-blue">Все</a>
