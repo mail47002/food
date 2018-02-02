@@ -54,13 +54,23 @@ class ProductImagesController extends Controller
         return response()->json(1);
     }
 
+    /**
+     * Return image path.
+     *
+     * @return string
+     */
     private function getImagePath()
     {
-        return 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/products';
+        return 'uploads/' . md5(Auth::id() . Auth::user()->email);
     }
 
+    /**
+     * Return thumbnail path.
+     *
+     * @return string
+     */
     private function getThumbnailPath()
     {
-        return 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/products/thumbnails';
+        return 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/thumbs';
     }
 }

@@ -54,13 +54,23 @@ class AdvertImagesController extends Controller
         return response()->json(1);
     }
 
+    /**
+     * Return image path.
+     *
+     * @return string
+     */
     private function getImagePath()
     {
-        return 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/adverts';
+        return 'uploads/' . md5(Auth::id() . Auth::user()->email);
     }
 
+    /**
+     * Return thumbnail path.
+     *
+     * @return string
+     */
     private function getThumbnailPath()
     {
-        return 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/adverts/thumbnails';
+        return 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/thumbs';
     }
 }

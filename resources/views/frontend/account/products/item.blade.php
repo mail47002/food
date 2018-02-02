@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="image">
-                <img class="img-responsive" src="{{ Helper::getProductThumbnailUrl($product) }}" alt="{{ $product->name }}">
+                <img class="img-responsive" src="{{ Helper::getThumbnailUrl($product) }}" alt="{{ $product->name }}">
             </div>
         </div>
         <div class="col-md-5">

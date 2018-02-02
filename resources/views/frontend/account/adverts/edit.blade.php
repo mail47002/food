@@ -11,7 +11,7 @@
 
     <div class="bg-yellow text-center">
         <div class="v-indent-30"></div>
-        <img src="{{ Helper::getAdvertImageUrl($advert) }}" alt="{{ $advert->name }}" class="inline header-img">
+        <img src="{{ Helper::getImageUrl($advert) }}" alt="{{ $advert->name }}" class="inline header-img">
         <h5 class="header-title text-upper black margin-30">{{ $advert->name }}</h5>
         <p class="red f20 margin-zerro">
             @if(Helper::isAdvertByDate($advert->type))
@@ -56,17 +56,17 @@
 
         @if(Helper::isAdvertByDate($advert->type))
             <div class="form-group everyday">
-                <input id="input-everyday" type="checkbox" name="everyday" value="1">
+                <input id="input-everyday" type="checkbox" name="everyday" value="1" {{ $advert->everyday ? 'checked' : null }}>
                 <label for="input-everyday" class="inline">Кожного дня</label>
             </div>
 
             <div class="form-group">
                 <label for="input-date">Дата*</label>
-                <div id="one">
+                <div id="one" class="{{ $advert->everyday ? 'hide' : null }}">
                     <input name="date" id="input-date" type="text" class="datepicker inline" value="{{ $advert->date }}">
                 </div>
 
-                <div id="two" class="hide two-in-line">
+                <div id="two" class="two-in-line {{ $advert->everyday ? null : 'hide' }} }}">
                     <label class="inline">з</label>
                     <input id="input-date_from" type="text" name="date_from" class="datepicker inline" value="{{ $advert->date_from }}">
                     <label class="inline">до</label>
@@ -111,7 +111,7 @@
                 @foreach ($advert->images as $image)
                     <div class="wrap js-foto">
                         <div class="uploader">
-                            <img src="{{ asset('uploads/' . Helper::getUserDirHash(auth()->user()) . '/adverts/thumbnails/' . $image->image) }}">
+                            <img src="{{ url('uploads/' . Helper::getUserDirHash(auth()->user()) . '/thumbs/' . $image->image) }}">
                             {{ Form::hidden('images[]', $image->image) }}
                         </div>
                         <a href="#" class="pull-left grey1 js-cover-foto {{ $advert->image === $image->image ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>

@@ -45,73 +45,25 @@ class Helper
     }
 
     /**
-     * Return product image url.
-     *
-     * @param $product
-     * @return string
-     */
-    public function getProductImageUrl($product)
-    {
-        return asset($this->getImageUrl('products', $product->image, $product->user));
-    }
-
-    /**
-     * Return product thumbnail url.
-     *
-     * @param $product
-     * @return string
-     */
-    public function getProductThumbnailUrl($product)
-    {
-        return asset($this->getThumbnailUrl('products', $product->image, $product->user));
-    }
-
-    /**
-     * Return advert image url.
-     *
-     * @param $advert
-     * @return string
-     */
-    public function getAdvertImageUrl($advert)
-    {
-        return asset($this->getImageUrl('adverts', $advert->image, $advert->user));
-    }
-
-    /**
-     * Return advert thumbnail url.
-     *
-     * @param $advert
-     * @return string
-     */
-    public function getAdvertThumbnailUrl($advert)
-    {
-        return asset($this->getThumbnailUrl('adverts', $advert->image, $advert->user));
-    }
-
-    /**
      * Return uploaded image url.
      *
-     * @param $path
-     * @param $image
-     * @param $user
-     * @return string
+     * @param $entity
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      */
-    public function getImageUrl($path, $image, $user)
+    public function getImageUrl($entity)
     {
-        return 'uploads/' . $this->getUserDirHash($user) . '/' . $path . '/' . $image;
+        return url('uploads/' . $this->getUserDirHash($entity->user) . '/'. $entity->image);
     }
 
     /**
      * Return uploaded thumbnail url.
      *
-     * @param $path
-     * @param $image
-     * @param $user
-     * @return string
+     * @param $entity
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      */
-    public function getThumbnailUrl($path, $image, $user)
+    public function getThumbnailUrl($entity)
     {
-        return 'uploads/' . $this->getUserDirHash($user) . '/' . $path . '/thumbnails/' . $image;
+        return url('uploads/' . $this->getUserDirHash($entity->user) . '/thumbs/' . $entity->image);
     }
 
     /**
