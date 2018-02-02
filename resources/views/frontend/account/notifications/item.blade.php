@@ -1,5 +1,5 @@
 {{-- Order stored --}}
-@if($notification->type === 'App\Notifications\OrderStored')
+@if($notification->type === 'App\Notifications\OrderCreated')
     <div class="wide-thumb profile-messages clients">
         <div class="left with-image">
             <div class="title">Вам зробила замовлення <a href="{{ route('profile.user.show', $notification->data['user']['slug']) }}" class="link-blue">{{ $notification->data['user']['name'] }}</a> на страву з меню</div>

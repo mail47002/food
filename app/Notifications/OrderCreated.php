@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class OrderStored extends Notification
+class OrderCreated extends Notification
 {
     use Queueable;
 

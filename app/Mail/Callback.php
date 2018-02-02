@@ -38,6 +38,6 @@ class Callback extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.callback');
+        return $this->markdown('emails.callback');
     }
 }

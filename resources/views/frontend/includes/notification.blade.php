@@ -1,4 +1,4 @@
-@if($notification->type === 'App\Notifications\OrderStored')
+@if($notification->type === 'App\Notifications\OrderCreated')
     <li class="top-message clients">
         <a href="#"> {{-- Ссылка на сообщение ? --}}
             <div class="avatar">

@@ -6,12 +6,13 @@ use App\Advert;
 use App\Http\Resources\OrderResource;
 use App\Notifications\OrderCanceled;
 use App\Notifications\OrderConfirmed;
-use App\Notifications\OrderStored;
+use App\Notifications\OrderCreated;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Helper;
+use Mail;
 
 class OrdersController extends Controller
 {
@@ -46,7 +47,8 @@ class OrdersController extends Controller
 
             $order = Order::create($request->all());
 
-            $advert->user->notify(new OrderStored($order));
+            $advert->user->notify(new OrderCreated($order));
+            Mail::to($advert->user->email)->send(new \App\Mail\OrderCreated($order));
 
             return new OrderResource($order);
         }
@@ -86,6 +88,7 @@ class OrdersController extends Controller
             $order->confirmed();
 
             $order->user->notify(new OrderConfirmed($order));
+            Mail::to($order->user->email)->send(new \App\Mail\OrderConfirmed($order));
 
             return new OrderResource($order);
         }

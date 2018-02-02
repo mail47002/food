@@ -122,7 +122,7 @@ class Helper
      */
     public function isNotificationOrderCreated($type)
     {
-        return $type === 'App\Notifications\OrderStored';
+        return $type === 'App\Notifications\OrderCreated';
     }
 
     /**
