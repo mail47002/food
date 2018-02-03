@@ -2,313 +2,256 @@
 
 @include('frontend.includes.nav')
 @section('title')Adverts - @stop
+
 @section('content')
-<div class="breadcrumbs">
-	<div class="container">
-		<ul class="list-inline">
-			<li>
-				<a href="#" class="link-blue back">
-					<i class="fa fa-long-arrow-left" aria-hidden="true"></i>  До меню страв
-				</a>
-			</li>
-		</ul>
-	</div>
-</div>
-
-
-<div class="title-slider bg-yellow">
-	<div class="container">
-		<div class="owl-carousel">
-			@foreach($advert->images as $image)
-				<div class="item"><img src="{{ $image }}" alt=""></div>
-			@endforeach
+	<div class="breadcrumbs">
+		<div class="container">
+			<ul class="list-inline">
+				<li>
+					<a href="#" class="link-blue back">
+						<i class="fa fa-long-arrow-left" aria-hidden="true"></i>  До меню страв
+					</a>
+				</li>
+			</ul>
 		</div>
-		<div class="slider-counter"></div>
 	</div>
-</div>
+
+	<div class="title-slider bg-yellow">
+		<div class="container">
+			<div class="owl-carousel">
+				@foreach($advert->images as $image)
+					<div class="item"><img src="{{ $image }}" alt=""></div>
+				@endforeach
+			</div>
+			<div class="slider-counter"></div>
+		</div>
+	</div>
+
+	<div class="bg-white">
 
 
+		<div class="container">
+			<div class="row">
+				<div class="food-info col-md-9">
+					<h1>{{ $advert->name }}</h1>
+					<div class="rating"><span class="stars medium">4</span>30 відгуків</div>
 
-<div class="bg-white">
+					<h5 class="text-upper underline-red">Від повара про страву </h5><hr class="zerro-top">
 
+					<div class="description">
+						<p>{{ $advert->product->description }}</p>
 
-	<div class="container">
-
-		<div class="row">
-			<div class="food-info col-md-9">
-				<h1>{{ $advert->name }}</h1>
-				<div class="rating"><span class="stars medium">4</span>30 відгуків</div>
-
-				<h5 class="text-upper underline-red">Від повара про страву </h5><hr class="zerro-top">
-
-				<div class="description">
-					<p>{{ $advert->product->description }}</p>
-
-					<div class="red-round-border">
-						<i>{{ $advert->description }}</i>
+						<div class="red-round-border">
+							<i>{{ $advert->description }}</i>
+						</div>
 					</div>
-				</div>
 
-				@if (count($reviews) > 0)
-					<div class="reviews">
-					<h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">
-					<ul class="list-unstyled">
+					@if (count($reviews) > 0)
+						<div class="reviews">
+						<h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">
+						<ul class="list-unstyled">
 
-						@foreach ($reviews as $review)
-							<li class="clearfix">
-								<div class="left">
-									<div class="avatar">
-										<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
+							@foreach ($reviews as $review)
+								<li class="clearfix">
+									<div class="left">
+										<div class="avatar">
+											<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
+										</div>
+										<a href="#" class="link-blue name">{{ $review->user->name }}</a>
 									</div>
-									<a href="#" class="link-blue name">{{ $review->user->name }}</a>
-								</div>
-								<div class="right bg-yellow">
-									<div class="date">2 липня 2016</div>
-									<span class="stars">4</span>
-									<div class="message">{{ $review->text }}</div>
-								</div>
-							</li>
-						@endforeach
+									<div class="right bg-yellow">
+										<div class="date">2 липня 2016</div>
+										<span class="stars">4</span>
+										<div class="message">{{ $review->text }}</div>
+									</div>
+								</li>
+							@endforeach
 
-						{{--<li class="clearfix">--}}
-							{{--<div class="left">--}}
-								{{--<div class="avatar">--}}
-									{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
-								{{--</div>--}}
-								{{--<a href="#" class="link-blue name">Вікторія</a>--}}
-							{{--</div>--}}
-
-							{{--<div class="right bg-yellow">--}}
-								{{--<div class="date">2 липня 2016</div>--}}
-								{{--<span class="stars">4</span>--}}
-								{{--<div class="message">--}}
-									{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
-								{{--</div>--}}
-
-								{{--<div class="answer clearfix">--}}
-									{{--<div class="title">Ваша відповідь</div>--}}
-									{{--<div class="message">--}}
-										{{--В принципе вкусно,если сделать для одного раза,а так: гарнир--}}
+							{{--<li class="clearfix">--}}
+								{{--<div class="left">--}}
+									{{--<div class="avatar">--}}
+										{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
 									{{--</div>--}}
-									{{--<div class="right-avatar">--}}
-										{{--<div class="avatar">--}}
-											{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
+									{{--<a href="#" class="link-blue name">Вікторія</a>--}}
+								{{--</div>--}}
+
+								{{--<div class="right bg-yellow">--}}
+									{{--<div class="date">2 липня 2016</div>--}}
+									{{--<span class="stars">4</span>--}}
+									{{--<div class="message">--}}
+										{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
+									{{--</div>--}}
+
+									{{--<div class="answer clearfix">--}}
+										{{--<div class="title">Ваша відповідь</div>--}}
+										{{--<div class="message">--}}
+											{{--В принципе вкусно,если сделать для одного раза,а так: гарнир--}}
+										{{--</div>--}}
+										{{--<div class="right-avatar">--}}
+											{{--<div class="avatar">--}}
+												{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
+											{{--</div>--}}
 										{{--</div>--}}
 									{{--</div>--}}
+
+									{{--<div class="message">--}}
+										{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
+									{{--</div>--}}
+
+									{{--<hr>--}}
+									{{--<a href="#" class="link-blue pull-right">Приховати</a>--}}
+
 								{{--</div>--}}
+							{{--</li>--}}
 
-								{{--<div class="message">--}}
-									{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
+							{{--<li class="clearfix">--}}
+								{{--<div class="left">--}}
+									{{--<div class="avatar">--}}
+										{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
+									{{--</div>--}}
+									{{--<a href="#" class="link-blue name">Марія</a>--}}
 								{{--</div>--}}
+								{{--<div class="right bg-yellow">--}}
+									{{--<div class="date">2 липня 2016</div>--}}
+									{{--<span class="stars">4</span>--}}
+									{{--<div class="message">--}}
+										{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
+									{{--</div>--}}
 
-								{{--<hr>--}}
-								{{--<a href="#" class="link-blue pull-right">Приховати</a>--}}
-
-							{{--</div>--}}
-						{{--</li>--}}
-
-						{{--<li class="clearfix">--}}
-							{{--<div class="left">--}}
-								{{--<div class="avatar">--}}
-									{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
+									{{--<hr>--}}
+									{{--<a href="#" class="link-red pull-left">Відповісти</a>--}}
+									{{--<a href="#" class="link-blue pull-right">Показати все</a>--}}
 								{{--</div>--}}
-								{{--<a href="#" class="link-blue name">Марія</a>--}}
-							{{--</div>--}}
-							{{--<div class="right bg-yellow">--}}
-								{{--<div class="date">2 липня 2016</div>--}}
-								{{--<span class="stars">4</span>--}}
-								{{--<div class="message">--}}
-									{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
-								{{--</div>--}}
+							{{--</li>--}}
 
-								{{--<hr>--}}
-								{{--<a href="#" class="link-red pull-left">Відповісти</a>--}}
-								{{--<a href="#" class="link-blue pull-right">Показати все</a>--}}
-							{{--</div>--}}
-						{{--</li>--}}
-
-					</ul>
-
-						{{ $reviews->links() }}
-
-					{{--<div class="paginate">--}}
-						{{--<ul class="pagination grey">--}}
-							{{--<li><a href="#" rel="prev"><</a></li>--}}
-							{{--<li><a href="#">1</a></li>--}}
-							{{--<li><a href="#">2</a></li>--}}
-							{{--<li class="active"><span>3</span></li>--}}
-							{{--<li><a href="#">4</a></li>--}}
-							{{--<li class="disabled"><span>...</span></li>--}}
-							{{--<li><a href="#">10</a></li>--}}
-							{{--<li><a href="#" rel="next">></a></li>--}}
-						{{--</ul>--}}
-					{{--</div>--}}
-				</div>
-				@endif
-
-
-				<div class="your-cook clearfix">
-					<h5 class="text-upper underline-red">Ваш повар</h5><hr class="zerro-top">
-					<div class="left">
-						<div class="avatar">
-							<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-						</div>
-						<a href="#" class="link-blue name">{{ $advert->user->name }}</a>
-						<a href="#" class="button button-grey">Зв’язатися</a>
-					</div>
-					<div class="right">
-						<p>{{ $advert->user->about }}</p>
-					</div>
-				</div>
-
-			</div> <!-- col-md-9 -->
-
-			<div class="col-md-3">
-				<div class="widget">
-					<div class="widget-header">{{ $advert->price }} <small>грн.</small></div>
-
-					<div class="widget-body">
-						@if($advert->sticker)
-							<div class="stickers">
-								<i class="{{ $advert->sticker }}"></i>
-							</div>
-						@endif
-
-						<p><i class="time medium"></i> 10 – 15 грудня</p>
-						<p class="distance"><i class="fo fo-big fo-marker red"></i>5 км</p>
-						<p class="small">{{ $advert->user->address->full_address }}</p>
-						<hr class="red-border">
-
-						<div class="avatar">
-							<div class="rounded">
-								<img src="/uploads/avatar.png" alt="foto">
-							</div>
-							<a href="javascript:void(0);" onclick="wishlist.add({{ $advert->user_id }})" class="link">
-								<i class="fo fo-like fo-small"></i> до улюблених
-							</a>
-						</div>
-						<a href="{{ route('profile.user.show', $advert->user->slug) }}" class="link-blue name">{{ $advert->user->name }}</a>
-						<div class="rating"><span class="stars">4</span>10 відгуків</div>
-
-						<p><a href="#" class="button button-red wide js-order" data-id="{{ $advert->id }}">Замовити</a></p>
-						<p class="medium">або вибрати</p>
-						<div class="clearfix">
-							<a href="#" class="button-square pull-left"><i class="fo fo-big fo-dish-ready"></i>уже готова страва</a>
-							<a href="#" class="button-square pull-right"><i class="fo fo-big fo-deal"></i>страва під замовлення</a>
-						</div>
-					</div>
-
-					<div class="widget-footer">
-						<ul class="socials justify list-unstyled">
-							<li><a href="#" class="fa fa-facebook"></a></li>
-							<li><a href="#" class="fa fa-vk"></a></li>
-							<li><a href="#" class="fa fa-instagram"></a></li>
-							<li><a href="#" class="fa fa-pinterest-p"></a></li>
-							<li class="hover-open">
-								<a href="#" class="fa fa-ellipsis-h"></a>
-								<ul class="hover list-unstyled">
-									<li><a href="#" class="">Google+</a></li>
-									<li><a href="#" class="">LinkedIn</a></li>
-									<li><a href="#" class="">ok</a></li>
-								</ul>
-							</li>
 						</ul>
+
+							{{ $reviews->links() }}
+
+						{{--<div class="paginate">--}}
+							{{--<ul class="pagination grey">--}}
+								{{--<li><a href="#" rel="prev"><</a></li>--}}
+								{{--<li><a href="#">1</a></li>--}}
+								{{--<li><a href="#">2</a></li>--}}
+								{{--<li class="active"><span>3</span></li>--}}
+								{{--<li><a href="#">4</a></li>--}}
+								{{--<li class="disabled"><span>...</span></li>--}}
+								{{--<li><a href="#">10</a></li>--}}
+								{{--<li><a href="#" rel="next">></a></li>--}}
+							{{--</ul>--}}
+						{{--</div>--}}
 					</div>
-				</div>
-			</div> <!-- col-md-3 -->
-		</div>
+					@endif
 
 
-
-		<hr>
-		<h5 class="text-upper">Інші страви</h5>
-		<div class="owl-carousel recent">
-			<?php for ($i=0; $i < 10; $i++) : ?>
-				<div class="item">
-					<div class="product-thumb">
-
-						<div class="image">
-							<img src="/uploads/food1.jpg" class="img-responsive" alt="">
-							<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
-						<?php $actions=['discount','new', 'heart'] ?> <!-- class: discount new heart -->
-							<div class="sticker <?= $actions[array_rand($actions)] ?>"></div>
+					<div class="your-cook clearfix">
+						<h5 class="text-upper underline-red">Ваш повар</h5><hr class="zerro-top">
+						<div class="left">
+							<div class="avatar">
+								<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
+							</div>
+							<a href="#" class="link-blue name">{{ $advert->user->name }}</a>
+							<a href="#" class="button button-grey">Зв’язатися</a>
 						</div>
-
-						<div class="caption">
-							<a href="/adverts/1" class="title link-black">М'ясне рагу з овочами</a>
-							<p>
-								<span class="price">80 грн.</span>
-								<span class="rating"><span class="stars"><?=rand(0,5)?></span>10 відгуків</span>
-							</p>
-							<p><i class="time"></i>15 грудня (обід)</p>
+						<div class="right">
+							<p>{{ $advert->user->about }}</p>
 						</div>
-
-						<button type="button" class="button button-grey order">Замовити</button>
-
-					</div>
-				</div>
-			<?php endfor ?>
-		</div>
-
-	</div> <!-- container -->
-
-</div> <!-- bg-white -->
-
-
-@auth()
-	<!-- Modal Order -->
-	<div id="modal_order" class="modal fade" role="dialog">
-		<div class="modal-dialog w-710">
-			<div class="modal-content text-center">
-				<div class="modal-header">
-					<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
-					<h4 class="modal-title">Оформити замовлення</h4>
-				</div>
-				<div class="modal-body">
-					<div class="v-indent-20"></div>
-					<div class="step"><span>1</span></div>
-					<div class="f-18 top-10">Для оформлення замовлення, зв'яжіться з поваром страви</div>
-					<div class="js-user"></div>
-					<div id="switchable">
-						<div class="grey3 top-20">або</div>
-						<div class="f18">залиште свій номер телефону,<br> і повар зв’яжиться з вам найближчи</div>
-						<div class="top-20"></div>
-						{{ Form::open(['route' => 'callback.store', 'method' => 'post', 'id' => 'form-callback']) }}
-							<input type="hidden" name="advert_id" value="">
-							<input type="hidden" name="user_id" value="{{ auth()->id() }}">
-							<input type="tel" class="phone-input w-440 text-center">
-							<button id="submit_phone" type="submit" class="button btn-grey-red">Відправити</button>
-						{{ Form::close() }}
 					</div>
 
-					<div class="v-indent-20"></div>
-					<div class="step"><span>2</span></div>
-					<div class="f-18 top-20">Для завершення замовлення обов’язково потрібно підтвердити його</div>
+				</div> <!-- col-md-9 -->
 
+				<div class="col-md-3">
+					<div class="widget">
+						<div class="widget-header">{{ $advert->price }} <small>грн.</small></div>
 
+						<div class="widget-body">
+							@if($advert->sticker)
+								<div class="stickers">
+									<i class="{{ $advert->sticker }}"></i>
+								</div>
+							@endif
 
-					{{ Form::open(['route' => 'orders.store', 'method' => 'post']) }}
-						<input type="hidden" name="advert_id" value="">
-						<input type="hidden" name="user_id" value="{{ auth()->id() }}">
+							<p><i class="time medium"></i> 10 – 15 грудня</p>
+							<p class="distance"><i class="fo fo-big fo-marker red"></i>5 км</p>
+							<p class="small">{{ $advert->user->address->full_address }}</p>
+							<hr class="red-border">
 
-						<div class="top-20 inline js-buttons">
-							<button class="button button-white text-upper mlr-10" type="button" data-dismiss="modal">Підтвердити пізніше</button>
-							<button class="button button-red text-upper mlr-10" type="submit">Підтвердити зараз</button>
+							<div class="avatar">
+								<div class="rounded">
+									<img src="/uploads/avatar.png" alt="foto">
+								</div>
+								<a href="javascript:void(0);" onclick="wishlist.add({{ $advert->user_id }})" class="link">
+									<i class="fo fo-like fo-small"></i> до улюблених
+								</a>
+							</div>
+							<a href="{{ route('profile.user.show', $advert->user->slug) }}" class="link-blue name">{{ $advert->user->name }}</a>
+							<div class="rating"><span class="stars">4</span>10 відгуків</div>
+
+							<p><a href="javascript:void(0);" class="button button-red wide" onclick="order.show({{ $advert->id }})">Замовити</a></p>
+							<p class="medium">або вибрати</p>
+							<div class="clearfix">
+								<a href="#" class="button-square pull-left"><i class="fo fo-big fo-dish-ready"></i>уже готова страва</a>
+								<a href="#" class="button-square pull-right"><i class="fo fo-big fo-deal"></i>страва під замовлення</a>
+							</div>
 						</div>
 
-						<div class="info-block red w-480 hidden js-info-block">
-							<p class="text-upper">Замовлення очікує на підтвердження!</p>
-							<div><a href="#" class="link-grey3 f14">Перейти до моїх замовлень та підтвердити <i class="fo fo-arrow-right fo-small"></i></a></div>
+						<div class="widget-footer">
+							<ul class="socials justify list-unstyled">
+								<li><a href="#" class="fa fa-facebook"></a></li>
+								<li><a href="#" class="fa fa-vk"></a></li>
+								<li><a href="#" class="fa fa-instagram"></a></li>
+								<li><a href="#" class="fa fa-pinterest-p"></a></li>
+								<li class="hover-open">
+									<a href="#" class="fa fa-ellipsis-h"></a>
+									<ul class="hover list-unstyled">
+										<li><a href="#" class="">Google+</a></li>
+										<li><a href="#" class="">LinkedIn</a></li>
+										<li><a href="#" class="">ok</a></li>
+									</ul>
+								</li>
+							</ul>
 						</div>
-					{{ Form::close() }}
-
-				</div>
+					</div>
+				</div> <!-- col-md-3 -->
 			</div>
-		</div>
-	</div>
-@endauth
 
 
+
+			<hr>
+			<h5 class="text-upper">Інші страви</h5>
+			<div class="owl-carousel recent">
+				<?php for ($i=0; $i < 10; $i++) : ?>
+					<div class="item">
+						<div class="product-thumb">
+
+							<div class="image">
+								<img src="/uploads/food1.jpg" class="img-responsive" alt="">
+								<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
+							<?php $actions=['discount','new', 'heart'] ?> <!-- class: discount new heart -->
+								<div class="sticker <?= $actions[array_rand($actions)] ?>"></div>
+							</div>
+
+							<div class="caption">
+								<a href="/adverts/1" class="title link-black">М'ясне рагу з овочами</a>
+								<p>
+									<span class="price">80 грн.</span>
+									<span class="rating"><span class="stars"><?=rand(0,5)?></span>10 відгуків</span>
+								</p>
+								<p><i class="time"></i>15 грудня (обід)</p>
+							</div>
+
+							<button type="button" class="button button-grey order">Замовити</button>
+
+						</div>
+					</div>
+				<?php endfor ?>
+			</div>
+
+		</div> <!-- container -->
+
+	</div> <!-- bg-white -->
+
+	@include('frontend.adverts.order');
 @stop
 
 
@@ -345,80 +288,5 @@
 				}
 			}
 		});
-	</script>
-	<script>
-		$('.js-order').on('click', function (e) {
-		    e.preventDefault();
-
-			var advertId  = $(this).data('id');
-
-			if (advertId) {
-				$.get('{{ url('api/adverts') }}/' + advertId).done(function (response) {
-					if (response['status'] === 'success') {
-						var html = '';
-
-						html += '<div class="caption">';
-						html += '<div class="avatar">';
-						html += '<div class="rounded"><img src="' + response['advert']['user']['image'] + '" alt="foto"></div>';
-						html += '</div>';
-						html += '<p><a href="#" class="link-blue name">' +  response['advert']['user']['name'] +'</a></p>';
-						html += '</div>';
-
-						for (i in response['advert']['user']['phone']) {
-							html += '<div class="phone red f24">' + response['advert']['user']['phone'][i] + '</div>';
-						}
-
-						$('#modal_order .js-user').empty().append(html);
-						$('#modal_order input[name=advert_id]').val(advertId);
-
-						$('#modal_order').modal('show');
-					}
-				});
-			}
-		});
-
-		$('#modal_order').on('hidden.bs.modal', function () {
-			$('#modal_order input[name=advert_id]').val('');
-			$('#modal_order .js-buttons').removeClass('hidden');
-
-			if (!$('#modal_order .js-info-block').hasClass('hidden')) {
-				$('#modal_order .js-info-block').addClass('hidden');
-			}
-		});
-
-		$('#modal_order form').on('submit', function (e) {
-			e.preventDefault();
-
-			var form = $(this);
-
-			$.ajax({
-				url: form.attr('action'),
-				method: form.attr('method'),
-				data: form.serialize(),
-				dataType: 'json',
-				beforeSend: function () {
-					$('#modal_order').find('.alert').remove();
-
-					form.find(':submit').attr('disabled', true);
-
-					$('.body-overlay').addClass('active');
-				},
-				success: function (json) {
-					if (json['status'] === 'success') {
-						form.find('.js-buttons').toggleClass('hidden');
-						form.find('.js-info-block').toggleClass('hidden');
-					}
-
-					if (json['status'] === 'warning') {
-						$('#modal_order .modal-body').before('<div class="alert alert-warning">Ви вже оформили це замовлення!</div>');
-					}
-				},
-				complete: function () {
-					form.find(':submit').attr('disabled', false);
-
-					$('.body-overlay').removeClass('active');
-				}
-			})
-		})
 	</script>
 @endpush
