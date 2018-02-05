@@ -20,7 +20,7 @@
 		<div class="container">
 			<div class="owl-carousel">
 				@foreach($advert->images as $image)
-					<div class="item"><img src="{{ $image }}" alt=""></div>
+					<div class="item"><img src="{{ Helper::getImageUrl($advert->user, $image->image) }}" alt="{{ $advert->name }}"></div>
 				@endforeach
 			</div>
 			<div class="slider-counter"></div>

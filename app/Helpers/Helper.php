@@ -45,25 +45,27 @@ class Helper
     }
 
     /**
-     * Return uploaded image url.
+     * Return image url.
      *
-     * @param $entity
+     * @param $user
+     * @param $image
      * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      */
-    public function getImageUrl($entity)
+    public function getImageUrl($user, $image)
     {
-        return url('uploads/' . $this->getUserDirHash($entity->user) . '/'. $entity->image);
+        return url('uploads/' . $this->getUserDirHash($user) . '/' . $image);
     }
 
     /**
-     * Return uploaded thumbnail url.
+     * Return thumbnail url.
      *
-     * @param $entity
+     * @param $user
+     * @param $image
      * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      */
-    public function getThumbnailUrl($entity)
+    public function getThumbnailUrl($user, $image)
     {
-        return url('uploads/' . $this->getUserDirHash($entity->user) . '/thumbs/' . $entity->image);
+        return url('uploads/' . $this->getUserDirHash($user) . '/thumbs/' . $image);
     }
 
     /**

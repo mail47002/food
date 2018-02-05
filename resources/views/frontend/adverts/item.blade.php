@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 advert">
     <div class="product-thumb">
         <div class="image">
-            <img src="{{ Helper::getThumbnailUrl($advert) }}" class="img-responsive" alt="{{ $advert->name }}">
+            <img src="{{ Helper::getThumbnailUrl($advert->user, $advert->image) }}" class="img-responsive" alt="{{ $advert->name }}">
             <div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
             <div class="sticker {{ $advert->sticker }}"></div>
         </div>

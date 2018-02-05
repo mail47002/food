@@ -11,7 +11,7 @@
 
     <div class="bg-yellow text-center">
         <div class="v-indent-30"></div>
-        <img src="{{ Helper::getImageUrl($advert) }}" alt="{{ $advert->name }}" class="inline header-img">
+        <img src="{{ Helper::getImageUrl($advert->user, $advert->image) }}" alt="{{ $advert->name }}" class="inline header-img">
         <h5 class="header-title text-upper black margin-30">{{ $advert->name }}</h5>
         <p class="red f20 margin-zerro">
             @if(Helper::isAdvertByDate($advert->type))
