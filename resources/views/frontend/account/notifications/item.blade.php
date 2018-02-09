@@ -1,10 +1,12 @@
 {{-- Order stored --}}
 @if($notification->type === 'App\Notifications\OrderCreated')
-    <div class="wide-thumb profile-messages clients">
+    <div id="{{ $notification->id }}" class="wide-thumb profile-messages clients">
         <div class="left with-image">
             <div class="title">Вам зробила замовлення <a href="{{ route('profile.user.show', $notification->data['user']['slug']) }}" class="link-blue">{{ $notification->data['user']['name'] }}</a> на страву з меню</div>
             <div class="avatar">
-                <div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
+                <div class="rounded">
+                    <img src="/uploads/avatar.png" alt="foto">
+                </div>
             </div>
             <div class="message">
                 <p><a href="#" class="link-blue">{{ $notification->data['advert']['name'] }}</a> </p>
@@ -41,7 +43,7 @@
 
 {{-- Order confirmed --}}
 @if($notification->type === 'App\Notifications\OrderConfirmed')
-    <div class="wide-thumb profile-messages success">
+    <div id="{{ $notification->id }}" class="wide-thumb profile-messages success">
         <div class="left with-image">
         	<div class="title">Повар <a href="{{ route('profile.user.show', $notification->data['advert']['user']['slug']) }}" class="link-blue">{{ $notification->data['advert']['user']['name'] }}</a> підтвердила ваше замовлення</div>
             <div class="avatar">
@@ -50,7 +52,7 @@
                 </div>
             </div>
             <div class="message">
-                <p><a href="#" class="link-blue">{{ $notification->order['advert']['name'] }}</a> </p>
+                <p><a href="{{ route('adverts.show', $notification->data['advert']['slug']) }}" class="link-blue">{{ $notification->order['advert']['name'] }}</a> </p>
                 <p><i class="fo fo-time red"></i>15 грудня (обід) <span class="price">{{ $notification->data['order']['price'] }} грн.</span></p>
             </div>
         </div>
@@ -62,7 +64,7 @@
 
 {{-- Order canceled --}}
 @if($notification->type === 'App\Notifications\OrderCanceled')
-    <div class="wide-thumb profile-messages order-discard">
+    <div id="{{ $notification->id }}" class="wide-thumb profile-messages order-discard">
         <div class="left with-image">
             <div class="title">Повар <a href="{{ route('profile.user.show', $notification->data['advert']['user']['slug']) }}" class="link-blue">{{ $notification->data['advert']['user']['name'] }}</a> відмовила на замовленняя</div>
             <div class="avatar">
@@ -71,7 +73,7 @@
                 </div>
             </div>
             <div class="message">
-                <p><a href="#" class="link-blue">{{ $notification->data['advert']['name'] }}</a> </p>
+                <p><a href="{{ route('adverts.show', $notification->data['advert']['slug']) }}" class="link-blue">{{ $notification->data['advert']['name'] }}</a> </p>
                 <p><i class="fo fo-time red"></i>15 грудня (обід) <span class="price">{{ $notification->data['order']['price'] }} грн.</span></p>
             </div>
         </div>
@@ -89,7 +91,7 @@
 
 {{-- Order deleted --}}
 @if($notification->type === 'App\Notifications\AdvertDeleted')
-    <div class="wide-thumb profile-messages deleted">
+    <div id="{{ $notification->id }}" class="wide-thumb profile-messages deleted">
         <div class="left with-image">
             <div class="title">Ваше оголошення видалено</div>
             <div class="message">
@@ -105,7 +107,7 @@
 
 {{-- Callback stored --}}
 @if($notification->type === 'App\Notifications\CallbackStored')
-    <div class="wide-thumb profile-messages phone">
+    <div id="{{ $notification->id }}" class="wide-thumb profile-messages phone">
         <div class="left with-image">
 
             <div class="title">Повідомлення від <a href="{{ route('profile.user.show', $notification->data['user']['slug']) }}" class="link-blue">{{ $notification->data['user']['name']}}</a></div>

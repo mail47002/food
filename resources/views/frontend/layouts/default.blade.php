@@ -34,9 +34,15 @@
 	<script src="{{ asset('frontend/js/custom.js') }}"></script>
 	@stack('scripts')
 	<script type="text/javascript">
-//	    $( document ).ready(function() {
-//	        $('span.stars').stars();
-//	    });
+	    // $(document).ready(function() {
+	    //     $('span.stars').stars();
+	    // });
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': '{{ csrf_token() }}'
+			}
+		});
 
         $(document).ready(function() {
             $('input[type="tel"]').mask('+38 (999) 999 99 99');

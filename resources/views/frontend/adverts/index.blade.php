@@ -7,12 +7,7 @@
 	<div class="bg-yellow">
 		<div class="filter-block">
 			<div class="container">
-
-				{{ Form::open(['route' => 'adverts.index', 'method' => 'get', 'class' => 'search']) }}
-					{{ Form::text('search', null, ['placeholder' => 'Пошук']) }}
-					{{ Form::submit('') }}
-				{{ Form::close() }}
-
+				@include('frontend.adverts.search')
 				<hr>
 				<div class="address text-center">
 					<i class="fo fo-big fo-marker red"></i>Соборна, буд. 10/2, Вінниця
@@ -24,81 +19,16 @@
 					</div>
 				</div>
 				<hr>
-				<ul class="buttons list-inline text-center js-filter-category">
-					@foreach ($categories as $category)
-						<li><a href="javascript:void(0);" class="button {{ in_array($category->id, $filter['cid']) ? 'active' : '' }}" data-id="{{ $category->id }}">{{ $category->name }}</a></li>
-					@endforeach
-				</ul>
+				@include('frontend.adverts.category')
 				<hr>
 			</div>
-			<ul class="categories list-inline text-center">
-				<li class="{{ Helper::isAdvertByDate() ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'by_date']) }}" class="link-red text-upper">Меню по датам</a></li>
-				<li class="{{ Helper::isAdvertInStock() ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'in_stock']) }}" class="link-red text-upper">Готові страви</a></li>
-				<li class="{{ Helper::isAdvertPreOrder() ? 'active' : '' }}"><a href="{{ route('adverts.index', ['type' => 'pre_order']) }}" class="link-red text-upper">Страви під замовлення</a></li>
-			</ul>
+			@include('frontend.adverts.type')
 			<hr class="red-border">
 		</div>
 
 		<div class="tab-content">
-			<div class="tab-pane fade in active">
-				@if(Helper::isAdvertByDate())
-					<div class="filter-block">
-						<div class="filter-inputs container">
-							<div class="row">
-								<div class="col-md-3">
-									<input type="text" name="date" class="datepicker full-width" value="{{ request()->get('date') }}" placeholder="Дата">
-								</div>
-								<div class="checkboxes col-md-6">
-									<input type="checkbox" id="breakfast" name="time" value="breakfast" {{ in_array('breakfast', $filter['time']) ? 'checked' : '' }}>
-									<label for="breakfast">Сніданок (до 12:00)</label>
-
-									<input type="checkbox" id="dinner" name="time" value="dinner" {{ in_array('dinner', $filter['time']) ? 'checked' : '' }}>
-									<label for="dinner">Обід (12:00 - 16:00)</label>
-
-									<input type="checkbox" id="supper" name="time" value="supper" {{ in_array('supper', $filter['time']) ? 'checked' : '' }}>
-									<label for="supper">Вечеря (після 16:00)</label>
-								</div>
-								<div class="col-md-3">
-									@include('frontend.includes.sort_order')
-								</div>
-							</div>
-
-							<div class="row">
-								@include('frontend.includes.price_range')
-							</div>
-						</div>
-					</div>
-				@endif
-
-				@if(Helper::isAdvertInStock())
-					<div class="filter-block">
-						<div class="filter-inputs container">
-							<div class="row">
-								<div class="col-md-9">
-									@include('frontend.includes.price_range')
-								</div>
-								<div class="col-md-3">
-									@include('frontend.includes.sort_order')
-								</div>
-							</div>
-						</div>
-					</div>
-				@endif
-
-				@if(Helper::isAdvertPreOrder())
-					<div class="filter-block">
-						<div class="filter-inputs container">
-							<div class="row">
-								<div class="col-md-9">
-									@include('frontend.includes.price_range')
-								</div>
-								<div class="col-md-3">
-									@include('frontend.includes.sort_order')
-								</div>
-							</div>
-						</div>
-					</div>
-				@endif
+			<div class="tab-pane active">
+				@include('frontend.adverts.filter')
 
 				@if(count($adverts) > 0)
 					<div class="container">
@@ -120,43 +50,8 @@
 		</div>
 	</div>
 
-	<!-- Modal Address -->
-	<div id="modal_change_address" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content text-center">
-				<div class="modal-header">
-					<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
-					<h4 class="modal-title">Змінити регіон</h4>
-				</div>
-				<div class="modal-body">
-					<p><input type="checkbox" id="ukraine" checked="checked"><label for="ukraine">Уся Україна</label></p>
-					<p>Населений пункт</p>
-					<p>
-						<select class="address full-width">
-							@foreach($cities as $city)
-								<option value="{{ $city->id }}">{{ $city->name }}</option>
-							@endforeach
-						</select>
-					</p>
-					<div class="row">
-						<div class="col-md-7">
-							<p>Вулиця</p>
-							<input class="" type="text" placeholder="Соборна">
-						</div>
-						<div class="col-md-5">
-							<p>№ будинку</p>
-							<input class="" type="text" placeholder="30">
-						</div>
-					</div>
-					<p></p>
-					<a href="#" class="button button-red">Застосувати</a>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	@include('frontend.adverts.order');
+	@include('frontend.adverts.address')
+	@include('frontend.adverts.order')
 @stop
 
 @push('scripts')

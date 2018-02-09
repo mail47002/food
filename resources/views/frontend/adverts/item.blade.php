@@ -40,6 +40,10 @@
             @endif
         </div>
 
-        <button type="button" class="button button-grey order" onclick="order.show({{ $advert->id }})" {{ (int) auth()->id() === (int) $advert->user_id ? 'disabled' : '' }}>Замовити</button>
+        @if(auth()->guest())
+            <button type="button" class="button button-grey order" data-toggle="modal" data-target="#modal_login">Замовити</button>
+        @else
+            <button type="button" class="button button-grey order" onclick="order.show({{ $advert->id }})">Замовити</button>
+        @endif
     </div>
 </div>

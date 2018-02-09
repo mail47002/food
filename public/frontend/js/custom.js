@@ -1,5 +1,3 @@
-
-
 +function ($) {
   'use strict';
 
@@ -26,6 +24,7 @@
       var i = $('.js-video > div').length;
       $('<div><input id="input-video-' + i + '" name="video[]" type="text" /><span class="remove js-delete-video"></span></div>').insertBefore(this);
   });
+
 // Удалить Video
   $(document).on('click', '.js-delete-video', function(e) {
       e.preventDefault();

@@ -5,15 +5,12 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Gerardojbaez\Messenger\Contracts\MessageableInterface;
-use Gerardojbaez\Messenger\Traits\Messageable;
 
 class User extends Authenticatable
 {
     use Notifiable;
-    use Messageable;
 
-    const VERIFIED_USER = 1;
+    const USER_VERIFIED = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -64,10 +61,29 @@ class User extends Authenticatable
         return $this->hasMany('App\UserRole');
     }
 
+    public function threads()
+    {
+        return $this->belongsToMany(
+            'App\MessageThread',
+            'message_thread_participants',
+            'user_id',
+            'thread_id'
+        );
+    }
+
+    public function scopeFindThread($query, $threadId)
+    {
+        return $this->threads()->where('thread_id', $threadId)->first();
+    }
+
     public function verified()
     {
-        $this->verified = self::VERIFIED_USER;
-
+        $this->verified = self::USER_VERIFIED;
         $this->save();
+    }
+
+    public function scopeFindBySlug($query, $slug)
+    {
+        return $query->where('slug', $slug)->first();
     }
 }

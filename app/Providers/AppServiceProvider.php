@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('helper', 'App\Helpers\Helper');
+        $this->app->bind('messenger', 'App\Services\Messages\Messenger');
     }
 
 }

@@ -3,13 +3,7 @@
 @section('content')
     <h5 class="text-upper underline-red">Мої повідомлення</h5><hr class="zerro-top">
 
-    <div class="filter-block">
-        <ul class="categories list-inline text-center">
-            <li class="active"><a href="{{ route('account.notifications.index') }}" class="link-red text-upper">Повідомлення</a></li>
-            <li><a href="{{ route('account.messages.index') }}" class="link-red text-upper">Переписка</a></li>
-        </ul>
-        <hr class="red-border">
-    </div>
+    @include('frontend.account.notifications.menu')
 
     <div class="v-indent-20"></div>
 
@@ -23,3 +17,17 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        var url = new URL(window.location),
+            id = url.searchParams.get('notify');
+
+        if (id) {
+            $('html, body').animate({
+                scrollTop: $('#' + id).offset().top
+            }, 1500);
+        }
+
+    </script>
+@endpush

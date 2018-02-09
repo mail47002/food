@@ -7,9 +7,15 @@ use App\Http\Resources\AdvertResource;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class AdvertsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +55,7 @@ class AdvertsController extends Controller
      */
     public function show($id)
     {
-        $advert = Advert::with(['user', 'product'])->find($id);
+        $advert = Advert::with(['user', 'product', 'order'])->find($id);
 
         if ($advert) {
             return new AdvertResource($advert);

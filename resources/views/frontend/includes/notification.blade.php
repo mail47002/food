@@ -1,6 +1,6 @@
 @if($notification->type === 'App\Notifications\OrderCreated')
     <li class="top-message clients">
-        <a href="#"> {{-- Ссылка на сообщение ? --}}
+        <a href="{{ route('account.notifications.index', ['notify' => $notification->id]) }}">
             <div class="avatar">
                 <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
             </div>
@@ -15,7 +15,7 @@
 
 @if($notification->type === 'App\Notifications\OrderConfirmed')
     <li class="top-message ">
-        <a href="#"> {{-- Ссылка на сообщение ? --}}
+        <a href="{{ route('account.notifications.index', ['notify' => $notification->id]) }}">
             <div class="avatar">
                 <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
             </div>
@@ -30,7 +30,7 @@
 
 @if($notification->type === 'App\Notifications\OrderCanceled')
     <li class="top-message order">
-        <a href="#"> {{-- Ссылка на сообщение ? --}}
+        <a href="{{ route('account.notifications.index', ['notify' => $notification->id]) }}">
             <div class="avatar"><div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div></div>
             <div class="message">
                 <strong><object>Повар <a href="/account/#" class="link-blue">{{ $notification->data['advert']['user']['name'] }}</a> відмовила на замовленняя</object></strong>
@@ -43,7 +43,7 @@
 
 @if($notification->type === 'App\Notifications\CallbackStored')
     <li class="top-message phone">
-        <a href="#"> {{-- Ссылка на сообщение ? --}}
+        <a href="{{ route('account.notifications.index', ['notify' => $notification->id]) }}">
             <div class="avatar">
                 <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
             </div>
@@ -58,7 +58,7 @@
 
 @if($notification->type === 'App\Notifications\AdvertDeleted')
     <li class="top-message deleted">
-        <a href="#"> {{-- Ссылка на сообщение ? --}}
+        <a href="{{ route('account.notifications.index', ['notify' => $notification->id]) }}">
             <div class="avatar">
                 <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
             </div>

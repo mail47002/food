@@ -47,4 +47,9 @@ class Advert extends Model
     {
         return $this->hasOne('App\AdvertAddress');
     }
+
+    public function order()
+    {
+        return $this->hasOne('App\Order', 'advert_id')->where('user_id', auth()->id());
+    }
 }

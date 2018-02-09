@@ -1,4 +1,4 @@
-<a class="wide-thumb profile-letters unread" href="#">
+<a class="wide-thumb profile-letters unread" href="{{ route('account.messages.show', $thread->id) }}">
     <object><a href="#" class="delete"><i class="fo fo-delete fo-small"></i></a></object>
     <div class="avatar-title"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
     <div class="col">
@@ -8,7 +8,7 @@
         </div>
         <div class="message">
             <div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>
-            <p>В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховата, но... впечатление от блюда осталось приятное! для разнообразия... приготовить можно).</p>
+            <p>{{ $thread->messages->last()->body }}</p>
         </div>
     </div>
 </a>

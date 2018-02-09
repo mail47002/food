@@ -150,8 +150,18 @@
 							<div class="avatar">
 								<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 							</div>
-							<a href="#" class="link-blue name">{{ $advert->user->name }}</a>
-							<a href="#" class="button button-grey">Зв’язатися</a>
+
+							@if(auth()->guest())
+								<a href="#" class="link-blue name" data-toggle="modal" data-target="#modal_login">{{ $advert->user->name }}</a>
+							@else
+								<a href="{{ route('profile.user.show', $advert->user->slug) }}" class="link-blue name">{{ $advert->user->name }}</a>
+							@endif
+
+							@if(auth()->guest())
+								<button type="button" class="button button-grey" data-toggle="modal" data-target="#modal_login">Зв’язатися</button>
+							@elseif(auth()->id() !== $advert->user_id)
+								<a href="{{ route('account.messages.show', $advert->user->slug) }}" class="button button-grey">Зв’язатися</a>
+							@endif
 						</div>
 						<div class="right">
 							<p>{{ $advert->user->about }}</p>
@@ -186,8 +196,13 @@
 							</div>
 							<a href="{{ route('profile.user.show', $advert->user->slug) }}" class="link-blue name">{{ $advert->user->name }}</a>
 							<div class="rating"><span class="stars">4</span>10 відгуків</div>
-
-							<p><a href="javascript:void(0);" class="button button-red wide" onclick="order.show({{ $advert->id }})">Замовити</a></p>
+							<p>
+								@if(auth()->guest())
+									<button class="button button-red wide" data-toggle="modal" data-target="#modal_login">Замовити</button>
+								@else
+									<button class="button button-red wide" onclick="order.show({{ $advert->id }})">Замовити</button>
+								@endif
+							</p>
 							<p class="medium">або вибрати</p>
 							<div class="clearfix">
 								<a href="#" class="button-square pull-left"><i class="fo fo-big fo-dish-ready"></i>уже готова страва</a>
