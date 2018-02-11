@@ -97,7 +97,6 @@ class AdvertsController extends Controller
             $product = Product::find($request->product_id);
 
             if ($product) {
-                $this->copyImages($product->images);
                 $this->syncImages($product->images, $advert);
             }
         }
@@ -278,30 +277,6 @@ class AdvertsController extends Controller
         }
 
         $this->validate($request, $rules);
-    }
-
-    /**
-     * Copy advert images from storage.
-     *
-     * @param $images
-     */
-    protected function copyImages($images)
-    {
-        foreach ($images as $image) {
-            $productImagePath = Helper::getImageUrl('products', $image->image, Auth::user());
-            $productThumbnailPath = Helper::getThumbnailUrl('products', $image->image, Auth::user());
-
-            $advertImagePath = Helper::getImageUrl('adverts', $image->image, Auth::user());
-            $advertThumbnailPath = Helper::getThumbnailUrl('adverts', $image->image, Auth::user());
-
-            if (!Storage::exists($advertImagePath)) {
-                Storage::copy($productImagePath, $advertImagePath);
-            }
-
-            if (!Storage::exists($advertThumbnailPath)) {
-                Storage::copy($productThumbnailPath, $advertThumbnailPath);
-            }
-        }
     }
 
     /**
