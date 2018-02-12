@@ -22,14 +22,15 @@ class RegisterController extends Controller
 
         $user = $this->createUser($request);
 
-        Mail::to($user->email)->send(new EmailVerification($user->token));
+        Mail::to($user->email)->send(new \App\Mail\EmailVerification($user->token));
 
-        return view('frontend.login.success');
+        return redirect()->route('success');
+
     }
 
-    public function verify($token)
+    public function verify(Request $token)
     {
-        $user = User::where('email_token', $token)->first();
+        $user = User::where('token', $token)->first();
 
         if ($user){
             $user->verified();
@@ -37,7 +38,8 @@ class RegisterController extends Controller
             return redirect()->route('login');
         }
 
-        return redirect('/register');
+        return redirect()->route('register');
+
     }
 
     protected function validateForm(Request $request)
@@ -60,7 +62,7 @@ class RegisterController extends Controller
             'email'         => $request->email,
             'role_id'       => 1,
             'password'      => Hash::make($request->password),
-            'email_token'   => str_random(60)
+            'token'   => str_random(60)
         ]);
     }
 }
