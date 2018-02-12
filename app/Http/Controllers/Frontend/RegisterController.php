@@ -28,14 +28,17 @@ class RegisterController extends Controller
 
     }
 
-    public function verify(Request $token)
+    public function success()
     {
-        $user = User::where('token', $token)->first();
+        return view('frontend.register.success');
+    }
 
+    public function verify(Request $request)
+    {
+        $user = User::where('token', $request->token)->first();
         if ($user){
             $user->verified();
-
-            return redirect()->route('login');
+            return view('frontend.register.information');
         }
 
         return redirect()->route('register');

@@ -264,9 +264,9 @@ Route::group(['namespace' => 'Frontend'], function() {
     // Registration
     Route::get('register', 'RegisterController@show');
     Route::post('register', ['as' => 'register', 'uses' => 'RegisterController@register']);
-    Route::post('verify', ['as' => 'verify', 'uses' => 'RegisterController@verify']);
+    Route::get('verify', ['as' => 'verify', 'uses' => 'RegisterController@verify']);
+    Route::get('success', ['as' => 'success', 'uses' => 'RegisterController@success']);
     Route::get('forgot', ['as' => 'forgot', 'uses' => 'LoginController@forgot']);
-    Route::get('success', ['as' => 'success', 'uses' => 'LoginController@success']);
     Route::get('information', ['as' => 'information', 'uses' => 'LoginController@information']);
 
     // Forgot password

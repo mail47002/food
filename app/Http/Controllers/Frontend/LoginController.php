@@ -22,11 +22,6 @@ class LoginController extends Controller
         return view('frontend.login.show');
     }
 
-    public function success()
-    {
-        return view('frontend.login.success');
-    }
-
     public function login(Request $request)
     {
         $this->validateForm($request);
