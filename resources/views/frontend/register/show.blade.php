@@ -59,7 +59,8 @@
 
                     $('.body-overlay').addClass('active');
                 },
-                success: function(data) {
+                success: function(response) {
+                    window.location = response.url;
                 },
                 complete: function() {
                     form.find('input[type=submit]').attr('disabled', false);

@@ -77,15 +77,15 @@ $factory->define(App\AdvertSticker::class, function (Faker\Generator $faker) {
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'role_id'  => random_int(0, 1),
-        'name'     => $faker->name,
-        'slug'     => str_slug($faker->name),
-        'about'    => $faker->text,
-        'image'    => $faker->imageUrl(210, 210),
-        'phone'    => ['+38 (011) 111 11 11', '+38 (022) 222 22 22'],
-        'email'    => $faker->email,
-        'password' => bcrypt('123456'),
-        'verified' => 1
+        'role_id'     => random_int(0, 1),
+        'name'        => $faker->name,
+        'slug'        => str_slug($faker->name),
+        'about'       => $faker->text,
+        'image'       => $faker->imageUrl(210, 210),
+        'phone'       => ['+38 (011) 111 11 11', '+38 (022) 222 22 22'],
+        'email'       => $faker->email,
+        'password'    => bcrypt('123456'),
+        'verified_at' => \Carbon\Carbon::now()
     ];
 });
 

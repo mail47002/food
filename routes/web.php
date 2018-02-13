@@ -257,21 +257,28 @@ Route::group(['namespace' => 'Frontend'], function() {
     });
 
     // Login & logout
-    Route::get('login', 'LoginController@show');
-    Route::post('login', ['as' => 'login', 'uses' => 'LoginController@login']);
+    Route::group(['prefix' => 'login'], function () {
+        Route::get('', 'LoginController@show');
+        Route::post('', ['as' => 'login', 'uses' => 'LoginController@login']);
+    });
+
     Route::get('logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 
     // Registration
-    Route::get('register', 'RegisterController@show');
-    Route::post('register', ['as' => 'register', 'uses' => 'RegisterController@register']);
-    Route::get('verify', ['as' => 'verify', 'uses' => 'RegisterController@verify']);
-    Route::get('success', ['as' => 'success', 'uses' => 'RegisterController@success']);
-    Route::get('forgot', ['as' => 'forgot', 'uses' => 'LoginController@forgot']);
-    Route::get('information', ['as' => 'information', 'uses' => 'LoginController@information']);
+    Route::group(['prefix' => 'register'], function () {
+        Route::get('', 'RegisterController@show');
+        Route::post('', ['as' => 'register', 'uses' => 'RegisterController@register']);
+        Route::get('success', ['as' => 'register.success', 'uses' => 'RegisterController@success']);
+    });
+
+    // Verify
+    Route::get('user/verify/{token}', ['as' => 'user.verify', 'uses' => 'RegisterController@verify']);
 
     // Forgot password
-    Route::get('password/forgot', 'ForgotPasswordController@show');
-    Route::post('password/forgot', ['as' => 'password.forgot', 'uses' => 'ForgotPasswordController@forgot']);
+    Route::group(['prefix' => 'password'], function () {
+        Route::get('forgot', 'ForgotPasswordController@show');
+        Route::post('forgot', ['as' => 'password.forgot', 'uses' => 'ForgotPasswordController@forgot']);
+    });
 
     // Pages
     Route::group(['prefix' => 'page'], function () {

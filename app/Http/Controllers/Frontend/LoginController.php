@@ -17,17 +17,28 @@ use Hash;
 
 class LoginController extends Controller
 {
+    /**
+     * Show login form.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show()
     {
         return view('frontend.login.show');
     }
 
+    /**
+     * Login user.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
         $this->validateForm($request);
 
         if (Auth::guard('web')->attempt($this->credentials($request), true)) {
-            if (Auth::user()->email_token){
+            if (Auth::user()->token){
                 return response()->json([
                     'url' => route('account.user.create')
                 ]);
@@ -39,6 +50,11 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * Logout user.
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function logout()
     {
         Auth::guard('web')->logout();
@@ -46,20 +62,31 @@ class LoginController extends Controller
         return redirect('login');
     }
 
+    /**
+     * Validate request form.
+     *
+     * @param Request $request
+     */
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'email'     => 'required|email',
-            'password'  => 'required|string',
+            'email'    => 'required|email',
+            'password' => 'required|string',
         ]);
     }
 
+    /**
+     * User credentials.
+     *
+     * @param Request $request
+     * @return array
+     */
     protected function credentials(Request $request)
     {
         return [
-            'email'     => $request->email,
-            'password'  => $request->password,
-            'verified'  => 1
+            'email'    => $request->email,
+            'password' => $request->password,
+            'verified' => User::VERIFIED
         ];
     }
 }

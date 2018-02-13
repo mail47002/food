@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    const USER_VERIFIED = 1;
+    const VERIFIED = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -18,12 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'slug',
-        'about',
-        'phone',
-        'email',
-        'password'
+        'name', 'slug', 'about', 'phone', 'email', 'password', 'token'
     ];
 
     /**
@@ -32,9 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'role_id',
-        'password',
-        'remember_token',
+        'role_id', 'password', 'remember_token',
     ];
 
     /**
@@ -78,7 +72,8 @@ class User extends Authenticatable
 
     public function verified()
     {
-        $this->verified = self::USER_VERIFIED;
+        $this->verified = self::VERIFIED;
+        $this->verified_at = Carbon::now();
         $this->save();
     }
 

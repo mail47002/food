@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('role_id')->default(0);
+            $table->integer('role_id')->default(1);
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
             $table->string('image')->nullable();
@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('token')->nullable();
             $table->rememberToken();
             $table->integer('verified')->default(0);
+            $table->timestamp('verified_at')->nullable();
             $table->timestamps();
         });
     }

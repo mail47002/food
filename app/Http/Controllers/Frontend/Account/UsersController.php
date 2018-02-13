@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Account;
 
+use App\Address;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -35,7 +36,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('frontend.account.users.create');
     }
 
     /**
@@ -46,7 +47,19 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateForm($request);
+
+        $request->merge([
+            'token' => null
+        ]);
+
+        $address = new Address($request->all());
+
+        $user = User::create($request->all());
+
+        $user->address()->save($address);
+
+        return redirect()->route('account.user.show');
     }
 
     /**

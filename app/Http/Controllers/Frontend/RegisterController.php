@@ -11,40 +11,71 @@ use Mail;
 
 class RegisterController extends Controller
 {
+    /**
+     * Show registration form.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show()
     {
         return view('frontend.register.show');
     }
 
+    /**
+     * Register new user.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function register(Request $request)
     {
         $this->validateForm($request);
 
         $user = $this->createUser($request);
 
-        Mail::to($user->email)->send(new \App\Mail\EmailVerification($user->token));
+        Mail::to($user->email)->send(new EmailVerification($user));
 
-        return redirect()->route('success');
+        return response()->json([
+            'url' => route('register.success')
+        ]);
 
     }
 
+    /**
+     * Show success registration.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function success()
     {
         return view('frontend.register.success');
     }
 
-    public function verify(Request $request)
+    /**
+     * Verified user.
+     *
+     * @param $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function verify($token)
     {
-        $user = User::where('token', $request->token)->first();
+        $user = User::where('token', $token)->first();
+
         if ($user){
             $user->verified();
-            return view('frontend.register.information');
+
+            return redirect()->route('login');
         }
 
         return redirect()->route('register');
 
     }
 
+    /**
+     * Validate request form.
+     *
+     * @param Request $request
+     */
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
@@ -54,18 +85,19 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function validateEmailToken()
-    {
-
-    }
-
+    /**
+     * Create new user in resource.
+     *
+     * @param Request $request
+     * @return mixed
+     */
     protected function createUser(Request $request)
     {
-        return User::create([
-            'email'         => $request->email,
-            'role_id'       => 1,
-            'password'      => Hash::make($request->password),
-            'token'   => str_random(60)
+        $request->merge([
+            'token' => str_random(32),
+            'password' => Hash::make($request->password)
         ]);
+
+        return User::create($request->all());
     }
 }

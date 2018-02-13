@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -11,16 +12,16 @@ class EmailVerification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $token;
+    public $user;
 
     /**
      * Create a new message instance.
      *
-     * @param $token
+     * @param $user
      */
-    public function __construct($token)
+    public function __construct(User $user)
     {
-        $this->token = $token;
+        $this->user = $user;
     }
 
     /**
@@ -30,6 +31,7 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
-        return $this->subject('Реєстрація')->view('emails.token');
+        return $this->subject('Реєстрація')
+            ->view('emails.token');
     }
 }

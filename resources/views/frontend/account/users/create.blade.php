@@ -6,7 +6,7 @@
         <div class="information text-center">
             <div class="header">Розкажіть про себе</div>
             <div class="body">
-                {{ Form::open(['route' => 'account.create', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
+                {{ Form::open(['route' => 'account.user.store', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
                     <p class="message" id="message">Заповніть виділені поля</p>
                     <div class="form-group">
                         {{ Form::label('name', 'Ім\'я*') }}
