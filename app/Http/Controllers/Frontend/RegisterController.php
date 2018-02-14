@@ -93,11 +93,13 @@ class RegisterController extends Controller
      */
     protected function createUser(Request $request)
     {
-        $request->merge([
-            'token' => str_random(32),
-            'password' => Hash::make($request->password)
-        ]);
+        $user = new User;
 
-        return User::create($request->all());
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->token = str_random(32);
+        $user->save();
+
+        return $user;
     }
 }

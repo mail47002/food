@@ -50,16 +50,19 @@ class UsersController extends Controller
         $this->validateForm($request);
 
         $request->merge([
-            'token' => null
+            'has_profile' => 1
         ]);
+
+        Auth::user()->fill($request->all())->save();
 
         $address = new Address($request->all());
 
-        $user = User::create($request->all());
+        Auth::user()->address()->save($address);
 
-        $user->address()->save($address);
-
-        return redirect()->route('account.user.show');
+        return response()->json([
+            'url' => route('account.user.show'),
+            'success' => true
+        ]);
     }
 
     /**
@@ -142,7 +145,8 @@ class UsersController extends Controller
             'phone.*' => 'required',
             'city'    => 'required',
             'street'  => 'required',
-            'build'   => 'required'
+            'build'   => 'required',
+            'slug'    => 'sometimes|required'
         ]);
     }
 }

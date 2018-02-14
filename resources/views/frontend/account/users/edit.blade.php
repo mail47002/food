@@ -91,7 +91,7 @@
                 },
 				success: function(data) {
 				    if (data['success']) {
-				        $('.avatar img').attr('src', data['image']);
+				        $('.profile img').attr('src', data['image']);
 					}
                 },
 				complete: function() {
