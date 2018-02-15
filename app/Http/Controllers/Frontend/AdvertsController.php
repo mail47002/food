@@ -20,7 +20,7 @@ class AdvertsController extends Controller
      */
     public function index(Request $request)
     {
-        $cId = $request->cid
+        $categoryIds = $request->cid
             ? explode(',', $request->cid)
             : Category::all()->pluck('id')->toArray();
         $type = $request->input('type', Advert::BY_DATE);
@@ -34,9 +34,8 @@ class AdvertsController extends Controller
             : Helper::getAdvertTimes();
 
         $adverts = Advert::with(['product', 'images'])
-//            ->whereHas('categories', function ($query) use ($cId) {
-//                $query->whereIn('category_id', $cId);
-//            })
+            ->leftJoin('product_to_category', 'adverts.product_id', '=', 'product_to_category.product_id')
+            ->whereIn('product_to_category.category_id', $categoryIds)
             ->where('name', 'like', '%' . $request->search . '%')
             ->whereBetween('price', [$priceFrom, $priceTo])
             ->where('type', $type);
