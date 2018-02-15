@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Account;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Helper;
 use Image;
 use Storage;
 
@@ -15,12 +16,18 @@ class UserImageController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Update user image.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request)
     {
         if ($request->hasFile('image')) {
             $this->validateForm($request);
 
-            Storage::delete(Auth::user()->image);
+            Storage::delete('uploads/' . Helper::getUserDirHash(Auth::user()) . '/' . Auth::user()->image);
 
             $image = $this->storeImage($request);
 
@@ -34,6 +41,11 @@ class UserImageController extends Controller
         }
     }
 
+    /**
+     * Validate request form.
+     *
+     * @param Request $request
+     */
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
@@ -41,11 +53,17 @@ class UserImageController extends Controller
         ]);
     }
 
+    /**
+     * Upload image to storage.
+     *
+     * @param Request $request
+     * @return string
+     */
     protected function storeImage(Request $request)
     {
         $file = $request->file('image');
         $fileName = str_random(18) . '.' . $file->getClientOriginalExtension();
-        $filePath = 'uploads/' . md5(Auth::id()) . '/' . $fileName;
+        $filePath = 'uploads/' . Helper::getUserDirHash(Auth::user()) . '/' . $fileName;
 
         $image = Image::make($file)->fit(210, 210);
 
