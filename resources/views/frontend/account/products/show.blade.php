@@ -15,7 +15,7 @@
 		<div class="container">
 			<div class="owl-carousel">
 				@foreach ($product->images as $image)
-					<div class="item"><img src="{{ asset('uploads/' . Helper::getUserDirHash($product->user) . '/products/' . $image->image) }}"></div>
+					<div class="item"><img src="{{ Helper::getImageUrl($product->user, $image->image) }}"></div>
 				@endforeach
 			</div>
 			<div class="slider-counter"></div>
@@ -105,11 +105,11 @@
 								<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 								<a href="#" class="link"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> до улюблених</a>
 							</div>
-							<a href="#" class="link-blue name">Марк</a>
+							<a href="#" class="link-blue name">{{ $product->user->name }}</a>
 							<div class="rating"><span class="stars">4</span>10 відгуків</div>
 
 							<p class="distance"><i class="fo fo-big fo-marker red"></i>5 км</p>
-							<p class="small">вул. Соборна 20, Вінниця</p>
+							<p class="small">{{ Helper::getUserAddress($product->user) }}</p>
 							<hr>
 
 							<div class="clearfix text-center">

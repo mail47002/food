@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Frontend\Account;
 
 use App\Address;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Product;
 use App\Review;
 use Auth;
-use Storage;
-use Image;
 
 class UsersController extends Controller
 {
@@ -60,7 +56,7 @@ class UsersController extends Controller
         Auth::user()->address()->save($address);
 
         return response()->json([
-            'url' => route('account.user.show'),
+            'url'     => route('account.user.show'),
             'success' => true
         ]);
     }

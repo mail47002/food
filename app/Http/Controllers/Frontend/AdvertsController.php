@@ -20,27 +20,36 @@ class AdvertsController extends Controller
      */
     public function index(Request $request)
     {
-        $cId = $request->cid ? explode(',', $request->cid) : Category::all()->pluck('id');
+        $cId = $request->cid
+            ? explode(',', $request->cid)
+            : Category::all()->pluck('id')->toArray();
         $type = $request->input('type', Advert::BY_DATE);
         $priceFrom = $request->price_from ?? 0;
         $priceTo = $request->price_to ?? 99999.99;
-        $date = $request->date ? Carbon::parse($request->date)->toDateTimeString() : null;
-        $time = $request->time ? explode(',', $request->time) : Helper::getAdvertTimes();
+        $date = $request->date
+            ? Carbon::parse($request->date)->toDateTimeString()
+            : null;
+        $time = $request->time
+            ? explode(',', $request->time)
+            : Helper::getAdvertTimes();
 
         $adverts = Advert::with(['product', 'images'])
-            ->whereHas('categories', function ($query) use ($request, $cId) {
-                $query->whereIn('category_id', $cId);
-            })
+//            ->whereHas('categories', function ($query) use ($cId) {
+//                $query->whereIn('category_id', $cId);
+//            })
             ->where('name', 'like', '%' . $request->search . '%')
             ->whereBetween('price', [$priceFrom, $priceTo])
             ->where('type', $type);
 
-        if ($type == Advert::BY_DATE) {
-            if ($date) {
-                $adverts = $adverts->where('date', '>=', $date);
-            }
+        if ($type == Advert::IN_STOCK) {
+            $adverts = $adverts->where('date_from', '<=', Carbon::now())
+                ->where('date_to', '>=', Carbon::now());
+        }
 
-            $adverts = $adverts->whereIn('time', $time);
+        if ($type == Advert::BY_DATE) {
+            $adverts = $date
+                ? $adverts->where('date', '>=', $date)
+                : $adverts->whereIn('time', $time);
         }
 
         $adverts = $adverts->orderBy('created_at', 'asc')->paginate();

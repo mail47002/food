@@ -87,7 +87,9 @@ class AdvertsController extends Controller
 
         $advert = Advert::create($request->all());
 
-        $request->merge(['advert_id' => $advert->id]);
+        $request->merge([
+            'advert_id' => $advert->id
+        ]);
 
         AdvertAddress::create($request->all());
 

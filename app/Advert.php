@@ -50,6 +50,7 @@ class Advert extends Model
 
     public function order()
     {
-        return $this->hasOne('App\Order', 'advert_id')->where('user_id', auth()->id());
+        return $this->hasOne('App\Order', 'advert_id')
+            ->where('user_id', auth()->id());
     }
 }

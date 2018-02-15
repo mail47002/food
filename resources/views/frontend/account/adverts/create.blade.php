@@ -40,7 +40,7 @@
         <div class="bg-yellow text-center">
             <div class="v-indent-30"></div>
             <img src="" alt="" class="inline header-img">
-            <h5 class="header-title text-upper black margin-30">Рагу з молодої картоплі з лососем і цукіні</h5>
+            <h5 class="header-title text-upper black margin-30"></h5>
             <p class="red f20 margin-zerro">
                 @if(Helper::isAdvertByDate())
                     <i class="fo fo-time fo-2x"></i> Страва на дату
@@ -262,7 +262,7 @@
                 },
                 success: function (responce) {
                     if (responce) {
-                        var url = '{{ asset('uploads/' . Helper::getUserDirHash(auth()->user()) . '/products/thumbnails') }}/';
+                        var url = '{{ asset('uploads/' . Helper::getUserDirHash(auth()->user()) . '/thumbs') }}/';
 
                         $('html, body').scrollTop(0);
 

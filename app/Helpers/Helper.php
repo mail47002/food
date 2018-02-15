@@ -80,6 +80,17 @@ class Helper
     }
 
     /**
+     * Return user address.
+     *
+     * @param $user
+     * @return string
+     */
+    public function getUserAddress($user)
+    {
+        return 'вул. ' . $user->address->street . ' ' . $user->address->build . ', ' . $user->address->city;
+    }
+
+    /**
      * @param null $type
      * @return bool
      */

@@ -38,30 +38,27 @@
     </div>
 @endif
 
-@if(Helper::isAdvertInStock())
+@if(Helper::isAdvertInStock() || Helper::isAdvertPreOrder())
     <div class="filter-block">
         <div class="filter-inputs container">
             <div class="row">
                 <div class="col-md-9">
-                    @include('frontend.includes.price_range')
+                    <div class="prices-input {{ Helper::isAdvertByDate() ? 'text-center' : 'p0' }} js-filter-price">
+                        <label>Ціновий діапазон</label>
+                        <input type="text" name="price_from" value="{{ request()->get('price_from') }}">
+                        <label>&#x2014;</label>
+                        <input type="text" name="price_to" value="{{ request()->get('price_to') }}">
+                        <label>грн.</label>
+                        <button type="submit" class="button btn-filter js-btn-filter">OK</button>
+                    </div>
                 </div>
                 <div class="col-md-3">
-                    @include('frontend.includes.sort_order')
-                </div>
-            </div>
-        </div>
-    </div>
-@endif
-
-@if(Helper::isAdvertPreOrder())
-    <div class="filter-block">
-        <div class="filter-inputs container">
-            <div class="row">
-                <div class="col-md-9">
-                    @include('frontend.includes.price_range')
-                </div>
-                <div class="col-md-3">
-                    @include('frontend.includes.sort_order')
+                    <label for="sorting-order" class="grey3">Сортутвати по:</label>
+                    <select name="sorting-order" class="sorting" id="sorting-order">
+                        <option value="">найближчі</option>
+                        <option value="">найближчі</option>
+                        <option value="">найближчі</option>
+                    </select>
                 </div>
             </div>
         </div>

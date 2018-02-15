@@ -57,7 +57,7 @@
                     @foreach ($product->images as $image)
                         <div class="wrap js-foto">
                             <div class="uploader">
-                                <img src="{{ asset('uploads/' . Helper::getUserDirHash($product->user) . '/products/thumbnails/' . $image->image ) }}">
+                                <img src="{{ Helper::getThumbnailUrl($product->user, $image->image) }}">
                                 {{ Form::hidden('images[]', $image->image) }}
                             </div>
                             <a href="#" class="pull-left grey1 js-cover-foto {{ $product->image === $image->image ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
