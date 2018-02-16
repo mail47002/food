@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'about', 'phone', 'has_profile'
+        'email', 'password'
     ];
 
     /**
@@ -28,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'role_id', 'password', 'remember_token',
+        'password', 'remember_token',
     ];
 
     /**
@@ -40,19 +40,14 @@ class User extends Authenticatable
         'phone' => 'array'
     ];
 
-    public function address()
+    public function profile()
     {
-        return $this->hasOne('App\Address');
+        return $this->belongsTo('App\UserProfile');
     }
 
     public function adverts()
     {
         return $this->hasMany('App\Advert');
-    }
-
-    public function roles()
-    {
-        return $this->hasMany('App\UserRole');
     }
 
     public function threads()
