@@ -10,7 +10,7 @@
 				@include('frontend.adverts.search')
 				<hr>
 				<div class="address text-center">
-					<i class="fo fo-big fo-marker red"></i>Соборна, буд. 10/2, Вінниця
+					<i class="fo fo-big fo-marker red"></i><span id="address">Соборна, буд. 10/2, Вінниця</span>
 					<a href="#" class="link-blue" data-toggle="modal" data-target="#modal_change_address">Змінити регіон</a>
 
 					<div class="slider-distance">

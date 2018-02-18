@@ -7,7 +7,7 @@
                 <h4 class="modal-title">Змінити регіон</h4>
             </div>
             <div class="modal-body contact">
-                <p style="display: inline-block;"><input id="ukraine" type="checkbox"><label for="ukraine">Вся Україна</label></p>
+                <p style="display: inline-block;"><input id="all_ukraine" type="checkbox"><label for="all_ukraine">Вся Україна</label></p>
 
                 <p>Населений пункт</p>
                 <div class="marker">
@@ -26,16 +26,42 @@
                     </div>
                 </div>
                 <p></p>
-                <a href="#" class="button button-red button-big">Застосувати</a>
+                <a href="#" id="apply_address" class="button button-red button-big">Застосувати</a>
             </div>
         </div>
     </div>
 </div>
 
 @push('scripts')
-{{-- Autocomplete --}}
     <script>
     $(function() {
+    //Init
+        check();
+    //Checkbox All Ukraine
+        $('#all_ukraine').on('click', function(){check();});
+    //Cleat inputs on focus
+        $('#modal_change_address input').on('focus', function(){$(this).prop('placeholder','');});
+    //Submit address
+        $('#apply_address').on('click',function(){
+            var address = $('#street').val() +', буд. '+$('#number').val()+', '+$('#city').val();
+            $('#address').html(address);
+            $('#modal_change_address').modal('toggle');
+        });
+
+        function check() {
+            if(document.getElementById('all_ukraine').checked) {
+                $("#city").prop('disabled', true);
+                $("#street").prop('disabled', true);
+                $("#number").prop('disabled', true);
+            } else {
+                $("#city").prop('disabled', false);
+                $("#street").prop('disabled', false);
+                $("#number").prop('disabled', false);
+            }
+        };
+
+
+{{-- Autocomplete --}}
         var cities = [
             @foreach($cities as $city)
             {id:"{{ $city->id }}", value:"{{ $city->name }}"},
@@ -46,7 +72,7 @@
           minLength: 0,
           source: cities,
           focus: function( event, ui ) {
-            $( "#city" ).val( ui.item.value );
+            $( "#city" ).val( ui.item.value ).addClass('open');
             $( "#city_id" ).val( ui.item.id );
             return false;
           },
