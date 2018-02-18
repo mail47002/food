@@ -5,7 +5,7 @@
 	<h5 class="text-upper underline-red">Мої поради</h5><hr class="zerro-top">
 	<div class="row text-center">
 		<div class="col-md-6">
-			<a href="{{ route('account.advices.create') }}" class="button button-red button-big inline"><i class="fo fo-dish"></i> Новий рецепт</a>
+			<a href="{{ route('account.recipes.create') }}" class="button button-red button-big inline"><i class="fo fo-dish"></i> Новий рецепт</a>
 		</div>
 		<div class="col-md-6">
 			<a href="{{ route('account.advices.create') }}" class="button button-red button-big inline"><i class="fo fo-articles"></i> Нова порада</a>
@@ -31,6 +31,16 @@
 		</div>
 	</div>
 	<div class="v-indent-20"></div>
+
+	<div class="filter-block">
+		<ul class="categories list-inline text-center">
+			<li><a href="{{route('account.recipes.index')}}" class="link-red text-upper">Рецепти</a></li>
+			<li class="active"><a href="#advice" class="link-red text-upper">Поради</a></li>
+		</ul>
+		<hr class="red-border">
+	</div>
+
+	<div class="v-indent-30"></div>
 
 
 	@foreach($advices as $advice)
@@ -72,12 +82,6 @@
 		</div>
 	</div>
 
-
-	<div class="empty-block">
-		<i class="fo fo-dish fo-4x"></i>
-		<p class="text">У вас немає рецептів</p>
-		<a href="#" class="button button-red button-big">Додати рецепт</a>
-	</div>
 
 	<div class="empty-block">
 		<i class="fo fo-articles fo-4x"></i>
