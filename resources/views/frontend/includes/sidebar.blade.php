@@ -61,7 +61,7 @@
                     </a></li>
                 <li><a class="{{ Helper::isActive('myaccount/orders*') }}" href="{{ route('account.orders.index') }}">Мої замовлення</a></li>
                 <li><a href="#">Мої відгуки</a></li>
-                <li><a class="{{ Helper::isActive('myaccount/articles*') }}" href="{{ route('account.articles.index') }}">Мої статті</a></li>
+                <li><a class="{{ Helper::isActive('myaccount/advices*') }}" href="{{ route('account.advices.index') }}">Мої статті</a></li>
             </ul>
         @endif
     @else

@@ -17,12 +17,11 @@ class AdvicesController extends Controller
     public function index(Request $request)
     {
         $advices = Advice::where('name', 'like', '%' . $request->search . '%')
-            ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->paginate(2);
 
 
-        return view('frontend.account.advices.index', [
+        return view('frontend.advices.index', [
             'advices' => $advices,
         ]);
     }
