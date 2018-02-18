@@ -5,7 +5,7 @@
 		<div class="breadcrumbs">
 			<div class="container">
 				<ul class="list-inline">
-					<li><a href="{{ route('account.articles.index') }}" class="link-blue back"><i class="fo fo-arrow-left fo-small"></i> Повернутися</a></li>
+					<li><a href="{{ route('account.advices.index') }}" class="link-blue back"><i class="fo fo-arrow-left fo-small"></i> Повернутися</a></li>
 				</ul>
 			</div>
 		</div>

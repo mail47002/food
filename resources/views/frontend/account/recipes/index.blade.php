@@ -32,6 +32,17 @@
 	</div>
 	<div class="v-indent-20"></div>
 
+	<div class="filter-block">
+		<ul class="categories list-inline text-center">
+			<li class="active"><a href="#recipes" class="link-red text-upper">Рецепти</a></li>
+			<li><a href="{{route('account.advices.index')}}" class="link-red text-upper">Поради</a></li>
+		</ul>
+		<hr class="red-border">
+	</div>
+
+	<div class="v-indent-30"></div>
+
+
 
 	@foreach($recipes as $recipe)
 	<div class="wide-thumb profile-article">
@@ -75,6 +86,12 @@
 				<li><a href="#" rel="next">></a></li>
 			</ul>
 		</div>
+	</div>
+
+	<div class="empty-block">
+		<i class="fo fo-dish fo-4x"></i>
+		<p class="text">У вас немає рецептів</p>
+		<a href="#" class="button button-red button-big">Додати рецепт</a>
 	</div>
 
 	<div id="modal_advice-delete" class="modal fade" role="dialog">
