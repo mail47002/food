@@ -181,13 +181,6 @@ Route::group(['namespace' => 'Frontend'], function() {
             Route::get('{id}', ['as' => 'account.messages.show', 'uses' => 'MessagesController@show']);
         });
 
-        // Articles
-        Route::resource('articles', 'ArticlesController', [
-            'names' => [
-                'index'     => 'account.articles.index',
-            ]
-        ]);
-
         // Advices
         Route::group(['prefix' => 'advices'], function () {
             Route::get('', ['as' => 'account.advices.index', 'uses' => 'AdvicesController@index']);
@@ -215,24 +208,6 @@ Route::group(['namespace' => 'Frontend'], function() {
             Route::group(['prefix' => 'image'], function() {
                 Route::post('upload', 'RecipeImagesController@store');
                 Route::delete('delete', 'RecipeImagesController@destroy');
-            });
-        });
-
-        // Advices
-        Route::group(['prefix' => 'advices'], function () {
-            Route::get('', ['as' => 'account.advices.index', 'uses' => 'AdvicesController@index']);
-            Route::get('create', ['as' => 'account.advices.create', 'uses' => 'AdvicesController@create']);
-            Route::post('', ['as' => 'account.advices.store', 'uses' => 'AdvicesController@store']);
-            Route::get('{id}', ['as' => 'account.advices.show', 'uses' => 'AdvicesController@show'])->where('id', '[0-9]+');
-            Route::get('{id}/edit', ['as' => 'account.advices.edit', 'uses' => 'AdvicesController@edit'])->where('id', '[0-9]+');
-            Route::put('{id}', ['as' => 'account.advices.update', 'uses' => 'AdvicesController@update']);
-            Route::delete('{id}', ['as' => 'account.advices.destroy', 'uses' => 'AdvicesController@destroy']);
-            Route::get('success', ['as' => 'account.advices.success', 'uses' => 'AdvicesController@success']);
-
-            // Images
-            Route::group(['prefix' => 'image'], function() {
-                Route::post('upload', 'AdviceImagesController@store');
-                Route::delete('delete', 'AdviceImagesController@destroy');
             });
         });
 
