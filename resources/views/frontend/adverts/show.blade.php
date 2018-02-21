@@ -57,7 +57,7 @@
 										<div class="avatar">
 											<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
 										</div>
-										<a href="#" class="link-blue name">{{ $review->user->name }}</a>
+										<a href="#" class="link-blue name">{{ $review->user->profile->first_name }}</a>
 									</div>
 									<div class="right bg-yellow">
 										<div class="date">2 липня 2016</div>
@@ -148,23 +148,23 @@
 						<h5 class="text-upper underline-red">Ваш повар</h5><hr class="zerro-top">
 						<div class="left">
 							<div class="avatar">
-								<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
+								<div class="rounded"><img src="{{ Helper::getUserImage($advert->user) }}" alt="{{ $advert->user->profile->first_name }}"></div>
 							</div>
 
 							@if(auth()->guest())
-								<a href="#" class="link-blue name" data-toggle="modal" data-target="#modal_login">{{ $advert->user->name }}</a>
+								<a href="#" class="link-blue name" data-toggle="modal" data-target="#modal_login">{{ $advert->user->profile->first_name }}</a>
 							@else
-								<a href="{{ route('profile.user.show', $advert->user->slug) }}" class="link-blue name">{{ $advert->user->name }}</a>
+								<a href="{{ route('profile.user.show', $advert->user->profile->slug) }}" class="link-blue name">{{ $advert->user->profile->first_name }}</a>
 							@endif
 
 							@if(auth()->guest())
 								<button type="button" class="button button-grey" data-toggle="modal" data-target="#modal_login">Зв’язатися</button>
 							@elseif(auth()->id() !== $advert->user_id)
-								<a href="{{ route('account.messages.show', $advert->user->slug) }}" class="button button-grey">Зв’язатися</a>
+								<a href="{{ route('account.messages.show', $advert->user->profile->slug) }}" class="button button-grey">Зв’язатися</a>
 							@endif
 						</div>
 						<div class="right">
-							<p>{{ $advert->user->about }}</p>
+							<p>{{ $advert->user->profile->about }}</p>
 						</div>
 					</div>
 
@@ -183,18 +183,18 @@
 
 							<p><i class="time medium"></i> 10 – 15 грудня</p>
 							<p class="distance"><i class="fo fo-big fo-marker red"></i>5 км</p>
-							<p class="small">{{ $advert->user->address->full_address }}</p>
+							<p class="small">{{ Helper::getUserAddress($advert->user) }}</p>
 							<hr class="red-border">
 
 							<div class="avatar">
 								<div class="rounded">
-									<img src="/uploads/avatar.png" alt="foto">
+									<img src="{{ Helper::getUserImage($advert->user) }}" alt="{{ $advert->user->profile->first_name }}">
 								</div>
 								<a href="javascript:void(0);" onclick="wishlist.add({{ $advert->user_id }})" class="link">
 									<i class="fo fo-like fo-small"></i> до улюблених
 								</a>
 							</div>
-							<a href="{{ route('profile.user.show', $advert->user->slug) }}" class="link-blue name">{{ $advert->user->name }}</a>
+							<a href="{{ route('profile.user.show', $advert->user->profile->slug) }}" class="link-blue name">{{ $advert->user->profile->first_name }}</a>
 							<div class="rating"><span class="stars">4</span>10 відгуків</div>
 							<p>
 								@if(auth()->guest())

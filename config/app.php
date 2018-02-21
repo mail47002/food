@@ -235,7 +235,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
-        'Helper' => App\Facades\HelperFacade::class,
+        'Helper' => App\Helper\Facades\Helper::class,
         'Date' => Jenssegers\Date\Date::class,
         'Messenger' => App\Services\Messages\Facades\Messenger::class
 

@@ -100,8 +100,8 @@ class UserPasswordController extends Controller
     {
         $this->validate($request, [
             'old_password'     => ['required', new OldPassword()],
-            'password'         => 'required|min:6',
-            'password_confirm' => 'required|same:password'
+            'password'         => ['required', 'min:6'],
+            'password_confirm' => ['required', 'same:password']
         ]);
     }
 }

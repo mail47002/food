@@ -17,12 +17,9 @@
                         <div class="f18">залиште свій номер телефону,<br> і повар зв’яжиться з вам найближчи</div>
                         <div class="top-20"></div>
                         {{ Form::open(['route' => 'callback.store', 'method' => 'post', 'id' => 'form-callback']) }}
-                        <input type="hidden" name="advert_id" value="">
-                        <input type="hidden" name="user_id" value="">
-                        <div class="form-group">
-                            <input type="tel" class="phone-input w-440 text-center" name="phone">
-                        </div>
-                        <a class="button btn-grey-red" href="javascript:void(0);" onclick="callback.store()">Відправити</a>
+                            <input type="hidden" name="advert_id" value="">
+                            <input type="hidden" name="user_id" value="">
+                            <a class="button btn-grey-red" href="#" onclick="callback.store()">Відправити</a>
                         {{ Form::close() }}
                     </div>
 
@@ -64,13 +61,13 @@
                     if (response.data) {
                         html += '<div class="caption">';
                         html += '<div class="avatar">';
-                        html += '<div class="rounded"><img src="' + response.data['user']['image'] + '" alt="foto"></div>';
+                        html += '<div class="rounded"><img src="' + response.data['user']['profile']['image'] + '" alt="foto"></div>';
                         html += '</div>';
-                        html += '<p><a href="#" class="link-blue name">' +  response.data['user']['name'] +'</a></p>';
+                        html += '<p><a href="#" class="link-blue name">' +  response.data['user']['profile']['first_name'] +'</a></p>';
                         html += '</div>';
 
                         for (i in response.data['user']['phone']) {
-                            html += '<div class="phone red f24">' + response.data['user']['phone'][i] + '</div>';
+                            html += '<div class="phone red f24">' + response.data['user']['profile']['phone'][i] + '</div>';
                         }
 
                         $('#modal_order .js-user').html(html);
@@ -144,15 +141,6 @@
                             html += '</div>';
 
                             $('#switchable').addClass('hidden').after(html);
-                        }
-                    },
-                    error: function (response) {
-                        var data = response.responseJSON;
-
-                        if (data) {
-                            for (i in data.errors) {
-                                form.find('input[name=' + i + ']').addClass('error').closest('.form-group').addClass('has-error');
-                            }
                         }
                     },
                     complete: function () {

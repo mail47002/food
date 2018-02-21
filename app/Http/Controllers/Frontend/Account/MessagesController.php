@@ -142,6 +142,8 @@ class MessagesController extends Controller
      */
     protected function getThread($id)
     {
+        $thread = null;
+
         if (is_numeric($id)) {
             $thread = MessageThread::find($id);
         } else {

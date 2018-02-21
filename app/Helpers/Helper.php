@@ -76,6 +76,10 @@ class Helper
      */
     public function getUserDirHash($user)
     {
+        if (is_array($user)) {
+            return md5($user['id'] . $user['email']);
+        }
+
         return md5($user->id . $user->email);
     }
 
@@ -87,7 +91,33 @@ class Helper
      */
     public function getUserAddress($user)
     {
-        return 'вул. ' . $user->address->street . ' ' . $user->address->build . ', ' . $user->address->city;
+        return 'вул. ' . $user->profile->street . ' ' . $user->profile->build . ', ' . $user->profile->city;
+    }
+
+    /**
+     * Return user image url.
+     *
+     * @param $user
+     * @return string
+     */
+    public function getUserImage($user)
+    {
+        if (is_array($user)) {
+            return asset('uploads/' . $this->getUserDirHash(['id' => $user['id'], 'email' => $user['email']]) . '/' . $user['image']);
+        }
+
+        return asset('uploads/' . $this->getUserDirHash($user) . '/' . $user->profile->image);
+    }
+
+    /**
+     * Return phones at string.
+     *
+     * @param $phone
+     * @return string
+     */
+    public function getUserPhone($phone)
+    {
+        return join(', ', $phone);
     }
 
     /**

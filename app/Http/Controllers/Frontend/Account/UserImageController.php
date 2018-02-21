@@ -16,6 +16,23 @@ class UserImageController extends Controller
         $this->middleware('auth');
     }
 
+    public function store(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $this->validateForm($request);
+
+            $image = $this->storeImage($request);
+
+            return response()->json([
+                'success' => true,
+                'image'   => [
+                    'name' => $image['file_name'],
+                    'url'  => $image['file_path']
+                ]
+            ]);
+        }
+    }
+
     /**
      * Update user image.
      *
@@ -27,16 +44,23 @@ class UserImageController extends Controller
         if ($request->hasFile('image')) {
             $this->validateForm($request);
 
-            Storage::delete('uploads/' . Helper::getUserDirHash(Auth::user()) . '/' . Auth::user()->image);
+            if (Auth::user()->profile) {
+                Storage::delete('uploads/' . Helper::getUserDirHash(Auth::user()) . '/' . Auth::user()->profile->image);
+            }
 
             $image = $this->storeImage($request);
 
-            Auth::user()->image = $image;
-            Auth::user()->save();
+            $profile = Auth::user()->profile;
+
+            $profile->image = $image['file_name'];
+            $profile->save();
 
             return response()->json([
                 'success' => true,
-                'image'   => asset($image)
+                'image'   => [
+                    'name' => $image['file_name'],
+                    'url'  => $image['file_path']
+                ]
             ]);
         }
     }
@@ -57,7 +81,7 @@ class UserImageController extends Controller
      * Upload image to storage.
      *
      * @param Request $request
-     * @return string
+     * @return array
      */
     protected function storeImage(Request $request)
     {
@@ -69,6 +93,9 @@ class UserImageController extends Controller
 
         Storage::put($filePath, $image->stream());
 
-        return $filePath;
+        return [
+            'file_name' => $fileName,
+            'file_path' => asset($filePath)
+        ];
     }
 }

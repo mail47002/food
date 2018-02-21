@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Frontend\Account;
 
-use App\Address;
+use App\User;
+use App\UserProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Review;
@@ -45,15 +46,9 @@ class UsersController extends Controller
     {
         $this->validateForm($request);
 
-        $request->merge([
-            'has_profile' => 1
-        ]);
+        $profile = new UserProfile($request->all());
 
-        Auth::user()->fill($request->all())->save();
-
-        $address = new Address($request->all());
-
-        Auth::user()->address()->save($address);
+        Auth::user()->profile()->save($profile);
 
         return response()->json([
             'url'     => route('account.user.show'),
@@ -110,8 +105,13 @@ class UsersController extends Controller
     {
         $this->validateForm($request);
 
-        Auth::user()->address->update($request->all());
-        Auth::user()->fill($request->all())->save();
+        $profile = Auth::user()->profile;
+
+        $request->merge([
+            'slug' => $profile->slug
+        ]);
+
+        $profile->fill($request->all())->save();
 
         return response()->json([
             'success' => true
@@ -137,12 +137,12 @@ class UsersController extends Controller
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'name'    => 'required',
-            'phone.*' => 'required',
-            'city'    => 'required',
-            'street'  => 'required',
-            'build'   => 'required',
-            'slug'    => 'sometimes|required'
+            'first_name' => 'required',
+            'phone.*'    => 'required',
+            'city'       => 'required',
+            'street'     => 'required',
+            'build'      => 'required',
+            'slug'       => 'sometimes|required|unique:user_profiles,slug',
         ]);
     }
 }

@@ -3,24 +3,24 @@
         @if(request()->is('myaccount/edit'))
             <div class="avatar">
                 <div class="uploader profile">
-                    <img src="{{ asset(auth()->user()->image) }}" alt="{{ auth()->user()->name }}">
+                    <img src="{{ Helper::getUserImage(auth()->user()) }}" alt="{{ auth()->user()->profile->first_name }}">
                     <input id="input-avatar" type="file">
                     <div class="round"><i class="fo fo-camera"></i></div>
                 </div>
             </div>
         @else
             <div class="avatar">
-                <div class="rounded"><img src="{{ asset(auth()->user()->image) }}" alt="{{ auth()->user()->name }}"></div>
+                <div class="rounded"><img src="{{ Helper::getUserImage(auth()->user()) }}" alt="{{ auth()->user()->profile->first_name }}"></div>
             </div>
         @endif
     @else
         <div class="avatar">
-            <div class="rounded"><img src="{{ asset($user->image) }}" alt="{{ $user->name }}"></div>
+            <div class="rounded"><img src="{{ Helper::getUserImage($user()) }}" alt="{{ $user->profile->first_name }}"></div>
         </div>
 
         <div class="phones fo fo-phone fo-indent fo-left red">
             <div class="inline black">
-                @foreach($user->phone as $phone)
+                @foreach($user->profile->phone as $phone)
                     <p>{{ $phone }}</p>
                 @endforeach
             </div>
@@ -44,7 +44,7 @@
         @else
             <div class="phones fo fo-phone fo-indent fo-left red">
                 <div class="inline black">
-                    @foreach(auth()->user()->phone as $phone)
+                    @foreach(auth()->user()->profile->phone as $phone)
                         <p>{{ $phone }}</p>
                     @endforeach
                 </div>

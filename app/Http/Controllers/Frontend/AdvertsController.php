@@ -34,6 +34,7 @@ class AdvertsController extends Controller
             : Helper::getAdvertTimes();
 
         $adverts = Advert::with(['product', 'images'])
+            ->select('adverts.*')
             ->leftJoin('product_to_category', 'adverts.product_id', '=', 'product_to_category.product_id')
             ->whereIn('product_to_category.category_id', $categoryIds)
             ->where('name', 'like', '%' . $request->search . '%')
@@ -51,7 +52,9 @@ class AdvertsController extends Controller
                 : $adverts->whereIn('time', $time);
         }
 
-        $adverts = $adverts->orderBy('created_at', 'asc')->paginate();
+        $adverts = $adverts->groupBy('id')
+            ->orderBy('created_at', 'asc')
+            ->paginate();
 
         return view('frontend.adverts.index', [
             'adverts' => $adverts,

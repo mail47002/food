@@ -3,7 +3,7 @@
 @section('content')
     <h5 class="text-upper underline-red">Змінити пароль</h5>
     <hr>
-    {{ Form::open(['route' => ['account.password.update', Auth::id()], 'method' => 'put', 'class' => 'contact']) }}
+    {{ Form::open(['route' => ['account.password.update'], 'method' => 'put', 'class' => 'contact']) }}
         <p class="message half" id="message">Заповніть виділені поля</p>
         <div class="form-group">
             {{ Form::label('email', 'Email*', ['for' => 'email']) }}
@@ -27,19 +27,7 @@
     {{ Form::close() }}
     </div>
 
-    <div id="modal_account-update" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content text-center">
-                <div class="moda-header">
-                    <a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
-                </div>
-                <div class="modal-body">
-                    <p><i class="fo fo-ok fo-large red"></i></p>
-                    <p>Деталі вашого профіля успішно збережені!</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('frontend.account.users.success')
 @endsection
 
 @push('scripts')
@@ -62,8 +50,8 @@
 
                     $('.body-overlay').addClass('active');
                 },
-                success: function(data) {
-                    if (data['success']) {
+                success: function(response) {
+                    if (response['success']) {
                         $('#modal_account-update').modal('show');
                     }
                 },

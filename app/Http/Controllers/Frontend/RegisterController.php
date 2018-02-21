@@ -8,6 +8,7 @@ use App\Mail\EmailVerification;
 use App\User;
 use Hash;
 use Mail;
+use Session;
 
 class RegisterController extends Controller
 {
@@ -35,6 +36,8 @@ class RegisterController extends Controller
 
         Mail::to($user->email)->send(new EmailVerification($user));
 
+        Session::put('user_id', $user->id);
+
         return response()->json([
             'url' => route('register.success')
         ]);
@@ -48,7 +51,13 @@ class RegisterController extends Controller
      */
     public function success()
     {
-        return view('frontend.register.success');
+        if (Session::has('user_id')) {
+            Session::forget('user_id');
+
+            return view('frontend.register.success');
+        }
+
+        return redirect()->back();
     }
 
     /**

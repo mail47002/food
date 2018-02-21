@@ -120,7 +120,8 @@ Route::group(['namespace' => 'Frontend'], function() {
         Route::get('', ['as' => 'account.user.show', 'uses' => 'UsersController@show']);
         Route::get('edit', ['as' => 'account.user.edit', 'uses' => 'UsersController@edit']);
         Route::put('', ['as' => 'account.user.update', 'uses' => 'UsersController@update']);
-        Route::put('edit/image', ['as' => 'account.user.image.update', 'uses' => 'UserImageController@update']);
+        Route::post('create/image', ['as' => 'account.image.store', 'uses' => 'UserImageController@store']);
+        Route::put('edit/image', ['as' => 'account.image.update', 'uses' => 'UserImageController@update']);
         Route::get('edit/password', ['as' => 'account.password.edit', 'uses' => 'UserPasswordController@edit']);
         Route::put('edit/password', ['as' => 'account.password.update', 'uses' => 'UserPasswordController@update']);
         Route::get('edit/url', ['as' => 'account.slug.edit', 'uses' => 'UserSlugController@edit']);

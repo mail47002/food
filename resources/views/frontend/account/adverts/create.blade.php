@@ -174,7 +174,7 @@
                 <div class="form-group">
                     <label>Населений пункт*</label>
                     <div class="marker inline wide">
-                        <input id="input-city" name="city" type="text" class="wide" value="{{ auth()->user()->address->city }}">
+                        <input id="input-city" name="city" type="text" class="wide" value="{{ auth()->user()->profile->city }}">
                     </div>
                 </div>
 
@@ -182,11 +182,11 @@
                     <div class="address">
                         <div class="left inline">
                             <label>Вулиця*</label>
-                            <input id="input-street" name="street" type="text" value="{{ auth()->user()->address->street }}">
+                            <input id="input-street" name="street" type="text" value="{{ auth()->user()->profile->street }}">
                         </div>
                         <div class="right inline">
                             <label>№ будинку*</label>
-                            <input id="input-build" name="build" type="text" value="{{ auth()->user()->address->build }}">
+                            <input id="input-build" name="build" type="text" value="{{ auth()->user()->profile->build }}">
                         </div>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
                     <p class="red zerro-bottom"><i class="fo fo-phone"></i></p>
                     <p class="zerro-top">Ваш телефон</p>
 
-                    @foreach(auth()->user()->phone as $phone)
+                    @foreach(auth()->user()->profile->phone as $phone)
                         <p class="f20 margin-zerro">{{ $phone }}</p>
                     @endforeach
 

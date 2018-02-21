@@ -38,7 +38,7 @@ class LoginController extends Controller
         $this->validateForm($request);
 
         if (Auth::guard('web')->attempt($this->credentials($request), true)) {
-            if (Auth::user()->has_profile){
+            if (Auth::user()->profile){
                 return response()->json([
                     'url' => route('account.user.show')
                 ]);

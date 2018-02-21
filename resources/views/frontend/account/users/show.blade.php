@@ -7,7 +7,7 @@
 	<div class="v-indent-40"></div>
 	<h1>{{ auth()->user()->name }}</h1>
 	<p class="grey3">
-		<i class="fo fo-marker red"></i> {{ auth()->user()->address->street }} {{ auth()->user()->address->build }}, {{ auth()->user()->address->city }}
+		<i class="fo fo-marker red"></i> {{ Helper::getUserAddress(auth()->user()) }}
 		&nbsp;&nbsp;&nbsp;<a href="{{ route('account.user.edit', auth()->id()) }}" class="link-grey"><i class="fo fo-edit fo-small fo-indent"></i>Редагувати</a>
 	</p>
 	<div class="rating grey3"><span class="stars medium">4</span>10 відгуків</div>

@@ -42,7 +42,7 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->belongsTo('App\UserProfile');
+        return $this->hasOne('App\UserProfile');
     }
 
     public function adverts()

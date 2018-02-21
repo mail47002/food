@@ -18,11 +18,12 @@ class CreateUserProfilesTable extends Migration
             $table->integer('user_id');
             $table->string('slug');
             $table->string('first_name');
-            $table->string('about');
+            $table->string('about')->nullable();
             $table->json('phone');
             $table->string('city');
             $table->string('street');
             $table->string('build');
+            $table->string('image');
             $table->timestamps();
         });
     }

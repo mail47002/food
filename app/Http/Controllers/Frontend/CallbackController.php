@@ -24,12 +24,10 @@ class CallbackController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateForm($request);
-
         $advert = Advert::with('user')->find($request->advert_id);
 
         if ($advert) {
-            $advert->user->notify(new CallbackStored(Auth::user(), $advert, $request->phone));
+            $advert->user->notify(new CallbackStored(Auth::user(), $advert));
 
             return response()->json([
                 'data'  => [
@@ -37,15 +35,5 @@ class CallbackController extends Controller
                 ]
             ]);
         }
-    }
-
-    /**
-     * @param Request $request
-     */
-    protected function validateForm(Request $request)
-    {
-        $this->validate($request, [
-            'phone' => 'required|string|regex:/\+38\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}/'
-        ]);
     }
 }

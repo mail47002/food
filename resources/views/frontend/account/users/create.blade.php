@@ -10,7 +10,7 @@
                     <p class="message" id="message">Заповніть виділені поля</p>
                     <div class="form-group">
                         {{ Form::label('name', 'Ім\'я*') }}
-                        {{ Form::text('name', null, ['id' => 'input-name']) }}
+                        {{ Form::text('first_name', null, ['id' => 'input-name']) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('slug', 'Адреса вашої сторінки') }}
@@ -61,6 +61,8 @@
                         <div class="round"><i class="fo fo-camera"></i></div>
                     </div>
 
+                    {{ Form::hidden('image', null) }}
+
                     <hr>
                     {{Form::submit('Продовжити', ['class' => 'button button-red']) }}
                 {{ Form::close() }}
@@ -77,11 +79,10 @@
             var data = new FormData();
 
             data.append('_token', '{{ csrf_token() }}');
-            data.append('_method', 'put');
             data.append('image', $('#input-avatar')[0].files[0]);
 
             $.ajax({
-                url: '{{ url('myaccount/edit/image') }}',
+                url: '{{ route('account.image.store') }}',
                 method: 'post',
                 data: data,
                 processData: false,
@@ -89,9 +90,10 @@
                 beforeSend: function() {
                     $('.body-overlay').addClass('active');
                 },
-                success: function(data) {
-                    if (data['success']) {
-                        $('.profile img').attr('src', data['image']);
+                success: function(response) {
+                    if (response['success']) {
+                        $('.profile img').attr('src', response['image']['url']);
+                        $('input[name="image"]').val(response['image']['name']);
                     }
                 },
                 complete: function() {

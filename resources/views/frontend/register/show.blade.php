@@ -1,7 +1,7 @@
 @extends('frontend.layouts.default')
 
 @section('content')
-    <div class="signup-page sign-form" style="background-image: url('uploads/signup.jpg');">
+    <div class="signup-page sign-form" style="background-image: url({{ asset('frontend/images/signup.jpg') }});">
         <div class="sign-content text-center">
             <div class="sign-header">
                 <a href="#" class="back" onclick="window.history.back();"></a>

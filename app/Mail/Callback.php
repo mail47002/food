@@ -15,20 +15,17 @@ class Callback extends Mailable
 
     public $user;
     public $advert;
-    public $phone;
 
     /**
      * Callback constructor.
      *
      * @param User $user
      * @param Advert $advert
-     * @param $phone
      */
-    public function __construct(User $user, Advert $advert, $phone)
+    public function __construct(User $user, Advert $advert)
     {
         $this->user = $user;
         $this->advert = $advert;
-        $this->phone = $phone;
     }
 
     /**

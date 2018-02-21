@@ -65,9 +65,10 @@ class OrderConfirmed extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'order'  => $this->order,
-            'advert' => $this->order->advert,
-            'user'   => $this->order->user
+            'order'   => $this->order,
+            'advert'  => $this->order->advert,
+            'user'    => $this->order->user,
+            'profile' => $this->order->user->profile
         ];
     }
 }

@@ -2,10 +2,12 @@
     <li class="top-message clients">
         <a href="{{ route('account.notifications.index', ['notify' => $notification->id]) }}">
             <div class="avatar">
-                <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+                <div class="rounded">
+                    <img src="{{ Helper::getUserImage(['id' => $notification->data['user']['id'], 'email' => $notification->data['user']['email'], 'image' => $notification->data['profile']['image']]) }}" alt="{{ $notification->data['profile']['first_name'] }}">
+                </div>
             </div>
             <div class="message">
-                <strong><object>Вам зробила замовлення <a href="/account/#" class="link-blue">{{ $notification->data['user']['name'] }}</a> на страву з меню</object></strong>
+                <strong><object>Вам зробила замовлення <a href="{{ route('profile.user.show', $notification->data['profile']['slug']) }}" class="link-blue">{{ $notification->data['profile']['first_name'] }}</a> на страву з меню</object></strong>
                 <p>В принципе вкусно,если сделать для одного ....</p>
                 <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>
             </div>
@@ -17,10 +19,12 @@
     <li class="top-message ">
         <a href="{{ route('account.notifications.index', ['notify' => $notification->id]) }}">
             <div class="avatar">
-                <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+                <div class="rounded">
+                    <img src="{{ Helper::getUserImage(['id' => $notification->data['user']['id'], 'email' => $notification->data['user']['email'], 'image' => $notification->data['profile']['image']]) }}" alt="{{ $notification->data['profile']['first_name'] }}">
+                </div>
             </div>
             <div class="message">
-                <strong><object>Повар <a href="/account/#" class="link-blue">{{ $notification->data['advert']['user']['name'] }}</a> підтвердила ваше замовлення</object></strong>
+                <strong><object>Повар <a href="{{ route('profile.user.show', $notification->data['profile']['slug']) }}" class="link-blue">{{ $notification->data['profile']['first_name'] }}</a> підтвердила ваше замовлення</object></strong>
                 <p>В принципе вкусно,если сделать для одного ....</p>
                 <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>
             </div>
@@ -45,10 +49,12 @@
     <li class="top-message phone">
         <a href="{{ route('account.notifications.index', ['notify' => $notification->id]) }}">
             <div class="avatar">
-                <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+                <div class="rounded">
+                    <img src="{{ Helper::getUserImage(['id' => $notification->data['user']['id'], 'email' => $notification->data['user']['email'], 'image' => $notification->data['profile']['image']]) }}" alt="{{ $notification->data['profile']['first_name'] }}">
+                </div>
             </div>
             <div class="message">
-                <strong><object>Повідомлення від <a href="/account/#" class="link-blue">{{ $notification->data['user']['name'] }}</a></object></strong>
+                <strong><object>Повідомлення від <a href="/account/#" class="link-blue">{{ $notification->data['profile']['first_name'] }}</a></object></strong>
                 <p>В принципе вкусно,если сделать для одного ....</p>
                 <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>
             </div>

@@ -55,34 +55,43 @@
 		<ul class="list-inline pull-right">
 			@if (auth()->check())
 				<li class="hidden-xm"><a href="{{ route('account.products.create') }}" class="button button-rounded dish-add"><i class="fo fo-hat fo-indent"></i>Додати страву</a></li>
-				<li class="hidden-xm">
-					<div class="avatar">
-						<div class="rounded"><img src="{{ asset(auth()->user()->image) }}" alt="{{ auth()->user()->name }}"></div>
-					</div>
-					<a href="{{ route('account.user.show') }}" class="link">{{ auth()->user()->name }}</a>
-				</li>
-				<li class="dropdown messages">
-					<a id="messages-menu" class="link" href="#" type="button" data-toggle="dropdown">
-						<i class="fo fo-bell fo-small">
-							@if(($unreadNotifications = auth()->user()->unreadNotifications()->count()) > 0)
-								<span class="count">{{ $unreadNotifications }}</span>
-							@endif
-						</i>
-					</a>
-
-                    @if($unreadNotifications = auth()->user()->unreadNotifications()->take(5)->get())
-                        <div class="dropdown-menu" role="menu" aria-labelledby="messages-menu">
-                            <ul data-simplebar class="overflow">{{-- data-simplebar - прокрутка --}}
-                                @each('frontend.includes.notification', $unreadNotifications, 'notification')
-                            </ul>
-                            <div class="bottom">
-                                <a href="{{ route('account.notifications.index') }}" class="link-blue">Все</a>
-                            </div>
+                @if(auth()->user()->profile)
+                    <li class="hidden-xm">
+                        <div class="avatar">
+                            <div class="rounded"><img src="{{ Helper::getUserImage(auth()->user()) }}" alt="{{ auth()->user()->profile->name }}"></div>
                         </div>
-                    @endif
-				</li>
+                        <a href="{{ route('account.user.show') }}" class="link">{{ auth()->user()->name }}</a>
+                    </li>
+                @endif
 
-				<li><a href="javascript:void(0);" onclick="wishlist.show()" class="link js-wishlist"><i class="fo fo-like fo-small"></i></a></li>
+				@if(($unreadNotificationsCount = auth()->user()->unreadNotifications()->count()) > 0)
+					<li class="dropdown messages">
+						<a id="messages-menu" class="link" href="#" type="button" data-toggle="dropdown">
+							<i class="fo fo-bell fo-small">
+								<span class="count">{{ $unreadNotificationsCount }}</span>
+							</i>
+						</a>
+
+						@if($unreadNotifications = auth()->user()->unreadNotifications()->take(5)->get())
+							<div class="dropdown-menu" role="menu" aria-labelledby="messages-menu">
+								<ul data-simplebar class="overflow">{{-- data-simplebar - прокрутка --}}
+									@each('frontend.includes.notification', $unreadNotifications, 'notification')
+								</ul>
+								<div class="bottom">
+									<a href="{{ route('account.notifications.index') }}" class="link-blue">Все</a>
+								</div>
+							</div>
+						@endif
+					</li>
+				@else
+					<li class="hidden-xm">
+						<a href="{{ route('account.notifications.index') }}" class="link">
+							<i class="fo fo-bell fo-small"></i>
+						</a>
+					</li>
+				@endif
+
+				<li><a href="#" onclick="wishlist.show()" class="link js-wishlist"><i class="fo fo-like fo-small"></i></a></li>
 				<li class="hidden-xm"><a href="{{ url('logout') }}" class="link"><i class="fo fo-exit fo-small"></i></a></li>
 
 			@else

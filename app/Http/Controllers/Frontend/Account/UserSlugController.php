@@ -68,10 +68,16 @@ class UserSlugController extends Controller
      */
     public function update(Request $request)
     {
-        $this->validate();
+        $this->validateForm($request);
 
-        Auth::user()->slug = str_slug($request->slug);
-        Auth::user()->save();
+        $profile = Auth::user()->profile;
+
+        $profile->slug = str_slug($request->slug);
+        $profile->save();
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     /**
@@ -88,7 +94,7 @@ class UserSlugController extends Controller
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'slug' => 'required|unique:users,slug'
+            'slug' => 'required|unique:user_profiles,slug,' . Auth::id()
         ]);
     }
 }

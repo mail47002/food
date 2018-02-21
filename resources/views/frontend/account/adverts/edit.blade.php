@@ -172,7 +172,7 @@
             <p class="red zerro-bottom"><i class="fo fo-phone"></i></p>
             <p class="zerro-top">Ваш телефон</p>
 
-            @foreach(auth()->user()->phone as $phone)
+            @foreach(auth()->user()->profile->phone as $phone)
                 <p class="f20 margin-zerro">{{ $phone }}</p>
             @endforeach
 

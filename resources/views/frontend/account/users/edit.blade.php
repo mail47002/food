@@ -9,7 +9,7 @@
 		<p class="message" id="message">Заповніть виділені поля</p>
 		<div class="form-group">
 			{{ Form::label('name', 'Ім\'я*') }}
-			{{ Form::text('name', auth()->user()->name, ['id' => 'input-name']) }}
+			{{ Form::text('first_name', auth()->user()->profile->first_name, ['id' => 'input-name']) }}
 		</div>
 
 		<div class="v-indent-30"></div>
@@ -18,7 +18,7 @@
 		<div class="form-group">
 			{{ Form::label('phone', 'Телефон*') }}
 			<div class="phone js-phone">
-				@foreach (auth()->user()->phone as $i => $phone)
+				@foreach (auth()->user()->profile->phone as $i => $phone)
 					<div>
 						{{ Form::tel('phone[]', $phone, ['id' => 'input-phone-' . $i, 'class' => 'phone-input']) }}
 						<span class="remove js-delete-phone"></span>
@@ -32,40 +32,28 @@
 		<div class="form-group">
 			{{ Form::label('city', 'Населений пункт*') }}
 			<div class="marker">
-				{{ Form::text('city', auth()->user()->address->city, ['id' => 'input-city']) }}
+				{{ Form::text('city', auth()->user()->profile->city, ['id' => 'input-city']) }}
 			</div>
 		</div>
 		<div class="form-group">
 			{{ Form::label('street', 'Вулиця*') }}
-			{{ Form::text('street',  auth()->user()->address->street, ['id' => 'input-street']) }}
+			{{ Form::text('street',  auth()->user()->profile->street, ['id' => 'input-street']) }}
 		</div>
 		<div class="form-group">
 			{{ Form::label('build', '№ будинку*') }}
-			{{ Form::text('build', auth()->user()->address->build, ['id' => 'input-build']) }}
+			{{ Form::text('build', auth()->user()->profile->build, ['id' => 'input-build']) }}
 		</div>
 		<div class="v-indent-30"></div>
 		<hr>
 		<div class="form-group">
 			{{ Form::label('about', 'Про мене') }}
-			{{ Form::textarea('about', auth()->user()->about, ['id' => 'input-about', 'class' => 'account']) }}
+			{{ Form::textarea('about', auth()->user()->profile->about, ['id' => 'input-about', 'class' => 'account']) }}
 		</div>
 		<hr>
 		{{Form::submit('Зберегти', ['class' => 'button button-red account text-upper']) }}
 	{{ Form::close() }}
 
-	<div id="modal_account-update" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content text-center">
-				<div class="moda-header">
-					<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
-				</div>
-				<div class="modal-body">
-					<p><i class="fo fo-ok fo-large red"></i></p>
-					<p>Деталі вашого профіля успішно збережені!</p>
-				</div>
-			</div>
-		</div>
-	</div>
+    @include('frontend.account.users.success')
 @stop
 
 
@@ -81,7 +69,7 @@
             data.append('image', $('#input-avatar')[0].files[0]);
 
 			$.ajax({
-				url: '{{ url('myaccount/edit/image') }}',
+				url: '{{ route('account.image.update') }}',
 				method: 'post',
 				data: data,
                 processData: false,
@@ -91,7 +79,7 @@
                 },
 				success: function(data) {
 				    if (data['success']) {
-				        $('.profile img').attr('src', data['image']);
+				        window.location.reload();
 					}
                 },
 				complete: function() {

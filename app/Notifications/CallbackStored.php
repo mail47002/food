@@ -15,7 +15,6 @@ class CallbackStored extends Notification
 
     public $user;
     public $advert;
-    public $phone;
 
     /**
      * CallbackStored constructor.
@@ -24,11 +23,10 @@ class CallbackStored extends Notification
      * @param Advert $advert
      * @param $phone
      */
-    public function __construct(User $user, Advert $advert, $phone)
+    public function __construct(User $user, Advert $advert)
     {
         $this->user = $user;
         $this->advert = $advert;
-        $this->phone = $phone;
     }
 
     /**
@@ -72,9 +70,9 @@ class CallbackStored extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'user'   => $this->user,
-            'advert' => $this->advert,
-            'phone'  => $this->phone
+            'user'    => $this->user,
+            'profile' => $this->user->profile,
+            'advert'  => $this->advert
         ];
     }
 }

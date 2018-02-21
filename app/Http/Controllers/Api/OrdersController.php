@@ -140,7 +140,7 @@ class OrdersController extends Controller
      */
     protected function isValid(Request $request, $advert)
     {
-        if (!Order::where('advert_id', $request->advert_id)->where('user_id', Auth::id())->exists() && $advert->user !== Auth::id()) {
+        if (!Order::where('advert_id', $request->advert_id)->where('user_id', Auth::id())->exists() && $advert->user_id !== Auth::id()) {
             return true;
         }
 
