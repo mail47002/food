@@ -11,7 +11,7 @@
 
     <div class="bg-yellow text-center">
         <div class="v-indent-30"></div>
-        <img src="{{ Helper::getImageUrl($advert->user, $advert->image) }}" alt="{{ $advert->name }}" class="inline header-img">
+        <img src="{{ $advert->user->directory . $advert->image }}" alt="{{ $advert->name }}" class="inline header-img">
         <h5 class="header-title text-upper black margin-30">{{ $advert->name }}</h5>
         <p class="red f20 margin-zerro">
             @if(Helper::isAdvertByDate($advert->type))
@@ -111,7 +111,7 @@
                 @foreach ($advert->images as $image)
                     <div class="wrap js-foto">
                         <div class="uploader">
-                            <img src="{{ url('uploads/' . Helper::getUserDirHash(auth()->user()) . '/thumbs/' . $image->image) }}">
+                            <img src="{{ auth()->user()->directory . 'thumbs/' . $image->image }}">
                             {{ Form::hidden('images[]', $image->image) }}
                         </div>
                         <a href="#" class="pull-left grey1 js-cover-foto {{ $advert->image === $image->image ? 'active' : '' }}"><i class="fo fo-check-rounded"></i><span class="hide">Головне</span></a>
@@ -347,7 +347,6 @@
                     $('#two').hide();
                 }
             });
-
         });
     </script>
 @endpush

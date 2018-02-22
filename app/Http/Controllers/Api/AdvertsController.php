@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Advert;
 use App\Http\Resources\AdvertResource;
-use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Helper;
 
 class AdvertsController extends Controller
 {
@@ -55,12 +53,7 @@ class AdvertsController extends Controller
      */
     public function show($id)
     {
-        $advert = Advert::with(['user' => function ($query) {
-                $query->with('profile');
-            },'product', 'order'])
-            ->find($id);
-
-        $advert->user->profile->image = Helper::getUserImage($advert->user);
+        $advert = Advert::with('user.profile', 'product', 'order')->find($id);
 
         if ($advert) {
             return new AdvertResource($advert);

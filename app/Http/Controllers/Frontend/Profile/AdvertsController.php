@@ -10,14 +10,13 @@ use App\Http\Controllers\Controller;
 
 class AdvertsController extends Controller
 {
-    public function index($user, Request $request)
+    public function index($slug, Request $request)
     {
-        $user = User::where('slug', $user)->first();
+        $user = User::findBySlug($slug);
 
         if ($user) {
-            $advert = Advert::with(['user' => function ($query) use ($user) {
-                    $query->where('slug', $user->slug);
-                }])
+            $advert = Advert::with('user.profile', 'product')
+                ->where('user_id', $user->id)
                 ->where('type', $request->input('type', 'by_date'))
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orderBy('created_at', 'desc')
@@ -28,5 +27,7 @@ class AdvertsController extends Controller
                 'adverts' => $advert
             ]);
         }
+
+        return redirect()->back();
     }
 }

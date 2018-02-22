@@ -179,7 +179,7 @@ Route::group(['namespace' => 'Frontend'], function() {
         Route::group(['prefix' => 'messages'], function () {
             Route::get('', ['as' => 'account.messages.index', 'uses' => 'MessagesController@index']);
             Route::post('', ['as' => 'account.messages.store', 'uses' => 'MessagesController@store']);
-            Route::get('{id}', ['as' => 'account.messages.show', 'uses' => 'MessagesController@show']);
+            Route::get('{slug}', ['as' => 'account.messages.show', 'uses' => 'MessagesController@show']);
         });
 
         // Advices
@@ -214,24 +214,6 @@ Route::group(['namespace' => 'Frontend'], function() {
 
     });
 
-    // Profile
-    Route::group(['namespace' => 'Profile', 'prefix' => 'profile'], function () {
-        // User
-        Route::get('{user}', ['as' => 'profile.user.show', 'uses' => 'UserController@show']);
-
-        // Products
-        Route::get('{user}/products', ['as' => 'profile.products.index', 'uses' => 'ProductsController@index']);
-
-        // Adverts
-        Route::get('{user}/adverts', ['as' => 'profile.adverts.index', 'uses' => 'AdvertsController@index']);
-
-        // Advices
-        Route::get('{user}/advices', ['as' => 'profile.advices.index', 'uses' => 'AdvicesController@index']);
-
-        // Recipes
-        Route::get('{user}/recipes', ['as' => 'profile.recipes.index', 'uses' => 'RecipesController@index']);
-    });
-
     // Login & logout
     Route::group(['prefix' => 'login'], function () {
         Route::get('', 'LoginController@show');
@@ -262,5 +244,23 @@ Route::group(['namespace' => 'Frontend'], function() {
         Route::get('feedback', 'FeedbackController@show');
         Route::post('feedback', ['as' => 'feedback.store', 'uses' => 'FeedbackController@store']);
         Route::get('{slug}', 'PagesController@show');
+    });
+
+    // Profile
+    Route::group(['namespace' => 'Profile'], function () {
+        // User
+        Route::get('{slug}', ['as' => 'profile.user.show', 'uses' => 'UserController@show']);
+
+        // Products
+        Route::get('{slug}/products', ['as' => 'profile.products.index', 'uses' => 'ProductsController@index']);
+
+        // Adverts
+        Route::get('{slug}/adverts', ['as' => 'profile.adverts.index', 'uses' => 'AdvertsController@index']);
+
+        // Advices
+        Route::get('{slug}/advices', ['as' => 'profile.advices.index', 'uses' => 'AdvicesController@index']);
+
+        // Recipes
+        Route::get('{slug}/recipes', ['as' => 'profile.recipes.index', 'uses' => 'RecipesController@index']);
     });
 });

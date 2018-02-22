@@ -262,11 +262,9 @@
                 },
                 success: function (responce) {
                     if (responce) {
-                        var url = '{{ asset('uploads/' . Helper::getUserDirHash(auth()->user()) . '/thumbs') }}/';
-
                         $('html, body').scrollTop(0);
 
-                        $('.header-img').attr('src', url + responce['data']['image']);
+                        $('.header-img').attr('src', responce['data']['user']['directory'] + responce['data']['image']);
                         $('.header-title').text(responce['data']['name']);
 
                         $('input[name=product_id]').val(responce['data']['id']);

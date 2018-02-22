@@ -3,6 +3,7 @@
 namespace App\Services\Messages;
 
 use App\MessageThread;
+use App\MessageThreadParticipant;
 use DB;
 
 class Messenger
@@ -71,7 +72,7 @@ class Messenger
     {
         $thread = $this->getThread();
 
-        $thread->messages()->create([
+        return $thread->messages()->create([
             'body'      => $this->message,
             'sender_id' => $this->from,
         ]);
@@ -85,7 +86,9 @@ class Messenger
      */
     public function getThread()
     {
-        $thread = MessageThread::between($this->from, $this->to)->first();
+        $thread = MessageThread::between([
+                $this->from, $this->to
+            ])->first();
 
         if (!$thread) {
             $thread = $this->createThread();
@@ -106,17 +109,16 @@ class Messenger
 
         $thread = MessageThread::create([]);
 
-        $participants = [
-            [
+        $thread->participants()->saveMany([
+            new MessageThreadParticipant([
                 'thread_id' => $thread->id,
                 'user_id'   => $this->from
-            ], [
+            ]),
+            new MessageThreadParticipant([
                 'thread_id' => $thread->id,
                 'user_id'   => $this->to
-            ]
-        ];
-
-        $thread->participants()->insert($participants);
+            ]),
+        ]);
 
         DB::commit();
 

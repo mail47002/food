@@ -49,12 +49,16 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return ProductResource
      */
     public function show($id)
     {
-        return new ProductResource(Product::with('images')->find($id));
+        $product = Product::with('user.profile', 'images')->find($id);
+
+        if ($product) {
+            return new ProductResource($product);
+        }
     }
 
     /**

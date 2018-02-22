@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="image">
-                <img src="{{ Helper::getThumbnailUrl($order->advert->user, $order->advert->image) }}" class="img-responsive" alt="{{ $order->advert->name }}">
+                <img src="{{ Helper::$order->advert->user->directory . '/thumbs/' . $order->advert->image }}" class="img-responsive" alt="{{ $order->advert->name }}">
             </div>
         </div>
         <div class="col-md-5">
@@ -45,29 +45,29 @@
         </div>
         <div class="col-md-3 left-border">
             <div class="caption text-center">
-                @if(!Helper::isOrderConfirmed($order->type))
-                    <div class="info-block red">
-                        Замовлення очікує на підтвердження!
-                    </div>
-
-                    @if(auth()->id() !== $order->user_id)
-                        {{ Form::open(['route' => ['account.orders.confirm', $order->id], 'method' => 'put']) }}
-                        <button class="button button-red v40">Підтвердити замовлення</button>
-                        {{ Form::close() }}
-                    @endif
-
-                    {{ Form::open(['route' => ['account.orders.destroy', $order->id], 'method' => 'delete']) }}
-                        <button class="link-red f14" type="submit"><i class="fo fo-close-bold fo-small"></i> Відмінити</button>
-                    {{ Form::close() }}
-                @endif
-
-                @if(Helper::isOrderConfirmed($order->type))
+                @if(Helper::isOrderConfirmed($order->status))
                     <div class="info-block green-light">
                         <i class="fo fo-ok fo-big"></i>
                         <p class="text">Ви клієнт на страву</p>
                     </div>
 
-                    <a href="#" class="button button-red v40"><i class="fo fo-message"></i> Залишити відгук</a>
+                    <a href="#" class="button button-red v40">
+                        <i class="fo fo-message"></i> Залишити відгук
+                    </a>
+                @else
+                    <div class="info-block red">
+                        Замовлення очікує на підтвердження!
+                    </div>
+
+                    {{--@if(auth()->id() !== $order->user_id)--}}
+                        {{--{{ Form::open(['route' => ['account.orders.confirm', $order->id], 'method' => 'put']) }}--}}
+                            {{--<button class="button button-red v40">Підтвердити замовлення</button>--}}
+                        {{--{{ Form::close() }}--}}
+                    {{--@endif--}}
+
+                    {{ Form::open(['route' => ['account.orders.destroy', $order->id], 'method' => 'delete']) }}
+                        <button class="link-red f14" type="submit"><i class="fo fo-close-bold fo-small"></i> Відмінити</button>
+                    {{ Form::close() }}
                 @endif
             </div>
         </div>

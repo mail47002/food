@@ -20,7 +20,7 @@
 		<div class="container">
 			<div class="owl-carousel">
 				@foreach($advert->images as $image)
-					<div class="item"><img src="{{ Helper::getImageUrl($advert->user, $image->image) }}" alt="{{ $advert->name }}"></div>
+					<div class="item"><img src="{{ $advert->user->directory . $image->image }}" alt="{{ $advert->name }}"></div>
 				@endforeach
 			</div>
 			<div class="slider-counter"></div>
@@ -148,7 +148,9 @@
 						<h5 class="text-upper underline-red">Ваш повар</h5><hr class="zerro-top">
 						<div class="left">
 							<div class="avatar">
-								<div class="rounded"><img src="{{ Helper::getUserImage($advert->user) }}" alt="{{ $advert->user->profile->first_name }}"></div>
+								<div class="rounded">
+									<img src="{{ $advert->user->directory . $advert->user->profile->image }}" alt="{{ $advert->user->profile->first_name }}">
+								</div>
 							</div>
 
 							@if(auth()->guest())
@@ -188,7 +190,7 @@
 
 							<div class="avatar">
 								<div class="rounded">
-									<img src="{{ Helper::getUserImage($advert->user) }}" alt="{{ $advert->user->profile->first_name }}">
+									<img src="{{ $advert->user->directory . $advert->user->profile->image }}" alt="{{ $advert->user->profile->first_name }}">
 								</div>
 								<a href="javascript:void(0);" onclick="wishlist.add({{ $advert->user_id }})" class="link">
 									<i class="fo fo-like fo-small"></i> до улюблених

@@ -456,16 +456,16 @@
                             html += '<div id="order-' + responce.data[i]['id'] + '" class="caption">';
                             html += '<a href="#" class="discard link-red"><i class="fo fo-close-rounded"></i></a>';
                             html += '<div class="avatar">';
-                            html += '<div class="rounded"><img src="'+ responce.data[i]['user']['image'] +'" alt="foto"></div>';
+                            html += '<div class="rounded"><img src="'+ responce.data[i]['user']['directory'] + responce.data[i]['user']['profile']['image'] +'" alt="' + responce.data[i]['user']['profile']['first_name'] + '"></div>';
                             html += '</div>';
-                            html += '<p><a href="#" class="link-blue name">' + responce.data[i]['user']['name'] + '</a></p>';
+                            html += '<p><a href="#" class="link-blue name">' + responce.data[i]['user']['profile']['first_name'] + '</a></p>';
 
-                            for (j in responce.data[i]['user']['phone']) {
-                                html += '<p class="phone">' + responce.data[i]['user']['phone'][j] + '</p>';
+                            for (j in responce.data[i]['user']['profile']['phone']) {
+                                html += '<p class="phone">' + responce.data[i]['user']['profile']['phone'][j] + '</p>';
                             }
 
                             html += '<div class="rating"><span class="stars">4</span><p>10 відгуків</p></div>';
-                            html += '<a href="javascript:void(0);" class="button button-red wide" onclick="order.confirm(' +  responce.data[i]['id'] + ')">Підтвердити</a>';
+                            html += '<a href="#" class="button button-red wide" onclick="order.confirm(' +  responce.data[i]['id'] + ')">Підтвердити</a>';
                             html += '</div>';
                         }
                     }
@@ -477,7 +477,7 @@
                 });
             },
             confirm: function (orderId) {
-                $.post('{{ url('api/orders/') }}/' + orderId + '/confirm').done(function (responce) {
+                $.post('{{ url('api/orders') }}/' + orderId + '/confirm').done(function (responce) {
                     if (responce.data) {
                         var total = parseInt($('#modal_order .js-orders-total').text());
 
@@ -498,12 +498,14 @@
                         for (i in responce.data) {
                             html += '<div class="caption">';
                             html += '<div class="avatar">';
-                            html += '<div class="rounded"><img src="' + responce.data[i]['user']['image'] + '" alt="foto"></div>';
+                            html += '<div class="rounded">';
+                            html += '<img src="' + responce.data[i]['user']['directory'] + responce.data[i]['user']['profile']['image'] + '" alt="' + responce.data[i]['user']['profile']['first_name'] + '">';
                             html += '</div>';
-                            html += '<p><a href="#" class="link-blue name">' + responce.data[i]['user']['name'] + '</a></p>';
+                            html += '</div>';
+                            html += '<p><a href="#" class="link-blue name">' + responce.data[i]['user']['profile']['first_name'] + '</a></p>';
 
-                            for (j in responce.data[i]['user']['phone']) {
-                                html += '<p class="phone">' + responce.data[i]['user']['phone'][j] + '</p>';
+                            for (j in responce.data[i]['user']['profile']['phone']) {
+                                html += '<p class="phone">' + responce.data[i]['user']['profile']['phone'][j] + '</p>';
                             }
 
                             html += '<a href="#button" class="button button-green wide">';

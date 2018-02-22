@@ -7,41 +7,47 @@
     <div class="breadcrumbs">
         <div class="container">
             <ul class="list-inline">
-                <li><a href="{{ route('account.messages.index') }}" class="link-blue back text-upper"><i class="fo fo-arrow-left fo-small"></i>  Повернутися</a></li>
+                <li>
+                    <a href="{{ route('account.messages.index') }}" class="link-blue back text-upper">
+                        <i class="fo fo-arrow-left fo-small"></i>  Повернутися
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 
     <div class="bg-yellow write-message">
         <div class="container">
-
             <div class="row flex-md">
-
                 <div class="col-md-3">
                     <div class="left-sidebar text-center">
                         <div class="avatar">
-                            <div class="rounded"><img src="/uploads/avatar.jpg" alt="foto"></div>
+                            <div class="rounded">
+                                <img src="{{ $user->directory . $user->profile->image }}" alt="{{ $user->profile->first_name }}">
+                            </div>
                         </div>
-                        <a href="#" class="link-blue name f16 block">Оксана</a>
+                        <a href="{{ route('profile.user.show', $user->profile->slug) }}" class="link-blue name f16 block">{{ $user->profile->first_name }}</a>
                     </div>
                 </div>
 
                 <div class="col-md-9 bg-white">
                     @if(count($thread->messages) > 0)
                         <ul class="list-unstyled messages" id="messagesHeight">
-
                             @foreach($thread->messages as $message)
                                 <li class="clearfix">
                                     <div class="left">
                                         <div class="avatar">
                                             <div class="rounded">
-                                                <img src="{{ $message->sender->image }}" alt="foto">
+                                                <img src="{{ $message->sender->directory . $message->sender->profile->image }}" alt="{{ $message->sender->profile->first_name }}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="right">
-                                        <a href="#" class="link-blue name">{{ $message->sender->name }}</a><span class="date">{{ Date::parse($message->created_at)->format('H:m') }}</span>
-                                        <div class="message">{{ $message->body }}</div>
+                                        <a href="#" class="link-blue name">{{ $message->sender->profile->first_name }}</a>
+                                        <span class="date">{{ Date::parse($message->created_at)->format('H:m') }}</span>
+                                        <div class="message">
+                                            {{ $message->body }}
+                                        </div>
                                     </div>
                                 </li>
                             @endforeach
@@ -116,7 +122,7 @@
                             <i class="fo fo-clip fo-big"></i>
                             {{ Form::textarea('message', null, ['placeholder' => 'Ваша відповідь']) }}
                             <button class="link-red-dark" type="submit"><i class="fo fo-plane fo-2x"></i></button>
-                            {{ Form::hidden('user_id', $user->id) }}
+                            {{ Form::hidden('user_to', $user->profile->slug) }}
                         {{ Form::close() }}
                     </div>
                 </div>

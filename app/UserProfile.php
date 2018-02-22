@@ -13,4 +13,9 @@ class UserProfile extends Model
     protected $casts = [
         'phone' => 'array'
     ];
+
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = str_slug($value);
+    }
 }

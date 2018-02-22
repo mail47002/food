@@ -40,6 +40,13 @@ class User extends Authenticatable
         'phone' => 'array'
     ];
 
+    /**
+     * @var array
+     */
+    protected $appends = [
+        'directory'
+    ];
+
     public function profile()
     {
         return $this->hasOne('App\UserProfile');
@@ -60,9 +67,9 @@ class User extends Authenticatable
         );
     }
 
-    public function scopeFindThread($query, $threadId)
+    public function getDirectoryAttribute()
     {
-        return $this->threads()->where('thread_id', $threadId)->first();
+        return asset('uploads/' . md5($this->attributes['id'] . $this->attributes['email'])) . '/';
     }
 
     public function verified()
@@ -74,6 +81,8 @@ class User extends Authenticatable
 
     public function scopeFindBySlug($query, $slug)
     {
-        return $query->where('slug', $slug)->first();
+        return $query->whereHas('profile', function ($query) use ($slug) {
+                $query->where('slug', $slug);
+            })->first();
     }
 }

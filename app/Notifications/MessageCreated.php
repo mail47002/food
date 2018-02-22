@@ -2,30 +2,25 @@
 
 namespace App\Notifications;
 
-use App\Advert;
-use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class CallbackStored extends Notification
+class MessageCreated extends Notification
 {
     use Queueable;
 
-    public $user;
-    public $advert;
+    public $message;
 
     /**
-     * CallbackStored constructor.
+     * Create a new notification instance.
      *
-     * @param User $user
-     * @param Advert $advert
+     * @return void
      */
-    public function __construct(User $user, Advert $advert)
+    public function __construct($message)
     {
-        $this->user = $user;
-        $this->advert = $advert;
+        $this->message = $message;
     }
 
     /**
@@ -69,9 +64,9 @@ class CallbackStored extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'user'    => $this->user,
-            'profile' => $this->user->profile,
-            'advert'  => $this->advert
+            'message' => $this->message,
+            'user'    => $this->message->sender,
+            'profile' => $this->message->sender->profile
         ];
     }
 }

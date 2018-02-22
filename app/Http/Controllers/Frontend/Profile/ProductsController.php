@@ -10,15 +10,14 @@ use App\Http\Controllers\Controller;
 
 class ProductsController extends Controller
 {
-    public function index($user, Request $request) {
-        $user = User::where('slug', $user)->first();
+    public function index($slug, Request $request) {
+        $user = User::findBySlug($slug);
 
         if ($user) {
-            $products = Product::with(['user' => function ($query) use ($user) {
-                    $query->where('slug', $user);
-                }])
+            $products = Product::with('user.profile')
+                ->where('user_id', $user->id)
                 ->where('name', 'like', '%' . $request->search . '%')
-                ->paginate(2);
+                ->paginate();
 
             $categories = Category::all();
 

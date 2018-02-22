@@ -48,6 +48,8 @@ class OrdersController extends Controller
             $order = Order::create($request->all());
 
             $advert->user->notify(new OrderCreated($order));
+
+            /** todo: move to notification */
             Mail::to($advert->user->email)->send(new \App\Mail\OrderCreated($order));
 
             return new OrderResource($order);
@@ -64,7 +66,7 @@ class OrdersController extends Controller
      */
     public function stored(Request $request)
     {
-        $orders = Order::with(['user'])
+        $orders = Order::with('user.profile')
             ->where('advert_id', $request->advert_id)
             ->whereStatus(Order::CREATED)
             ->orderBy('created_at', 'desc')
@@ -88,6 +90,8 @@ class OrdersController extends Controller
             $order->confirmed();
 
             $order->user->notify(new OrderConfirmed($order));
+
+            /** todo: move to notification */
             Mail::to($order->user->email)->send(new \App\Mail\OrderConfirmed($order));
 
             return new OrderResource($order);
@@ -102,7 +106,7 @@ class OrdersController extends Controller
      */
     public function confirmed(Request $request)
     {
-        $orders = Order::with(['user'])
+        $orders = Order::with('user.profile')
             ->where('advert_id', $request->advert_id)
             ->whereStatus(Order::CONFIRMED)
             ->orderBy('updated_at', 'desc')

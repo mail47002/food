@@ -58,9 +58,9 @@
                 @if(auth()->user()->profile)
                     <li class="hidden-xm">
                         <div class="avatar">
-                            <div class="rounded"><img src="{{ Helper::getUserImage(auth()->user()) }}" alt="{{ auth()->user()->profile->name }}"></div>
+                            <div class="rounded"><img src="{{ auth()->user()->directory . auth()->user()->profile->image }}" alt="{{ auth()->user()->profile->name }}"></div>
                         </div>
-                        <a href="{{ route('account.user.show') }}" class="link">{{ auth()->user()->name }}</a>
+                        <a href="{{ route('account.user.show') }}" class="link">{{ auth()->user()->profile->first_name }}</a>
                     </li>
                 @endif
 

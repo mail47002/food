@@ -45,45 +45,6 @@ class Helper
     }
 
     /**
-     * Return image url.
-     *
-     * @param $user
-     * @param $image
-     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
-     */
-    public function getImageUrl($user, $image)
-    {
-        return url('uploads/' . $this->getUserDirHash($user) . '/' . $image);
-    }
-
-    /**
-     * Return thumbnail url.
-     *
-     * @param $user
-     * @param $image
-     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
-     */
-    public function getThumbnailUrl($user, $image)
-    {
-        return url('uploads/' . $this->getUserDirHash($user) . '/thumbs/' . $image);
-    }
-
-    /**
-     * Return uploaded user directory hash.
-     *
-     * @param $user
-     * @return string
-     */
-    public function getUserDirHash($user)
-    {
-        if (is_array($user)) {
-            return md5($user['id'] . $user['email']);
-        }
-
-        return md5($user->id . $user->email);
-    }
-
-    /**
      * Return user address.
      *
      * @param $user
@@ -92,21 +53,6 @@ class Helper
     public function getUserAddress($user)
     {
         return 'вул. ' . $user->profile->street . ' ' . $user->profile->build . ', ' . $user->profile->city;
-    }
-
-    /**
-     * Return user image url.
-     *
-     * @param $user
-     * @return string
-     */
-    public function getUserImage($user)
-    {
-        if (is_array($user)) {
-            return asset('uploads/' . $this->getUserDirHash(['id' => $user['id'], 'email' => $user['email']]) . '/' . $user['image']);
-        }
-
-        return asset('uploads/' . $this->getUserDirHash($user) . '/' . $user->profile->image);
     }
 
     /**

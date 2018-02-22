@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Frontend\Account;
 use App\Message;
 use App\MessageThread;
 use App\MessageThreadParticipant;
+use App\Notifications\MessageCreated;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Mail;
 use Messenger;
 
 class MessagesController extends Controller
@@ -56,10 +58,19 @@ class MessagesController extends Controller
     {
         $this->validateForm($request);
 
-        Messenger::from(Auth::id())
-            ->to($request->user_id)
-            ->message($request->message)
-            ->send();
+        $user = User::findBySlug($request->user_to);
+
+        if ($user) {
+            $message = Messenger::from(Auth::id())
+                ->to($user->id)
+                ->message($request->message)
+                ->send();
+
+            $user->notify(new MessageCreated($message));
+
+            /** todo: move to notification */
+            Mail::to($user->email)->send(new \App\Mail\MessageCreated($message));
+        }
 
         return redirect()->back();
     }
@@ -67,16 +78,18 @@ class MessagesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $id
+     * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($slug)
     {
-        $thread = $this->getThread($id);
+        $user = User::findBySlug($slug);
+
+        $thread = Messenger::from(Auth::id())
+            ->to($user->id)
+            ->getThread();
 
         if ($thread) {
-            $user = MessageThreadParticipant::where('user_id', '!=', Auth::id())->first();
-
             return view('frontend.account.messages.show', [
                 'thread' => $thread,
                 'user'   => $user
@@ -129,31 +142,8 @@ class MessagesController extends Controller
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'user_id' => 'required',
+            'user_to' => 'required',
             'message' => 'required'
         ]);
-    }
-
-    /**
-     * Return thread.
-     *
-     * @param $id
-     * @return mixed
-     */
-    protected function getThread($id)
-    {
-        $thread = null;
-
-        if (is_numeric($id)) {
-            $thread = MessageThread::find($id);
-        } else {
-            $user = User::findBySlug($id);
-
-            $thread = Messenger::from(Auth::id())
-                ->to($user->id)
-                ->getThread();
-        }
-
-        return $thread;
     }
 }

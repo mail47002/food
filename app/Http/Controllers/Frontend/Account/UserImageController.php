@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Frontend\Account;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use Helper;
 use Image;
 use Storage;
 
@@ -45,7 +44,7 @@ class UserImageController extends Controller
             $this->validateForm($request);
 
             if (Auth::user()->profile) {
-                Storage::delete('uploads/' . Helper::getUserDirHash(Auth::user()) . '/' . Auth::user()->profile->image);
+                Storage::delete('uploads/' . $this->getDirHash(Auth::user()) . '/' . Auth::user()->profile->image);
             }
 
             $image = $this->storeImage($request);
@@ -87,7 +86,7 @@ class UserImageController extends Controller
     {
         $file = $request->file('image');
         $fileName = str_random(18) . '.' . $file->getClientOriginalExtension();
-        $filePath = 'uploads/' . Helper::getUserDirHash(Auth::user()) . '/' . $fileName;
+        $filePath = 'uploads/' . $this->getDirHash(Auth::user()) . '/' . $fileName;
 
         $image = Image::make($file)->fit(210, 210);
 
@@ -97,5 +96,14 @@ class UserImageController extends Controller
             'file_name' => $fileName,
             'file_path' => asset($filePath)
         ];
+    }
+
+    /**
+     * @param $user
+     * @return string
+     */
+    protected function getDirHash($user)
+    {
+        return md5($user->id . $user->email);
     }
 }

@@ -3,19 +3,7 @@
 @section('title')Products - @stop
 
 @section('content')
-    <div class="v-indent-40"></div>
-    <h1>{{ $user->name }}</h1>
-    <p class="grey3">
-        <i class="fo fo-big fo-marker red"></i> вул. {{ $user->address->street }} {{ $user->address->build }}, {{ $user->address->city }}
-    </p>
-    <div class="rating grey3"><span class="stars medium">4</span>10 відгуків</div>
-
-    <div class="description">
-        <p>Якщо ви любите запечене блюдо з хрусткою скоринкою, то посипте все сумішшю з панірувальних сухарів і натертого на тертці сиру. Запікайте в духовці при температурі 180-190С. Коли картопля стане м'яким, або помідори з цибулею і кабачками трохи підрум'яняться - овочевий рататуй з баклажанами готовий! Подавайте його до столу з будь-яким улюбленим вами соусом. Підійде сметана, домашній майонез або невеликий шматочок вершкового масла.</p>
-
-        <a href="#" class="link-blue">Показати текст</a>
-    </div>
-
+    @include('frontend.profile.header')
 
     <div class="reviews">
         <h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">

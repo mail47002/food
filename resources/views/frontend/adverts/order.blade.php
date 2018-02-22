@@ -61,7 +61,7 @@
                     if (response.data) {
                         html += '<div class="caption">';
                         html += '<div class="avatar">';
-                        html += '<div class="rounded"><img src="' + response.data['user']['profile']['image'] + '" alt="foto"></div>';
+                        html += '<div class="rounded"><img src="' + response.data['user']['directory'] + response.data['user']['profile']['image'] + '" alt="foto"></div>';
                         html += '</div>';
                         html += '<p><a href="#" class="link-blue name">' +  response.data['user']['profile']['first_name'] +'</a></p>';
                         html += '</div>';

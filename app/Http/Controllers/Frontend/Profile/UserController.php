@@ -10,12 +10,14 @@ class UserController extends Controller
 {
     public function show($user)
     {
-        $user = User::where('slug', $user)->first();
+        $user = User::findBySlug($user);
 
         if ($user) {
             return view('frontend.profile.user.show', [
                 'user' => $user
             ]);
         }
+
+        return redirect()->back();
     }
 }

@@ -3,7 +3,7 @@
         <a href="{{ route('account.notifications.index', ['notify' => $notification->id]) }}">
             <div class="avatar">
                 <div class="rounded">
-                    <img src="{{ Helper::getUserImage(['id' => $notification->data['user']['id'], 'email' => $notification->data['user']['email'], 'image' => $notification->data['profile']['image']]) }}" alt="{{ $notification->data['profile']['first_name'] }}">
+                    <img src="{{ $notification->data['user']['directory'] . $notification->data['profile']['image'] }}" alt="{{ $notification->data['profile']['first_name'] }}">
                 </div>
             </div>
             <div class="message">
@@ -20,7 +20,7 @@
         <a href="{{ route('account.notifications.index', ['notify' => $notification->id]) }}">
             <div class="avatar">
                 <div class="rounded">
-                    <img src="{{ Helper::getUserImage(['id' => $notification->data['user']['id'], 'email' => $notification->data['user']['email'], 'image' => $notification->data['profile']['image']]) }}" alt="{{ $notification->data['profile']['first_name'] }}">
+                    <img src="{{ $notification->data['user']['directory'] . $notification->data['profile']['image'] }}" alt="{{ $notification->data['profile']['first_name'] }}">
                 </div>
             </div>
             <div class="message">
@@ -50,7 +50,7 @@
         <a href="{{ route('account.notifications.index', ['notify' => $notification->id]) }}">
             <div class="avatar">
                 <div class="rounded">
-                    <img src="{{ Helper::getUserImage(['id' => $notification->data['user']['id'], 'email' => $notification->data['user']['email'], 'image' => $notification->data['profile']['image']]) }}" alt="{{ $notification->data['profile']['first_name'] }}">
+                    <img src="{{ $notification->data['user']['directory'] . $notification->data['profile']['image'] }}" alt="{{ $notification->data['profile']['first_name'] }}">
                 </div>
             </div>
             <div class="message">

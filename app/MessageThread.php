@@ -14,7 +14,8 @@ class MessageThread extends Model
 
     public function messages()
     {
-        return $this->hasMany('App\Message', 'thread_id');
+        return $this->hasMany('App\Message', 'thread_id')
+            ->orderBy('created_at', 'asc');
     }
 
     public function participants()
@@ -22,19 +23,14 @@ class MessageThread extends Model
         return $this->hasMany('App\MessageThreadParticipant', 'thread_id');
     }
 
-    public function scopeBetween($query, $participants)
+    public function scopeBetween($query, array $participants)
     {
-        if (!is_array($participants)) {
-            $participants = func_get_args();
-            array_shift($participants);
-        }
-
         return $query->whereHas('participants', function ($query) use ($participants) {
             $query->select('thread_id')
                 ->whereIn('user_id', $participants)
                 ->groupBy('thread_id')
-                ->havingRaw('COUNT(thread_id) = '.count($participants));
-        });
+                ->havingRaw('COUNT(thread_id) = ' . count($participants));
+            });
     }
 
     public function scopeLastMessage()
