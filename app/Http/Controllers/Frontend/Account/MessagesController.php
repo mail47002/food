@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Frontend\Account;
 
-use App\Message;
-use App\MessageThread;
-use App\MessageThreadParticipant;
 use App\Notifications\MessageCreated;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use Mail;
 use Messenger;
 
 class MessagesController extends Controller
@@ -67,9 +63,6 @@ class MessagesController extends Controller
                 ->send();
 
             $user->notify(new MessageCreated($message));
-
-            /** todo: move to notification */
-            Mail::to($user->email)->send(new \App\Mail\MessageCreated($message));
         }
 
         return redirect()->back();

@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Helper;
-use Mail;
 
 class OrdersController extends Controller
 {
@@ -48,9 +47,6 @@ class OrdersController extends Controller
             $order = Order::create($request->all());
 
             $advert->user->notify(new OrderCreated($order));
-
-            /** todo: move to notification */
-            Mail::to($advert->user->email)->send(new \App\Mail\OrderCreated($order));
 
             return new OrderResource($order);
         }
@@ -90,9 +86,6 @@ class OrdersController extends Controller
             $order->confirmed();
 
             $order->user->notify(new OrderConfirmed($order));
-
-            /** todo: move to notification */
-            Mail::to($order->user->email)->send(new \App\Mail\OrderConfirmed($order));
 
             return new OrderResource($order);
         }

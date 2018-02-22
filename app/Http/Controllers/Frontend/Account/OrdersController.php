@@ -8,7 +8,6 @@ use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use Mail;
 
 class OrdersController extends Controller
 {
@@ -52,7 +51,6 @@ class OrdersController extends Controller
             $order->confirmed();
 
             $order->user->notify(new OrderConfirmed($order));
-            Mail::to($order->user->email)->send(new \App\Mail\OrderConfirmed($order));
         }
 
         return redirect()->back();
@@ -70,7 +68,6 @@ class OrdersController extends Controller
 
         if ($order && $order->status === Order::CANCELED) {
             $order->advert->user->notify(new OrderCanceled($order));
-            Mail::to($order->advert->user->email)->send(new \App\Mail\OrderCanceled($order));
 
             $order->delete();
         }

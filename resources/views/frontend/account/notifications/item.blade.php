@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="message">
-                <p>Зателефонуйте, будь ласка, по номеру {{ Helper::getUserPhone($notification->data['profile']['phone']) }}<br>Я хочу замовити страву <a href="{{ route('account.adverts.show', $notification->data['advert']['id']) }}" class="link-blue">{{ $notification->data['advert']['name'] }}</a> </p>
+                <p>Зателефонуйте, будь ласка, по номеру <strong>{{ Helper::getUserPhone($notification->data['profile']['phone']) }}</strong><br>Я хочу замовити страву <a href="{{ route('account.adverts.show', $notification->data['advert']['id']) }}" class="link-blue">{{ $notification->data['advert']['name'] }}</a> </p>
             </div>
         </div>
         <div class="right left-border">
