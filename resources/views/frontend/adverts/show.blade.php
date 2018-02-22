@@ -268,7 +268,7 @@
 
 	</div> <!-- bg-white -->
 
-	@include('frontend.adverts.order');
+	@include('frontend.includes.order');
 @stop
 
 

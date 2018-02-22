@@ -51,7 +51,7 @@
 	</div>
 
 	@include('frontend.adverts.address')
-	@include('frontend.adverts.order')
+	@include('frontend.includes.order')
 @stop
 
 @push('scripts')

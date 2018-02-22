@@ -58,4 +58,6 @@
             @endif
         </div>
     </div>
+
+    @include('frontend.includes.order')
 @endsection

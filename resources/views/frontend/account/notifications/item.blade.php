@@ -126,12 +126,12 @@
     </div>
 @endif
 
-{{-- Message stored --}}
+{{-- Message created --}}
 @if($notification->type === 'App\Notifications\MessageCreated')
-    <div id="{{ $notification->id }}" class="wide-thumb profile-messages">
+    <div id="{{ $notification->id }}" class="wide-thumb profile-messages email">
         <div class="left with-image">
 
-            <div class="title">Повідомлення від <a href="{{ route('profile.user.show', $notification->data['profile']['slug']) }}" class="link-blue">{{ $notification->data['profile']['first_name']}}</a></div>
+            <div class="title">Лист від <a href="{{ route('profile.user.show', $notification->data['profile']['slug']) }}" class="link-blue">{{ $notification->data['profile']['first_name']}}</a></div>
             <div class="avatar">
                 <div class="rounded">
                     <img src="{{ $notification->data['user']['directory'] . $notification->data['profile']['image'] }}" alt="{{ $notification->data['profile']['first_name'] }}">
