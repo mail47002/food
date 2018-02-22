@@ -143,24 +143,10 @@
         </div>
         <div class="right left-border">
             <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>
+            <a href="{{ route('account.messages.show', $notification->data['profile']['slug']) }}" class="button button-blue-medium"><i class="fo fo-back"></i> Відповісти</a>
         </div>
     </div>
 @endif
-
-{{--<div class="wide-thumb profile-messages email">--}}
-{{--<div class="left">--}}
-{{--<div class="title">Лист від <a href="/profile/#" class="link-blue">Вікторії</a></div>--}}
-{{--<div class="avatar"><div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div></div>--}}
-{{--<div class="message">--}}
-{{--<p>В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховата, но...</p>--}}
-{{--</div>--}}
-
-{{--</div>--}}
-{{--<div class="right left-border">--}}
-{{--<p class="date">10:15 2 липня 2016</p>--}}
-{{--<a href="#" class="button button-blue-medium"><i class="fo fo-back"></i> Відповісти</a>--}}
-{{--</div>--}}
-{{--</div>--}}
 
 
 {{--<div class="wide-thumb profile-messages order">--}}
