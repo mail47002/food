@@ -3709,17 +3709,22 @@ select.wide + span.ui-button {
 	height: 130px;
 	margin: 10px auto 40px;
 	z-index: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	&:after {
 		font-family: FontFood;
 		content: '\0025';
-		position: absolute;
+		position: relative;
 		font-size: 80px;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		top: 0;
-		line-height: 130px;
+		// left: 0;
+		// right: 0;
+		// bottom: 0;
+		// top: 0;
+		// line-height: 130px;
 		color: #fff;
+		display: inline-block;
+		width: 52px;
 	}
 	img{
 			position:absolute;
