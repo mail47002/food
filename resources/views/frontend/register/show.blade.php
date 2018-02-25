@@ -1,4 +1,4 @@
-@extends('frontend.layouts.default')
+@extends('frontend.layouts.empty')
 
 @section('content')
     <div class="signup-page sign-form" style="background-image: url({{ asset('frontend/images/signup.jpg') }});">
@@ -6,7 +6,7 @@
             <div class="sign-header">
                 <a href="#" class="back" onclick="window.history.back();"></a>
                 <h3 class="title">ласкаво просимо</h3>
-                <p>Готуйте свої улюблені страви і отримуйте винагороду! <br>Замовляйте будь-яку страву, і будьте впевнені, що вона найкращої якості!</p>
+                <p>Готуйте свої улюблені страви і отримуйте винагороду! <br>Замовляйте будь-яку страву і будьте впевнені, що вона найкращої якості!</p>
             </div>
             <div class="sign-body">
                 <div class="left separator">
