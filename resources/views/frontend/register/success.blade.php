@@ -1,4 +1,4 @@
-@extends('frontend.layouts.default')
+@extends('frontend.layouts.empty')
 
 @section('content')
 	<div class="signup-success" style="background-image: url({{ asset('frontend/images/signup.jpg') }});">
