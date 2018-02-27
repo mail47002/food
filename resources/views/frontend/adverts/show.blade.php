@@ -149,7 +149,7 @@
 						<div class="left">
 							<div class="avatar">
 								<div class="rounded">
-									<img src="{{ $advert->user->directory . $advert->user->profile->image }}" alt="{{ $advert->user->profile->first_name }}">
+									<img src="{{ $advert->user->getAvatar() }}" alt="{{ $advert->user->profile->first_name }}">
 								</div>
 							</div>
 
@@ -190,7 +190,7 @@
 
 							<div class="avatar">
 								<div class="rounded">
-									<img src="{{ $advert->user->directory . $advert->user->profile->image }}" alt="{{ $advert->user->profile->first_name }}">
+									<img src="{{ $advert->user->getAvatar() }}" alt="{{ $advert->user->profile->first_name }}">
 								</div>
 								<a href="javascript:void(0);" onclick="wishlist.add({{ $advert->user_id }})" class="link">
 									<i class="fo fo-like fo-small"></i> до улюблених

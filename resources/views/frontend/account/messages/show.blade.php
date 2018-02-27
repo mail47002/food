@@ -23,7 +23,7 @@
                     <div class="left-sidebar text-center">
                         <div class="avatar">
                             <div class="rounded">
-                                <img src="{{ $user->directory . $user->profile->image }}" alt="{{ $user->profile->first_name }}">
+                                <img src="{{ $user->getAvatar() }}" alt="{{ $user->profile->first_name }}">
                             </div>
                         </div>
                         <a href="{{ route('profile.user.show', $user->profile->slug) }}" class="link-blue name f16 block">{{ $user->profile->first_name }}</a>

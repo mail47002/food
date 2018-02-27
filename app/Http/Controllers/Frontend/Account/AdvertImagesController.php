@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Account;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Helper;
 use Image;
 use Storage;
 
@@ -61,7 +62,7 @@ class AdvertImagesController extends Controller
      */
     private function getImagePath()
     {
-        return 'uploads/' . md5(Auth::id() . Auth::user()->email);
+        return 'uploads/' . Auth::user()->getDirHash();
     }
 
     /**
@@ -71,6 +72,6 @@ class AdvertImagesController extends Controller
      */
     private function getThumbnailPath()
     {
-        return 'uploads/' . md5(Auth::id() . Auth::user()->email) . '/thumbs';
+        return 'uploads/' . Auth::user()->getDirHash() . '/thumbs';
     }
 }

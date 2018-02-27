@@ -25,10 +25,6 @@ class Order extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function scopeWhereStatus($query, $status)
-    {
-        return $query->where('status', $status);
-    }
 
     public function confirmed()
     {

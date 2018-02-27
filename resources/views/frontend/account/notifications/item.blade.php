@@ -69,7 +69,7 @@
             <div class="title">Повар <a href="{{ route('profile.user.show', $notification->data['advert']['user']['slug']) }}" class="link-blue">{{ $notification->data['advert']['user']['name'] }}</a> відмовила на замовленняя</div>
             <div class="avatar">
                 <div class="rounded">
-                    <img src="/uploads/avatar.png" alt="foto">
+                    <img src="{{ $notification->data['user']['directory'] . $notification->data['profile']['image'] }}" alt="{{ $notification->data['profile']['first_name'] }}">
                 </div>
             </div>
             <div class="message">
@@ -119,6 +119,9 @@
             <div class="message">
                 <p>Зателефонуйте, будь ласка, по номеру <strong>{{ Helper::getUserPhone($notification->data['profile']['phone']) }}</strong><br>Я хочу замовити страву <a href="{{ route('account.adverts.show', $notification->data['advert']['id']) }}" class="link-blue">{{ $notification->data['advert']['name'] }}</a> </p>
             </div>
+        </div>
+        <div class="image hidden-xs">
+            <img src="{{ $notification->data['user']['directory'] . 'thumbs/' . $notification->data['advert']['image'] }}" alt="{{ $notification->data['advert']['name'] }}">
         </div>
         <div class="right left-border">
             <p class="date">{{ Date::parse($notification->created_at)->format('H:i d F Y') }}</p>

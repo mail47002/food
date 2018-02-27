@@ -3,7 +3,7 @@
         @if(request()->is('myaccount/edit'))
             <div class="avatar">
                 <div class="uploader profile">
-                    <img src="{{ auth()->user()->directory . auth()->user()->profile->image }}" alt="{{ auth()->user()->profile->first_name }}">
+                    <img src="{{ auth()->user()->getAvatar() }}" alt="{{ auth()->user()->profile->first_name }}">
                     <input id="input-avatar" type="file">
                     <div class="round"><i class="fo fo-camera"></i></div>
                 </div>
@@ -11,13 +11,13 @@
         @else
             <div class="avatar">
                 <div class="rounded">
-                    <img src="{{ auth()->user()->directory . auth()->user()->profile->image }}" alt="{{ auth()->user()->profile->first_name }}">
+                    <img src="{{ auth()->user()->getAvatar() }}" alt="{{ auth()->user()->profile->first_name }}">
                 </div>
             </div>
         @endif
     @else
         <div class="avatar">
-            <div class="rounded"><img src="{{ $user->directory . $user->profile->image }}" alt="{{ $user->profile->first_name }}"></div>
+            <div class="rounded"><img src="{{ $user->getAvatar() }}" alt="{{ $user->profile->first_name }}"></div>
         </div>
 
         <div class="phones fo fo-phone fo-indent fo-left red">

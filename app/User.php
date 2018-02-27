@@ -69,7 +69,17 @@ class User extends Authenticatable
 
     public function getDirectoryAttribute()
     {
-        return asset('uploads/' . md5($this->attributes['id'] . $this->attributes['email'])) . '/';
+        return asset('uploads/' . $this->getDirHash()) . '/';
+    }
+
+    public function getDirHash()
+    {
+        return md5($this->attributes['id'] . $this->attributes['email']);
+    }
+
+    public function getAvatar()
+    {
+        return asset('uploads/' . $this->getDirHash() . '/' . $this->profile->image);
     }
 
     public function verified()

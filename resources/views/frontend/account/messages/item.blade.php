@@ -4,7 +4,7 @@
         <object><a href="#" class="delete"><i class="fo fo-delete fo-small"></i></a></object>
         <div class="avatar-title">
             <div class="rounded">
-                <img src="{{ $sender->directory . $sender->profile->image }}" alt="{{ $sender->profile->first_name }}">
+                <img src="{{ $sender->getAvatar() }}" alt="{{ $sender->profile->first_name }}">
             </div>
         </div>
         <div class="col">

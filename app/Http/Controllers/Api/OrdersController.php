@@ -64,7 +64,7 @@ class OrdersController extends Controller
     {
         $orders = Order::with('user.profile')
             ->where('advert_id', $request->advert_id)
-            ->whereStatus(Order::CREATED)
+            ->where('status', Order::CREATED)
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -74,11 +74,10 @@ class OrdersController extends Controller
     /**
      * Confirm order.
      *
-     * @param Request $request
      * @param $id
      * @return OrderResource
      */
-    public function confirm(Request $request, $id)
+    public function confirm($id)
     {
         $order = Order::find($id);
 
@@ -101,7 +100,7 @@ class OrdersController extends Controller
     {
         $orders = Order::with('user.profile')
             ->where('advert_id', $request->advert_id)
-            ->whereStatus(Order::CONFIRMED)
+            ->where('status', Order::CONFIRMED)
             ->orderBy('updated_at', 'desc')
             ->get();
 
