@@ -87,7 +87,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
         Route::post('{id}/cancel', 'OrdersController@cancel');
     });
 
-    // User wish list
+    // Wish list
     Route::group(['prefix' => 'wishlist'], function() {
         Route::get('', 'WishlistController@index');
         Route::post('', 'WishlistController@store');
@@ -182,6 +182,12 @@ Route::group(['namespace' => 'Frontend'], function() {
             Route::get('{slug}', ['as' => 'account.messages.show', 'uses' => 'MessagesController@show']);
         });
 
+        // Reviews
+        Route::group(['prefix' => 'reviews'], function () {
+            Route::get('', ['as' => 'account.reviews.index', 'uses' => 'ReviewsController@index']);
+            Route::get('create', ['as' => 'account.reviews.create', 'uses' => 'ReviewsController@create']);
+        });
+
         // Advices
         Route::group(['prefix' => 'advices'], function () {
             Route::get('', ['as' => 'account.advices.index', 'uses' => 'AdvicesController@index']);
@@ -262,5 +268,18 @@ Route::group(['namespace' => 'Frontend'], function() {
 
         // Recipes
         Route::get('{slug}/recipes', ['as' => 'profile.recipes.index', 'uses' => 'RecipesController@index']);
+
+        // Reviews
+        Route::get('{slug}/reviews/create', ['as' => 'profile.reviews.create', 'uses' => 'ReviewsController@create']);
+
+        // Product review
+        Route::get('{slug}/reviews/product/create', ['as' => 'profile.reviews.product.create', 'uses' => 'ProductReviewsController@create']);
+        Route::post('{slug}/reviews/product', ['as' => 'profile.reviews.product.store', 'uses' => 'ProductReviewsController@store']);
+        Route::get('{slug}/reviews/product/success', ['as' => 'profile.reviews.product.success', 'uses' => 'ProductReviewsController@success']);
+
+        // User review
+        Route::get('{slug}/reviews/client/create', ['as' => 'profile.reviews.client.create', 'uses' => 'UserReviewsController@create']);
+        Route::post('{slug}/reviews/client', ['as' => 'profile.reviews.client.store', 'uses' => 'UserReviewsController@store']);
+        Route::get('{slug}/reviews/client/success', ['as' => 'profile.reviews.client.success', 'uses' => 'UserReviewsController@success']);
     });
 });

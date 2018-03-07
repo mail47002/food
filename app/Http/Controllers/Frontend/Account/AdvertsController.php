@@ -120,7 +120,7 @@ class AdvertsController extends Controller
             ]);
         }
 
-        return redirect()->route('frontend.account.adverts.index');
+        return redirect()->back();
     }
 
     /**

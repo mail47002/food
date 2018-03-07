@@ -31,7 +31,11 @@
                     <div class="form-group">
                         {{ Form::label('city', 'Населений пункт*') }}
                         <div class="marker">
-                            {{ Form::text('city', null, ['id' => 'input-city', 'class' => 'wide']) }}
+                            <select id="input-city" class="wide" name="city">
+                                @foreach($cities as $city)
+                                    <option value="{{ $city->name }}">{{ $city->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 

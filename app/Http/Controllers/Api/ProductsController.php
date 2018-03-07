@@ -56,9 +56,7 @@ class ProductsController extends Controller
     {
         $product = Product::with('user.profile', 'images')->find($id);
 
-        if ($product) {
-            return new ProductResource($product);
-        }
+        return new ProductResource($product);
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Advert;
 use App\Category;
-use App\Review;
+use App\ProductReview;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -42,8 +42,8 @@ class AdvertsController extends Controller
             ->where('type', $type);
 
         if ($type == Advert::IN_STOCK) {
-            $adverts = $adverts->where('date_from', '<=', Carbon::now())
-                ->where('date_to', '>=', Carbon::now());
+            $adverts = $adverts->where('date_from', '>=', Carbon::now()->format('Y-m-d'))
+                ->where('date_to', '>=', Carbon::now()->format('Y-m-d'));
         }
 
         if ($type == Advert::BY_DATE) {
@@ -78,7 +78,9 @@ class AdvertsController extends Controller
             ->first();
 
         if ($advert) {
-            $reviews = Review::where('product_id', $advert->product->id)->paginate();
+            $reviews = ProductReview::with(['user.profile'])
+                ->where('product_id', $advert->product->id)
+                ->paginate();
 
             return view('frontend.adverts.show', [
                 'advert'  => $advert,

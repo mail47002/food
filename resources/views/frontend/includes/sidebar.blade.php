@@ -30,9 +30,21 @@
 
         <a href="#" class="link link-grey3"><i class="fo fo-like fo-small"></i> до улюблених</a>
         <div class="v-indent-20"></div>
-        <a href="#" class="button button-grey left-icon"><i class="fo fo-message"></i> Залишити відгук</a>
+
+        @if($hasOrder)
+            <a href="{{ route('profile.reviews.create', $user->profile->slug) }}" class="button button-grey left-icon">
+                <i class="fo fo-message"></i> Залишити відгук
+            </a>
+        @else
+            <a href="#" class="button button-grey left-icon" data-toggle="modal" data-target="#modal_warning">
+                <i class="fo fo-message"></i> Залишити відгук
+            </a>
+        @endif
+
         <div class="v-indent-20"></div>
-        <a href="{{ route('account.messages.show', $user->profile->slug) }}" class="button button-grey left-icon"><i class="fo fo-edit fo-small"></i> Зв'язатися</a>
+        <a href="{{ route('account.messages.show', $user->profile->slug) }}" class="button button-grey left-icon">
+            <i class="fo fo-edit fo-small"></i> Зв'язатися
+        </a>
     @endif
 
     @if(auth()->check() && request()->is('myaccount*'))
@@ -83,7 +95,7 @@
                     <a class="{{ Helper::isActive('myaccount/orders*') }}" href="{{ route('account.orders.index') }}">Мої замовлення</a>
                 </li>
                 <li>
-                    <a href="#">Мої відгуки</a>
+                    <a class="{{ Helper::isActive('myaccount/reviews*') }}" href="{{ route('account.reviews.index') }}">Мої відгуки</a>
                 </li>
                 <li>
                     <a class="{{ Helper::isActive('myaccount/advices*') }}" href="{{ route('account.advices.index') }}">Мої статті</a>

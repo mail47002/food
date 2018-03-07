@@ -18,142 +18,47 @@
 		<p>{{ auth()->user()->about }}</p>
 	</div>
 
-	<h5 class="text-upper underline-red">Відгуки ({{ $reviewsTo->total() + $reviewsFrom->total() }})</h5><hr class="zerro-top">
+	<h5 class="text-upper underline-red">Відгуки ({{ $productReviews + $userReviews }})</h5>
+	<hr class="zerro-top">
 
-	<div class="reviews">
-		<h6 class="zerro-bottom">Відгуки про повара ({{ $reviewsTo->total() }})</h6>
-
-		@if (count($reviewsTo) > 0)
-			<ul class="list-unstyled">
-				@foreach($reviewsTo as $review)
-					<li class="clearfix">
-						<div class="left">
-							<div class="avatar">
-								<div class="rounded"><img src="{{ asset($review->user->image) }}"></div>
-							</div>
-							<a href="#" class="link-blue name">{{ $review->user->name }}</a>
-						</div>
-
-						<div class="right bg-yellow with-image">
-							<div class="blk-left">
-								<div class="date">{{ $review->created_at }}</div>
-								<div><a href="#" class="link-blue f16">{{ $review->product->name }}</a></div>
-								<span class="stars">{{ $review->rating }}</span>
-								<div class="message">{{$review->text}}</div>
-
-								@if ($review->answer)
-									<div class="collapse" id="collapse_to_{{ $review->answer->id }}">
-										<div class="answer clearfix">
-											<div class="title">Ваша відповідь</div>
-											<div class="message">{{$review->answer->text}}</div>
-											<div class="right-avatar">
-												<div class="avatar">
-													<div class="rounded"><img src="{{ asset($review->user->image) }}"></div>
-												</div>
-											</div>
-										</div>
-										<div class="message" id="message_01">
-											В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
-										</div>
-									</div>
-								@endif
-
-								<div class="collapse your-message" id="collapse_your_answer_to_{{ $review->id }}">
-									<form action="#to-{{$review->id}}">
-										<textarea name="message" id="" placeholder="Ваша відповідь"></textarea>
-										<button class="link-red-dark" type="submit"><i class="fo fo-plane fo-2x"></i></button>
-									</form>
-								</div>
-
-								<hr>
-
-								<a href="#collapse_your_answer_to_{{$review->id}}" class="your-message-link pull-right"  data-toggle="collapse" aria-expanded="false" aria-controls="collapse_your_answer_to_{{$review->id}}" opened="Відмінити" closed="Відповісти" /></a>
-
-								@if ($review->answer)
-									<a href="#collapse_to_{{$review->answer->id}}" class="link-blue pull-left" data-toggle="collapse" aria-expanded="false" aria-controls="collapse_to_{{ $review->answer->id }}" opened="Приховати" closed="Показати все" /></a>
-								@endif
-
-							</div>
-							<div class="blk-right"><img src=" {{ asset($review->product->image) }}" ></div>
-
-						</div>
-					</li>
-				@endforeach
-			</ul>
-			<div class="paginate">
-				{{ $reviewsTo->links() }}
-			</div>
-		@else
-			<div class="empty-block">
-				<i class="fo fo-dish-search fo-big block"></i>
-				<p>У вас ще немає відгуків!</p>
-			</div>
-		@endif
-	</div>
-
-	<div class="reviews">
-		<h6 class="zerro-bottom">Відгуки від поварів ({{ $reviewsFrom->total() }})</h6>
-		@if (count($reviewsFrom) > 0)
-			<ul class="list-unstyled">
-
-			@foreach ($reviewsFrom as $review)
-				<li class="clearfix">
-					<div class="left">
-						<div class="avatar">
-							<div class="rounded"><img src="{{ asset($review->user->image) }}"></div>
-						</div>
-						<a href="#" class="link-blue name">{{ $review->user->name }}</a>
-					</div>
-					<div class="right bg-yellow">
-						<div class="date">{{ $review->created_at }}</div>
-						{{-- <p class="black"><a href="#" class="link-blue">{{$reviewFrom->name}}</a></p> --}}
-						<span class="stars">{{ $review->rating }}</span>
-						<div class="message">{{ $review->text }}</div>
-
-						@if ($review->answer)
-							<div class="collapse" id="collapse_from_{{$review->answer->id}}">
-								<div class="answer clearfix">
-									<div class="title">Ваша відповідь</div>
-									<div class="message">{{$review->answer->text}}</div>
-									<div class="right-avatar">
-										<div class="avatar">
-											<div class="rounded"><img src="{{ asset($review->user->image) }}"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						@endif
-
-						<div class="collapse your-message" id="collapse_your_answer_{{ $review->id }}">
-							<form action="#from-{{ $review->id }}">
-								<textarea name="message" id="" placeholder="Ваша відповідь"></textarea>
-								<button class="link-red-dark" type="submit"><i class="fo fo-plane fo-2x"></i></button>
-							</form>
-						</div>
-
-						<hr>
-
-						<a href="#collapse_your_answer_{{ $review->id }}" class="your-message-link pull-right"  data-toggle="collapse" aria-expanded="false" aria-controls="collapse_your_answer_{{ $review->id }}" opened="Відмінити" closed="Відповісти" /></a>
-
-						@if ($review->answer)
-							<a href="#collapse_from_{{ $review->answer->id }}" class="link-blue pull-left" data-toggle="collapse" aria-expanded="false" aria-controls="collapse_from_{{ $review->answer->id }}" opened="Приховати" closed="Показати все" /></a>
-						@endif
-
-					</div>
-				</li>
-			@endforeach
-
+	<div class="filter-block">
+		<ul class="categories list-inline text-center">
+			<li class="{{ Helper::isUserReviews() ? 'active' : '' }}">
+				<a href="{{ route('account.user.show') }}" class="link-red text-upper">Відгуки про повара ({{ $productReviews }})</a>
+			</li>
+			<li class="{{ Helper::isClientReviews() ? 'active' : '' }}">
+				<a href="{{ route('account.user.show', ['type' => 'clients']) }}" class="link-red text-upper">Відгуки від поварів ({{ $userReviews }})</a>
+			</li>
 		</ul>
-			<div class="paginate">
-				{{ $reviewsFrom->links() }}
-			</div>
-		@else
-			<div class="empty-block">
-				<i class="fo fo-people fo-big block"></i>
-				<p>Ви ще не робили замовлення. Не має відгуків!</p>
-				<a href="#" class="button button-red button-empty-block" data-toggle="modal" data-target="#modal_warning">Замовити страву</a>
-			</div>
-		@endif
+		<hr class="red-border">
 	</div>
 
+	<div class="tab-content">
+		<div class="tab-pane fade in active">
+			<div class="reviews">
+				@if(Helper::isUserReviews())
+					@if(count($reviews) > 0)
+						<ul class="list-unstyled">
+							@each('frontend.account.users.review', $reviews, 'entity')
+						</ul>
+
+						{{ $reviews->appends(request()->all())->links() }}
+					@else
+						<div class="empty-block">
+							<i class="fo fo-dish-search fo-big block"></i>
+							<p>У вас ще немає відгуків!</p>
+						</div>
+					@endif
+				@else
+					@if($hasOrder)
+
+					@else
+						<i class="fo fo-people fo-big block"></i>
+						<p>Ви ще не робили замовлення. Не має відгуків!</p>
+						<a href="{{ url('/') }}" class="button button-red button-empty-block">Замовити страву</a>
+					@endif
+				@endif
+			</div>
+		</div>
+	</div>
 @stop

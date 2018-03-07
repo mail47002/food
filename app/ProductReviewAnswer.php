@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ReviewAnswer extends Model
+class ProductReviewAnswer extends Model
 {
     //
 }

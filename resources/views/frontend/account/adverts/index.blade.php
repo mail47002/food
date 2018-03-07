@@ -24,11 +24,11 @@
                 <a href="{{ route('account.adverts.create', ['type' => 'by_date']) }}" class="button button-red button-big">Додати страву до меню</a>
             @endif
 
-                @if(Helper::isAdvertInStock())
+            @if(Helper::isAdvertInStock())
                 <a href="{{ route('account.adverts.create', ['type' => 'in_stock']) }}" class="button button-red button-big">Додати готову страву</a>
             @endif
 
-                @if(Helper::isAdvertPreOrder())
+            @if(Helper::isAdvertPreOrder())
                 <a href="{{ route('account.adverts.create', ['type' => 'pre_order']) }}" class="button button-red button-big">Додати страву під замовлення</a>
             @endif
 

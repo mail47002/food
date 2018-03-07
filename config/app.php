@@ -182,6 +182,7 @@ return [
         Greggilbert\Recaptcha\RecaptchaServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         Jenssegers\Date\DateServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
@@ -237,7 +238,8 @@ return [
         'Recaptcha' => Greggilbert\Recaptcha\Facades\Recaptcha::class,
         'Helper' => App\Helper\Facades\Helper::class,
         'Date' => Jenssegers\Date\Date::class,
-        'Messenger' => App\Services\Messages\Facades\Messenger::class
+        'Messenger' => App\Services\Messages\Facades\Messenger::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

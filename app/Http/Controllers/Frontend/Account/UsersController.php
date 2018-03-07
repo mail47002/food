@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Frontend\Account;
 
-use App\User;
+use App\City;
+use App\Order;
+use App\ProductReview;
 use App\UserProfile;
+use App\UserReview;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Review;
 use Auth;
+use Helper;
 
 class UsersController extends Controller
 {
@@ -33,7 +36,11 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('frontend.account.users.create');
+        $cities = City::all();
+
+        return view('frontend.account.users.create', [
+            'cities' => $cities
+        ]);
     }
 
     /**
@@ -63,25 +70,33 @@ class UsersController extends Controller
      */
     public function show()
     {
-        $reviewsTo = Review::with('answer')
-            ->whereHas('product', function ($query) {
+        if (Helper::isClientReviews()) {
+            $reviews = UserReview::where('user_id', Auth::id())
+                ->paginate();
+        } else {
+            $reviews = ProductReview::whereHas('product', function ($query) {
+                    $query->where('user_id', Auth::id());
+                })
+                ->paginate();
+        }
+
+        $productReviews = ProductReview::whereHas('product', function ($query) {
                 $query->where('user_id', Auth::id());
             })
-            ->orderBy('created_at')
-            ->paginate();
+                ->count();
 
-        $reviewsFrom = Review::with([
-            'product' => function ($query) {
-                $query->with(['user', 'adverts']);
-            },
-            'answer'])
-            ->where('user_id', Auth::id())
-            ->orderBy('created_at')
-            ->paginate();
+        $userReviews = UserReview::where('user_id', Auth::id())->count();
+
+        $hasOrder = Order::whereHas('advert', function ($query) {
+                $query->where('user_id', Auth::id());
+            })
+            ->exists();
 
         return view('frontend.account.users.show', [
-            'reviewsTo'   => $reviewsTo,
-            'reviewsFrom' => $reviewsFrom
+            'reviews'        => $reviews,
+            'productReviews' => $productReviews,
+            'userReviews'    => $userReviews,
+            'hasOrder'       => $hasOrder
         ]);
     }
 

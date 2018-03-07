@@ -138,7 +138,7 @@
                 })
             },
 			filtering: function () {
-		        var url = '{{ url('') }}/';
+		        var url = '{{ url('/') }}/';
 
 		        for (i in filter.options) {
 		            url += (i == 'type') ? '?' : '&';

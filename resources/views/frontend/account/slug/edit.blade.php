@@ -8,7 +8,7 @@
         <div class="form-group">
             {{ Form::label('slug', 'Адреса вашої сторінки*') }}
             <div class="url">
-                <span class="left">{{ url('') }}/</span>
+                <span class="left">{{ url('/') }}/</span>
                 {{ Form::text('slug', Auth::user()->profile->slug, ['id' => 'input-slug']) }}
             </div>
         </div>

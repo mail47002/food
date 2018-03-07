@@ -34,7 +34,9 @@
 			<div class="row">
 				<div class="food-info col-md-9">
 					<h1>{{ $advert->name }}</h1>
-					<div class="rating"><span class="stars medium">4</span>30 відгуків</div>
+					<div class="rating">
+						<span class="stars medium">4</span>{{ $reviews->total() }} відгуків
+					</div>
 
 					<h5 class="text-upper underline-red">Від повара про страву </h5><hr class="zerro-top">
 
@@ -46,101 +48,17 @@
 						</div>
 					</div>
 
-					@if (count($reviews) > 0)
+					@if(count($reviews) > 0)
 						<div class="reviews">
-						<h5 class="text-upper underline-red">Відгуки (30)</h5><hr class="zerro-top">
-						<ul class="list-unstyled">
+							<h5 class="text-upper underline-red">Відгуки ({{ $reviews->total() }})</h5>
+							<hr class="zerro-top">
 
-							@foreach ($reviews as $review)
-								<li class="clearfix">
-									<div class="left">
-										<div class="avatar">
-											<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>
-										</div>
-										<a href="#" class="link-blue name">{{ $review->user->profile->first_name }}</a>
-									</div>
-									<div class="right bg-yellow">
-										<div class="date">2 липня 2016</div>
-										<span class="stars">4</span>
-										<div class="message">{{ $review->text }}</div>
-									</div>
-								</li>
-							@endforeach
+							<ul class="list-unstyled">
+								@each('frontend.adverts.review', $reviews, 'entity')
+							</ul>
 
-							{{--<li class="clearfix">--}}
-								{{--<div class="left">--}}
-									{{--<div class="avatar">--}}
-										{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
-									{{--</div>--}}
-									{{--<a href="#" class="link-blue name">Вікторія</a>--}}
-								{{--</div>--}}
-
-								{{--<div class="right bg-yellow">--}}
-									{{--<div class="date">2 липня 2016</div>--}}
-									{{--<span class="stars">4</span>--}}
-									{{--<div class="message">--}}
-										{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
-									{{--</div>--}}
-
-									{{--<div class="answer clearfix">--}}
-										{{--<div class="title">Ваша відповідь</div>--}}
-										{{--<div class="message">--}}
-											{{--В принципе вкусно,если сделать для одного раза,а так: гарнир--}}
-										{{--</div>--}}
-										{{--<div class="right-avatar">--}}
-											{{--<div class="avatar">--}}
-												{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
-											{{--</div>--}}
-										{{--</div>--}}
-									{{--</div>--}}
-
-									{{--<div class="message">--}}
-										{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
-									{{--</div>--}}
-
-									{{--<hr>--}}
-									{{--<a href="#" class="link-blue pull-right">Приховати</a>--}}
-
-								{{--</div>--}}
-							{{--</li>--}}
-
-							{{--<li class="clearfix">--}}
-								{{--<div class="left">--}}
-									{{--<div class="avatar">--}}
-										{{--<div class="rounded"><img src="/uploads/avatar.png" alt="foto"></div>--}}
-									{{--</div>--}}
-									{{--<a href="#" class="link-blue name">Марія</a>--}}
-								{{--</div>--}}
-								{{--<div class="right bg-yellow">--}}
-									{{--<div class="date">2 липня 2016</div>--}}
-									{{--<span class="stars">4</span>--}}
-									{{--<div class="message">--}}
-										{{--В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.--}}
-									{{--</div>--}}
-
-									{{--<hr>--}}
-									{{--<a href="#" class="link-red pull-left">Відповісти</a>--}}
-									{{--<a href="#" class="link-blue pull-right">Показати все</a>--}}
-								{{--</div>--}}
-							{{--</li>--}}
-
-						</ul>
-
-							{{ $reviews->links() }}
-
-						{{--<div class="paginate">--}}
-							{{--<ul class="pagination grey">--}}
-								{{--<li><a href="#" rel="prev"><</a></li>--}}
-								{{--<li><a href="#">1</a></li>--}}
-								{{--<li><a href="#">2</a></li>--}}
-								{{--<li class="active"><span>3</span></li>--}}
-								{{--<li><a href="#">4</a></li>--}}
-								{{--<li class="disabled"><span>...</span></li>--}}
-								{{--<li><a href="#">10</a></li>--}}
-								{{--<li><a href="#" rel="next">></a></li>--}}
-							{{--</ul>--}}
-						{{--</div>--}}
-					</div>
+							{{ $reviews->appends(request()->all())->links() }}
+						</div>
 					@endif
 
 

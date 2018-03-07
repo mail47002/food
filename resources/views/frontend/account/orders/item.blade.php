@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="image">
-                <img src="{{ Helper::$order->advert->user->directory . '/thumbs/' . $order->advert->image }}" class="img-responsive" alt="{{ $order->advert->name }}">
+                <img src="{{ $order->advert->user->directory . '/thumbs/' . $order->advert->image }}" class="img-responsive" alt="{{ $order->advert->name }}">
             </div>
         </div>
         <div class="col-md-5">
