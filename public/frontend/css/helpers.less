@@ -124,6 +124,12 @@ input.w-440 {
 	max-width: 440px;
 	width: 100%;
 }
+.w-440 {
+	max-width: 440px;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 .max-height {
 	height: 60px;
@@ -144,4 +150,23 @@ input.w-440 {
 		background: -ms-linear-gradient(top,rgba(255,255,255,0) 0,rgba(255,255,255,1) 100%);
 		background: linear-gradient(to bottom,rgba(255,255,255,0) 0,rgba(255,255,255,1) 100%);
 	}
+}
+
+.marker {
+	position: relative;
+	&:before {
+		position: absolute;
+		content: '\0046';
+		font-family: FontFood;
+		font-size: 22px;
+		left: 10px;
+		top: 2px;
+		bottom: 0;
+		margin: auto;
+		height: 40px;
+		line-height: 40px;
+		width: 15px;
+		color: @red;
+	}
+	input {padding-left: 30px;}
 }

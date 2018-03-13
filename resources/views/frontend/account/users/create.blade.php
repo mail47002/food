@@ -12,12 +12,13 @@
                         {{ Form::label('name', 'Ім\'я*') }}
                         {{ Form::text('first_name', null, ['id' => 'input-name']) }}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group site-name">
+                        <p>food.ari.in.ua/</p>
                         {{ Form::label('slug', 'Адреса вашої сторінки') }}
                         {{ Form::text('slug', null, ['id' => 'input-slug']) }}
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group text-left w-440">
                         {{ Form::label('phone', 'Телефон*') }}
                         <div class="phone js-phone">
                             <div>
@@ -25,17 +26,18 @@
                                 <span class="remove js-delete-phone"></span>
                             </div>
                         </div>
-                        <a href="#" class="link-red js-add-phone">+ Додати</a>
+                        <a href="#" class="link-red-dark js-add-phone">+ Додати</a>
                     </div>
 
                     <div class="form-group">
                         {{ Form::label('city', 'Населений пункт*') }}
                         <div class="marker">
-                            <select id="input-city" class="wide" name="city">
+                            <input id="city" type="text" name="city">
+{{--                             <select id="input-city" class="wide" name="city">
                                 @foreach($cities as $city)
                                     <option value="{{ $city->name }}">{{ $city->name }}</option>
                                 @endforeach
-                            </select>
+                            </select> --}}
                         </div>
                     </div>
 
@@ -186,5 +188,17 @@
                 }
             });
         });
+    </script>
+
+    {{-- Autocomplete --}}
+    <script>
+    $(function(){
+        var cities = [
+            'Бершадь', 'Браилов', 'Брацлав', 'Вапнярка', 'Вендичаны', 'Винница', 'Вороновица', 'Гайсин', 'Гнивань', 'Дашев', 'Жмеринка', 'Ильинцы', 'Казатин', 'Калиновка', 'Крыжополь', 'Липовец', 'Литин', 'Могилев', 'Мурованные', 'Немиров', 'Оратов', 'Песчанка', 'Погребище', 'Теплик', 'Томашполь', 'Тростянец', 'Тульчин', 'Тывров', 'Хмельник', 'Чечельник', 'Шаргород', 'Ямполь', 'Берестечко', 'Владимир', 'Голобы', 'Головно', 'Горохов', 'Иваничи', 'Камень', 'Киверцы', 'Ковель', 'Локачи', 'Луцк', 'Любешов', 'Любомль', 'Маневичи', 'Нововолынск', 'Ратно', 'Рожище'
+        ];
+        $( "#city" ).autocomplete({
+            source: cities
+        });
+    });
     </script>
 @endpush

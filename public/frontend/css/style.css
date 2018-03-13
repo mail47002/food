@@ -5309,6 +5309,7 @@ select.wide + span.ui-button {
 .information .body label {
   margin: 24px auto 5px;
   display: block;
+  text-align: center;
 }
 .information .body label.error {
   color: #f0534d;
@@ -5362,6 +5363,57 @@ select.wide + span.ui-button {
 }
 .information .body .message.error {
   display: block;
+}
+.information .body .site-name {
+  position: relative;
+}
+.information .body .site-name p {
+  position: absolute;
+  bottom: 0;
+  width: calc(50% - 220px);
+  text-align: right;
+  padding: 10px;
+  margin: 0;
+}
+.information .body .phone {
+  max-width: 440px;
+  width: 100%;
+  margin: 0 auto;
+}
+.information .body .phone > div {
+  position: relative;
+  margin-bottom: 20px;
+}
+.information .body .phone > div .remove {
+  display: block;
+  position: absolute;
+  right: -40px;
+  top: 12px;
+  width: 20px;
+  height: 20px;
+  color: #b9bbbc;
+}
+.information .body .phone > div .remove:before {
+  content: '\0056';
+  font-family: FontFood;
+}
+.information .body .phone > div .remove:hover {
+  color: #87898a;
+  cursor: pointer;
+}
+.information .body .phone > div:first-child .remove {
+  display: none;
+}
+.information .body .phone > div:last-child {
+  margin-bottom: 10px;
+}
+.information .body .marker {
+  max-width: 440px;
+  margin: 0 auto;
+}
+.information .body .button {
+  height: 50px;
+  text-transform: uppercase;
 }
 .uploader {
   position: relative;
@@ -5695,29 +5747,6 @@ select.wide + span.ui-button {
 .contact .recipes a,
 .edit .recipes a {
   font-weight: normal;
-}
-.contact .marker,
-.edit .marker {
-  position: relative;
-}
-.contact .marker:before,
-.edit .marker:before {
-  position: absolute;
-  content: '\0046';
-  font-family: FontFood;
-  font-size: 22px;
-  left: 10px;
-  top: 2px;
-  bottom: 0;
-  margin: auto;
-  height: 40px;
-  line-height: 40px;
-  width: 15px;
-  color: #f0534d;
-}
-.contact .marker input,
-.edit .marker input {
-  padding-left: 30px;
 }
 .contact .url .left,
 .edit .url .left {
@@ -6569,6 +6598,12 @@ input.w-440 {
   max-width: 440px;
   width: 100%;
 }
+.w-440 {
+  max-width: 440px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
 .max-height {
   height: 60px;
   overflow-y: hidden;
@@ -6588,4 +6623,24 @@ input.w-440 {
   background: -o-linear-gradient(top, rgba(255, 255, 255, 0) 0, #ffffff 100%);
   background: -ms-linear-gradient(top, rgba(255, 255, 255, 0) 0, #ffffff 100%);
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #ffffff 100%);
+}
+.marker {
+  position: relative;
+}
+.marker:before {
+  position: absolute;
+  content: '\0046';
+  font-family: FontFood;
+  font-size: 22px;
+  left: 10px;
+  top: 2px;
+  bottom: 0;
+  margin: auto;
+  height: 40px;
+  line-height: 40px;
+  width: 15px;
+  color: #f0534d;
+}
+.marker input {
+  padding-left: 30px;
 }
