@@ -5325,9 +5325,6 @@ select.wide + span.ui-button {
   height: 80px;
   width: 100%;
 }
-.information .body .wide {
-  max-width: 670px;
-}
 .information .body .button {
   display: block;
   margin: 30px auto;
@@ -5414,6 +5411,9 @@ select.wide + span.ui-button {
 .information .body .button {
   height: 50px;
   text-transform: uppercase;
+}
+.information .body .wide {
+  max-width: 670px;
 }
 .uploader {
   position: relative;

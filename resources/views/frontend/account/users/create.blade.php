@@ -29,15 +29,10 @@
                         <a href="#" class="link-red-dark js-add-phone">+ Додати</a>
                     </div>
 
-                    <div class="form-group">
+{{--                     <div class="form-group">
                         {{ Form::label('city', 'Населений пункт*') }}
                         <div class="marker">
                             <input id="city" type="text" name="city">
-{{--                             <select id="input-city" class="wide" name="city">
-                                @foreach($cities as $city)
-                                    <option value="{{ $city->name }}">{{ $city->name }}</option>
-                                @endforeach
-                            </select> --}}
                         </div>
                     </div>
 
@@ -55,7 +50,25 @@
                                 {{ Form::text('build', null, ['id' => 'input-build']) }}
                             </div>
                         </div>
+                    </div> --}}
+
+
+                    <div class="form-group">
+                        {{ Form::label('city', 'Адреса*') }}
+                        <div class="marker wide">
+                            <input id="address" class="wide" type="text" name="address">
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <p class="text-center f14">Введітиь адресу, якщо потрібно, клікніть на мапі для зміни адреси</p>
+                    </div>
+
+                    <input id="inputAddress" class="controls" type="text" placeholder="Введіть адресу">
+                    <div id="map"></div>
+
+
+
 
                     {{ Form::label('about', 'Про себе') }}
                     {{ Form::textarea('about', null, ['id' => 'about', 'class' => 'wide']) }}
@@ -76,6 +89,8 @@
         </div>
     </div>
 @endsection
+
+@include('frontend.includes.google_address')
 
 @push('scripts')
     <script type="text/javascript">
