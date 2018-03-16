@@ -57,14 +57,15 @@
                         {{ Form::label('city', 'Адреса*') }}
                         <div class="marker wide">
                             <input id="address" class="wide" type="text" name="address">
+                            <input id="lat" type="hidden" name="lat">
+                            <input id="lng" type="hidden" name="lng">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <p class="text-center f14">Введітиь адресу, якщо потрібно, клікніть на мапі для зміни адреси</p>
+                        <p class="text-center f14">Введіть адресу<br>Якщо потрібно підкорегувати адресу, клікніть на мапі або перетягніть маркер</p>
                     </div>
-
-                    <input id="inputAddress" class="controls" type="text" placeholder="Введіть адресу">
+                    {{-- <button id="correct">Виправити</button> --}}
                     <div id="map"></div>
 
 

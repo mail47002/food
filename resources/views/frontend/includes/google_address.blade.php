@@ -7,32 +7,6 @@
         max-width: 670px;
         margin: 0 auto;
       }
-
-      .controls {
-        margin-top: 10px;
-        border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        height: 32px;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      }
-
-      #inputAddress {
-        background-color: #fff;
-        font-size: 15px;
-        font-weight: 300;
-        margin-left: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 300px;
-        margin: 0 auto;
-      }
-
-      #inputAddress:focus {
-        border-color: #4d90fe;
-      }
     </style>
 @endpush
 
@@ -40,20 +14,23 @@
 @push('scripts')
 <script>
 
+  var place = {lat: 50.4450846, lng: 30.5239226}; /*Сюда вставлять с БД сохраненные координаты*/
   var address = '';
-  var input = document.getElementById('inputAddress');
-  var fieldForAddress = document.getElementById('address');
+  var input = document.getElementById('address');
   var mapContainer = document.getElementById('map');
+  var lat = document.getElementById('lat');
+  var lng = document.getElementById('lng');
+  // var button = document.getElementById('correct');
 
   function initMap() {
     var map = new google.maps.Map(mapContainer, {
-      center: {lat: 50.4450846, lng: 30.5239226},
-      zoom: 13
+      center: place,
+      zoom: 15
     });
 
     var geocoder = new google.maps.Geocoder();
 
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    // map.controls[google.maps.ControlPosition.TOP_RIGHT].push(button);
 
     var autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo('bounds', map);
@@ -61,6 +38,7 @@
     var infowindow = new google.maps.InfoWindow();
     var marker = new google.maps.Marker({
       map: map,
+      draggable: true,
       anchorPoint: new google.maps.Point(0, -29)
     });
 
@@ -80,15 +58,8 @@
         map.fitBounds(place.geometry.viewport);
       } else {
         map.setCenter(place.geometry.location);
-        map.setZoom(23);  // Zoom when found place.
+        map.setZoom(19);  // Zoom when found place.
       }
-      marker.setIcon(/** @type {google.maps.Icon} */({
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(35, 35)
-      }));
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
 
@@ -101,41 +72,52 @@
         ].join(' ');
       }
 
-      infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+      infowindow.setContent(address);
       infowindow.open(map, marker);
 
-      fieldForAddress.value = (address);
+      input.value = address;
+      lat.value = place.geometry.location.lat();
+      lng.value = place.geometry.location.lng();
     });
 
 
-// click on map
+// click on map OR drag marker
+    map.addListener('click', handleEvent);
+    marker.addListener('drag', handleEvent);
+    marker.addListener('dragend', handleEvent);
 
-    google.maps.event.addListener(map, 'click', function(event) {
+    function handleEvent(event) {
       geocoder.geocode({
         'latLng': event.latLng
       }, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-          if (results[0]) {
-            //console.dir(results[0].geometry.location);
+          if (place = results[0]) {
+            // console.dir(place);
 
-            address = results[0].formatted_address;
+            address = place.formatted_address;
             infowindow.close();
             infowindow.setContent(address);
-            marker.setPosition(results[0].geometry.location);
+            marker.setPosition(place.geometry.location);
             infowindow.open(map, marker);
 
-            fieldForAddress.value = (address);
+            input.value = address;
+            lat.value = place.geometry.location.lat();
+            lng.value = place.geometry.location.lng();
           }
         }
       });
-    });
+    };
+
+
+
+
   }
 
 
 
 
 </script>
-
+/*Сюда вставить ключ google map*/
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnxGiPdH3lTiOVu98kJxvn3h8Oezlw3w4&libraries=places&callback=initMap"
         async defer></script>
 
