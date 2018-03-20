@@ -71,10 +71,12 @@ class UsersController extends Controller
     public function show()
     {
         if (Helper::isClientReviews()) {
-            $reviews = UserReview::where('user_id', Auth::id())
+            $reviews = UserReview::with('answer')
+                ->where('user_id', Auth::id())
                 ->paginate();
         } else {
-            $reviews = ProductReview::whereHas('product', function ($query) {
+            $reviews = ProductReview::with('answer')
+                ->whereHas('product', function ($query) {
                     $query->where('user_id', Auth::id());
                 })
                 ->paginate();

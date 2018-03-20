@@ -93,6 +93,16 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api'], function () {
         Route::post('', 'WishlistController@store');
         Route::delete('{id}', 'WishlistController@destroy');
     });
+
+    // Product Review Answers
+    Route::group(['prefix' => 'reviews'], function () {
+        Route::post('product/answer', 'ProductReviewAnswersController@store')->name('product.review.answer.store');
+    });
+
+    // User Review Answers
+    Route::group(['prefix' => 'reviews'], function () {
+        Route::post('user/answer', 'UserReviewAnswersController@store')->name('user.review.answer.store');
+    });
 });
 
 // Frontend
@@ -185,7 +195,6 @@ Route::group(['namespace' => 'Frontend'], function() {
         // Reviews
         Route::group(['prefix' => 'reviews'], function () {
             Route::get('', ['as' => 'account.reviews.index', 'uses' => 'ReviewsController@index']);
-            Route::get('create', ['as' => 'account.reviews.create', 'uses' => 'ReviewsController@create']);
         });
 
         // Advices

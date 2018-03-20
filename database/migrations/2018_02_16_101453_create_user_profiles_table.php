@@ -23,6 +23,9 @@ class CreateUserProfilesTable extends Migration
             $table->string('city');
             $table->string('street');
             $table->string('build');
+            $table->string('address');
+            $table->float('lat');
+            $table->float('lng');
             $table->string('image');
             $table->timestamps();
         });

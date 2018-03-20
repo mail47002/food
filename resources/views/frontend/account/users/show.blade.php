@@ -23,7 +23,7 @@
 
 	<div class="filter-block">
 		<ul class="categories list-inline text-center">
-			<li class="{{ Helper::isUserReviews() ? 'active' : '' }}">
+			<li class="{{ Helper::isProductReviews() ? 'active' : '' }}">
 				<a href="{{ route('account.user.show') }}" class="link-red text-upper">Відгуки про повара ({{ $productReviews }})</a>
 			</li>
 			<li class="{{ Helper::isClientReviews() ? 'active' : '' }}">
@@ -36,7 +36,7 @@
 	<div class="tab-content">
 		<div class="tab-pane fade in active">
 			<div class="reviews">
-				@if(Helper::isUserReviews())
+				@if(Helper::isProductReviews())
 					@if(count($reviews) > 0)
 						<ul class="list-unstyled">
 							@each('frontend.account.users.review', $reviews, 'entity')
@@ -62,3 +62,51 @@
 		</div>
 	</div>
 @stop
+
+@push('scripts')
+	<script type="text/javascript">
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+
+            $.ajax({
+                url: form.attr('action'),
+                method: form.attr('method'),
+                data: form.serialize(),
+                beforeSend: function () {
+                    $('.body-overlay').addClass('active');
+                },
+                success: function (response) {
+                    if (response.data) {
+                        var el = $('#review-' + response.data.product_review_id),
+                            html = '';
+
+                        html += '<div class="title">Ваша відповідь</div>';
+                        html += '<div class="message">' + response.data.text + '</div>';
+                        html += '<div class="right-avatar">';
+                        html += '<div class="avatar">';
+                        html += '<div class="rounded">';
+                        html += '<img src="{{ auth()->user()->getAvatar() }}" alt="{{ auth()->user()->profile->first_name }}">';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+
+                        el.find('.js-answer').html(html);
+                        el.find('.your-message').remove();
+                    }
+                },
+                complete: function () {
+                    $('.body-overlay').removeClass('active');
+                },
+                error: function(response){
+                    var response = response.responseJSON;
+
+                    for (name in response.errors) {
+                        $('[name="' + name + '"]').addClass('error').closest('.form-group').addClass('has-error');
+                    }
+                }
+            });
+        });
+	</script>
+@endpush

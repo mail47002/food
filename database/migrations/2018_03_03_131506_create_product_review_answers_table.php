@@ -16,6 +16,7 @@ class CreateProductReviewAnswersTable extends Migration
         Schema::create('product_review_answers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_review_id');
+            $table->integer('author_id');
             $table->text('text');
             $table->timestamps();
         });

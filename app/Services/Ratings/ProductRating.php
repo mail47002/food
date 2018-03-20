@@ -2,19 +2,23 @@
 
 namespace App\Services\Ratings;
 
-use RatingInterface;
+use App\ProductReview;
 
-class ProductRating implements RatingInterface
+class ProductRating
 {
     /**
      * Return product rating.
      *
-     * @param $amount
-     * @param $count
+     * @param $productId
      * @return float
      */
-    public function getRating($amount, $count)
+    public function getRating($productId)
     {
+        $reviews = ProductReview::whehe('product_id', $productId);
+
+        $amount = $reviews->sum('rating');
+        $count = $reviews->count();
+
         return round($amount / $count, 2);
     }
 }

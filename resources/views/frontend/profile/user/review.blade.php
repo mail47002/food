@@ -23,37 +23,40 @@
                 {{ $entity->text }}
             </div>
 
-            <div class="collapse" id="collapse_01">
+            @if($entity->answer)
+                <div class="collapse" id="collapse_01">
 
-                <div class="answer clearfix">
-                    <div class="title">Ваша відповідь</div>
-                    <div class="message">
-                        В принципе вкусно,если сделать для одного раза,а так: гарнир
-                    </div>
-                    <div class="right-avatar">
-                        <div class="avatar">
-                            <div class="rounded">
-                                <img src="/uploads/avatar.png" alt="foto">
+                    <div class="answer clearfix">
+                        <div class="title">Ваша відповідь</div>
+                        <div class="message">
+                            В принципе вкусно,если сделать для одного раза,а так: гарнир
+                        </div>
+                        <div class="right-avatar">
+                            <div class="avatar">
+                                <div class="rounded">
+                                    <img src="{{ auth()->user()->getAvatar() }}" alt="foto">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            @else
+            @endif
 
-                <div class="message" id="message_01">
-                    В принципе вкусно,если сделать для одного раза,а так: гарнир (рис с изюмом, инжиром, морковь и луком) всетаки сладкий,много не съешь,а индейка суховат.
+            @if(!$entity->answer)
+                <div class="collapse your-message" id="collapse_your_answer_about_01">
+                    {{ Form::open(['route' => 'product.review.answer.store', 'method' => 'post']) }}
+                        {{ Form::hidden('product_review_id', $entity->id) }}
+                        <div class="form-group">
+                            <textarea name="text" placeholder="Ваша відповідь"></textarea>
+                        </div>
+                        <button class="link-red-dark" type="submit"><i class="fo fo-plane fo-2x"></i></button>
+                    {{ Form::close() }}
                 </div>
 
-            </div>
-
-            <div class="collapse your-message" id="collapse_your_answer_about_01">
-                <form action="#about-01">
-                    <textarea name="message" id="" placeholder="Ваша відповідь"></textarea>
-                    <button class="link-red-dark" type="submit"><i class="fo fo-plane fo-2x"></i></button>
-                </form>
-            </div>
-
-            <hr>
-            <a href="#collapse_your_answer_about_01" class="your-message-link pull-left"  data-toggle="collapse" aria-expanded="false" aria-controls="collapse_your_answer_about_01" opened="Відмінити" closed="Відповісти" /></a>
+                <hr>
+                <a href="#collapse_your_answer_about_01" class="your-message-link pull-left"  data-toggle="collapse" aria-expanded="false" aria-controls="collapse_your_answer_about_01" opened="Відмінити" closed="Відповісти" /></a>
+            @endif
 
             <a href="#collapse_01" class="link-blue pull-right" data-toggle="collapse" aria-expanded="false" aria-controls="collapse_01" opened="Приховати" closed="Показати все" /></a>
 

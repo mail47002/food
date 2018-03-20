@@ -40,4 +40,10 @@ class Product extends Model
 	{
 		return $this->belongsTo('App\User');
 	}
+
+	public function ratingUpdate($rating)
+    {
+        $this->rating = $rating;
+        $this->save();
+    }
 }

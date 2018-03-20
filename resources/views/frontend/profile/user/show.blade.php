@@ -10,7 +10,7 @@
 
     <div class="filter-block">
         <ul class="categories list-inline text-center">
-            <li class="{{ Helper::isUserReviews() ? 'active' : '' }}">
+            <li class="{{ Helper::isProductReviews() ? 'active' : '' }}">
                 <a href="{{ route('profile.user.show', $user->profile->slug) }}" class="link-red text-upper">
                     Відгуки про повара ({{ $productReviews }})
                 </a>

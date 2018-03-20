@@ -203,7 +203,7 @@ class Helper
         return $status === Order::CANCELED;
     }
 
-    public function isUserReviews()
+    public function isProductReviews()
     {
         return (!request()->has('type'));
     }

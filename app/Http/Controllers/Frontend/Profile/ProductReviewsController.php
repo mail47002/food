@@ -49,6 +49,15 @@ class ProductReviewsController extends Controller
 
         $review = ProductReview::create($request->all());
 
+        $product = Product::find($review->product_id);
+
+        if ($product) {
+            $rating = ProductReview::where('product_id', $review->product_id)
+                ->avg('rating');
+
+            $product->ratingUpdate($rating);
+        }
+
         Session::flash('review', $review);
 
         return response()->json([

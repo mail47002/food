@@ -19,10 +19,11 @@ class ReviewsController extends Controller
     public function index()
     {
         if (Helper::isClientReviews()) {
-            $reviews = UserReview::where('author_id', Auth::id())
+            $reviews = UserReview::with('answer')
+                ->where('author_id', Auth::id())
                 ->paginate();
         } else {
-            $reviews = ProductReview::with(['product.user.profile'])
+            $reviews = ProductReview::with(['product.user.profile', 'answer'])
                 ->where('author_id', Auth::id())
                 ->paginate();
         }
@@ -35,5 +36,10 @@ class ReviewsController extends Controller
             'productReviews' => $productReviews,
             'userReviews'    => $userReviews
         ]);
+    }
+
+    public function create()
+    {
+        return view('frontend.account.reviews.create');
     }
 }

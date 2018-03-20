@@ -27,9 +27,12 @@ class UserController extends Controller
         if ($user) {
             // Reviews
             if (Helper::isClientReviews()) {
-                $reviews = UserReview::where('user_id', $user->id)->paginate();
+                $reviews = UserReview::with('answer')
+                    ->where('user_id', $user->id)
+                    ->paginate();
             } else {
-                $reviews = ProductReview::whereHas('product', function ($query) use ($user) {
+                $reviews = ProductReview::with('answer')
+                    ->whereHas('product', function ($query) use ($user) {
                         $query->where('user_id', $user->id);
                     })
                     ->paginate();
@@ -44,8 +47,8 @@ class UserController extends Controller
 
             // Check order
             $hasOrder = Order::whereHas('advert', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })
+                    $query->where('user_id', $user->id);
+                })
                 ->where('user_id', Auth::id())
                 ->exists();
 
