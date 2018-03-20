@@ -290,7 +290,7 @@ label:hover:before {
 /****** Style Star Rating Widget *****/
 /* require fontawesome */
 
-.rating { 
+.rating {
 	fieldset, label {
 		margin: 0; padding: 0;
 		&:hover, &:hover:before {
@@ -303,7 +303,7 @@ label:hover:before {
 		display: inline-block;
 		vertical-align: middle;
 		> input { display: none !important; }
-		> label:before { 
+		> label:before {
 			margin: 2px !important;
 			font-family: FontFood;
 			display: inline-block !important;
@@ -318,13 +318,13 @@ label:hover:before {
 		> .half {
 			margin: 0 !important;
 		}
-		> .half:before { 
+		> .half:before {
 			content: "\0050" !important;
 			position: absolute !important;
 		}
-		> label { 
-			color: #ddd; 
-		 float: right; 
+		> label {
+			color: #ddd;
+		 float: right;
 		 padding: 0 !important;
 		 margin: 0 !important;
 		}
@@ -341,7 +341,7 @@ label:hover:before {
 		> input:checked + label:hover, /* hover current star when changing rating */
 		> input:checked ~ label:hover,
 		> label:hover ~ input:checked ~ label, /* lighten current selection */
-		> input:checked ~ label:hover ~ label { color: #FFED85;  } 
+		> input:checked ~ label:hover ~ label { color: #FFED85;  }
 	}
 }
 
@@ -1326,7 +1326,7 @@ a:focus {outline: none;}
 
 				}
 			}
-			
+
 			.head-link {
 				height: 160px;
 				padding-top: 30px;
@@ -1334,7 +1334,7 @@ a:focus {outline: none;}
 				.button-red {
 					height: 100px;
 					line-height: 100px;
-					&:hover, 
+					&:hover,
 					&:active {
 						color: @white;
 						background: @redDark;
@@ -2167,7 +2167,7 @@ select.wide + span.ui-button {
 		max-width: 210px;
 		height: 30px;
 		line-height: 30px;
-		font-size: 14px; 
+		font-size: 14px;
 		&.disabled {
 			opacity: 0.5;
 			pointer-events: none;
@@ -3429,7 +3429,7 @@ select.wide + span.ui-button {
 
 		.right-empty {
 			float: left;
-			width: 89%; 
+			width: 89%;
 		}
 
 
@@ -3648,6 +3648,7 @@ select.wide + span.ui-button {
 		label {
 			margin: 24px auto 5px;
 			display: block;
+			text-align: center;
 			&.error {color: @red;}
 		}
 		input {
@@ -3661,7 +3662,6 @@ select.wide + span.ui-button {
 			height: 80px;
 			width: 100%;
 		}
-		.wide {max-width: 670px;}
 		.button {
 			display: block;
 			margin: 30px auto;
@@ -3696,13 +3696,66 @@ select.wide + span.ui-button {
 			margin: 40px auto 30px;
 		}
 		.message.error {display: block;}
+
+		.site-name {
+			position: relative;
+			p {
+				position: absolute;
+				bottom: 0;
+				width: calc(50% - 220px);
+				text-align: right;
+				padding: 10px;
+				margin: 0;
+			}
+		}
+
+		.phone {
+			max-width: 440px;
+			width: 100%;
+			margin: 0 auto;
+
+			> div {
+				position: relative;
+				margin-bottom: 20px;
+				.remove {
+					display: block;
+					position: absolute;
+					right: -40px;
+					top: 12px;
+					width: 20px;
+					height: 20px;
+					color: @grey2;
+					&:before {
+						content: '\0056';
+						font-family: FontFood;
+					}
+					&:hover {
+						color: @grey3;
+						cursor: pointer;
+					}
+				}
+			}
+			> div:first-child .remove {display: none;}
+			> div:last-child {margin-bottom: 10px;}
+		}
+
+		.marker {
+			max-width: 440px;
+			margin: 0 auto;
+		}
+
+		.button {
+			height: 50px;
+			text-transform: uppercase;
+		}
+		.wide {max-width: 670px;}
 	}
 }
 
 
 .uploader {
-	position:relative; 
-	overflow:hidden; 
+	position:relative;
+	overflow:hidden;
 	border-radius: 50%;
 	background-color: rgb(249, 198, 197);
 	width: 130px;
@@ -3752,8 +3805,8 @@ select.wide + span.ui-button {
 	}
 	input[type="file"] {
 		position:absolute;
-		width:100%; 
-		height:100%; 
+		width:100%;
+		height:100%;
 		top:0;
 		left:0;
 		z-index:2;
@@ -3964,25 +4017,6 @@ select.wide + span.ui-button {
 		> div:first-child .remove {display: none;}
 		a {font-weight: normal;}
 	}
-	.marker {
-		position: relative;
-		&:before {
-			position: absolute;
-			content: '\0046';
-			font-family: FontFood;
-			font-size: 22px;
-			left: 10px;
-			top: 2px;
-			bottom: 0;
-			margin: auto;
-			height: 40px;
-			line-height: 40px;
-			width: 15px;
-			color: @red;
-		}
-		input {padding-left: 30px;}
-	}
-
 	.url {
 		.left {
 			display: inline-block;
@@ -4513,7 +4547,7 @@ a[data-toggle="collapse"] {
 			}
 			.right {
 				float: left;
-				width: 92%; 
+				width: 92%;
 				.name {font-size: 16px;}
 				.date {
 					font-size: 14px;
