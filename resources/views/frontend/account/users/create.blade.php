@@ -13,7 +13,7 @@
                         {{ Form::text('first_name', null, ['id' => 'input-name']) }}
                     </div>
                     <div class="form-group site-name">
-                        <p>food.ari.in.ua/</p>
+                        <p>{{ url('') }}</p>
                         {{ Form::label('slug', 'Адреса вашої сторінки') }}
                         {{ Form::text('slug', null, ['id' => 'input-slug']) }}
                     </div>

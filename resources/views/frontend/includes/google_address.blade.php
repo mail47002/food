@@ -14,7 +14,11 @@
 @push('scripts')
 <script>
 
-  var place = {lat: 50.4450846, lng: 30.5239226}; /*Сюда вставлять с БД сохраненные координаты*/
+  @if(auth()->user()->profile)
+    var place = {lat: {{ auth()->user()->profile->lat }}, lng: {{ auth()->user()->profile->lng }}}; /*Сюда вставлять с БД сохраненные координаты*/
+  @else
+    var place = {lat: 50.4450846, lng: 30.5239226};
+  @endif
   var address = '';
   var input = document.getElementById('address');
   var mapContainer = document.getElementById('map');
@@ -37,6 +41,9 @@
 
     var infowindow = new google.maps.InfoWindow();
     var marker = new google.maps.Marker({
+      @if(auth()->user()->profile)
+        position: {lat: {{ auth()->user()->profile->lat }}, lng: {{ auth()->user()->profile->lng }}},
+      @endif
       map: map,
       draggable: true,
       anchorPoint: new google.maps.Point(0, -29)

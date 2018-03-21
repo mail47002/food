@@ -29,20 +29,37 @@
 		</div>
 		<div class="v-indent-30"></div>
 		<hr>
+		{{--<div class="form-group">--}}
+			{{--{{ Form::label('city', 'Населений пункт*') }}--}}
+			{{--<div class="marker">--}}
+				{{--{{ Form::text('city', auth()->user()->profile->city, ['id' => 'input-city']) }}--}}
+			{{--</div>--}}
+		{{--</div>--}}
+		{{--<div class="form-group">--}}
+			{{--{{ Form::label('street', 'Вулиця*') }}--}}
+			{{--{{ Form::text('street',  auth()->user()->profile->street, ['id' => 'input-street']) }}--}}
+		{{--</div>--}}
+		{{--<div class="form-group">--}}
+			{{--{{ Form::label('build', '№ будинку*') }}--}}
+			{{--{{ Form::text('build', auth()->user()->profile->build, ['id' => 'input-build']) }}--}}
+		{{--</div>--}}
+
 		<div class="form-group">
-			{{ Form::label('city', 'Населений пункт*') }}
-			<div class="marker">
-				{{ Form::text('city', auth()->user()->profile->city, ['id' => 'input-city']) }}
+			{{ Form::label('city', 'Адреса*') }}
+			<div class="marker wide">
+				<input id="address" class="wide" type="text" name="address" value="{{ auth()->user()->profile->address }}">
+				<input id="lat" type="hidden" name="lat" value="{{ auth()->user()->profile->lat }}">
+				<input id="lng" type="hidden" name="lng" value="{{ auth()->user()->profile->lng }}">
 			</div>
 		</div>
+
 		<div class="form-group">
-			{{ Form::label('street', 'Вулиця*') }}
-			{{ Form::text('street',  auth()->user()->profile->street, ['id' => 'input-street']) }}
+			<p class="text-center f14">Введіть адресу<br>Якщо потрібно підкорегувати адресу, клікніть на мапі або перетягніть маркер</p>
 		</div>
-		<div class="form-group">
-			{{ Form::label('build', '№ будинку*') }}
-			{{ Form::text('build', auth()->user()->profile->build, ['id' => 'input-build']) }}
-		</div>
+		{{-- <button id="correct">Виправити</button> --}}
+		<div id="map"></div>
+
+
 		<div class="v-indent-30"></div>
 		<hr>
 		<div class="form-group">
@@ -55,6 +72,8 @@
 
     @include('frontend.account.users.success')
 @stop
+
+@include('frontend.includes.google_address')
 
 
 @push('scripts')

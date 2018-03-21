@@ -21,8 +21,8 @@ class CreateUserProfilesTable extends Migration
             $table->string('about')->nullable();
             $table->json('phone');
             $table->string('address');
-            $table->float('lat');
-            $table->float('lng');
+            $table->float('lat', 10, 8);
+            $table->float('lng', 10, 8);
             $table->string('image');
             $table->timestamps();
         });
