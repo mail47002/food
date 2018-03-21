@@ -60,7 +60,15 @@
                     $('.body-overlay').addClass('active');
                 },
                 success: function(response) {
-                    window.location = response.url;
+                    if (response['success']) {
+                        var html = '';
+
+                        html += '<h5 class="text-upper underline-red">Дякуємо за реєстрацію!</h5>';
+                        html += '<hr>';
+                        html += '<p>' + response.message  + '</p>';
+
+                        $('.sign-content').html(html);
+                    }
                 },
                 complete: function() {
                     form.find('input[type=submit]').attr('disabled', false);

@@ -156,9 +156,9 @@ class UsersController extends Controller
         $this->validate($request, [
             'first_name' => 'required',
             'phone.*'    => 'required',
-            'city'       => 'required',
-            'street'     => 'required',
-            'build'      => 'required',
+            'address'    => 'required',
+            'lat'        => 'required',
+            'lng'        => 'required',
             'slug'       => 'sometimes|required|unique:user_profiles,slug',
         ]);
     }

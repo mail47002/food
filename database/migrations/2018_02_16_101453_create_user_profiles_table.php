@@ -20,9 +20,6 @@ class CreateUserProfilesTable extends Migration
             $table->string('first_name');
             $table->string('about')->nullable();
             $table->json('phone');
-            $table->string('city');
-            $table->string('street');
-            $table->string('build');
             $table->string('address');
             $table->float('lat');
             $table->float('lng');

@@ -36,28 +36,11 @@ class RegisterController extends Controller
 
         Mail::to($user->email)->send(new EmailVerification($user));
 
-        Session::put('user_id', $user->id);
-
         return response()->json([
-            'url' => route('register.success')
+            'success' => true,
+            'message' => trans('register.success')
         ]);
 
-    }
-
-    /**
-     * Show success registration.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function success()
-    {
-        if (Session::has('user_id')) {
-            Session::forget('user_id');
-
-            return view('frontend.register.success');
-        }
-
-        return redirect()->back();
     }
 
     /**

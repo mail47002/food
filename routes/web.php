@@ -241,7 +241,6 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::group(['prefix' => 'register'], function () {
         Route::get('', 'RegisterController@show');
         Route::post('', ['as' => 'register', 'uses' => 'RegisterController@register']);
-        Route::get('success', ['as' => 'register.success', 'uses' => 'RegisterController@success']);
     });
 
     // Verify
