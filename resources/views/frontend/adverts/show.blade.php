@@ -158,36 +158,13 @@
 			</div>
 
 
-
-			<hr>
-			<h5 class="text-upper">Інші страви</h5>
-			<div class="owl-carousel recent">
-				<?php for ($i=0; $i < 10; $i++) : ?>
-					<div class="item">
-						<div class="product-thumb">
-
-							<div class="image">
-								<img src="/uploads/food1.jpg" class="img-responsive" alt="">
-								<div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
-							<?php $actions=['discount','new', 'heart'] ?> <!-- class: discount new heart -->
-								<div class="sticker <?= $actions[array_rand($actions)] ?>"></div>
-							</div>
-
-							<div class="caption">
-								<a href="/adverts/1" class="title link-black">М'ясне рагу з овочами</a>
-								<p>
-									<span class="price">80 грн.</span>
-									<span class="rating"><span class="stars"><?=rand(0,5)?></span>10 відгуків</span>
-								</p>
-								<p><i class="time"></i>15 грудня (обід)</p>
-							</div>
-
-							<button type="button" class="button button-grey order">Замовити</button>
-
-						</div>
-					</div>
-				<?php endfor ?>
-			</div>
+			@if(count($relatedAdverts) > 0)
+				<hr>
+				<h5 class="text-upper">Інші страви</h5>
+				<div class="owl-carousel recent">
+					@each('frontend.adverts.related', $relatedAdverts, 'advert')
+				</div>
+			@endif
 
 		</div> <!-- container -->
 

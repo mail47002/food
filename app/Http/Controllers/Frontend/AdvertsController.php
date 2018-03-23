@@ -20,6 +20,8 @@ class AdvertsController extends Controller
      */
     public function index(Request $request)
     {
+        $location = $request->input('location', [50.4021702, 30.3926085]);
+        $distance = $request->input('distance', 50) * .01;
         $categoryIds = $request->cid
             ? explode(',', $request->cid)
             : Category::all()->pluck('id')->toArray();
@@ -36,9 +38,12 @@ class AdvertsController extends Controller
         $adverts = Advert::with(['product', 'images'])
             ->select('adverts.*')
             ->leftJoin('product_to_category', 'adverts.product_id', '=', 'product_to_category.product_id')
+            ->leftJoin('user_profiles', 'adverts.user_id', '=', 'user_profiles.user_id')
             ->whereIn('product_to_category.category_id', $categoryIds)
             ->where('name', 'like', '%' . $request->search . '%')
             ->whereBetween('price', [$priceFrom, $priceTo])
+            ->whereBetween('user_profiles.lat', [$location[0] - $distance, $location[0] + $distance])
+            ->whereBetween('user_profiles.lng', [$location[1] - $distance, $location[1] + $distance])
             ->where('type', $type);
 
         if ($type == Advert::IN_STOCK) {
@@ -52,7 +57,7 @@ class AdvertsController extends Controller
                 : $adverts->whereIn('time', $time);
         }
 
-        $adverts = $adverts->groupBy('id')
+        $adverts = $adverts->groupBy('adverts.id')
             ->orderBy('created_at', 'asc')
             ->paginate();
 
@@ -82,9 +87,16 @@ class AdvertsController extends Controller
                 ->where('product_id', $advert->product->id)
                 ->paginate();
 
+            $relatedAdverts = Advert::with(['images'])
+                ->where('user_id', $advert->user_id)
+                ->where('id', '!=', $advert->id)
+                ->take(10)
+                ->get();
+
             return view('frontend.adverts.show', [
-                'advert'  => $advert,
-                'reviews' => $reviews
+                'advert'         => $advert,
+                'reviews'        => $reviews,
+                'relatedAdverts' => $relatedAdverts
             ]);
         }
     }

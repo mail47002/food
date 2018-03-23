@@ -66,6 +66,9 @@
 				step: 1,
 				slide: function(event, ui) {
 					if (ui.value < 5) return false; // restrict 0 - 5 km
+
+
+
 					$("#distance").val(ui.value + " км");
 				}
 			});
@@ -93,6 +96,11 @@
 		var filter = {
 		    options: {
 				type: '{{ request()->get('type', 'by_date') }}',
+                location: [
+					{{ auth()->check() ? auth()->user()->profile->lat : 50.4021702 }},
+                    {{ auth()->check() ? auth()->user()->profile->lng : 30.3926085 }}
+                ],
+                distance: 5,
                 cid: [],
 				price_from: '',
 				price_to: '',
@@ -100,17 +108,13 @@
 				time: []
 			},
 			init: function () {
+		        // Location & radius
+
 		        // Categories filter
                 $('.js-filter-category').on('click', 'a', function (e) {
                     e.preventDefault();
 
                     $(this).toggleClass('active');
-
-                    $('.js-filter-category li').each(function (i, el) {
-                        if ($(el).children('.button').hasClass('active')) {
-                            filter.options.cid.push($(el).children('.button').data('id'));
-                        }
-                    });
 
                     filter.filtering();
                 });
@@ -138,12 +142,20 @@
                 })
             },
 			filtering: function () {
-		        var url = '{{ url('/') }}/';
+                var url = '{{ url('/') }}/';
 
-		        for (i in filter.options) {
+                filter.options.cid = [];
+
+                $('.js-filter-category li').each(function (i, el) {
+                    if ($(el).children('.button').hasClass('active')) {
+                        filter.options.cid.push($(el).children('.button').data('id'));
+                    }
+                });
+
+                for (i in filter.options) {
 		            url += (i == 'type') ? '?' : '&';
 		            url += i + '=' + filter.options[i];
-				}
+                }
 
                 location = url;
             }

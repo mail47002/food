@@ -31,7 +31,7 @@
                     <label>&#x2014;</label>
                     <input type="text" name="price_to" value="{{ request()->get('price_to') }}">
                     <label>грн.</label>
-                    <button type="submit" class="button btn-filter js-btn-filter">OK</button>
+                    <button type="button" class="button btn-filter js-btn-filter">OK</button>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
                         <label>&#x2014;</label>
                         <input type="text" name="price_to" value="{{ request()->get('price_to') }}">
                         <label>грн.</label>
-                        <button type="submit" class="button btn-filter js-btn-filter">OK</button>
+                        <button type="button" class="button btn-filter js-btn-filter">OK</button>
                     </div>
                 </div>
                 <div class="col-md-3">
