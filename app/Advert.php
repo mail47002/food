@@ -12,7 +12,7 @@ class Advert extends Model
 
     protected $fillable = [
         'user_id', 'product_id', 'sticker', 'name', 'slug', 'description', 'price', 'custom_price', 'quantity',
-        'image', 'type', 'everyday', 'date', 'date_from', 'date_to', 'time'
+        'image', 'type', 'everyday', 'date', 'date_from', 'date_to', 'time', 'address', 'lat', 'lng'
     ];
 
     protected $casts = [
@@ -41,11 +41,6 @@ class Advert extends Model
     public function categories()
     {
         return $this->belongsToMany('App\Category', 'product_to_category', 'product_id', 'product_id');
-    }
-
-    public function address()
-    {
-        return $this->hasOne('App\AdvertAddress');
     }
 
     public function order()

@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind('helper', 'App\Helpers\Helper');
         $this->app->bind('messenger', 'App\Services\Messages\Messenger');
+        $this->app->bind('geo', 'App\Services\Geo\Geo');
     }
 
 }

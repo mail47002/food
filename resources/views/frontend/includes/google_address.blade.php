@@ -114,16 +114,9 @@
         }
       });
     };
-
-
-
-
   }
-
-
-
-
 </script>
+
 /*Сюда вставить ключ google map*/
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnxGiPdH3lTiOVu98kJxvn3h8Oezlw3w4&libraries=places&callback=initMap"
         async defer></script>

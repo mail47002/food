@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Account;
 
-use App\AdvertAddress;
 use App\AdvertImage;
-use App\AdvertSticker;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
@@ -14,7 +12,6 @@ use Auth;
 use DB;
 use Helper;
 use Session;
-use Storage;
 
 class AdvertsController extends Controller
 {
@@ -90,8 +87,6 @@ class AdvertsController extends Controller
         $request->merge([
             'advert_id' => $advert->id
         ]);
-
-        AdvertAddress::create($request->all());
 
         if ($request->has('change_images')) {
             $this->syncImages($request->images, $advert);
@@ -251,9 +246,9 @@ class AdvertsController extends Controller
         $rules = [
             'name'        => 'required',
             'description' => 'required',
-            'city'        => 'required',
-            'street'      => 'required',
-            'build'       => 'required'
+            'address'     => 'required',
+            'lat'         => 'required',
+            'lng'         => 'required'
         ];
 
         if (Helper::isAdvertByDate()) {
@@ -321,6 +316,6 @@ class AdvertsController extends Controller
      */
     protected function getSlug(Request $request)
     {
-        return str_slug($request->name . '-' . str_random(8));
+        return str_slug($request->name . '-' . str_random(5));
     }
 }

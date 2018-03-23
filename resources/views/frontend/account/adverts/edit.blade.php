@@ -148,25 +148,40 @@
             @endforeach
         </div>
 
+        {{--<div class="form-group">--}}
+            {{--<label>Населений пункт*</label>--}}
+            {{--<div class="marker inline wide">--}}
+                {{--<input id="input-city" name="city" type="text" class="wide" value="{{ $advert->address->city }}">--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
+        {{--<div class="form-group">--}}
+            {{--<div class="address">--}}
+                {{--<div class="left inline">--}}
+                    {{--<label>Вулиця*</label>--}}
+                    {{--<input id="input-street" name="street" type="text" value="{{ $advert->address->street }}">--}}
+                {{--</div>--}}
+                {{--<div class="right inline">--}}
+                    {{--<label>№ будинку*</label>--}}
+                    {{--<input id="input-build" name="build" type="text" value="{{ $advert->address->build }}">--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
         <div class="form-group">
-            <label>Населений пункт*</label>
-            <div class="marker inline wide">
-                <input id="input-city" name="city" type="text" class="wide" value="{{ $advert->address->city }}">
+            {{ Form::label('city', 'Адреса*') }}
+            <div class="marker wide">
+                <input id="address" class="wide" type="text" name="address" value="{{ auth()->user()->profile->address }}">
+                <input id="lat" type="hidden" name="lat" value="{{ auth()->user()->profile->lat }}">
+                <input id="lng" type="hidden" name="lng" value="{{ auth()->user()->profile->lng }}">
             </div>
         </div>
 
         <div class="form-group">
-            <div class="address">
-                <div class="left inline">
-                    <label>Вулиця*</label>
-                    <input id="input-street" name="street" type="text" value="{{ $advert->address->street }}">
-                </div>
-                <div class="right inline">
-                    <label>№ будинку*</label>
-                    <input id="input-build" name="build" type="text" value="{{ $advert->address->build }}">
-                </div>
-            </div>
+            <p class="text-center f14">Введіть адресу<br>Якщо потрібно підкорегувати адресу, клікніть на мапі або перетягніть маркер</p>
         </div>
+        {{-- <button id="correct">Виправити</button> --}}
+        <div id="map"></div>
 
         <div class="grey-block bg-yellow black wide">
             <p class="red zerro-bottom"><i class="fo fo-phone"></i></p>
@@ -192,6 +207,7 @@
     </div>
 @stop
 
+@include('frontend.includes.google_address')
 
 @push('scripts')
     <script type="text/javascript">

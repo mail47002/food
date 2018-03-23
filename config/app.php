@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'ua',
+    'locale' => 'uk',
 
     /*
     |--------------------------------------------------------------------------
@@ -239,6 +239,7 @@ return [
         'Helper' => App\Helper\Facades\Helper::class,
         'Date' => Jenssegers\Date\Date::class,
         'Messenger' => App\Services\Messages\Facades\Messenger::class,
+        'Geo' => App\Services\Geo\Facades\Geo::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],

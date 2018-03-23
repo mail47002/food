@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Advert;
 use App\Order;
+use Geo;
 
 class Helper
 {

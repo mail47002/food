@@ -4,7 +4,14 @@
             <a href="{{ route('adverts.show', $advert->slug) }}">
                 <img src="{{ $advert->user->directory . 'thumbs/' . $advert->image }}" class="img-responsive" alt="{{ $advert->name }}">
             </a>
-            <div class="distance"><i class="fo fo-small fo-marker red"></i>5 км</div>
+
+            @auth
+                <div class="distance">
+                    <i class="fo fo-small fo-marker red"></i>
+                    {{ Geo::getDistance(['lat' => auth()->user()->profile->lat, 'lng' => auth()->user()->profile->lng], ['lat' => $advert->lat, 'lng' => $advert->lng]) }} км
+                </div>
+            @endauth
+
             <div class="sticker {{ $advert->sticker }}"></div>
         </div>
 

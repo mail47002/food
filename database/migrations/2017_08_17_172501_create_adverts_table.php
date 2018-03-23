@@ -30,6 +30,9 @@ class CreateAdvertsTable extends Migration {
             $table->timestamp('date_from')->nullable();
             $table->timestamp('date_to')->nullable();
             $table->string('time')->nullable();
+            $table->string('address');
+            $table->float('lat', 10, 8);
+            $table->float('lng', 10, 8);
             $table->timestamps();
         });
 	}

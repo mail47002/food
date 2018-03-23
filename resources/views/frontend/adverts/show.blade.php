@@ -35,7 +35,7 @@
 				<div class="food-info col-md-9">
 					<h1>{{ $advert->name }}</h1>
 					<div class="rating">
-						<span class="stars medium">4</span>{{ $reviews->total() }} відгуків
+						<span class="stars medium">{{ $advert->product->rating }}</span>{{ $reviews->total() }} відгуків
 					</div>
 
 					<h5 class="text-upper underline-red">Від повара про страву </h5><hr class="zerro-top">
@@ -102,8 +102,15 @@
 							@endif
 
 							<p><i class="time medium"></i> 10 – 15 грудня</p>
-							<p class="distance"><i class="fo fo-big fo-marker red"></i>5 км</p>
-							<p class="small">{{ Helper::getUserAddress($advert->user) }}</p>
+
+							@auth
+								<p class="distance">
+									<i class="fo fo-big fo-marker red"></i>
+									{{ Geo::getDistance(['lat' => auth()->user()->profile->lat, 'lng' => auth()->user()->profile->lng], ['lat' => $advert->lat, 'lng' => $advert->lng]) }} км
+								</p>
+							@endauth
+
+							<p class="small">{{ $advert->address }}</p>
 							<hr class="red-border">
 
 							<div class="avatar">
