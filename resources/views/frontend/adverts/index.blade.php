@@ -10,7 +10,10 @@
 				@include('frontend.adverts.search')
 				<hr>
 				<div class="address text-center">
-					<i class="fo fo-big fo-marker red"></i><span id="address">Соборна, буд. 10/2, Вінниця</span>
+					<i class="fo fo-big fo-marker red"></i>
+					<span class="js-filter-address">{{ auth()->check() ? auth()->user()->profile->address : 'Вся Україна<'}}</span>
+
+
 					<a href="#" class="link-blue" data-toggle="modal" data-target="#modal_change_address">Змінити регіон</a>
 
 					<div class="slider-distance">
@@ -50,12 +53,68 @@
 		</div>
 	</div>
 
-	@include('frontend.adverts.address')
 	@include('frontend.includes.order')
+
+	<!-- Modal Address -->
+	<div id="modal_change_address" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content text-center">
+				<div class="modal-header">
+					<a href="#" type="button" class="close link-red" data-dismiss="modal"><i class="fo fo-delete"></i></a>
+					<h4 class="modal-title">Змінити регіон</h4>
+				</div>
+				<p class="modal-body contact">
+				<p style="display: inline-block;">
+					<input id="input-country" type="checkbox" {{ !auth()->check() ? 'checked' : '' }}><label for="input-country">Вся Україна</label>
+				</p>
+
+				{{--<p>Населений пункт</p>--}}
+				{{--<div class="marker">--}}
+				{{--<input id="city" type="text" placeholder="" class="wide">--}}
+				{{--</div>--}}
+				{{--<input id="city_id" name="city_id" type="hidden" value="">--}}
+
+				{{--<div class="row text-left">--}}
+				{{--<div class="col-md-offset-1 col-md-6">--}}
+				{{--<p>Вулиця</p>--}}
+				{{--<input id="street" class="" type="text" placeholder="Соборна">--}}
+				{{--</div>--}}
+				{{--<div class="col-md-3">--}}
+				{{--<p>№ будинку</p>--}}
+				{{--<input id="number" class="" type="text" placeholder="30">--}}
+				{{--</div>--}}
+				{{--</div>--}}
+
+
+				<div class="form-group">
+					{{ Form::label('city', 'Адреса*') }}
+					<div class="marker wide">
+						<input id="address" class="wide" type="text" name="address" value="{{ auth()->check() ? auth()->user()->profile->address : config('location.default.address') }}" {{ !auth()->check() ? 'disabled' : '' }}>
+						<input id="lat" type="hidden" name="lat" value="{{ auth()->check() ? auth()->user()->profile->lat : config('location.default.lat') }}">
+						<input id="lng" type="hidden" name="lng" value="{{ auth()->check() ? auth()->user()->profile->lng : config('location.default.lng') }}">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<p class="text-center f14 label-map" style="{{ !auth()->check() ? 'display: none;' : 'display: block;' }}">Введіть адресу<br>Якщо потрібно підкорегувати адресу, клікніть на мапі або перетягніть маркер</p>
+				</div>
+				{{-- <button id="correct">Виправити</button> --}}
+				<div id="map" style="{{ !auth()->check() ? 'display: none;' : 'display: block;' }}"></div>
+
+
+				<p></p>
+
+				<button class="button button-red button-big " onclick="filter.filtering()">Застосувати</button>
+			</div>
+		</div>
+	</div>
 @stop
 
+@include('frontend.includes.google_address')
+
+
 @push('scripts')
-	<script>
+	<script type="text/javascript">
 		$( function() {
 			$("#slider").slider({
 				orientation: "horizontal",
@@ -67,7 +126,7 @@
 				slide: function(event, ui) {
 					if (ui.value < 5) return false; // restrict 0 - 5 km
 
-
+					filter.options.distance = ui.value;
 
 					$("#distance").val(ui.value + " км");
 				}
@@ -91,14 +150,28 @@
 					{position: {my: "left top+10"}}
 				);
 		});
-	</script>
-	<script>
+
+        // Country & regions
+        $('#input-country').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('input[name="address"]').prop('disabled', true);
+                $('.label-map').hide();
+                $('#map').hide();
+            } else {
+                $('input[name="address"]').prop('disabled', false);
+                $('.label-map').show();
+                $('#map').show();
+            }
+        });
+
 		var filter = {
 		    options: {
 				type: '{{ request()->get('type', 'by_date') }}',
+				country: {{ auth()->check() ? 0 : 1 }},
                 location: [
-					{{ auth()->check() ? auth()->user()->profile->lat : 50.4021702 }},
-                    {{ auth()->check() ? auth()->user()->profile->lng : 30.3926085 }}
+                    // Винница по умолчанию
+					{{ auth()->check() ? auth()->user()->profile->lat : config('location.default.lat') }},
+                    {{ auth()->check() ? auth()->user()->profile->lng : config('location.default.lng') }}
                 ],
                 distance: 5,
                 cid: [],
@@ -139,7 +212,7 @@
                     filter.options.price_to = el.find('input[name="price_to"]').val();
 
 					filter.filtering();
-                })
+                });
             },
 			filtering: function () {
                 var url = '{{ url('/') }}/';

@@ -13,12 +13,10 @@
 
 @push('scripts')
 <script>
-
-  @if(auth()->user()->profile)
-    var place = {lat: {{ auth()->user()->profile->lat }}, lng: {{ auth()->user()->profile->lng }}}; /*Сюда вставлять с БД сохраненные координаты*/
-  @else
-    var place = {lat: 50.4450846, lng: 30.5239226};
-  @endif
+    var place = {
+        lat: {{ auth()->check() ? auth()->user()->profile->lat : config('location.default.lat') }},
+        lng: {{ auth()->check() ? auth()->user()->profile->lng : config('location.default.lng') }}
+    };
   var address = '';
   var input = document.getElementById('address');
   var mapContainer = document.getElementById('map');
@@ -41,9 +39,10 @@
 
     var infowindow = new google.maps.InfoWindow();
     var marker = new google.maps.Marker({
-      @if(auth()->user()->profile)
-        position: {lat: {{ auth()->user()->profile->lat }}, lng: {{ auth()->user()->profile->lng }}},
-      @endif
+      position: {
+          lat: {{ auth()->check() ? auth()->user()->profile->lat : config('location.default.lat') }},
+          lng: {{ auth()->check() ? auth()->user()->profile->lng : config('location.default.lng') }}
+      },
       map: map,
       draggable: true,
       anchorPoint: new google.maps.Point(0, -29)
@@ -117,7 +116,7 @@
   }
 </script>
 
-/*Сюда вставить ключ google map*/
+{{--Сюда вставить ключ google map--}}
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnxGiPdH3lTiOVu98kJxvn3h8Oezlw3w4&libraries=places&callback=initMap"
         async defer></script>
 
