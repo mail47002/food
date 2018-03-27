@@ -11,13 +11,14 @@
 				<hr>
 				<div class="address text-center">
 					<i class="fo fo-big fo-marker red"></i>
-					<span class="js-filter-address">{{ auth()->check() ? auth()->user()->profile->address : 'Вся Україна<'}}</span>
+					<span class="js-filter-address">{{ $filter['address'] }}</span>
 
 
 					<a href="#" class="link-blue" data-toggle="modal" data-target="#modal_change_address">Змінити регіон</a>
 
 					<div class="slider-distance">
-						<label for="distance">Радіус: </label><input type="text" id="distance" readonly />
+						<label for="distance">Радіус: </label>
+						<input type="text" id="distance" readonly>
 						<div id="slider"></div>
 					</div>
 				</div>
@@ -65,7 +66,7 @@
 				</div>
 				<p class="modal-body contact">
 				<p style="display: inline-block;">
-					<input id="input-country" type="checkbox" {{ !auth()->check() ? 'checked' : '' }}><label for="input-country">Вся Україна</label>
+					<input id="input-country" type="checkbox" {{ $filter['country'] == 1 ? 'checked' : '' }}><label for="input-country">Вся Україна</label>
 				</p>
 
 				{{--<p>Населений пункт</p>--}}
@@ -89,9 +90,9 @@
 				<div class="form-group">
 					{{ Form::label('city', 'Адреса*') }}
 					<div class="marker wide">
-						<input id="address" class="wide" type="text" name="address" value="{{ auth()->check() ? auth()->user()->profile->address : config('location.default.address') }}" {{ !auth()->check() ? 'disabled' : '' }}>
-						<input id="lat" type="hidden" name="lat" value="{{ auth()->check() ? auth()->user()->profile->lat : config('location.default.lat') }}">
-						<input id="lng" type="hidden" name="lng" value="{{ auth()->check() ? auth()->user()->profile->lng : config('location.default.lng') }}">
+						<input id="address" class="wide" type="text" name="address" value="{{ $filter['address'] }}" {{ $filter['country'] == 1 ? 'disabled' : '' }}>
+						<input id="lat" type="hidden" name="lat" value="{{ $filter['location'][0] }}">
+						<input id="lng" type="hidden" name="lng" value="{{ $filter['location'][1] }}">
 					</div>
 				</div>
 
@@ -119,7 +120,7 @@
 			$("#slider").slider({
 				orientation: "horizontal",
 				range: "min",
-				value:5,
+				value: {{ $filter['distance'] }},
 				min: 0,
 				max: 50,
 				step: 1,
@@ -167,13 +168,13 @@
 		var filter = {
 		    options: {
 				type: '{{ request()->get('type', 'by_date') }}',
-				country: {{ auth()->check() ? 0 : 1 }},
+				country: {{ $filter['country'] }},
                 location: [
-                    // Винница по умолчанию
-					{{ auth()->check() ? auth()->user()->profile->lat : config('location.default.lat') }},
-                    {{ auth()->check() ? auth()->user()->profile->lng : config('location.default.lng') }}
-                ],
-                distance: 5,
+					{{ $filter['location'][0] }},
+					{{ $filter['location'][1] }}
+				],
+				address: '{{ $filter['address'] }}',
+                distance: {{ $filter['distance'] }},
                 cid: [],
 				price_from: '',
 				price_to: '',
@@ -216,6 +217,12 @@
             },
 			filtering: function () {
                 var url = '{{ url('/') }}/';
+
+                filter.options.address = $('input[name="address"]').val();
+                filter.options.location = [
+                    $('input[name="lat"]').val(),
+					$('input[name="lng"]').val()
+				];
 
                 filter.options.cid = [];
 

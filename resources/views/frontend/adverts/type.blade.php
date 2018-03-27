@@ -1,6 +1,6 @@
 <ul class="categories list-inline text-center">
     <li class="{{ Helper::isAdvertByDate() ? 'active' : '' }}">
-        <a href="{{ route('adverts.index', ['type' => 'by_date']) }}" class="link-red text-upper">Меню по датам</a>
+        <a href="{{ route('adverts.index') }}" class="link-red text-upper">Меню по датам</a>
     </li>
     <li class="{{ Helper::isAdvertInStock() ? 'active' : '' }}">
         <a href="{{ route('adverts.index', ['type' => 'in_stock']) }}" class="link-red text-upper">Готові страви</a>

@@ -21,6 +21,20 @@ class AdvertsController extends Controller
     public function index(Request $request)
     {
         $country = $request->input('country', 0);
+        $location = $request->input('location', [
+            auth()->check()
+                ? auth()->user()->profile->lat
+                : config('location.default.lat'),
+            auth()->check()
+                ? auth()->user()->profile->lng
+                : config('location.default.lng')
+        ]);
+        $address = $request->input('address',
+            auth()->check()
+                ? auth()->user()->profile->address
+                : config('location.default.address')
+        );
+        $distance = $request->input('distance', 50);
         $categoryIds = $request->cid
             ? explode(',', $request->cid)
             : Category::all()->pluck('id')->toArray();
@@ -43,15 +57,9 @@ class AdvertsController extends Controller
             ->whereBetween('price', [$priceFrom, $priceTo]);
 
         if (!$country) {
-            $location = $request->input('location', [
-                config('location.default.lat'),
-                config('location.default.lng')
-            ]);
-            $distance = $request->input('distance', 50) * .01;
-
             $adverts = $adverts->leftJoin('user_profiles', 'adverts.user_id', '=', 'user_profiles.user_id')
-                ->whereBetween('user_profiles.lat', [$location[0] - $distance, $location[0] + $distance])
-                ->whereBetween('user_profiles.lng', [$location[1] - $distance, $location[1] + $distance]);
+                ->whereBetween('user_profiles.lat', [$location[0] - ($distance * .01), $location[0] + ($distance * .01)])
+                ->whereBetween('user_profiles.lng', [$location[1] - ($distance * .01), $location[1] + ($distance * .01)]);
         }
 
         if ($type == Advert::IN_STOCK) {
@@ -72,8 +80,12 @@ class AdvertsController extends Controller
         return view('frontend.adverts.index', [
             'adverts' => $adverts,
             'filter'  => [
-                'cid'  => $request->has('cid') ? explode(',', $request->cid) : [],
-                'time' => $request->has('time') ? explode(',', $request->time) : []
+                'cid'      => $request->has('cid') ? explode(',', $request->cid) : [],
+                'time'     => $request->has('time') ? explode(',', $request->time) : [],
+                'country'  => $country,
+                'location' => $location,
+                'address'  => $address,
+                'distance' => $distance
             ]
         ]);
     }
