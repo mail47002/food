@@ -21,6 +21,7 @@ class AdvertsController extends Controller
     public function index(Request $request)
     {
         $country = $request->input('country', 0);
+
         $location = $request->input('location', [
             auth()->check()
                 ? auth()->user()->profile->lat
@@ -29,21 +30,33 @@ class AdvertsController extends Controller
                 ? auth()->user()->profile->lng
                 : config('location.default.lng')
         ]);
+
+        if (is_string($location)) {
+            $location = explode(',', $location);
+        }
+
         $address = $request->input('address',
             auth()->check()
                 ? auth()->user()->profile->address
                 : config('location.default.address')
         );
+
         $distance = $request->input('distance', 50);
+
         $categoryIds = $request->cid
             ? explode(',', $request->cid)
             : Category::all()->pluck('id')->toArray();
+
         $type = $request->input('type', Advert::BY_DATE);
+
         $priceFrom = $request->price_from ?? 0;
+
         $priceTo = $request->price_to ?? 99999.99;
+
         $date = $request->date
             ? Carbon::parse($request->date)->toDateTimeString()
             : null;
+
         $time = $request->time
             ? explode(',', $request->time)
             : Helper::getAdvertTimes();

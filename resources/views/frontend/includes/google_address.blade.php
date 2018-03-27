@@ -14,8 +14,13 @@
 @push('scripts')
 <script>
     var place = {
+      @if(isset($filter))
+        lat: {{ $filter['location'][0] }},
+        lng: {{ $filter['location'][1] }}
+      @else
         lat: {{ auth()->check() ? auth()->user()->profile->lat : config('location.default.lat') }},
         lng: {{ auth()->check() ? auth()->user()->profile->lng : config('location.default.lng') }}
+      @endif
     };
   var address = '';
   var input = document.getElementById('address');
@@ -39,9 +44,15 @@
 
     var infowindow = new google.maps.InfoWindow();
     var marker = new google.maps.Marker({
+
       position: {
+        @if(isset($filter))
+          lat: {{ $filter['location'][0] }},
+          lng: {{ $filter['location'][1] }}
+        @else
           lat: {{ auth()->check() ? auth()->user()->profile->lat : config('location.default.lat') }},
           lng: {{ auth()->check() ? auth()->user()->profile->lng : config('location.default.lng') }}
+        @endif
       },
       map: map,
       draggable: true,
