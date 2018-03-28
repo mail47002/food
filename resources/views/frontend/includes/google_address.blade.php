@@ -23,10 +23,10 @@
       @endif
     };
   var address = '';
-  var input = document.getElementById('address');
+  var input = document.getElementById('input-address');
   var mapContainer = document.getElementById('map');
-  var lat = document.getElementById('lat');
-  var lng = document.getElementById('lng');
+  var lat = document.getElementById('input-lat');
+  var lng = document.getElementById('input-lng');
   // var button = document.getElementById('correct');
 
   function initMap() {

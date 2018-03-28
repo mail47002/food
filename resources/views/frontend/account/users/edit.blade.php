@@ -9,7 +9,7 @@
 		<p class="message" id="message">Заповніть виділені поля</p>
 		<div class="form-group">
 			{{ Form::label('name', 'Ім\'я*') }}
-			{{ Form::text('first_name', auth()->user()->profile->first_name, ['id' => 'input-name']) }}
+			{{ Form::text('first_name', auth()->user()->profile->first_name, ['id' => 'input-first_name']) }}
 		</div>
 
 		<div class="v-indent-30"></div>
@@ -47,9 +47,9 @@
 		<div class="form-group">
 			{{ Form::label('city', 'Адреса*') }}
 			<div class="marker wide">
-				<input id="address" class="wide" type="text" name="address" value="{{ auth()->user()->profile->address }}">
-				<input id="lat" type="hidden" name="lat" value="{{ auth()->user()->profile->lat }}">
-				<input id="lng" type="hidden" name="lng" value="{{ auth()->user()->profile->lng }}">
+				<input id="input-address" class="wide" type="text" name="address" value="{{ auth()->user()->profile->address }}">
+				<input id="input-lat" type="hidden" name="lat" value="{{ auth()->user()->profile->lat }}">
+				<input id="input-lng" type="hidden" name="lng" value="{{ auth()->user()->profile->lng }}">
 			</div>
 		</div>
 

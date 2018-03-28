@@ -10,7 +10,7 @@
                     <p class="message" id="message">Заповніть виділені поля</p>
                     <div class="form-group">
                         {{ Form::label('name', 'Ім\'я*') }}
-                        {{ Form::text('first_name', null, ['id' => 'input-name']) }}
+                        {{ Form::text('first_name', null, ['id' => 'input-first_name']) }}
                     </div>
                     <div class="form-group site-name">
                         <p>{{ url('') }}</p>
@@ -56,9 +56,9 @@
                     <div class="form-group">
                         {{ Form::label('city', 'Адреса*') }}
                         <div class="marker wide">
-                            <input id="address" class="wide" type="text" name="address">
-                            <input id="lat" type="hidden" name="lat">
-                            <input id="lng" type="hidden" name="lng">
+                            <input id="input-address" class="wide" type="text" name="address">
+                            <input id="input-lat" type="hidden" name="lat">
+                            <input id="input-lng" type="hidden" name="lng">
                         </div>
                     </div>
 

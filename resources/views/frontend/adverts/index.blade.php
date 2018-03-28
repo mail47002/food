@@ -90,9 +90,9 @@
 				<div class="form-group">
 					{{ Form::label('city', 'Адреса*') }}
 					<div class="marker wide">
-						<input id="address" class="wide" type="text" name="address" value="{{ $filter['address'] }}" {{ $filter['country'] == 1 ? 'disabled' : '' }}>
-						<input id="lat" type="hidden" name="lat" value="{{ $filter['location'][0] }}">
-						<input id="lng" type="hidden" name="lng" value="{{ $filter['location'][1] }}">
+						<input id="input-address" class="wide" type="text" name="address" value="{{ $filter['address'] }}" {{ $filter['country'] == 1 ? 'disabled' : '' }}>
+						<input id="input-lat" type="hidden" name="lat" value="{{ $filter['location'][0] }}">
+						<input id="input-lng" type="hidden" name="lng" value="{{ $filter['location'][1] }}">
 					</div>
 				</div>
 
