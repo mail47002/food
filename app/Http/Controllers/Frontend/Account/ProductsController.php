@@ -250,9 +250,9 @@ class ProductsController extends Controller
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'name'         => 'required',
+            'name'         => 'required|max:255',
             'category'     => 'present',
-            'image'        => 'required',
+            'image'        => 'required|max:255',
             'ingredient.*' => 'required',
             'description'  => 'required'
         ]);

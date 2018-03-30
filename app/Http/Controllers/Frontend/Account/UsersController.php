@@ -154,12 +154,12 @@ class UsersController extends Controller
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'first_name' => 'required',
+            'first_name' => 'required|max:255',
             'phone.*'    => 'required',
-            'address'    => 'required',
+            'address'    => 'required|max:255',
             'lat'        => 'required',
             'lng'        => 'required',
-            'slug'       => 'sometimes|required|unique:user_profiles,slug',
+            'slug'       => 'sometimes|required|max:255|unique:user_profiles,slug',
         ]);
     }
 }

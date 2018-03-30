@@ -94,7 +94,7 @@ class UserSlugController extends Controller
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'slug' => 'required|unique:user_profiles,slug,' . Auth::id()
+            'slug' => 'required|max:255|unique:user_profiles,slug,' . Auth::id()
         ]);
     }
 }

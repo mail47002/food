@@ -7,12 +7,12 @@
 	<div class="v-indent-40"></div>
 	<h1>{{ auth()->user()->profile->first_name }}</h1>
 	<p class="grey3">
-		<i class="fo fo-marker red"></i> {{ Helper::getUserAddress(auth()->user()) }}
+		<i class="fo fo-marker red"></i> {{ auth()->user()->profile->address }}
 		<a href="{{ route('account.user.edit') }}" class="link-grey">
 			<i class="fo fo-edit fo-small fo-indent"></i>Редагувати
 		</a>
 	</p>
-	<div class="rating grey3"><span class="stars medium">4</span>10 відгуків</div>
+	<div class="rating grey3"><span class="stars medium">{{ $userReviews }}</span>{{ $userReviews }} відгуків</div>
 
 	<div class="description">
 		<p>{{ auth()->user()->about }}</p>

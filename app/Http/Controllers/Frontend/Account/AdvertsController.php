@@ -154,7 +154,7 @@ class AdvertsController extends Controller
 
         if ($advert) {
             return view('frontend.account.adverts.edit', [
-                'advert'   => $advert
+                'advert' => $advert
             ]);
         }
 
@@ -244,9 +244,9 @@ class AdvertsController extends Controller
     protected function validateForm(Request $request)
     {
         $rules = [
-            'name'        => 'required',
+            'name'        => 'required|max:255',
             'description' => 'required',
-            'address'     => 'required',
+            'address'     => 'required|max:255',
             'lat'         => 'required',
             'lng'         => 'required'
         ];
@@ -257,7 +257,7 @@ class AdvertsController extends Controller
             $rules['date_from'] = 'required_if:everyday,1';
             $rules['date_to']   = 'required_if:everyday,1';
             $rules['quantity']  = 'required';
-            $rules['image']     = 'required';
+            $rules['image']     = 'required|max:255';
         }
 
         if (Helper::isAdvertInStock()) {
@@ -265,7 +265,7 @@ class AdvertsController extends Controller
             $rules['date_from'] = 'required';
             $rules['date_to']   = 'required';
             $rules['quantity']  = 'required';
-            $rules['image']     = 'required';
+            $rules['image']     = 'required|max:255';
         }
 
         if (Helper::isAdvertPreOrder()) {

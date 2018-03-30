@@ -249,7 +249,7 @@ class RecipesController extends Controller
     protected function validateForm(Request $request)
     {
         $this->validate($request, [
-            'name'         => 'required',
+            'name'         => 'required|max:255',
             'category'     => 'present',
             'image'        => 'required',
             'ingredient.*' => 'required',
