@@ -6,7 +6,7 @@
 	<a href="{{ route('account.products.create') }}" class="button button-red button-big">Додати страву до каталогу</a>
 	<div class="v-indent-30"></div>
 	<hr>
-	<div class="bg-yellow">
+	<div class="bg-yellow profile">
 		<div class="row">
 			<div class="col-md-6">
 				<form action="#" class="search" method="get">
