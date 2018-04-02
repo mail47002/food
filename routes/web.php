@@ -233,6 +233,10 @@ Route::group(['namespace' => 'Frontend'], function() {
     Route::group(['prefix' => 'login'], function () {
         Route::get('', 'LoginController@show');
         Route::post('', ['as' => 'login', 'uses' => 'LoginController@login']);
+
+        // Social login
+        Route::get('/{social}','LoginController@socialLogin')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
+        Route::get('/{social}/callback','LoginController@handleProviderCallback')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
     });
 
     Route::get('logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);

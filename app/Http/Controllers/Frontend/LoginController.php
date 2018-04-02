@@ -14,6 +14,7 @@ use Image;
 use App\Address;
 use App\Reviews;
 use Hash;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -25,6 +26,36 @@ class LoginController extends Controller
     public function show()
     {
         return view('frontend.login.show');
+    }
+
+    /**
+     * Handle Social login request
+     *
+     * @return response
+     */
+    public function socialLogin($social)
+    {
+        return Socialite::driver($social)->redirect();
+    }
+    /**
+     * Obtain the user information from Social Logged in.
+     * @param $social
+     * @return Response
+     */
+
+    public function handleProviderCallback($social)
+    {
+        // $userSocial = Socialite::driver($social)->stateless()->user(); // Google bug
+        $userSocial = Socialite::driver($social)->user();
+// echo "<pre>".print_r($userSocial, true);exit();
+        $user = User::where(['email' => $userSocial->getEmail()])->first();
+        if($user){
+            Auth::guard('web')->login($user, true);
+            if (Auth::user()->profile) return redirect()->route('account.user.show');
+            return redirect()->route('account.user.create');
+        }else{
+            return redirect()->route('register', ['email' => $userSocial->getEmail()]);
+        }
     }
 
     /**
@@ -47,6 +78,10 @@ class LoginController extends Controller
             return response()->json([
                 'url' => route('account.user.create')
             ]);
+        } else {
+            return response()->json([
+                'errors' => ['email', 'password']
+            ], 401);
         }
     }
 
