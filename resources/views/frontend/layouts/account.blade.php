@@ -51,6 +51,9 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
+            $('span.stars').stars();
+        });
+        $(document).ready(function() {
             $('input[type="tel"]').mask('+38 (999) 999 99 99');
         });
     </script>
