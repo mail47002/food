@@ -184,6 +184,8 @@ return [
         Jenssegers\Date\DateServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
 
+        Laravel\Socialite\SocialiteServiceProvider::class,
+
     ],
 
     /*
@@ -241,6 +243,8 @@ return [
         'Messenger' => App\Services\Messages\Facades\Messenger::class,
         'Geo' => App\Services\Geo\Facades\Geo::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

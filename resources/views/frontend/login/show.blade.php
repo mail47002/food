@@ -23,9 +23,9 @@
 					<p><a href="{{ url('password/forgot') }}" class="link-blue">Забули пароль</a></p>
 				</div>
 				<div class="right text-right">
-					<a href="#" class="button login google">Продовжити з Google</a>
-					<a href="#" class="button login facebook">Продовжити з Facebook</a>
-					<a href="#" class="button login twitter">Продовжити з Twitter</a>
+					<a href="{{ url('login/google') }}" class="button login google">Продовжити з Google</a>
+					<a href="{{ url('login/facebook') }}" class="button login facebook">Продовжити з Facebook</a>
+					<a href="{{ url('login/twitter') }}" class="button login twitter">Продовжити з Twitter</a>
 
 					<p class="signup">Вас ще немає на сайті?  <a href="{{ route('register') }}" class="link-red">Приєднатися зараз</a></p>
 				</div>
@@ -65,12 +65,12 @@
 
                     $('.body-overlay').removeClass('active');
 
-                    for (name in data.errors) {
+                    data.errors.forEach(function(name){
                         var target = form.find('#input-' + name);
 
                         target.addClass('error');
                         target.closest('.form-group').addClass('has-error');
-                    }
+                    });
                 }
             });
         });

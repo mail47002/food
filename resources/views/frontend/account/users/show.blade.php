@@ -53,9 +53,11 @@
 					@if($hasOrder)
 
 					@else
-						<i class="fo fo-people fo-big block"></i>
-						<p>Ви ще не робили замовлення. Не має відгуків!</p>
-						<a href="{{ url('/') }}" class="button button-red button-empty-block">Замовити страву</a>
+						<div class="empty-block">
+							<i class="fo fo-people fo-big block"></i>
+							<p>Ви ще не робили замовлення. Не має відгуків!</p>
+							<a href="{{ url('/') }}" class="button button-red button-empty-block">Замовити страву</a>
+						</div>
 					@endif
 				@endif
 			</div>
@@ -65,48 +67,48 @@
 
 @push('scripts')
 	<script type="text/javascript">
-        $('form').on('submit', function (e) {
-            e.preventDefault();
+		$('form').on('submit', function (e) {
+			e.preventDefault();
 
-            var form = $(this);
+			var form = $(this);
 
-            $.ajax({
-                url: form.attr('action'),
-                method: form.attr('method'),
-                data: form.serialize(),
-                beforeSend: function () {
-                    $('.body-overlay').addClass('active');
-                },
-                success: function (response) {
-                    if (response.data) {
-                        var el = $('#review-' + response.data.product_review_id),
-                            html = '';
+			$.ajax({
+				url: form.attr('action'),
+				method: form.attr('method'),
+				data: form.serialize(),
+				beforeSend: function () {
+					$('.body-overlay').addClass('active');
+				},
+				success: function (response) {
+					if (response.data) {
+						var el = $('#review-' + response.data.product_review_id),
+							html = '';
 
-                        html += '<div class="title">Ваша відповідь</div>';
-                        html += '<div class="message">' + response.data.text + '</div>';
-                        html += '<div class="right-avatar">';
-                        html += '<div class="avatar">';
-                        html += '<div class="rounded">';
-                        html += '<img src="{{ auth()->user()->getAvatar() }}" alt="{{ auth()->user()->profile->first_name }}">';
-                        html += '</div>';
-                        html += '</div>';
-                        html += '</div>';
+						html += '<div class="title">Ваша відповідь</div>';
+						html += '<div class="message">' + response.data.text + '</div>';
+						html += '<div class="right-avatar">';
+						html += '<div class="avatar">';
+						html += '<div class="rounded">';
+						html += '<img src="{{ auth()->user()->getAvatar() }}" alt="{{ auth()->user()->profile->first_name }}">';
+						html += '</div>';
+						html += '</div>';
+						html += '</div>';
 
-                        el.find('.js-answer').html(html);
-                        el.find('.your-message').remove();
-                    }
-                },
-                complete: function () {
-                    $('.body-overlay').removeClass('active');
-                },
-                error: function(response){
-                    var response = response.responseJSON;
+						el.find('.js-answer').html(html);
+						el.find('.your-message').remove();
+					}
+				},
+				complete: function () {
+					$('.body-overlay').removeClass('active');
+				},
+				error: function(response){
+					var response = response.responseJSON;
 
-                    for (name in response.errors) {
-                        $('[name="' + name + '"]').addClass('error').closest('.form-group').addClass('has-error');
-                    }
-                }
-            });
-        });
+					for (name in response.errors) {
+						$('[name="' + name + '"]').addClass('error').closest('.form-group').addClass('has-error');
+					}
+				}
+			});
+		});
 	</script>
 @endpush

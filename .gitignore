@@ -16,3 +16,4 @@ sftp-config.json
 /public/uploads
 /nbproject/private
 gulpfile.js
+composer.lock

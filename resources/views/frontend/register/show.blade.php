@@ -27,9 +27,9 @@
                     <p class="terms">Зареєструвавшись або увійшовши, я визнаю і згоден з <a href="#" class="link-blue">Умовами сайту</a> та <a href="#" class="link-blue">Правилами конфіденційністі</a>.</p>
                 </div>
                 <div class="right text-right">
-                    <a href="#" class="button login google">Продовжити з Google</a>
-                    <a href="#" class="button login facebook">Продовжити з Facebook</a>
-                    <a href="#" class="button login twitter">Продовжити з Twitter</a>
+                    <a href="{{ url('login/google') }}" class="button login google">Продовжити з Google</a>
+                    <a href="{{ url('login/facebook') }}" class="button login facebook">Продовжити з Facebook</a>
+                    <a href="{{ url('login/twitter') }}" class="button login twitter">Продовжити з Twitter</a>
                 </div>
             </div>
             <div class="sign-footer">
