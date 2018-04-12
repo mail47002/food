@@ -70,18 +70,21 @@
 
 
 
-
-                    {{ Form::label('about', 'Про себе') }}
-                    {{ Form::textarea('about', null, ['id' => 'about', 'class' => 'wide']) }}
-
-                    {{ Form::label('filePhoto', 'Додати фото') }}
-                    <div class="uploader profile">
-                        <img src="" />
-                        <input id="input-avatar" type="file">
-                        <div class="round"><i class="fo fo-camera"></i></div>
+                    <div class="form-group">
+                        {{ Form::label('about', 'Про себе') }}
+                        {{ Form::textarea('about', null, ['id' => 'about', 'class' => 'wide']) }}
                     </div>
 
-                    {{ Form::hidden('image', null) }}
+                    <div class="form-group">
+                        {{ Form::label('filePhoto', 'Додати фото') }}
+                        <div class="uploader profile">
+                            <img src="" />
+                            <input id="input-image" type="file">
+                            <div class="round"><i class="fo fo-camera"></i></div>
+                        </div>
+
+                        {{ Form::hidden('image', null) }}
+                    </div>
 
                     <hr>
                     {{Form::submit('Продовжити', ['class' => 'button button-red']) }}
@@ -95,13 +98,13 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $('#input-avatar').on('change', function(e) {
+        $('#input-image').on('change', function(e) {
             e.preventDefault();
 
             var data = new FormData();
 
             data.append('_token', '{{ csrf_token() }}');
-            data.append('image', $('#input-avatar')[0].files[0]);
+            data.append('image', $('#input-image')[0].files[0]);
 
             $.ajax({
                 url: '{{ route('account.image.store') }}',
