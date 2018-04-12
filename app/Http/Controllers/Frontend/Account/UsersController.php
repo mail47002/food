@@ -159,8 +159,7 @@ class UsersController extends Controller
             'address'    => 'required|max:255',
             'lat'        => 'required',
             'lng'        => 'required',
-            'slug'       => 'sometimes|required|max:255|unique:user_profiles,slug',
-            'image'      => 'required'
+            'slug'       => 'sometimes|required|max:255|unique:user_profiles,slug'
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Account;
 
 use App\ProductImage;
+use App\ProductReview;
 use App\Review;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -124,8 +125,8 @@ class ProductsController extends Controller
             ->first();
 
         if ($product) {
-            $reviews = Review::where('product_id', $product->id)
-                ->orderBy('created_at')
+            $reviews = ProductReview::with(['44user.profile'])
+                ->where('product_id', $product->id)
                 ->paginate();
 
             $relatedProducts = Product::where('id', '!=', $id)

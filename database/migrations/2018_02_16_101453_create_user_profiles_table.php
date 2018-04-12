@@ -23,7 +23,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('address');
             $table->float('lat', 10, 8);
             $table->float('lng', 10, 8);
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
