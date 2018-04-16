@@ -1,6 +1,5 @@
 @extends('frontend.layouts.default')
 
-@include('frontend.includes.nav')
 @section('title')Advices - @stop
 @section('content')
 
