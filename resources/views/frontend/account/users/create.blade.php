@@ -204,6 +204,9 @@
                         target.addClass('error');
                         target.closest('.form-group').addClass('has-error');
                     }
+                    $('html, body').animate({
+                        scrollTop: $(".has-error").offset().top -100
+                    }, 1000);
                 }
             });
         });
