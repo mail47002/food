@@ -39,7 +39,7 @@ class LoginController extends Controller
         return [
             'email'     => $request->email,
             'password'  => $request->password,
-            'role_id'   => 1,
+            'role'      => 'admin',
         ];
     }
 

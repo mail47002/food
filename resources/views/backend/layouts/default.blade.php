@@ -25,11 +25,11 @@
     <aside class="sidebar sidebar-left">
         <div class="user-profile">
             <div class="user-avatar">
-                <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=100">
+                <img src="{{ Auth::guard('admin')->user()->getAvatar() }}">
             </div>
             <div class="user-info">
                 <div class="btn-group">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe <span class="caret"></span></a>
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::guard('admin')->user()->profile->first_name }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="la la-user"></i> Профиль</a></li>
                         <li class="divider"></li>
@@ -40,12 +40,12 @@
         </div>
         <nav class="sidebar-nav">
             <ul class="menu">
-                <li class="{{ is_active('admin/dashboard*') }}"><a href="{{ route('admin.dashboard') }}"><i class="la la-desktop"></i> Панель управления</a></li>
-                <li class="{{ is_active('admin/users*') }}"><a href="#"><i class="la la-users"></i> Пользователи</a></li>
-                <li class="{{ is_active('admin/pages*') }}"><a href="{{ route('admin.pages.index') }}"><i class="la la-files-o"></i> Страницы</a></li>
-                <li class="{{ is_active('admin/faqs*') }}"><a href="{{ route('admin.faqs.index') }}"><i class="la la-comment"></i> FAQs</a></li>
+                <li class="{{ Helper::isActive('admin/dashboard*') }}"><a href="{{ route('admin.dashboard') }}"><i class="la la-desktop"></i> Панель управления</a></li>
+                <li class="{{ Helper::isActive('admin/users*') }}"><a href="{{ route('admin.users.index') }}"><i class="la la-users"></i> Пользователи</a></li>
+                <li class="{{ Helper::isActive('admin/pages*') }}"><a href="{{ route('admin.pages.index') }}"><i class="la la-files-o"></i> Страницы</a></li>
+                <li class="{{ Helper::isActive('admin/faqs*') }}"><a href="{{ route('admin.faqs.index') }}"><i class="la la-comment"></i> FAQs</a></li>
                 <li class="divider"></li>
-                <li class="{{ is_active('admin/settings*') }}"><a href="{{ route('admin.settings.index') }}"><i class="la la-cog"></i> Настройки</a></li>
+                <li class="{{ Helper::isActive('admin/settings*') }}"><a href="{{ route('admin.settings.index') }}"><i class="la la-cog"></i> Настройки</a></li>
             </ul>
         </nav>
     </aside>

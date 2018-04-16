@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->hasOne('App\UserProfile');
+        return $this->hasOne('App\UserProfile')->withDefault();
     }
 
     public function adverts()
@@ -94,5 +94,25 @@ class User extends Authenticatable
         return $query->whereHas('profile', function ($query) use ($slug) {
                 $query->where('slug', $slug);
             })->first();
+    }
+
+    /**
+     * Search users
+     */
+    static function search($search)
+    {
+        $users = User::Where(function ($query) use ($search) {
+            $query->orWhere('email','LIKE', '%'.$search.'%')
+
+                ->orWhereHas('profile', function ($query) use ($search) {
+                    $query->where('first_name','LIKE', '%'.$search.'%')
+                        ->orWhere('slug','LIKE', '%'.$search.'%')
+                        ->orWhere('phone','LIKE', '%'.$search.'%')
+                        ->orWhere('address','LIKE', '%'.$search.'%');
+                });
+        });
+
+        return $users;
+
     }
 }

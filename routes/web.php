@@ -22,6 +22,19 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     // Dashboard
     Route::get('dashboard', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
 
+    // Users
+    Route::resource('users', 'UsersController',  [
+        'names' => [
+            'index'     => 'admin.users.index',
+            'create'    => 'admin.users.create',
+            'store'     => 'admin.users.store',
+            'show'      => 'admin.users.show',
+            'edit'      => 'admin.users.edit',
+            'update'    => 'admin.users.update',
+            'destroy'   => 'admin.users.destroy'
+        ]
+    ]);
+
     // Pages
     Route::resource('pages', 'PagesController',  [
         'names' => [
