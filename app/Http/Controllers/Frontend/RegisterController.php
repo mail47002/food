@@ -9,6 +9,7 @@ use App\User;
 use Hash;
 use Mail;
 use Session;
+use View;
 
 class RegisterController extends Controller
 {
@@ -38,7 +39,7 @@ class RegisterController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => trans('register.success')
+            'message' => View::make('frontend.register.success')->render()
         ]);
 
     }
