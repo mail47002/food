@@ -29,30 +29,6 @@
                         <a href="#" class="link-red-dark js-add-phone">+ Додати</a>
                     </div>
 
-{{--                     <div class="form-group">
-                        {{ Form::label('city', 'Населений пункт*') }}
-                        <div class="marker">
-                            <input id="city" type="text" name="city">
-                        </div>
-                    </div>
-
-                    <div class="content">
-                        <div class="left">
-                            <div class="form-group">
-                                {{ Form::label('street', 'Вулиця*') }}
-                                {{ Form::text('street', null, ['id' => 'input-street']) }}
-                            </div>
-                        </div>
-
-                        <div class="right">
-                            <div class="form-group">
-                                {{ Form::label('build', '№ будинку*') }}
-                                {{ Form::text('build', null, ['id' => 'input-build']) }}
-                            </div>
-                        </div>
-                    </div> --}}
-
-
                     <div class="form-group">
                         {{ Form::label('city', 'Адреса*') }}
                         <div class="marker wide">
@@ -65,10 +41,8 @@
                     <div class="form-group">
                         <p class="text-center f14">Введіть адресу<br>Якщо потрібно підкорегувати адресу, клікніть на мапі або перетягніть маркер</p>
                     </div>
-                    {{-- <button id="correct">Виправити</button> --}}
+
                     <div id="map"></div>
-
-
 
                     <div class="form-group">
                         {{ Form::label('about', 'Про себе') }}
@@ -204,23 +178,13 @@
                         target.addClass('error');
                         target.closest('.form-group').addClass('has-error');
                     }
-                    $('html, body').animate({
-                        scrollTop: $(".has-error").offset().top -100
-                    }, 1000);
+                    if ($(".has-error").length > 0) {
+                        $('html, body').animate({
+                            scrollTop: $(".has-error").offset().top -100
+                        }, 1000);
+                    }
                 }
             });
         });
-    </script>
-
-    {{-- Autocomplete --}}
-    <script>
-    $(function(){
-        var cities = [
-            'Бершадь', 'Браилов', 'Брацлав', 'Вапнярка', 'Вендичаны', 'Винница', 'Вороновица', 'Гайсин', 'Гнивань', 'Дашев', 'Жмеринка', 'Ильинцы', 'Казатин', 'Калиновка', 'Крыжополь', 'Липовец', 'Литин', 'Могилев', 'Мурованные', 'Немиров', 'Оратов', 'Песчанка', 'Погребище', 'Теплик', 'Томашполь', 'Тростянец', 'Тульчин', 'Тывров', 'Хмельник', 'Чечельник', 'Шаргород', 'Ямполь', 'Берестечко', 'Владимир', 'Голобы', 'Головно', 'Горохов', 'Иваничи', 'Камень', 'Киверцы', 'Ковель', 'Локачи', 'Луцк', 'Любешов', 'Любомль', 'Маневичи', 'Нововолынск', 'Ратно', 'Рожище'
-        ];
-        $( "#city" ).autocomplete({
-            source: cities
-        });
-    });
     </script>
 @endpush
