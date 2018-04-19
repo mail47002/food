@@ -10,11 +10,11 @@
 				<li><a href="{{ url('page/umovi-ta-konfidentsiynist') }}">Уммови та конфіденційність</a></li>
 				<li><a href="{{ url('page/feedback') }}">Зворотній зв'язок</a></li>
 				<li><a href="#">Карта сайту</a></li>
-<hr>
+{{-- <hr>
 				<li class="active"><a href="/temp/user.index">user_page (4.1)</a></li>
 <hr>
 				<li class="active"><a href="/temp/account.writemessage">account.writemessage (5.4.4)</a></li>
-				{{-- <li class="active"><a href="/temp/account.mydish">food_my_dish (21.1)</a></li> --}}
+				<li class="active"><a href="/temp/account.mydish">food_my_dish (21.1)</a></li> 
 				<li class="active"><a href="/temp/account.myproduct">food_my_product (21.2)</a></li>
 				<li class="active"><a href="/temp/account.myrecipe">food_my_recipe (21.3)</a></li>
 				<li class="active"><a href="/temp/account.myadvice">food_my_advice (21.4)</a></li>
@@ -36,7 +36,7 @@
 <br>
 <br>
 
-
+ --}}
 			</ul>
 		</div>
 	</div>
