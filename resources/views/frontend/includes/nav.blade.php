@@ -3,7 +3,7 @@
 		<div class="dropdown">
 			<a id="total-menu" class="dropdown-toggle fo fo-menu" href="#" type="button" data-toggle="dropdown"></a>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="total-menu">
-				<li class="hidden-md hidden-lg"><a href="/" class="logo link">Logo</a></li>
+				<li class="hidden-md hidden-lg"><a href="/" class="logo link"><img src="/frontend/images/logo.svg" alt="Mealisha"></a></li>
 				<li><a href="{{ url('page/pro-proekt') }}">Про проект</a></li>
 				<li><a href="{{ url('page/faqs') }}">Допомога</a></li>
 				<li><a href="{{ url('page/pravila') }}">Правила</a></li>
@@ -42,7 +42,7 @@
 	</div>
 	<div class="container">
 		<ul class="list-inline pull-left">
-			<li class="hidden-xm"><a href="/" class="logo link">Logo</a></li>
+			<li class="hidden-xm"><a href="/" class="logo link"><img src="/frontend/images/logo.svg" alt="Mealisha"></a></li>
 			<li><a href="#" class="button button-white button-rounded"><i class="fo fo-dish-search fo-indent"></i>Знайти страву</a></li>
 			<li class="btn-articles hidden-xm">
 				<a href="#" class="button button-rounded"><i class="fo fo-book fo-indent"></i>Статті<i class="angle-down"></i></a>
