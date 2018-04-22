@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="form-group">
-                        <p class="text-center f14">Введіть адресу<br>Якщо потрібно підкорегувати адресу, клікніть на мапі або перетягніть маркер</p>
+                        <p class="text-center f14">Якщо потрібно підкорегувати адресу, клікніть на мапі або перетягніть маркер</p>
                     </div>
 
                     <div id="map"></div>
@@ -61,7 +61,7 @@
                     </div>
 
                     <hr>
-                    {{Form::submit('Продовжити', ['class' => 'button button-red']) }}
+                    {{Form::submit('Зберегти', ['class' => 'button button-red f20']) }}
                 {{ Form::close() }}
             </div>
         </div>

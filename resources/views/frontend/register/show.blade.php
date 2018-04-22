@@ -34,7 +34,7 @@
             </div>
             <div class="sign-footer">
                 <span>Вже є аккаунт?</span>
-                <a href="{{ url('login') }}" class="link-red">Увійти</a>
+                <a href="{{ url('login') }}" class="link-red-dark f16">Увійти</a>
             </div>
         </div>
     </div>

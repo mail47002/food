@@ -27,7 +27,7 @@
 					<a href="{{ url('login/facebook') }}" class="button login facebook">Продовжити з Facebook</a>
 					<a href="{{ url('login/twitter') }}" class="button login twitter">Продовжити з Twitter</a>
 
-					<p class="signup">Вас ще немає на сайті?  <a href="{{ route('register') }}" class="link-red">Приєднатися зараз</a></p>
+					<p class="signup">Вас ще немає на сайті?  <a href="{{ route('register') }}" class="link-red-dark">Приєднатися зараз</a></p>
 				</div>
 			</div>
 		</div>
