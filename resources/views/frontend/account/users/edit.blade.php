@@ -46,26 +46,27 @@
 
 		<div class="form-group">
 			{{ Form::label('city', 'Адреса*') }}
-			<div class="marker wide">
+			<div class="marker w-670">
 				<input id="input-address" class="wide" type="text" name="address" value="{{ auth()->user()->profile->address }}">
 				<input id="input-lat" type="hidden" name="lat" value="{{ auth()->user()->profile->lat }}">
 				<input id="input-lng" type="hidden" name="lng" value="{{ auth()->user()->profile->lng }}">
 			</div>
 		</div>
 
-		<div class="form-group">
-			<p class="text-center f14">Введіть адресу<br>Якщо потрібно підкорегувати адресу, клікніть на мапі або перетягніть маркер</p>
+		<div class="form-group w-670">
+			<p class="text-center f14">Якщо потрібно підкорегувати адресу, клікніть на мапі або перетягніть маркер</p>
 		</div>
 		{{-- <button id="correct">Виправити</button> --}}
-		<div id="map"></div>
+		<div id="map" style="margin: 0;"></div>
 
 
 		<div class="v-indent-30"></div>
 		<hr>
 		<div class="form-group">
 			{{ Form::label('about', 'Про мене') }}
-			{{ Form::textarea('about', auth()->user()->profile->about, ['id' => 'input-about', 'class' => 'account']) }}
+			{{ Form::textarea('about', auth()->user()->profile->about, ['id' => 'input-about', 'class' => 'account w-670']) }}
 		</div>
+		<div class="v-indent-30"></div>
 		<hr>
 		{{Form::submit('Зберегти', ['class' => 'button button-red account text-upper']) }}
 	{{ Form::close() }}

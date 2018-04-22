@@ -5805,6 +5805,11 @@ select.wide + span.ui-button {
   max-width: 100%;
   width: 100%;
 }
+.contact .w-670,
+.edit .w-670 {
+  max-width: 670px;
+  width: 100%;
+}
 .contact .inline,
 .edit .inline {
   display: inline-block;
