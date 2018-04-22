@@ -5,8 +5,8 @@
 @section('content')
     @include('frontend.profile.header')
 
-    <h5 class="text-upper underline-red">Відгуки ({{ $productReviews + $userReviews }})</h5>
-    <hr class="zerro-top">
+{{--     <h5 class="text-upper underline-red">Відгуки ({{ $productReviews + $userReviews }})</h5>
+    <hr class="zerro-top"> --}}
 
     <div class="filter-block">
         <ul class="categories list-inline text-center">

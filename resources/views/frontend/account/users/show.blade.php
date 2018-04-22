@@ -4,7 +4,7 @@
 
 @section('content')
 
-	<div class="v-indent-40"></div>
+	<div class="v-indent-30"></div>
 	<h1>{{ auth()->user()->profile->first_name }}</h1>
 	<p class="grey3">
 		<i class="fo fo-marker red"></i> {{ auth()->user()->profile->address }}
@@ -18,13 +18,13 @@
 		<p>{{ auth()->user()->about }}</p>
 	</div>
 
-	<h5 class="text-upper underline-red">Відгуки ({{ $productReviews + $userReviews }})</h5>
-	<hr class="zerro-top">
+{{-- 	<h5 class="text-upper underline-red">Відгуки ({{ $productReviews + $userReviews }})</h5>
+	<hr class="zerro-top"> --}}
 
 	<div class="filter-block">
 		<ul class="categories list-inline text-center">
 			<li class="{{ Helper::isProductReviews() ? 'active' : '' }}">
-				<a href="{{ route('account.user.show') }}" class="link-red text-upper">Відгуки про повара ({{ $productReviews }})</a>
+				<a href="{{ route('account.user.show') }}" class="link-red text-upper">Відгуки від клієнтів ({{ $productReviews }})</a>
 			</li>
 			<li class="{{ Helper::isClientReviews() ? 'active' : '' }}">
 				<a href="{{ route('account.user.show', ['type' => 'clients']) }}" class="link-red text-upper">Відгуки від поварів ({{ $userReviews }})</a>
