@@ -102,7 +102,8 @@
 
 .has-error input.error,
 .has-error textarea.error,
-.has-error select.error {
+.has-error select.error,
+input.error {
     border-color: #f0534d;
 }
 
