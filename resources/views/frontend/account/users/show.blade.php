@@ -12,10 +12,10 @@
 			<i class="fo fo-edit fo-small fo-indent"></i>Редагувати
 		</a>
 	</p>
-	<div class="rating grey3"><span class="stars medium">{{ $userReviews }}</span>{{ $userReviews }} відгуків</div>
+	<div class="rating grey3"><span class="stars medium">{{ Auth::guard('web')->user()->reviewsRate() }}</span>{{ Auth::guard('web')->user()->reviews->count() }} відгуків</div>
 
 	<div class="description">
-		<p>{{ auth()->user()->about }}</p>
+		<p>{{ Auth::guard('web')->user()->profile->about }}</p>
 	</div>
 
 {{-- 	<h5 class="text-upper underline-red">Відгуки ({{ $productReviews + $userReviews }})</h5>
