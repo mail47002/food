@@ -4681,7 +4681,6 @@ select.wide + span.ui-button {
 }
 .owl-carousel .owl-item .item > img {
   margin: 0 auto;
-  width: auto;
   /*max-width: 100%;*/
   max-width: 870px;
 }
@@ -5609,6 +5608,10 @@ select.wide + span.ui-button {
 .contact label.error + div input,
 .edit label.error + div input {
   border-color: #f0534d;
+}
+.contact label.inline,
+.edit label.inline {
+  display: inline-block;
 }
 .contact input,
 .edit input {

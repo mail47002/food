@@ -245,7 +245,7 @@ class AdvertsController extends Controller
     {
         $rules = [
             'name'        => 'required|max:255',
-            'description' => 'required',
+            // 'description' => 'required',
             'address'     => 'required|max:255',
             'lat'         => 'required',
             'lng'         => 'required'

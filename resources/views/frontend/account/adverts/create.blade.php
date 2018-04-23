@@ -136,7 +136,7 @@
 
                 <div class="form-group">
                     <input id="change-foto" type="checkbox" name="change_images">
-                    <label for="change-foto">Змінити фото</label>
+                    <label class="inline" for="change-foto">Змінити фото</label>
                 </div>
 
                 <div class="form-group hidden">
@@ -156,7 +156,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Додаткова інформація*</label>
+                    <label>Додаткова інформація</label>
                     <textarea name="description" id="input-description" class="wide"></textarea>
                 </div>
 
