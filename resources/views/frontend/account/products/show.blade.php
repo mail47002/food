@@ -17,6 +17,11 @@
 				@foreach ($product->images as $image)
 					<div class="item"><img src="{{ $product->user->directory . $image->image }}"></div>
 				@endforeach
+				@foreach ($product->video as $item)
+					<div class="item-video" style="height: 848px;">
+						<a class="owl-video" href="{{$item}}"></a>
+					</div>
+				@endforeach
 			</div>
 			<div class="slider-counter"></div>
 		</div>
@@ -194,7 +199,8 @@
 				margin:0,
 				nav:true,
 				navText: [ '', '' ],
-				dots: false
+				dots: false,
+				video: true
 			});
 
 
