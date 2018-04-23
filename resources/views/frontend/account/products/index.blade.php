@@ -3,6 +3,7 @@
 @section('content')
 	<h5 class="text-upper underline-red">Каталог страв ({{ $products->count() }})</h5>
 	<hr class="zerro-top">
+@if (count($products) > 0)
 	<a href="{{ route('account.products.create') }}" class="button button-red button-big">Додати страву до каталогу</a>
 	<div class="v-indent-30"></div>
 	<hr>
@@ -24,19 +25,21 @@
 			</div>
 		</div>
 	</div>
+@else
+    <div class="v-indent-40"></div>
+    <div class="empty-block">
+        <i class="fo fo-dish-search fo-2x"></i>
+        <p class="text">У вас немає страв</p>
+        <a href="{{ route('account.products.create') }}" class="button button-red button-big">Додати страву до каталогу</a>
+    </div>
+@endif
 
 	<div class="v-indent-20"></div>
 	@if (count($products) > 0)
 		@each('frontend.account.products.item', $products, 'product')
 
 		{{ $products->links() }}
-	@else
-		<div class="v-indent-40"></div>
-		<div class="empty-block">
-			<i class="fo fo-dish-search fo-2x"></i>
-			<p class="text">У вас немає страв</p>
-			<a href="{{ route('account.products.create') }}" class="button button-red button-big">Додати страву до каталогу</a>
-		</div>
+
 	@endif
 
 	<div id="modal-product-delete" class="modal fade" role="dialog">
