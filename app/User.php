@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Advert');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany('App\UserReview');
+    }
+
     public function threads()
     {
         return $this->belongsToMany(
