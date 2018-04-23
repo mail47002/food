@@ -24,6 +24,7 @@
 
 	<script src="{{ asset('frontend/js/jquery-2.2.4.min.js') }}"></script>
 	<script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>
+	<script src="{{ asset('frontend/js/datepicker-uk.js') }}"></script>
 	<script src="{{ asset('frontend/js/dropdown.js') }}"></script>
 	<script src="{{ asset('frontend/js/modal.js') }}"></script>
 	<script src="{{ asset('frontend/js/collapse.js') }}"></script>

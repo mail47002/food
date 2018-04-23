@@ -437,6 +437,7 @@
         jQuery(function($){
             $("#count").selectmenu();
 
+            $.datepicker.setDefaults( $.datepicker.regional[ "uk" ] );
             $(".datepicker").datepicker({
                 dateFormat: "yy-mm-dd"
             });
