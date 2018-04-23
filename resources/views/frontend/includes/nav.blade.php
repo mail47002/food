@@ -66,6 +66,8 @@
                     </li>
                 @endif
 
+               @if(!Request::is('myaccount/create'))
+
 				@if(($unreadNotificationsCount = auth()->user()->unreadNotifications()->count()) > 0)
 					<li class="dropdown messages">
 						<a id="messages-menu" class="link" href="#" type="button" data-toggle="dropdown">
@@ -94,6 +96,8 @@
 				@endif
 
 				<li><a href="#" onclick="wishlist.show()" class="link js-wishlist"><i class="fo fo-like fo-small"></i></a></li>
+
+			@endif
 				<li class="hidden-xm"><a href="{{ url('logout') }}" class="link"><i class="fo fo-exit fo-small"></i></a></li>
 
 			@else
