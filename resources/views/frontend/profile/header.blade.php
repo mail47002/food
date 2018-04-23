@@ -7,7 +7,7 @@
 </p>
 
 <div class="rating grey3">
-    <span class="stars medium">4</span>{{ $user->reviews->count() }} відгуків
+    <span class="stars medium">{{ $user->reviewsRate() }}</span>{{ $user->reviews->count() }} відгуків
 </div>
 
 <div class="description">

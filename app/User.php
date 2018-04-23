@@ -62,6 +62,12 @@ class User extends Authenticatable
         return $this->hasMany('App\UserReview');
     }
 
+    public function reviewsRate()
+    {
+        // ToDo Calculate rating
+        return 0;
+    }
+
     public function threads()
     {
         return $this->belongsToMany(
