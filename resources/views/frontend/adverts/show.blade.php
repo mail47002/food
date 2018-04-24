@@ -100,7 +100,14 @@
 								</div>
 							@endif
 
-							<p><i class="time medium"></i> 10 – 15 грудня</p>
+							<p><i class="time medium"></i> 
+							@if($advert->type == 'by_date')
+								{{ Date::parse($advert->date)->format('d F') }}
+							@else
+								{{ Date::parse($advert->date_from)->format('d') }} - 
+								{{ Date::parse($advert->date_to)->format('d F') }}
+							@endif
+							</p>
 
 							@auth
 								<p class="distance">
