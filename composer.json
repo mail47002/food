@@ -7,13 +7,14 @@
     "require": {
         "php": ">=5.6.4",
         "barryvdh/laravel-debugbar": "^3.1",
-        "greggilbert/recaptcha": "dev-master",
+        "greggilbert/recaptcha": "^2.2",
         "intervention/image": "^2.4",
         "jenssegers/date": "^3.2",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "^5.4"
+        "laravelcollective/html": "^5.4",
+        "symfony/translation": "3.4.*"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

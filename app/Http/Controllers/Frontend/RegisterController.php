@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\UserProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\EmailVerification;
@@ -85,12 +86,17 @@ class RegisterController extends Controller
      */
     protected function createUser(Request $request)
     {
-        $user = new User;
+        $user = new User();
 
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->token = str_random(32);
         $user->save();
+
+        $profile = new UserProfile();
+
+        $profile->user_id = $user->id;
+        $profile->save();
 
         return $user;
     }

@@ -15,8 +15,8 @@ class ProfileCheck
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->profile->slug === $request->segment(1)) {
-            return redirect()->route('account.user.show');
+        if (auth()->check() && !auth()->user()->isCompleteProfile()) {
+            return redirect()->route('account.user.create');
         }
 
         return $next($request);

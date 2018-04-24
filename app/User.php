@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasOne('App\UserProfile');
     }
 
+    public function isCompleteProfile() : bool
+    {
+        return $this->profile->is_complete;
+    }
+
     public function adverts()
     {
         return $this->hasMany('App\Advert');

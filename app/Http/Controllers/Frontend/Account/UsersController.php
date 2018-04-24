@@ -16,7 +16,8 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'profile.check'])
+            ->except(['create', 'store']);
     }
 
     /**
@@ -36,11 +37,7 @@ class UsersController extends Controller
      */
     public function create(Request $request)
     {
-        $cities = City::all();
-
-        return view('frontend.account.users.create', [
-            'cities' => $cities
-        ]);
+        return view('frontend.account.users.create');
     }
 
     /**
