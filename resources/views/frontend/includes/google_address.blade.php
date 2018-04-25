@@ -18,8 +18,8 @@
         lat: {{ $filter['location'][0] }},
         lng: {{ $filter['location'][1] }}
       @else
-        lat: {{ auth()->check() && auth()->user()->profile ? auth()->user()->profile->lat : config('location.default.lat') }},
-        lng: {{ auth()->check() && auth()->user()->profile ? auth()->user()->profile->lng : config('location.default.lng') }}
+        lat: {{ auth()->check() ? auth()->user()->profile->lat : config('location.default.lat') }},
+        lng: {{ auth()->check() ? auth()->user()->profile->lng : config('location.default.lng') }}
       @endif
     };
   var address = '';
@@ -50,8 +50,8 @@
           lat: {{ $filter['location'][0] }},
           lng: {{ $filter['location'][1] }}
         @else
-          lat: {{ auth()->check() && auth()->user()->profile ? auth()->user()->profile->lat : config('location.default.lat') }},
-          lng: {{ auth()->check() && auth()->user()->profile ? auth()->user()->profile->lng : config('location.default.lng') }}
+          lat: {{ auth()->check() ? auth()->user()->profile->lat : config('location.default.lat') }},
+          lng: {{ auth()->check() ? auth()->user()->profile->lng : config('location.default.lng') }}
         @endif
       },
       map: map,

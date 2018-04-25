@@ -37,7 +37,13 @@ class UsersController extends Controller
      */
     public function create(Request $request)
     {
-        return view('frontend.account.users.create');
+        $profile = UserProfile::where('user_id', Auth::id())->first();
+
+        if ($profile) {
+            return view('frontend.account.users.create');
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -48,16 +54,22 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateForm($request);
+        $profile = UserProfile::where('user_id', Auth::id())->first();
 
-        $profile = new UserProfile($request->all());
+        if ($profile) {
+            $this->validateForm($request);
 
-        Auth::user()->profile()->save($profile);
+            $request->merge(['is_complete' => 1]);
 
-        return response()->json([
-            'url'     => route('account.user.show'),
-            'success' => true
-        ]);
+            $profile->fill($request->all())->save();
+
+            return response()->json([
+                'url'     => route('account.user.show'),
+                'success' => true
+            ]);
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -156,7 +168,7 @@ class UsersController extends Controller
             'address'    => 'required|max:255',
             'lat'        => 'required',
             'lng'        => 'required',
-            'slug'       => 'sometimes|required|max:255|unique:user_profiles,slug'
+            'slug'       => 'sometimes|required|max:255|alpha_num|unique:user_profiles,slug'
         ]);
     }
 }
