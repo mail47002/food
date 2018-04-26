@@ -7,20 +7,25 @@ use App\Http\Controllers\Controller;
 
 class ForgotPasswordController extends Controller
 {
-    public function show()
+    use SendsPasswordResetEmails;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
+    /**
+     * Display the form to request a password reset link.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLinkRequestForm()
     {
         return view('frontend.forgot.show');
-    }
-
-    public function forgot(Request $request)
-    {
-        $this->validateForm($request);
-    }
-
-    protected function validateForm(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|email|exists:users,email',
-        ]);
     }
 }
