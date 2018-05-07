@@ -13,9 +13,9 @@
                         {{ Form::text('first_name', null, ['id' => 'input-first_name']) }}
                     </div>
                     <div class="form-group site-name">
-                        <p>{{ url('') }}</p>
+                        <p>{{ url('/') }}/</p>
                         {{ Form::label('slug', 'Адреса вашої сторінки') }}
-                        {{ Form::text('slug', null, ['id' => 'input-slug']) }}
+                        {{ Form::text('slug', stristr(auth()->user()->email, '@', true), ['id' => 'input-slug']) }}
                     </div>
 
                     <div class="form-group text-left w-440">

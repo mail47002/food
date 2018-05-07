@@ -8,6 +8,12 @@ use Auth;
 
 class UserSlugController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'profile.check'])
+            ->except(['create', 'store']);
+    }
+
     /**
      * Display a listing of the resource.
      *

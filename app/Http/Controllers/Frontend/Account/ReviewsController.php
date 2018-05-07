@@ -11,6 +11,11 @@ use Helper;
 
 class ReviewsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'profile.check']);
+    }
+
     /**
      * Display a listing of the resource.
      *
