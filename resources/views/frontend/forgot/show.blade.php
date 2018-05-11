@@ -5,7 +5,7 @@
 		<div class="sign-content text-center">
 			<h1 class="text-upper underline-red">Забули пароль</h1>
 			<hr>
-			{{ Form::open(['route' => 'password.forgot', 'method' => 'post']) }}
+			{{ Form::open(['url' => 'password/email', 'method' => 'post']) }}
 				<div class="form-group">
 					{{ Form::label('email', 'Введіть свій Email') }}
 					{{ Form::text('email', null, ['id' => 'input-email']) }}

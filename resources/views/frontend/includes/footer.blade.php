@@ -57,7 +57,7 @@
 									{{Form::submit('Увійти', ['class' => 'button button-red']) }}
 								{{ Form::close() }}
 
-								<p><a href="{{ route('password.forgot') }}" class="link-blue">Забули пароль?</a></p>
+								<p><a href="{{ url('password/reset') }}" class="link-blue">Забули пароль?</a></p>
 
 							</div>
 

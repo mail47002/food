@@ -252,7 +252,7 @@ Route::group(['namespace' => 'Frontend'], function() {
 
     // Forgot password
     Route::group(['prefix' => 'password'], function () {
-        Route::get('reset/{token?}', 'ForgotPasswordController@showResetForm');
+        Route::get('reset/{token?}', 'ForgotPasswordController@showLinkRequestForm');
         Route::post('email', 'ForgotPasswordController@sendResetLinkEmail');
         Route::post('reset', 'ForgotPasswordController@reset');
     });

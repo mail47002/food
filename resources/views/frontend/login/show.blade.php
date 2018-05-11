@@ -20,7 +20,7 @@
 						</div>
 						{{Form::submit('Увійти', ['class' => 'button button-red']) }}
 					{{ Form::close() }}
-					<p><a href="{{ url('password/forgot') }}" class="link-blue">Забули пароль</a></p>
+					<p><a href="{{ url('password/reset') }}" class="link-blue">Забули пароль</a></p>
 				</div>
 				<div class="right text-right">
 					<a href="{{ url('login/google') }}" class="button login google">Продовжити з Google</a>
